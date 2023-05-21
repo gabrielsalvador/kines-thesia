@@ -1,14 +1,22 @@
-<mxfile host="app.diagrams.net" modified="2023-05-21T11:03:36.616Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="GJWNWT-c6hJd_Bo_DcwW" version="21.3.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-05-21T11:06:48.530Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="8SAaeBWPGa9UAQg3xcMR" version="21.3.2" type="github">
   <diagram name="Page-1" id="JgMWubzXlVjkS9HLqeEj">
     <mxGraphModel dx="1242" dy="746" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="sD8DQ184Ihc-bIid40vS-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sD8DQ184Ihc-bIid40vS-1" target="sD8DQ184Ihc-bIid40vS-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="sD8DQ184Ihc-bIid40vS-1" value="MainClass" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
           <mxGeometry x="360" y="230" width="70" height="70" as="geometry" />
         </mxCell>
         <mxCell id="sD8DQ184Ihc-bIid40vS-3" value="ToolManager&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="520" y="230" width="110" height="70" as="geometry" />
+          <mxGeometry x="200" y="80" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="sD8DQ184Ihc-bIid40vS-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sD8DQ184Ihc-bIid40vS-5" target="sD8DQ184Ihc-bIid40vS-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="255" y="160" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="sD8DQ184Ihc-bIid40vS-5" value="State&lt;br&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
           <mxGeometry x="220" y="230" width="70" height="70" as="geometry" />
@@ -31,8 +39,29 @@
         <mxCell id="sD8DQ184Ihc-bIid40vS-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sD8DQ184Ihc-bIid40vS-12" target="sD8DQ184Ihc-bIid40vS-6">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="sD8DQ184Ihc-bIid40vS-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sD8DQ184Ihc-bIid40vS-12" target="sD8DQ184Ihc-bIid40vS-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="sD8DQ184Ihc-bIid40vS-12" value="PObjectView" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="50" y="355" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sD8DQ184Ihc-bIid40vS-15" value="ViewManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="230" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sD8DQ184Ihc-bIid40vS-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sD8DQ184Ihc-bIid40vS-17" target="sD8DQ184Ihc-bIid40vS-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sD8DQ184Ihc-bIid40vS-17" value="UIItem" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sD8DQ184Ihc-bIid40vS-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sD8DQ184Ihc-bIid40vS-19" target="sD8DQ184Ihc-bIid40vS-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sD8DQ184Ihc-bIid40vS-19" value="UIItemController" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="10" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sD8DQ184Ihc-bIid40vS-23" value="InputManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="120" width="110" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
