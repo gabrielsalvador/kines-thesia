@@ -1,6 +1,7 @@
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.input.InputManager;
 import me.gabrielsalvador.model.State;
+import me.gabrielsalvador.tool.ToolManager;
 import me.gabrielsalvador.view.ViewManager;
 
 import org.junit.jupiter.api.DisplayName;
@@ -26,6 +27,10 @@ public class GeneralTests {
 
         State s = State.getInstance();
         assert s != null && s instanceof State;
+
+        ToolManager tm = ToolManager.getInstance();
+        assert tm != null && tm instanceof ToolManager;
+        
         
     }
 }
