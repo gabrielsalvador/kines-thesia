@@ -1,4 +1,6 @@
 import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.input.InputManager;
+import me.gabrielsalvador.model.State;
 import me.gabrielsalvador.view.ViewManager;
 
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +19,13 @@ public class GeneralTests {
     @Test()
     public void singletons() {
         ViewManager vm = ViewManager.getInstance();
-        //assert vm is not null and is an instance of ViewManager
         assert vm != null && vm instanceof ViewManager;
+
+        InputManager im = InputManager.getInstance();
+        assert im != null && im instanceof InputManager;
+
+        State s = State.getInstance();
+        assert s != null && s instanceof State;
+        
     }
 }
