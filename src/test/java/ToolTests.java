@@ -1,9 +1,9 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import me.gabrielsalvador.tool.Tool;
-import me.gabrielsalvador.tool.ToolManager;
-import me.gabrielsalvador.tool.AddTool;
+import me.gabrielsalvador.tools.AddTool;
+import me.gabrielsalvador.tools.Tool;
+import me.gabrielsalvador.tools.ToolManager;
 
 public class ToolTests {
 

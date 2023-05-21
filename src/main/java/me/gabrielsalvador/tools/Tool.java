@@ -1,4 +1,4 @@
-package me.gabrielsalvador.tool;
+package me.gabrielsalvador.tools;
 
 public abstract class Tool {
     private String _name;

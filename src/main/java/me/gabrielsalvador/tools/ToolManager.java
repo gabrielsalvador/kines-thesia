@@ -1,4 +1,4 @@
-package me.gabrielsalvador.tool;
+package me.gabrielsalvador.tools;
 
 public class ToolManager {
     private static ToolManager _instance;

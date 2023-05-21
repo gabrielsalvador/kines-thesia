@@ -1,4 +1,4 @@
-package me.gabrielsalvador.tool;
+package me.gabrielsalvador.tools;
 
 import com.jogamp.newt.event.KeyEvent;
 

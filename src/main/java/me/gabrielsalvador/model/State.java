@@ -2,7 +2,7 @@ package me.gabrielsalvador.model;
 
 import java.util.Set;
 
-import me.gabrielsalvador.tool.Tool;
+import me.gabrielsalvador.tools.Tool;
 
 public class State {
     private static State _instance;

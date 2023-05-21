@@ -4,49 +4,61 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import processing.core.PVector;
+import me.gabrielsalvador.utils.Vector;
+
+
 
 public class PObject {
-    PVector position;
-    PVector size;
+    
+    Vector position;
+    Vector size;
     private final Set<PObject> _children = new HashSet<PObject>();
     private final HashMap<String, PObjectProperty<?>> _properties = new HashMap<String, PObjectProperty<?>>();
+
+
 
     public PObject() {
     }
 
 
-    PObject setPosition(PVector position) {
+    public PObject setPosition(Vector position) {
         this.position = position;
         return this;
     }
 
 
-    public PVector getPosition() {
+    public Vector getPosition() {
         return position;
     }
 
 
-    PObject setSize(PVector size) {
+    public PObject setSize(Vector size) {
         this.size = size;
         return this;
     }
 
 
-    public PVector getSize() {
+    public Vector getSize() {
         return size;
     }
 
 
-    public Set<PObject> addChildren(PObject pObject) {
+    public Set<PObject> addChild(PObject pObject) {
         _children.add(pObject);
         return _children;
     }
+ 
 
-
+    public Set<PObject> getChildren() {
+        return _children;
+    }
 
     
     public PObjectProperty<?> getProperty(String name) {
         return _properties.get(name);
+    }
+    public PObject addProperty(PObjectProperty<?> property) {
+        _properties.put(property.getName(), property);
+        return this;
     }
 }
