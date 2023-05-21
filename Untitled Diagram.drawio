@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-05-21T14:46:21.866Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="IylzPItImuNs4O_iXsjI" version="21.3.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-05-21T14:47:47.671Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="vBWufYcgJ_RzF5Fbx764" version="21.3.2" type="github">
   <diagram name="Page-1" id="JgMWubzXlVjkS9HLqeEj">
     <mxGraphModel dx="2601" dy="2235" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -100,14 +100,11 @@
         <mxCell id="kPr0rMO6ocW47x7S4vi6-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kPr0rMO6ocW47x7S4vi6-49" target="kPr0rMO6ocW47x7S4vi6-53">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="kPr0rMO6ocW47x7S4vi6-49" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;ToolController&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ onPressed&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ onRelased&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ etc&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="370" y="130" width="190" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="kPr0rMO6ocW47x7S4vi6-55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kPr0rMO6ocW47x7S4vi6-53" target="kPr0rMO6ocW47x7S4vi6-49">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="kPr0rMO6ocW47x7S4vi6-49" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;ToolController&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ dispatchesEvent&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ onPressed&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ onRelased&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ etc&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="370" y="130" width="230" height="90" as="geometry" />
         </mxCell>
         <mxCell id="kPr0rMO6ocW47x7S4vi6-53" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;ToolView&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ display()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="370" y="240" width="190" height="80" as="geometry" />
+          <mxGeometry x="370" y="260" width="190" height="80" as="geometry" />
         </mxCell>
         <mxCell id="kPr0rMO6ocW47x7S4vi6-67" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kPr0rMO6ocW47x7S4vi6-58" target="kPr0rMO6ocW47x7S4vi6-59">
           <mxGeometry relative="1" as="geometry" />
