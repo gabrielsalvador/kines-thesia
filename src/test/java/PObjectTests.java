@@ -29,7 +29,5 @@ public class PObjectTests {
         assert  p.getProperty("mass") == prop;
 
         assert prop.getValue() == 10;
-
-        
     }
 }

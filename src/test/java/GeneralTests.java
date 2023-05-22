@@ -1,6 +1,6 @@
 import me.gabrielsalvador.core.Sinesthesia;
-import me.gabrielsalvador.input.InputManager;
-import me.gabrielsalvador.model.State;
+import me.gabrielsalvador.input.AppController;
+import me.gabrielsalvador.model.AppState;
 import me.gabrielsalvador.tools.ToolManager;
 import me.gabrielsalvador.view.ViewManager;
 
@@ -22,15 +22,13 @@ public class GeneralTests {
         ViewManager vm = ViewManager.getInstance();
         assert vm != null && vm instanceof ViewManager;
 
-        InputManager im = InputManager.getInstance();
-        assert im != null && im instanceof InputManager;
+        AppController im = AppController.getInstance();
+        assert im != null && im instanceof AppController;
 
-        State s = State.getInstance();
-        assert s != null && s instanceof State;
+        AppState s = AppState.getInstance();
+        assert s != null && s instanceof AppState;
 
         ToolManager tm = ToolManager.getInstance();
         assert tm != null && tm instanceof ToolManager;
-
-        
     }
 }

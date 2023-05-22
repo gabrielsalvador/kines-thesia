@@ -2,7 +2,7 @@ package me.gabrielsalvador.view;
 
 import me.gabrielsalvador.model.PObject;
 
-public class PObjectView implements View{
+public class PObjectView implements View<PObject>{
     
     private PObject _model;
     
@@ -17,6 +17,10 @@ public class PObjectView implements View{
     
     public PObject getModel() {
         return _model;
+    }
+
+    public void display() {
+        
     }
     
 }

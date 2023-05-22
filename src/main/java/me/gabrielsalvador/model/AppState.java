@@ -1,23 +1,22 @@
 package me.gabrielsalvador.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import me.gabrielsalvador.tools.Tool;
 
-public class State {
-    private static State _instance;
+public class AppState {
+    private static AppState _instance;
 
     private Tool _currentTool;
-    private final Set<PObject> _pObjects = new java.util.HashSet<PObject>();
+    private final Set<PObject> _pObjects = new HashSet<PObject>();
+
+    private AppState() {}
 
 
-
-    private State() {}
-
-
-    public static synchronized State getInstance() {
+    public static synchronized AppState getInstance() {
         if (_instance == null) {
-            _instance = new State();
+            _instance = new AppState();
         }
 
         return _instance;

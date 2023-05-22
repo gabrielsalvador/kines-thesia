@@ -1,14 +1,16 @@
 package me.gabrielsalvador.input;
 
+import processing.event.KeyEvent;
+import processing.event.MouseEvent;
+
 public class InputManager {
-    private static InputManager _instance;
-    private InputManager() {}
-
-    public static synchronized InputManager getInstance() {
-        if (_instance == null) {
-            _instance = new InputManager();
-        }
-
-        return _instance;
-    }
+    
+    public void KeyEvent        (KeyEvent   event)  {};
+    public void MouseEvent      (MouseEvent event)  {};
+    public void onMouseClicked  (MouseEvent event)  {};
+    public void onMousePressed  (MouseEvent event)  {};
+    public void onMouseReleased (MouseEvent event)  {};
+    public void onMouseDragged  (MouseEvent event)  {};
+    public void onKeyPressed    (KeyEvent   event)  {};
+    public void onKeyReleased   (KeyEvent   event)  {};
 }

@@ -1,5 +1,7 @@
 package me.gabrielsalvador.utils;
 import processing.core.PVector;
+
+
 /* just a wrapper for the processing class PVector */
 public class Vector {
         private PVector pVector;

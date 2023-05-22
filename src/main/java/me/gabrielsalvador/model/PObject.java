@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import me.gabrielsalvador.utils.Vector;
+import me.gabrielsalvador.view.PObjectView;
 
 
 
@@ -14,7 +15,7 @@ public class PObject {
     Vector size;
     private final Set<PObject> _children = new HashSet<PObject>();
     private final HashMap<String, PObjectProperty<?>> _properties = new HashMap<String, PObjectProperty<?>>();
-
+    private PObjectView _view;
 
 
     public PObject() {
@@ -57,8 +58,19 @@ public class PObject {
     public PObjectProperty<?> getProperty(String name) {
         return _properties.get(name);
     }
+
+
     public PObject addProperty(PObjectProperty<?> property) {
         _properties.put(property.getName(), property);
+        return this;
+    }
+
+    public PObjectView getView() {
+        return _view;
+    }
+
+    public PObject addView(PObjectView view) {
+        _view = view;
         return this;
     }
 }
