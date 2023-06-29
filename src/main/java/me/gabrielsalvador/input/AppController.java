@@ -2,7 +2,7 @@ package me.gabrielsalvador.input;
 
 import me.gabrielsalvador.model.PObject;
 import me.gabrielsalvador.model.AppState;
-import me.gabrielsalvador.view.ViewManager; 
+
 
 public class AppController {
     private static AppController _instance;
@@ -24,11 +24,7 @@ public class AppController {
         AppState.getInstance().addPObject(pObject);
     }
         
-        
-    
-    public void render(){
-        ViewManager.getInstance().display();
-    }
+     
 
    
 }
