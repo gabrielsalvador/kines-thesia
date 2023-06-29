@@ -2,7 +2,7 @@ package me.gabrielsalvador.view;
 
 import me.gabrielsalvador.model.PObject;
 
-public class PObjectView implements View<PObject>{
+public class PObjectView implements ViewInterface<PObject>{
     
     private PObject _model;
     

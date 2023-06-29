@@ -12,15 +12,19 @@ public abstract class Tool {
     public String getName() {
         return _name;
     }
+
     public String getDescription() {
         return _description;
     }
+    
     public void setDescription(String description) {
         _description = description;
     }
+
     public ToolController getController() {
         return controller;
     }
+    
     public void setController(ToolController controller) {
         this.controller = controller;
     }
