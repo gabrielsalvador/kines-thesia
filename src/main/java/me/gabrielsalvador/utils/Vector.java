@@ -25,5 +25,13 @@ public class Vector {
         public boolean equals(Vector v) {
             return this.pVector.equals(v.getPVector());
         }
+        
+        public float getX() {
+            return this.pVector.x;
+        }
+
+        public float getY() {
+            return this.pVector.y;
+        }
 }
     
