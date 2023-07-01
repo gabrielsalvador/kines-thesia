@@ -1,6 +1,8 @@
 package me.gabrielsalvador.ui.controllers;
 
 import controlP5.*;
+import me.gabrielsalvador.tools.Tool;
+import me.gabrielsalvador.tools.ToolManager;
 import me.gabrielsalvador.ui.views.CanvasView;
 import processing.core.PGraphics;
 
@@ -8,16 +10,17 @@ import processing.core.PGraphics;
 // Custom controller class that extends Controller
 public class Canvas extends Controller<Canvas> {
 
+  private ToolManager _toolManager;
   
   public Canvas(ControlP5 cp5, String theName, int theX, int theY, int theWidth, int theHeight) {
     super(cp5, theName, theX, theY, theWidth, theHeight);
     _myControllerView = new CanvasView();
+    _toolManager = ToolManager.getInstance();
   }
 
   @Override
   public void onEnter() {
-    // This method is called when the mouse enters the area of the controller
-    System.out.println("Mouse entered");
+    _toolManager.getCurrentTool().onEnter();
   }
 
   @Override
@@ -82,9 +85,7 @@ public class Canvas extends Controller<Canvas> {
     	
 		graphics.pushMatrix( );
 		graphics.translate( x( position ) , y( position ) );
-		// getView().display( graphics , this );
 		getView().display( graphics, this );
-		// theGraphics.popMatrix( );
 		graphics.popMatrix( );
 
 	}
