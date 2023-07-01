@@ -25,56 +25,47 @@ public class Canvas extends Controller<Canvas> {
 
   @Override
   public void onLeave() {
-    // This method is called when the mouse leaves the area of the controller
-    System.out.println("Mouse left");
+    _toolManager.getCurrentTool().onLeave();
   }
 
   @Override
   public void onRelease() {
-    // This method is called when the mouse button is released over the controller
-    System.out.println("Mouse released");
+    _toolManager.getCurrentTool().onRelease();
   }
 
   @Override
   public void onReleaseOutside() {
-    // This method is called when the mouse button is released outside of the controller
-    System.out.println("Mouse released outside");
+    _toolManager.getCurrentTool().onReleaseOutside();
   }
 
   @Override
   public void onPress() {
-    // This method is called when the mouse button is pressed over the controller
-    System.out.println("Mouse pressed");
+    _toolManager.getCurrentTool().onPress();
   }
 
   @Override
   public void onDrag() {
-    // This method is called when the mouse is dragged while the mouse button is pressed
-    System.out.println("Mouse dragged");
+    _toolManager.getCurrentTool().onDrag();
   }
 
   @Override
   public void onMove() {
-    // This method is called when the mouse is moved over the controller
-    System.out.println("Mouse moved");
+    _toolManager.getCurrentTool().onMove();
   }
 
   @Override
   public void onClick() {
-    // This method is called when the mouse button is clicked (pressed and released) on the controller
-    System.out.println("Mouse clicked");
+    _toolManager.getCurrentTool().onClick();
   }
 
   @Override
   public void onScroll(int theRotationValue) {
-    // This method is called when the mouse wheel is scrolled over the controller
-    System.out.println("Mouse wheel scrolled: " + theRotationValue);
+    _toolManager.getCurrentTool().onScroll();
   }
 
   
   public void onKey(char theChar, int theKeyCode) {
-    // This method is called when a key is pressed while the mouse is over the controller
-    System.out.println("Key pressed: " + theChar + ", code: " + theKeyCode);
+    _toolManager.getCurrentTool().onKey();
   }
 
 

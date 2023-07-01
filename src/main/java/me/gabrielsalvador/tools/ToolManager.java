@@ -2,7 +2,7 @@ package me.gabrielsalvador.tools;
 
 public class ToolManager {
     private static ToolManager _instance;
-    private Tool currentTool;
+    private Tool currentTool = new AddTool();
 
     private ToolManager() {}
 

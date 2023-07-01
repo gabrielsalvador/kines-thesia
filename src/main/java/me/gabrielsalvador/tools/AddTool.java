@@ -49,12 +49,6 @@ public class AddTool extends Tool {
     }
 
     @Override
-    public void Click() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
     public void onScroll() {
         // TODO Auto-generated method stub
         
@@ -62,6 +56,12 @@ public class AddTool extends Tool {
 
     @Override
     public void onKey() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void onClick() {
         // TODO Auto-generated method stub
         
     }
