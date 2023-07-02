@@ -1,4 +1,4 @@
-package me.gabrielsalvador.model;
+package me.gabrielsalvador.model.PObject;
 
 public class PObjectProperty<T>{
     String name;

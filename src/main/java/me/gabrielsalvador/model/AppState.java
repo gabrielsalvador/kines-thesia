@@ -3,6 +3,7 @@ package me.gabrielsalvador.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import me.gabrielsalvador.model.PObject.PObject;
 import me.gabrielsalvador.tools.Tool;
 
 public class AppState {

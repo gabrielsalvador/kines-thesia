@@ -1,8 +1,8 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import me.gabrielsalvador.model.PObject;
 import me.gabrielsalvador.model.AppState;
+import me.gabrielsalvador.model.PObject.PObject;
 
 public class StateTests {
 

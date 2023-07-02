@@ -61,7 +61,7 @@ public class AddTool extends Tool {
     }
 
     @Override
-    public void onClick() {
+    public void onClick(int x, int y) {
         // TODO Auto-generated method stub
         
     }

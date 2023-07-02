@@ -1,5 +1,6 @@
-import me.gabrielsalvador.model.PObjectProperty;
 import org.junit.jupiter.api.Test;
+
+import me.gabrielsalvador.model.PObject.PObjectProperty;
 
 import static org.junit.jupiter.api.Assertions.*;
 

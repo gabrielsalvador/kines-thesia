@@ -1,47 +1,48 @@
-package me.gabrielsalvador.model;
+package me.gabrielsalvador.model.PObject;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 import me.gabrielsalvador.controllers.PObjectController;
-import me.gabrielsalvador.ui.views.PObjectView;
-import me.gabrielsalvador.utils.Vector;
+import me.gabrielsalvador.ui.views.ViewInterface;
+
 
 
 
 public class PObject {
     
-    private Vector _position;
-    private Vector _size;
+    private float[] _position = new float[5];
+    private float[] _size = new float[5];
+    
     private final Set<PObject> _children = new HashSet<PObject>();
     private final HashMap<String, PObjectProperty<?>> _properties = new HashMap<String, PObjectProperty<?>>();
-    private PObjectView _view;
+    private ViewInterface<PObject> _view;
     private PObjectController _myController;
 
     public PObject() {
-        setView(new PObjectView(this));
+        
     }
 
 
-    public PObject setPosition(Vector position) {
+    public PObject setPosition(float[] position) {
         this._position = position;
         return this;
     }
 
 
-    public Vector getPosition() {
+    public float[] getPosition() {
         return _position;
     }
 
 
-    public PObject setSize(Vector size) {
+    public PObject setSize(float[] size) {
         this._size = size;
         return this;
     }
 
 
-    public Vector getSize() {
+    public float[] getSize() {
         return _size;
     }
 
@@ -71,12 +72,15 @@ public class PObject {
         return _myController;
     }
 
-    public PObjectView getView() {
+    public ViewInterface<PObject> getView() {
         return _view;
     }
 
-    public PObject setView(PObjectView view) {
+    public PObject setView(ViewInterface<PObject> view) {
         _view = view;
         return this;
     }
+
+
+
 }

@@ -1,7 +1,8 @@
 package me.gabrielsalvador.input;
 
-import me.gabrielsalvador.model.PObject;
 import me.gabrielsalvador.model.AppState;
+import me.gabrielsalvador.model.PObject.PObject;
+
 
 
 public class AppController {

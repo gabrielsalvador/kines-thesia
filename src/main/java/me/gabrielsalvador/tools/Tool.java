@@ -37,7 +37,7 @@ public abstract class Tool  {
 
     abstract public void onMove();
 
-    abstract public void onClick();
+    abstract public void onClick(int x, int y);
 
     abstract public void onScroll();
 

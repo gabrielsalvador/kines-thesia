@@ -6,7 +6,7 @@ import java.util.Set;
 
 import controlP5.ControllerView;
 import me.gabrielsalvador.model.AppState;
-import me.gabrielsalvador.model.PObject;
+import me.gabrielsalvador.model.PObject.PObject;
 import me.gabrielsalvador.ui.controllers.Canvas;
 import processing.core.PGraphics;
 
