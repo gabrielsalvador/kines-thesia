@@ -1,9 +1,8 @@
 package me.gabrielsalvador.ui.views;
 
 
-import java.util.HashSet;
-import java.util.Set;
 
+import java.util.Set;
 import controlP5.ControllerView;
 import me.gabrielsalvador.model.AppState;
 import me.gabrielsalvador.model.PObject.PObject;
@@ -23,12 +22,12 @@ public class CanvasView implements ControllerView<Canvas> {
     public void display(PGraphics graphics, Canvas controller) {
       graphics.pushStyle();
       graphics.strokeWeight(1);
-        graphics.stroke(0);
+        
 
       if (controller.isActive()) {
-        graphics.fill(controller.getColor().getActive());
+        graphics.stroke(127);
       } else {
-        graphics.fill(255,255,255);
+        graphics.stroke(0);
       }
       graphics.rect(0,0,controller.getWidth(),controller.getHeight());
 

@@ -20,23 +20,23 @@ public class Canvas extends Controller<Canvas> implements ReleasedOutsideListene
 
   @Override
   public void onEnter() {
-    _toolManager.getCurrentTool().onEnter();
+    _toolManager.get_currentTool().onEnter();
   }
 
   @Override
   public void onLeave() {
-    _toolManager.getCurrentTool().onLeave();
+    _toolManager.get_currentTool().onLeave();
   }
 
   @Override
   public void onRelease() {
-    _toolManager.getCurrentTool().onRelease();
+    _toolManager.get_currentTool().onRelease();
   }
 
   @Override
   public void onPress() {
     isActive = inside();
-    _toolManager.getCurrentTool().onPress();
+    _toolManager.get_currentTool().onPress();
   }
 
   @Override
@@ -51,12 +51,12 @@ public class Canvas extends Controller<Canvas> implements ReleasedOutsideListene
 
   @Override
   public void onDrag() {
-    _toolManager.getCurrentTool().onDrag();
+    _toolManager.get_currentTool().onDrag();
   }
 
   @Override
   public void onMove() {
-    _toolManager.getCurrentTool().onMove();
+    _toolManager.get_currentTool().onMove();
   }
 
   @Override
@@ -64,18 +64,19 @@ public class Canvas extends Controller<Canvas> implements ReleasedOutsideListene
     // x and y are relative to the canvas
     int x = cp5.getPointer().getX() - (int) absolutePosition[0];
     int y = cp5.getPointer().getY() - (int) absolutePosition[1];
-    _toolManager.getCurrentTool().onClick(x, y);
+    _toolManager.get_currentTool().onClick(x, y);
   }
 
   @Override
   public void onScroll(int theRotationValue) {
-    _toolManager.getCurrentTool().onScroll();
+    _toolManager.get_currentTool().onScroll();
   }
 
   @Override
   public void keyEvent(KeyEvent theKeyEvent) {
     if (isUserInteraction && isActive && theKeyEvent.getAction() == KeyEvent.PRESS) {
-      System.out.println(theKeyEvent.getKey());
+      _toolManager.keyEvent(theKeyEvent);
+     
     }
   }
 

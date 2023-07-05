@@ -1,6 +1,9 @@
 package me.gabrielsalvador.core;
 
+import java.util.ResourceBundle.Control;
+
 import controlP5.Button;
+import controlP5.ControlP5;
 import controlP5.MultilineTextfield;
 import controlP5.Textfield;
 import javafx.scene.text.Text;
@@ -13,10 +16,11 @@ import processing.core.PApplet;
 public class Sinesthesia extends PApplet {
 
     private static Sinesthesia _instance;
-    private controlP5.ControlP5 cp5;
+    private ControlP5 _cp5;
 
     public Sinesthesia() {
         super();
+        _instance = this;
 
     }
 
@@ -29,7 +33,7 @@ public class Sinesthesia extends PApplet {
     }
 
     public static void main(String[] args) {
-        PApplet.main("me.gabrielsalvador.core.Sinesthesia");
+        PApplet.main("me.gabrielsalvador.core.Sinesthesia");   
     }
 
     public void settings() {
@@ -38,17 +42,21 @@ public class Sinesthesia extends PApplet {
 
     public void setup() {
         background(0);
-        cp5 = new controlP5.ControlP5(this);
-        new Canvas(cp5,"").setPosition(3, 6).setSize(500, 500);
-        cp5.saveLayout("layout.xml");
-        AppState.getInstance().addPObject(new PlayableNote().setPosition(new Vector(100, 100)));
-        Textfield myTextarea = new Textfield(cp5, "DXF").setPosition(30, 30);
-        myTextarea.bringToFront();
+        _cp5 = new ControlP5(this);
+        new Canvas(_cp5,"").setPosition(3, 6).setSize(500, 500);
+        AppState appState = AppState.getInstance();
+        PlayableNote note = new PlayableNote().setPosition(new Vector(100, 100));
+        appState.addPObject(note);
+        
 
     }
 
     public void draw() {
         background(255);
+    }
+
+    public ControlP5 getCP5() {
+        return _cp5;
     }
 
 }
