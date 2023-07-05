@@ -1,18 +1,19 @@
 package me.gabrielsalvador.ui.controllers;
 
 import controlP5.*;
-import me.gabrielsalvador.tools.Tool;
+import controlP5.events.ReleasedOutsideListener;
 import me.gabrielsalvador.tools.ToolManager;
 import me.gabrielsalvador.ui.views.CanvasView;
 import processing.core.PGraphics;
+import processing.event.KeyEvent;
 
 // Custom controller class that extends Controller
-public class Canvas extends Controller<Canvas> {
+public class Canvas extends Controller<Canvas> implements ReleasedOutsideListener {
 
   private ToolManager _toolManager;
 
-  public Canvas(ControlP5 cp5, String theName, int theX, int theY, int theWidth, int theHeight) {
-    super(cp5, theName, theX, theY, theWidth, theHeight);
+  public Canvas(ControlP5 cp5, String name) {
+    super(cp5, name);
     _myControllerView = new CanvasView();
     _toolManager = ToolManager.getInstance();
   }
@@ -33,13 +34,19 @@ public class Canvas extends Controller<Canvas> {
   }
 
   @Override
-  public void onReleaseOutside() {
-    _toolManager.getCurrentTool().onReleaseOutside();
+  public void onPress() {
+    isActive = inside();
+    _toolManager.getCurrentTool().onPress();
   }
 
   @Override
-  public void onPress() {
-    _toolManager.getCurrentTool().onPress();
+  public void mousePressed() {
+    super.mousePressed();
+  }
+
+  @Override
+  public void mouseReleasedOutside() {
+    isActive = false;
   }
 
   @Override
@@ -65,8 +72,11 @@ public class Canvas extends Controller<Canvas> {
     _toolManager.getCurrentTool().onScroll();
   }
 
-  public void onKey(char theChar, int theKeyCode) {
-    _toolManager.getCurrentTool().onKey();
+  @Override
+  public void keyEvent(KeyEvent theKeyEvent) {
+    if (isUserInteraction && isActive && theKeyEvent.getAction() == KeyEvent.PRESS) {
+      System.out.println(theKeyEvent.getKey());
+    }
   }
 
   @Override

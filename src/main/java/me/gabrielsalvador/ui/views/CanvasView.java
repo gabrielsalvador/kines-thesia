@@ -24,7 +24,8 @@ public class CanvasView implements ControllerView<Canvas> {
       graphics.pushStyle();
       graphics.strokeWeight(1);
         graphics.stroke(0);
-      if (controller.isInside()) {
+
+      if (controller.isActive()) {
         graphics.fill(controller.getColor().getActive());
       } else {
         graphics.fill(255,255,255);

@@ -2,11 +2,9 @@ package me.gabrielsalvador.tools;
 
 import java.util.Set;
 
-import me.gabrielsalvador.controllers.PObjectController;
+
 import me.gabrielsalvador.model.AppState;
 import me.gabrielsalvador.model.PObject.PObject;
-import me.gabrielsalvador.model.PObject.PlayableNote;
-import me.gabrielsalvador.ui.views.PObjectView;
 import me.gabrielsalvador.ui.views.ViewInterface;
 
 public class SelectTool extends Tool{
