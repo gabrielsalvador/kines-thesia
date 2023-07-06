@@ -1,12 +1,8 @@
 package me.gabrielsalvador.core;
 
-import java.util.ResourceBundle.Control;
 
-import controlP5.Button;
 import controlP5.ControlP5;
-import controlP5.MultilineTextfield;
-import controlP5.Textfield;
-import javafx.scene.text.Text;
+import me.gabrielsalvador.controllers.AppController;
 import me.gabrielsalvador.model.AppState;
 import me.gabrielsalvador.model.PObject.PlayableNote;
 import me.gabrielsalvador.ui.controllers.Canvas;
@@ -43,7 +39,7 @@ public class Sinesthesia extends PApplet {
     public void setup() {
         background(0);
         _cp5 = new ControlP5(this);
-        new Canvas(_cp5,"").setPosition(3, 6).setSize(500, 500);
+        new Canvas(_cp5,"MainCanvas").setPosition(3, 6).setSize(500, 500);
         AppState appState = AppState.getInstance();
         PlayableNote note = new PlayableNote().setPosition(new Vector(100, 100));
         appState.addPObject(note);
@@ -57,6 +53,10 @@ public class Sinesthesia extends PApplet {
 
     public ControlP5 getCP5() {
         return _cp5;
+    }
+
+    public AppController getController() {
+        return null;
     }
 
 }

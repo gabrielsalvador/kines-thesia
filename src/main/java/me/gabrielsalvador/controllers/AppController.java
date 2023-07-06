@@ -1,7 +1,9 @@
-package me.gabrielsalvador.input;
+package me.gabrielsalvador.controllers;
 
 import me.gabrielsalvador.model.AppState;
 import me.gabrielsalvador.model.PObject.PObject;
+import me.gabrielsalvador.model.PObject.PlayableNote;
+import me.gabrielsalvador.utils.Vector;
 
 
 
@@ -23,6 +25,12 @@ public class AppController {
 
     public void addPObject(PObject pObject) {
         AppState.getInstance().addPObject(pObject);
+    }
+
+    public PlayableNote addPlayableNote(Vector position) {
+        PlayableNote note = new PlayableNote().setPosition(position);
+        AppState.getInstance().addPObject(note);
+        return note;
     }
         
      
