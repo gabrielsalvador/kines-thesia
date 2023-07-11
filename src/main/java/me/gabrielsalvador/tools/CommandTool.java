@@ -23,10 +23,13 @@ public class CommandTool extends Tool {
             _textfield = cp5.addTextfield("CommandTextfield");
         }
 
-        ((Controller<Textfield>) _textfield).setPosition(x, y).setActive();
+        // ((Controller<Textfield>) _textfield).setPosition(x, y).setActive();
         _textfield.setFocus(true);
         _textfield.show();
         _textfield.getKeyMapping().put((int) PApplet.ENTER, new EnterCommand());
+        _textfield.setPosition(x, y);
+        Canvas canvas = (Canvas) cp5.getController("MainCanvas");
+        canvas.setUserInteraction(false);
 
     }
 
@@ -102,7 +105,8 @@ public class CommandTool extends Tool {
             _textfield.clear();
             _textfield.hide();
             Canvas canvas = (Canvas) cp5.getController("MainCanvas");
-            canvas.setActive();
+            canvas.setUserInteraction(true);
+
 
         }
 

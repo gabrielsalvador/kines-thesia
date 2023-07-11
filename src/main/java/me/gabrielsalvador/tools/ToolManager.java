@@ -26,7 +26,7 @@ public class ToolManager {
         return _instance;
     }
 
-    public Tool get_currentTool() {
+    public Tool getCurrentTool() {
         return _currentTool;
     }
 

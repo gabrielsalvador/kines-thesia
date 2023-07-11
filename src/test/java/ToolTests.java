@@ -23,9 +23,9 @@ public class ToolTests {
         Tool tool1 =  new AddTool();
         Tool tool2 =  new AddTool();
         tm.setCurrentTool(tool1);
-        assert tm.get_currentTool() == tool1;
+        assert tm.getCurrentTool() == tool1;
         tm.setCurrentTool(tool2);
-        assert tm.get_currentTool() == tool2;
+        assert tm.getCurrentTool() == tool2;
 
     }
 }
