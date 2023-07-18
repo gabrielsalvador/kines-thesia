@@ -37,20 +37,21 @@ public class ToolManager {
     public void keyEvent(KeyEvent event) {
         char key = Character.toLowerCase(event.getKey());
 
-        System.out.println("Key pressed: " + key);
+        //tool keyboard shortcuts
         if (keyMappings.containsKey(key)) {
-            
             // Instantiate the tool class and set it as the current tool.
             try {
-                setCurrentTool(keyMappings.get(key).getDeclaredConstructor().newInstance());
-                System.out.println("Tool set to " + _currentTool);
+                Class<? extends Tool> toolClass = keyMappings.get(key);
+                Tool newTool = toolClass.getDeclaredConstructor().newInstance();
+                setCurrentTool(newTool);
             
             } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                 e.printStackTrace();
             }
-        
-            
+
         }
-        
+        //send keyevent to tool
+        _currentTool.keyEvent(event);
+
     }
 }

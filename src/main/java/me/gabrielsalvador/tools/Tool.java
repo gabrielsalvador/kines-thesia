@@ -1,6 +1,7 @@
 package me.gabrielsalvador.tools;
 
 
+import processing.event.KeyEvent;
 
 public abstract class Tool  {
     private String _name;
@@ -23,24 +24,7 @@ public abstract class Tool  {
         _description = description;
     }
 
-    abstract public void onEnter();
-    
-    abstract public void onLeave();
+    public abstract void keyEvent(KeyEvent keyEvent);
 
-    abstract public void onRelease();
-
-    abstract public void onReleaseOutside();
-
-    abstract public void onPress();
-
-    abstract public void onDrag();
-
-    abstract public void onMove();
-
-    abstract public void onClick(int x, int y);
-
-    abstract public void onScroll();
-
-    abstract public void onKey();
-
+    public abstract void onClick(int x, int y) ;
 }

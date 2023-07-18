@@ -18,26 +18,12 @@ public class Canvas extends Controller<Canvas> implements ReleasedOutsideListene
     _toolManager = ToolManager.getInstance();
   }
 
-  @Override
-  public void onEnter() {
-    _toolManager.getCurrentTool().onEnter();
-  }
-
-  @Override
-  public void onLeave() {
-    _toolManager.getCurrentTool().onLeave();
-  }
-
-  @Override
-  public void onRelease() {
-    _toolManager.getCurrentTool().onRelease();
-  }
 
   @Override
   public void onPress() {
     isActive = inside();
     setUserInteraction(isActive);
-    _toolManager.getCurrentTool().onPress();
+
   }
 
   @Override
@@ -52,12 +38,12 @@ public class Canvas extends Controller<Canvas> implements ReleasedOutsideListene
 
   @Override
   public void onDrag() {
-    _toolManager.getCurrentTool().onDrag();
+
   }
 
   @Override
   public void onMove() {
-    _toolManager.getCurrentTool().onMove();
+
   }
 
   @Override
@@ -70,15 +56,15 @@ public class Canvas extends Controller<Canvas> implements ReleasedOutsideListene
 
   @Override
   public void onScroll(int theRotationValue) {
-    _toolManager.getCurrentTool().onScroll();
+
   }
 
   @Override
   public void keyEvent(KeyEvent theKeyEvent) {
     if (isUserInteraction && isActive && theKeyEvent.getAction() == KeyEvent.PRESS) {
-      System.out.println("Canvas says : {Key pressed: " + theKeyEvent.getKeyCode());
+
       _toolManager.keyEvent(theKeyEvent);
-      System.out.println("}");
+
     }
 
   }

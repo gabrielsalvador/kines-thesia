@@ -6,36 +6,14 @@ import java.util.Set;
 import me.gabrielsalvador.model.AppState;
 import me.gabrielsalvador.model.PObject.PObject;
 import me.gabrielsalvador.ui.views.ViewInterface;
+import processing.event.KeyEvent;
 
 public class SelectTool extends Tool{
 
-    @Override
-    public void onEnter() {
-        
-    }
 
     @Override
-    public void onLeave() {
-    }
+    public void keyEvent(KeyEvent keyEvent) {
 
-    @Override
-    public void onRelease() {
-    }
-
-    @Override
-    public void onReleaseOutside() {
-    }
-
-    @Override
-    public void onPress() {
-    }
-
-    @Override
-    public void onDrag() {
-    }
-
-    @Override
-    public void onMove() {
     }
 
     @Override
@@ -54,12 +32,5 @@ public class SelectTool extends Tool{
         }
     }
 
-    @Override
-    public void onScroll() {
-    }
 
-    @Override
-    public void onKey() {
-    }
-    
 }
