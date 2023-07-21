@@ -8,6 +8,7 @@ import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.ui.controllers.Canvas;
 import me.gabrielsalvador.utils.Vector;
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.event.KeyEvent;
 
 public class CommandTool extends Tool {
@@ -47,6 +48,8 @@ public class CommandTool extends Tool {
     public void setFocus(boolean focus) {
         _textfield.setFocus(focus);
     }
+
+
 
     class EnterCommand implements TextfieldCommand {
 

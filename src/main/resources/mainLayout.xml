@@ -8,10 +8,9 @@
 
         <Group hideBar height=60% width=100% background=rgb(30,30,30) orientation="horizontal">
             <Group name="main" hideBar height=100% width=75% background=rgb(30,30,30)  orientation="horizontal" padding=(0,0,0,10)>
-                <Group name="toolbox" height=100% width=100px background=rgb(52,51,77) padding=(0,10,0,0) orientation="vertical">
-                <Bang width=100% padding=(0,0,1,0)></Bang>
-                <Button width=100% padding=(0,0,1,0)></Button>
-                </Group>
+                <Toolbox name="toolbox" height=100% width=100px background=rgb(52,51,77) padding=(0,10,0,0) orientation="vertical">
+
+                </Toolbox>
                 <Group hideBar height=100% width=90% background=rgb(34,46,57) padding=(0,4,0,0)>
                 <Canvas name="MainCanvas" width=100% height=100% padding=(0,0,1,0)>
                 </Canvas>

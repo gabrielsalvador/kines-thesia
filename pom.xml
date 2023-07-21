@@ -28,6 +28,12 @@
     </dependency>
 
     <dependency>
+      <groupId>org.reflections</groupId>
+      <artifactId>reflections</artifactId>
+      <version>0.9.12</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.github.micycle1</groupId>
       <artifactId>processing-core-4</artifactId>
       <version>4.2</version>
@@ -39,13 +45,25 @@
       <version>2.2.6</version>
     </dependency>
 
-  
-<!--     remote, uncomment when deploying
     <dependency>
-      <groupId>com.github.gabrielsalvador</groupId>
-      <artifactId>controlp5</artifactId>
-      <version>-e3cbdc75dc-1</version>
-    </dependency> -->
+      <groupId>org.reflections</groupId>
+      <artifactId>reflections</artifactId>
+      <version>0.10.2</version>
+    </dependency>
+
+    <!--    <dependency>-->
+<!--      <groupId>org.reflections</groupId>-->
+<!--      <artifactId>reflections</artifactId>-->
+<!--      <version>0.10.2</version>-->
+<!--    </dependency>-->
+
+
+    <!--     remote, uncomment when deploying
+        <dependency>
+          <groupId>com.github.gabrielsalvador</groupId>
+          <artifactId>controlp5</artifactId>
+          <version>-e3cbdc75dc-1</version>
+        </dependency> -->
 
 
 

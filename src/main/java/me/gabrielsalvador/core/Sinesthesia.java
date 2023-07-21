@@ -3,16 +3,13 @@ package me.gabrielsalvador.core;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import controlP5.ControlFont;
 import controlP5.ControlP5;
-import controlP5.Tooltip;
 import controlP5.layout.LayoutBuilder;
+import me.gabrielsalvador.Config;
 import me.gabrielsalvador.controllers.AppController;
-import me.gabrielsalvador.model.AppState;
-import me.gabrielsalvador.model.PObject.PlayableNote;
 import me.gabrielsalvador.ui.controllers.Canvas;
-import me.gabrielsalvador.utils.Vector;
+import me.gabrielsalvador.ui.controllers.ToolboxController;
 import processing.core.PApplet;
 import processing.core.PFont;
 
@@ -50,23 +47,21 @@ public class Sinesthesia extends PApplet {
         PFont   myFont = createFont("fonts/CascadiaCode_VTT.ttf", 12, true);
         ControlFont cfont = new ControlFont(myFont);
         _cp5.setFont(cfont);
-        
-        // new Canvas(_cp5, "MainCanvas").setPosition(3, 6).setSize(500, 500);
-        // AppState appState = AppState.getInstance();
-        // PlayableNote note = new PlayableNote().setPosition(new Vector(100, 100));
-        // appState.addPObject(note);
 
 
         LayoutBuilder builder = new LayoutBuilder(this, _cp5);
         builder.addCustomClasses("Canvas", Canvas.class);
+        builder.addCustomClasses("Toolbox", ToolboxController.class);
+
         try {
-            Path xmlPath = Paths.get("src/main/resources/mainLayout.xml");
+            Path xmlPath = Paths.get(Config.RESOURCES_PATH+"/mainLayout.xml");
             String xmlContent = new String(Files.readAllBytes(xmlPath));
             builder.parseXML(xmlContent);
         } catch (Exception e) {
             
             e.printStackTrace();
         }
+
 
     }
 
