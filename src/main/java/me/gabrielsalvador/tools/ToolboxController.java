@@ -17,11 +17,11 @@ class ToolboxController extends Group {
 
     public ToolboxController(ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);
-        buildSubcontrollers();
+
     }
 
 
-    public void buildSubcontrollers() {
+    public void didSetupLayout() {
         Set<Class<? extends Tool>> tools = ToolManager.getInstance().getTools();
         for (Class<? extends Tool> tool : tools) {
             if (tool.isAnnotationPresent(SkipProcessing.class)) {

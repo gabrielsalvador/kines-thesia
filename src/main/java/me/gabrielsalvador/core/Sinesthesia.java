@@ -7,6 +7,7 @@ import controlP5.ControlFont;
 import controlP5.ControlP5;
 import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
+import me.gabrielsalvador.pobject.InspectorController;
 import me.gabrielsalvador.tools.ToolboxController;
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -50,6 +51,7 @@ public class Sinesthesia extends PApplet {
         LayoutBuilder builder = new LayoutBuilder(this, _cp5);
         builder.addCustomClasses("Canvas", CanvasController.class);
         builder.addCustomClasses("Toolbox", ToolboxController.class);
+        builder.addCustomClasses("Inspector", InspectorController.class);
 
         try {
             Path xmlPath = Paths.get(Config.RESOURCES_PATH+"/mainLayout.xml");
@@ -59,6 +61,8 @@ public class Sinesthesia extends PApplet {
             
             e.printStackTrace();
         }
+
+
 
 
     }
