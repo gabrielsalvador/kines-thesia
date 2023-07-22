@@ -51,6 +51,35 @@
       <version>0.10.2</version>
     </dependency>
 
+
+
+    <!--<dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.7</version> &lt;!&ndash; Use the latest version available &ndash;&gt;
+    </dependency>-->
+
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>2.0.7</version> <!-- Use the latest version available -->
+    </dependency>
+
+    <!-- SLF4J Bridge -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>2.7</version>
+    </dependency>
+
+    <!-- log4j core -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.7</version>
+    </dependency>
+
     <!--    <dependency>-->
 <!--      <groupId>org.reflections</groupId>-->
 <!--      <artifactId>reflections</artifactId>-->

@@ -7,6 +7,7 @@ import me.gabrielsalvador.ui.views.CanvasView;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 
+
 // Custom controller class that extends Controller
 public class Canvas extends Controller<Canvas> implements ReleasedOutsideListener {
 

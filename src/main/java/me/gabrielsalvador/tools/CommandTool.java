@@ -3,14 +3,15 @@ package me.gabrielsalvador.tools;
 import controlP5.ControlP5;
 import controlP5.Textfield;
 import controlP5.TextfieldCommand;
+import me.gabrielsalvador.common.SkipProcessing;
 import me.gabrielsalvador.controllers.AppController;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.ui.controllers.Canvas;
 import me.gabrielsalvador.utils.Vector;
 import processing.core.PApplet;
-import processing.core.PImage;
 import processing.event.KeyEvent;
 
+@SkipProcessing
 public class CommandTool extends Tool {
 
     private Textfield _textfield;

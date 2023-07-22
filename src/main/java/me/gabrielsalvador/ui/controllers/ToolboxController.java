@@ -1,6 +1,7 @@
 package me.gabrielsalvador.ui.controllers;
 
 import controlP5.*;
+import me.gabrielsalvador.common.SkipProcessing;
 import me.gabrielsalvador.tools.Tool;
 import me.gabrielsalvador.tools.ToolManager;
 
@@ -23,6 +24,9 @@ class ToolboxController extends Group {
     public void buildSubcontrollers() {
         Set<Class<? extends Tool>> tools = ToolManager.getInstance().getTools();
         for (Class<? extends Tool> tool : tools) {
+            if (tool.isAnnotationPresent(SkipProcessing.class)) {
+                continue;
+            }
             String uii = UUID.randomUUID().toString();
             Button b = new Button(cp5, uii);
             b.addListener(new ControlListener() {

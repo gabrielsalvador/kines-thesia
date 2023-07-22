@@ -37,7 +37,7 @@ public class Sinesthesia extends PApplet {
     }
 
     public void settings() {
-        size(1280,820);
+        size(1280,820,OPENGL);
     }
 
     public void setup() {
