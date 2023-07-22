@@ -1,6 +1,6 @@
-import me.gabrielsalvador.controllers.AppController;
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.Sinesthesia;
-import me.gabrielsalvador.model.AppState;
+import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.tools.ToolManager;
 
 import org.junit.jupiter.api.DisplayName;

@@ -1,15 +1,15 @@
-package me.gabrielsalvador.ui.views;
+package me.gabrielsalvador.views;
 
 
 
 import java.util.Set;
 import controlP5.ControllerView;
-import me.gabrielsalvador.model.AppState;
-import me.gabrielsalvador.model.PObject.PObject;
-import me.gabrielsalvador.ui.controllers.Canvas;
+import me.gabrielsalvador.core.AppState;
+import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.core.CanvasController;
 import processing.core.PGraphics;
 
-public class CanvasView implements ControllerView<Canvas> {
+public class CanvasView implements ControllerView<CanvasController> {
 
     Set<PObject> pObjects;
 
@@ -19,7 +19,7 @@ public class CanvasView implements ControllerView<Canvas> {
 
 
     @Override
-    public void display(PGraphics graphics, Canvas controller) {
+    public void display(PGraphics graphics, CanvasController controller) {
       graphics.pushStyle();
       graphics.strokeWeight(1);
         

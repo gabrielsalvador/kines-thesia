@@ -1,8 +1,8 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import me.gabrielsalvador.model.PObject.PObject;
-import me.gabrielsalvador.model.PObject.PObjectProperty;
+import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.utils.Vector;
 
 public class PObjectTests {

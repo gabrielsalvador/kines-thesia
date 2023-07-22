@@ -1,14 +1,13 @@
 package me.gabrielsalvador.tools;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Set;
 
 
-import me.gabrielsalvador.Config;
-import me.gabrielsalvador.core.Sinesthesia;
-import me.gabrielsalvador.model.AppState;
-import me.gabrielsalvador.model.PObject.PObject;
-import me.gabrielsalvador.ui.views.ViewInterface;
-import processing.core.PImage;
+import me.gabrielsalvador.core.AppState;
+import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.views.View;
 import processing.core.PVector;
 import processing.event.KeyEvent;
 
@@ -16,6 +15,7 @@ public class SelectTool extends Tool {
 
     private PVector startPoint = null;
     private PVector endPoint = null;
+    private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
 
     public SelectTool() {
 
@@ -28,27 +28,26 @@ public class SelectTool extends Tool {
 
     @Override
     public void onClick(int x, int y) {
-        System.out.println("onClick");
-        Set<PObject> pobjects = AppState.getInstance().getPObjects();
-        for (PObject pobject : pobjects) {
 
-            ViewInterface<PObject> view = pobject.getView();
+
+        Set<PObject> pObjects = AppState.getInstance().getPObjects();
+        for (PObject pObject : pObjects) {
+
+            View<PObject> view = pObject.getView();
             if (view.isMouseOver(x, y)) {
-                // controller.setSelected(true);
-                System.out.println("Selected");
+                 pObject.setIsSelected(true);
+                _propertyChangeSupport.firePropertyChange("selectedObject", null, pObject);
+
             } else {
-                // controller.setSelected(false);
-                System.out.println("Not selected");
+                pObject.setIsSelected(false);
             }
         }
     }
 
-
-
-
-    public void onPress(int x, int y) {
-
+    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        _propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
     }
+
 
 
 }

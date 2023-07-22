@@ -40,8 +40,7 @@ public class ToolManager  {
     public void setCurrentTool(Tool tool) {
         Tool oldTool = this._currentTool;
         this._currentTool = tool;
-        _propertyChangeSupport.firePropertyChange("state", oldTool, tool);
-        System.out.println("tool changed");
+        _propertyChangeSupport.firePropertyChange("currentTool", oldTool, tool);
     }
 
     public void setCurrentTool(Class<? extends Tool> tool) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {

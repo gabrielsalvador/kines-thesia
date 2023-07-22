@@ -4,9 +4,9 @@ import controlP5.ControlP5;
 import controlP5.Textfield;
 import controlP5.TextfieldCommand;
 import me.gabrielsalvador.common.SkipProcessing;
-import me.gabrielsalvador.controllers.AppController;
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.Sinesthesia;
-import me.gabrielsalvador.ui.controllers.Canvas;
+import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.utils.Vector;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
@@ -29,7 +29,7 @@ public class CommandTool extends Tool {
         _textfield.skipNextEvent();
         _textfield.getKeyMapping().put((int) PApplet.ENTER, new EnterCommand());
         _textfield.setPosition(x, y - 40);
-        Canvas canvas = (Canvas) cp5.getController("MainCanvas");
+        CanvasController canvas = (CanvasController) cp5.getController("MainCanvas");
         canvas.setUserInteraction(false);
 
 
@@ -58,7 +58,7 @@ public class CommandTool extends Tool {
         public void execute() {
             ControlP5 cp5 = Sinesthesia.getInstance().getCP5();
 
-            Canvas canvas = (Canvas) cp5.getController("MainCanvas");
+            CanvasController canvas = (CanvasController) cp5.getController("MainCanvas");
             canvas.setUserInteraction(true);
 
             Textfield tf = (Textfield) _textfield;

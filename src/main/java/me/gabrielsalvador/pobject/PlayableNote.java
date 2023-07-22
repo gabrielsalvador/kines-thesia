@@ -1,6 +1,5 @@
-package me.gabrielsalvador.model.PObject;
+package me.gabrielsalvador.pobject;
 
-import me.gabrielsalvador.ui.views.PlayableNoteView;
 import me.gabrielsalvador.utils.Vector;
 
 public class PlayableNote extends PObject{

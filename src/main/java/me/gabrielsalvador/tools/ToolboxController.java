@@ -1,4 +1,4 @@
-package me.gabrielsalvador.ui.controllers;
+package me.gabrielsalvador.tools;
 
 import controlP5.*;
 import me.gabrielsalvador.common.SkipProcessing;
@@ -43,7 +43,7 @@ class ToolboxController extends Group {
             _children.put(tool, b);
 
 
-            ToolManager.getInstance().addPropertyChangeListener("state", new PropertyChangeListener() {
+            ToolManager.getInstance().addPropertyChangeListener("currentTool", new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
                     updateButtonStates((Tool) evt.getOldValue(), (Tool) evt.getNewValue());

@@ -3,6 +3,8 @@ package me.gabrielsalvador;
 import me.gabrielsalvador.tools.AddTool;
 import me.gabrielsalvador.tools.SelectTool;
 import me.gabrielsalvador.tools.Tool;
+import me.gabrielsalvador.utils.Color;
+import processing.core.PApplet;
 
 import java.util.Map;
 
@@ -13,6 +15,9 @@ public class Config {
             SelectTool.class, "selectTool.png",
             AddTool.class,"addTool.png");
 
+    
+
+    public static final int THEME_COLOR_SELECTED = Color.rgbToInt(100,217,244);
 
 
 

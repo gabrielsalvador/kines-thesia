@@ -1,11 +1,10 @@
-package me.gabrielsalvador.model.PObject;
+package me.gabrielsalvador.pobject;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import me.gabrielsalvador.controllers.PObjectController;
-import me.gabrielsalvador.ui.views.ViewInterface;
+import me.gabrielsalvador.views.View;
 
 
 
@@ -14,10 +13,10 @@ public class PObject {
     
     private float[] _position = new float[5];
     private float[] _size = new float[5];
-    
+    private boolean _isSelected = false;
     private final Set<PObject> _children = new HashSet<PObject>();
     private final HashMap<String, PObjectProperty<?>> _properties = new HashMap<String, PObjectProperty<?>>();
-    private ViewInterface<PObject> _view;
+    private View<PObject> _view;
     private PObjectController _myController;
 
     public PObject() {
@@ -41,7 +40,14 @@ public class PObject {
         return this;
     }
 
+    public PObject setIsSelected(boolean selectedState){
+        _isSelected = selectedState;
+        return this;
+    }
 
+    public boolean getIsSelected(){
+        return _isSelected;
+    }
     public float[] getSize() {
         return _size;
     }
@@ -72,11 +78,11 @@ public class PObject {
         return _myController;
     }
 
-    public ViewInterface<PObject> getView() {
+    public View<PObject> getView() {
         return _view;
     }
 
-    public PObject setView(ViewInterface<PObject> view) {
+    public PObject setView(View<PObject> view) {
         _view = view;
         return this;
     }

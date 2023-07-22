@@ -1,19 +1,19 @@
-package me.gabrielsalvador.ui.controllers;
+package me.gabrielsalvador.core;
 
 import controlP5.*;
 import controlP5.events.ReleasedOutsideListener;
 import me.gabrielsalvador.tools.ToolManager;
-import me.gabrielsalvador.ui.views.CanvasView;
+import me.gabrielsalvador.views.CanvasView;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 
 
 // Custom controller class that extends Controller
-public class Canvas extends Controller<Canvas> implements ReleasedOutsideListener {
+public class CanvasController extends Controller<CanvasController> implements ReleasedOutsideListener {
 
     private final ToolManager _toolManager;
 
-    public Canvas(ControlP5 cp5, String name) {
+    public CanvasController(ControlP5 cp5, String name) {
         super(cp5, name);
         _myControllerView = new CanvasView();
         _toolManager = ToolManager.getInstance();

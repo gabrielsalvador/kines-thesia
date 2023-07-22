@@ -1,8 +1,8 @@
-package me.gabrielsalvador.ui.views;
+package me.gabrielsalvador.views;
 
 import processing.core.PGraphics;
 
-public interface ViewInterface<T> {
+public interface View<T> {
     
 
     public T getModel();

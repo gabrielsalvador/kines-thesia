@@ -1,8 +1,7 @@
-package me.gabrielsalvador.controllers;
+package me.gabrielsalvador.core;
 
-import me.gabrielsalvador.model.AppState;
-import me.gabrielsalvador.model.PObject.PObject;
-import me.gabrielsalvador.model.PObject.PlayableNote;
+import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PlayableNote;
 import me.gabrielsalvador.utils.Vector;
 
 

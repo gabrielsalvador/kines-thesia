@@ -1,6 +1,6 @@
-package me.gabrielsalvador.controllers;
+package me.gabrielsalvador.pobject;
 
-import me.gabrielsalvador.model.PObject.PObject;
+import me.gabrielsalvador.pobject.PObject;
 
 public class PObjectController {
 

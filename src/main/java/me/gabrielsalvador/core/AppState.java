@@ -1,9 +1,9 @@
-package me.gabrielsalvador.model;
+package me.gabrielsalvador.core;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import me.gabrielsalvador.model.PObject.PObject;
+import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.tools.Tool;
 
 public class AppState {
