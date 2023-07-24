@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.Set;
 
 
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.views.View;
@@ -31,17 +32,20 @@ public class SelectTool extends Tool {
 
 
         Set<PObject> pObjects = AppState.getInstance().getPObjects();
+        PObject selectedObject = null;
         for (PObject pObject : pObjects) {
 
             View<PObject> view = pObject.getView();
             if (view.isMouseOver(x, y)) {
                  pObject.setIsSelected(true);
-                _propertyChangeSupport.firePropertyChange("selectedObject", null, pObject);
+                 selectedObject = pObject;
 
             } else {
                 pObject.setIsSelected(false);
             }
         }
+        AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObject);
+
     }
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {

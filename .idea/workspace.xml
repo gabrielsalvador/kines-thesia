@@ -5,10 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8dd3a229-cf9e-48ee-b8a0-e757222cccff" name="Changes" comment="idea config files">
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/InspectorController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/Property.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mainLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mainLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/InspectorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/InspectorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObjectController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObjectProperty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObjectProperty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PlayableNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PlayableNote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/SelectTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/SelectTool.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +24,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="AnnotationType" />
         <option value="Class" />
+        <option value="AnnotationType" />
       </list>
     </option>
   </component>
@@ -117,8 +122,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.SinesthesiaTest.testGlobals" />
         <item itemvalue="JUnit.SinesthesiaTest.testMain" />
+        <item itemvalue="JUnit.SinesthesiaTest.testGlobals" />
       </list>
     </recent_temporary>
   </component>
@@ -173,25 +178,15 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <condition expression="controller.getClass().equals(InspectorController.class)" language="JAVA" custom="me.gabrielsalvador.pobject.InspectorController" />
-          <url>jar://$MAVEN_REPOSITORY$/com/github/gabrielsalvador/controlp5/2.2.6/controlp5-2.2.6.jar!/controlP5/layout/ControllerFactory.class</url>
-          <line>286</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-field">
-          <condition expression="this.getClass().equals(InspectorController.class)" language="JAVA" custom="me.gabrielsalvador.pobject.InspectorController" />
-          <url>jar://$MAVEN_REPOSITORY$/com/github/gabrielsalvador/controlp5/2.2.6/controlp5-2.2.6.jar!/controlP5/ControllerGroup.class</url>
-          <line>39</line>
-          <properties field="_myWidth" class="controlP5.ControllerGroup" />
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
+        <breakpoint type="java-exception">
+          <properties class="java.lang.IllegalAccessError" package="java.lang" />
+          <option name="timeStamp" value="10" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalAccessException" package="java.lang" />
+          <option name="timeStamp" value="12" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="((Group) controller)._myWidth" language="JAVA" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>

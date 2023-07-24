@@ -1,33 +1,29 @@
 package me.gabrielsalvador.pobject;
 
-public class PObjectProperty<T>{
-    String name;
-    Object value;
-    Class<T> valueType;
+public class PObjectProperty {
+    private String name;
+    private Object value;
+    private Class<?> type;
 
-    public PObjectProperty(String name) {
+    public PObjectProperty(String name, Class<?> type) {
         this.name = name;
+        this.type = type;
     }
 
-    
     public String getName() {
         return name;
     }
 
-
-    public PObjectProperty<T> setValue(T value) {
+    public PObjectProperty setValue(Object value) {
         this.value = value;
         return this;
     }
 
-
-    @SuppressWarnings("unchecked")
-    public T getValue() {
-        return (T) value; 
+    public Object getValue() {
+        return value;
     }
 
-    
-    public Class<?> getValueType() {
-        return value.getClass();
+    public Class<?> getType() {
+        return type;
     }
 }

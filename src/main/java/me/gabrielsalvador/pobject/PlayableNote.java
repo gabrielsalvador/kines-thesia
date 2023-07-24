@@ -2,13 +2,34 @@ package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.utils.Vector;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class PlayableNote extends PObject{
-    
+
+
+
+    @Property(name = "pitch", type = Integer.class)
+    protected int _pitch = 0;
+    @Property(name = "velocity", type = Integer.class)
+    protected int _velocity = 0;
+    @Property(name = "attack", type = Float.class)
+    protected float attack = 1;
+    @Property(name = "decay", type = Float.class)
+    protected float decay = 1;
+    @Property(name = "sustain", type = Float.class)
+    protected float sustain = 1;
+    @Property(name = "release", type = Float.class)
+    protected float release = 1;
+
+
+
     public PlayableNote() {
         super();
         setPosition(new Vector(0, 0));
         setSize((Defaults.DEFAULT_NOTE_SIZE));
         setView(new PlayableNoteView(this));
+
     }
 
     public PlayableNote setPosition(Vector position) {
