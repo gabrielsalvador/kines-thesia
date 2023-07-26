@@ -1,6 +1,7 @@
 package me.gabrielsalvador.core;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ public class AppState implements Serializable {
     private static AppState _instance;
 
     private Tool _currentTool;
-    private final Set<PObject> _pObjects = new HashSet<PObject>();
+    private final ArrayList<PObject> _pObjects = new ArrayList<PObject>();
 
     private AppState() {}
 
@@ -35,7 +36,7 @@ public class AppState implements Serializable {
     }
 
     
-    public Set<PObject> getPObjects() {
+    public ArrayList<PObject> getPObjects() {
         return _pObjects;
     }
 

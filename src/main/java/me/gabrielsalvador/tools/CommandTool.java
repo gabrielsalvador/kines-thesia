@@ -7,8 +7,10 @@ import me.gabrielsalvador.common.SkipProcessing;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.core.CanvasController;
+import me.gabrielsalvador.pobject.PKeyboard;
 import me.gabrielsalvador.utils.Vector;
 import processing.core.PApplet;
+import processing.core.PVector;
 import processing.event.KeyEvent;
 
 @SkipProcessing
@@ -63,11 +65,18 @@ public class CommandTool extends Tool {
 
             Textfield tf = (Textfield) _textfield;
             String command = tf.getText();
-            if (command.split(" ")[0].equals("add")) {
+            String split[] = command.split(" ");
+            if (split[0].equals("add")) {
                 String[] args = command.split(" ");
                 int x = canvas.getPointer().x();
                 int y = canvas.getPointer().y();
-                AppController.getInstance().addPlayableNote(new Vector(x, y));
+                if(args[1].equals("keyboard")){
+                    PKeyboard pKeyboard = new PKeyboard();
+                    pKeyboard.setPosition(new float[]{x,y});
+                    AppController.getInstance().addPObject(pKeyboard);
+                }else {
+                    AppController.getInstance().addPlayableNote(new Vector(x,y));
+                }
             }
 
             _textfield.clear();

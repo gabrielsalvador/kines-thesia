@@ -7,9 +7,8 @@ import java.io.ObjectInputStream;
 
 
 @Properties({
-        @Property(name = "note", type = float[].class),
+        @Property(name = "size", type = float[].class),
         @Property(name = "pitch", type = Integer.class),
-        @Property(name = "velocity", type = Integer.class),
         @Property(name = "attack", type = Float.class),
         @Property(name = "decay", type = Float.class),
         @Property(name = "sustain", type = Float.class),

@@ -2,6 +2,7 @@ package me.gabrielsalvador.tools;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.Set;
 
 
@@ -36,7 +37,7 @@ public class SelectTool extends Tool {
     public void onPressed(int x, int y) {
 
 
-        Set<PObject> pObjects = AppState.getInstance().getPObjects();
+        ArrayList<PObject> pObjects = AppState.getInstance().getPObjects();
         PObject selectedObject = null;
         for (PObject pObject : pObjects) {
 

@@ -1,6 +1,7 @@
 package me.gabrielsalvador.pobject;
 
 public class Defaults {
+    public static final int[] DEFAULT_KEYBOARD_SIZE = new int[]{50,15};
     static float DEFAULT_NOTE_SIZE = 5;
 
     public static Object getDefaultValue(Class<?> type) {

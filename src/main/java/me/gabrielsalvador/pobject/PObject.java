@@ -11,7 +11,6 @@ import me.gabrielsalvador.views.View;
 
 @Properties({
         @Property(name = "position", type = float[].class),
-        @Property(name = "size", type = float[].class),
 })
 public class PObject implements Serializable  {
 
