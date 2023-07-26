@@ -30,6 +30,11 @@ public class SelectTool extends Tool {
     @Override
     public void onClick(int x, int y) {
 
+    }
+
+    @Override
+    public void onPressed(int x, int y) {
+
 
         Set<PObject> pObjects = AppState.getInstance().getPObjects();
         PObject selectedObject = null;

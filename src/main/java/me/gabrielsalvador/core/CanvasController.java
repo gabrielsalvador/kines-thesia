@@ -24,6 +24,10 @@ public class CanvasController extends Controller<CanvasController> implements Re
     public void onPress() {
         isActive = inside();
         setUserInteraction(isActive);
+        // x and y are relative to the canvas
+        int x = cp5.getPointer().getX() - (int) absolutePosition[0];
+        int y = cp5.getPointer().getY() - (int) absolutePosition[1];
+        _toolManager.getCurrentTool().onPressed(x, y);
     }
 
     @Override
@@ -54,10 +58,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
     @Override
     public void onClick() {
-        // x and y are relative to the canvas
-        int x = cp5.getPointer().getX() - (int) absolutePosition[0];
-        int y = cp5.getPointer().getY() - (int) absolutePosition[1];
-        _toolManager.getCurrentTool().onClick(x, y);
+
     }
 
     @Override

@@ -32,4 +32,6 @@ public abstract class Tool implements Serializable {
     public abstract void onClick(int x, int y) ;
 
 
+    public void onPressed(int x, int y) {
+    }
 }

@@ -43,11 +43,12 @@ public class PlayableNoteView extends PObjectView implements View<PObject> {
 
     public boolean isMouseOver(int mouseX, int mouseY) {
         Vector position = getPosition();
-        float radius = _model.getSize()[0];
+        float radius = _model.getSize()[0]/2;
 
         // inside the circle
         float d = MathUtils.distance(mouseX, mouseY, position.getX(), position.getY());
-        if (d < radius) {
+        System.out.printf("%f < %f%n", d, radius);
+        if (d < Math.abs(radius)) {
             System.out.println("isMouseOVer = true");
             return true;
         }

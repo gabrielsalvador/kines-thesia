@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8dd3a229-cf9e-48ee-b8a0-e757222cccff" name="Changes" comment="idea config files">
-      <change afterPath="$PROJECT_DIR$/appState.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObjectProperty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObjectProperty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PlayableNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PlayableNote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appState.ser" beforeDir="false" afterPath="$PROJECT_DIR$/appState.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/CanvasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/CanvasController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PlayableNoteView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PlayableNoteView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/SelectTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/SelectTool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/Tool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/Tool.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
