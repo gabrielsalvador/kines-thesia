@@ -21,11 +21,11 @@ public class PObjectTests {
         p.addChild(child);
         assert p.getChildren().contains(child);
 
-        PObjectProperty<Integer> prop = new PObjectProperty<Integer>("mass");
+        PObjectProperty prop = new PObjectProperty("mass",Integer.class);
         p.addProperty(prop);
         prop.setValue(10);
         assert  p.getProperty("mass") == prop;
 
-        assert prop.getValue() == 10;
+        assert (int) prop.getValue() == 10;
     }
 }

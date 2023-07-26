@@ -1,19 +1,18 @@
 package me.gabrielsalvador.pobject;
 
-import java.lang.reflect.Field;
+
 import java.util.*;
 
 import me.gabrielsalvador.views.View;
 
 
-
-
+@Properties({
+        @Property(name = "position", type = float[].class),
+        @Property(name = "size", type = float[].class),
+})
 public class PObject {
 
-    @Property(name = "position", type = float[].class)
-    private float[] _position = new float[5];
-    @Property(name = "size", type = float[].class)
-    private float[] _size = new float[5];
+
     private boolean _isSelected = false;
     private final Set<PObject> _children = new HashSet<PObject>();
     private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<String, PObjectProperty>();
@@ -21,18 +20,18 @@ public class PObject {
     private PObjectController _myController;
 
     public PObject() {
-        /* Gets all the Properties from the class fields*/
+        /* Walks up the class hierarchy to get all annotations concerning the properties */
         Class<?> currentClass = this.getClass();
         while (currentClass != null) {
-            Field[] fields = currentClass.getDeclaredFields();
-            for (Field field : fields) {
-                Property propertyAnnotation = field.getAnnotation(Property.class);
-
-                if (propertyAnnotation != null) {
+            Properties propertiesAnnotation = currentClass.getAnnotation(Properties.class);
+            if (propertiesAnnotation != null) {
+                for (Property propertyAnnotation : propertiesAnnotation.value()) {
                     String name = propertyAnnotation.name();
                     Class<?> type = propertyAnnotation.type();
 
                     PObjectProperty property = new PObjectProperty(name, type);
+                    property.setValue(Defaults.getDefaultValue(type));
+
                     addProperty(property);
                 }
             }
@@ -41,21 +40,26 @@ public class PObject {
     }
 
 
+
     public PObject setPosition(float[] position) {
-        this._position = position;
+        PObjectProperty property = getProperty("position");
+        property.setValue(position);
         return this;
     }
-
 
     public float[] getPosition() {
-        return _position;
+        return (float[])getProperty("position").getValue();
     }
-
 
     public PObject setSize(float[] size) {
-        this._size = size;
+        getProperty("size").setValue(size);
         return this;
     }
+
+    public float[] getSize() {
+        return (float[])getProperty("size").getValue();
+    }
+
 
     public PObject setIsSelected(boolean selectedState){
         _isSelected = selectedState;
@@ -65,9 +69,7 @@ public class PObject {
     public boolean getIsSelected(){
         return _isSelected;
     }
-    public float[] getSize() {
-        return _size;
-    }
+
 
 
     public Set<PObject> addChild(PObject pObject) {

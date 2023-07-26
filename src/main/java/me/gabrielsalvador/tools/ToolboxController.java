@@ -50,7 +50,7 @@ class ToolboxController extends Group {
                 }
             });
             ;
-
+            b.setWidth(getWidth());
             addChildHorizontally(b);
         }
     }

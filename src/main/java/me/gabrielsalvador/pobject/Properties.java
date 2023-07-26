@@ -7,8 +7,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Property {
-    String name();
-
-    Class<?> type();
+public @interface Properties {
+    Property[] value();
 }

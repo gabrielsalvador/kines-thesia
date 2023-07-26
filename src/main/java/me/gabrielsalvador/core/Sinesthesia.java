@@ -36,7 +36,7 @@ public class Sinesthesia extends PApplet {
     }
 
     public void settings() {
-        size(1280,820,OPENGL);
+        size(1280,820,P2D);
     }
 
     public void setup() {
@@ -58,7 +58,7 @@ public class Sinesthesia extends PApplet {
             String xmlContent = new String(Files.readAllBytes(xmlPath));
             builder.parseXML(xmlContent);
         } catch (Exception e) {
-            
+
             e.printStackTrace();
         }
 

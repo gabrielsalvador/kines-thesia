@@ -4,7 +4,6 @@ import me.gabrielsalvador.tools.AddTool;
 import me.gabrielsalvador.tools.SelectTool;
 import me.gabrielsalvador.tools.Tool;
 import me.gabrielsalvador.utils.Color;
-import processing.core.PApplet;
 
 import java.util.Map;
 

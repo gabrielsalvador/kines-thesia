@@ -22,7 +22,7 @@ public class PlayableNoteView extends PObjectView implements View<PObject> {
 
     public void display(PGraphics graphics) {
         Vector position = getPosition();
-        float radius = getSize();
+        float radius = _model.getSize()[0];
 
         graphics.ellipseMode(PApplet.CENTER);
         // draw a ball at the position
@@ -43,7 +43,7 @@ public class PlayableNoteView extends PObjectView implements View<PObject> {
 
     public boolean isMouseOver(int mouseX, int mouseY) {
         Vector position = getPosition();
-        float radius = getSize();
+        float radius = _model.getSize()[0];
 
         // inside the circle
         float d = MathUtils.distance(mouseX, mouseY, position.getX(), position.getY());
@@ -60,8 +60,5 @@ public class PlayableNoteView extends PObjectView implements View<PObject> {
         return new Vector(_model.getPosition()[0], _model.getPosition()[1]);
     }
 
-    // the radius of the circle
-    public float getSize() {
-        return _model.getSize()[0];
-    }
+
 }
