@@ -2,6 +2,9 @@ package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.utils.Vector;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 
 @Properties({
         @Property(name = "note", type = float[].class),
@@ -23,8 +26,6 @@ public class PlayableNote extends PObject{
         setPosition(new Vector(0, 0));
         setSize((Defaults.DEFAULT_NOTE_SIZE));
         setView(new PlayableNoteView(this));
-
-
     }
 
     public PlayableNote setPosition(Vector position) {
@@ -42,5 +43,13 @@ public class PlayableNote extends PObject{
         s[0] = size;
         super.setSize(s);
         return this;
+    }
+
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {
+        // default deserialization
+        aInputStream.defaultReadObject();
+
+        setView(new PlayableNoteView(this));
+
     }
 }

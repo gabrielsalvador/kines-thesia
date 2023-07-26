@@ -1,6 +1,8 @@
 package me.gabrielsalvador.pobject;
 
-public class PObjectProperty {
+import java.io.Serializable;
+
+public class PObjectProperty implements Serializable {
     private String name;
     private Object value;
     private Class<?> type;

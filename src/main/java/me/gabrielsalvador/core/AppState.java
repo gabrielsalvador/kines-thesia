@@ -1,12 +1,13 @@
 package me.gabrielsalvador.core;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.tools.Tool;
 
-public class AppState {
+public class AppState implements Serializable {
     private static AppState _instance;
 
     private Tool _currentTool;

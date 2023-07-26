@@ -1,6 +1,9 @@
 package me.gabrielsalvador.pobject;
 
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.*;
 
 import me.gabrielsalvador.views.View;
@@ -10,14 +13,14 @@ import me.gabrielsalvador.views.View;
         @Property(name = "position", type = float[].class),
         @Property(name = "size", type = float[].class),
 })
-public class PObject {
+public class PObject implements Serializable  {
 
 
     private boolean _isSelected = false;
     private final Set<PObject> _children = new HashSet<PObject>();
     private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<String, PObjectProperty>();
-    private View<PObject> _view;
-    private PObjectController _myController;
+    transient private View<PObject> _view;
+
 
     public PObject() {
         /* Walks up the class hierarchy to get all annotations concerning the properties */
@@ -103,9 +106,7 @@ public class PObject {
         }
         return this;
     }
-    public PObjectController getController() {
-        return _myController;
-    }
+
 
     public View<PObject> getView() {
         return _view;
@@ -115,6 +116,8 @@ public class PObject {
         _view = view;
         return this;
     }
+
+
 
 
 

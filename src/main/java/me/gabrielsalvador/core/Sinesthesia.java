@@ -1,5 +1,6 @@
 package me.gabrielsalvador.core;
 
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,6 +9,7 @@ import controlP5.ControlP5;
 import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.InspectorController;
+import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.tools.ToolboxController;
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -37,6 +39,7 @@ public class Sinesthesia extends PApplet {
 
     public void settings() {
         size(1280,820,P2D);
+        registerMethod("dispose", this);
     }
 
     public void setup() {
@@ -47,6 +50,8 @@ public class Sinesthesia extends PApplet {
         ControlFont cfont = new ControlFont(myFont);
         _cp5.setFont(cfont);
 
+
+        loadAppState();
 
         LayoutBuilder builder = new LayoutBuilder(this, _cp5);
         builder.addCustomClasses("Canvas", CanvasController.class);
@@ -67,7 +72,7 @@ public class Sinesthesia extends PApplet {
 
     }
 
-    public void draw() { 
+    public void draw() {
         background(255);
     }
 
@@ -75,8 +80,30 @@ public class Sinesthesia extends PApplet {
         return _cp5;
     }
 
-    public AppController getController() {
-        return null;
+    private void loadAppState() {
+        try (FileInputStream fileIn = new FileInputStream("appState.ser");
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            AppState loadedState = (AppState) in.readObject();
+            AppState.getInstance().setCurrentTool(loadedState.getCurrentTool());
+            for (PObject pObject : loadedState.getPObjects()) {
+                AppState.getInstance().addPObject(pObject);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public void dispose() {
+        // Save the app state
+        try (FileOutputStream fileOut = new FileOutputStream("appState.ser");
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(AppState.getInstance());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //terminate app
+
+        super.dispose();
+
     }
 
 }

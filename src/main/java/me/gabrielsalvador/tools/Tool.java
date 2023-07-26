@@ -4,7 +4,9 @@ package me.gabrielsalvador.tools;
 
 import processing.event.KeyEvent;
 
-public abstract class Tool  {
+import java.io.Serializable;
+
+public abstract class Tool implements Serializable {
     private String _name;
     private String _description;
     
