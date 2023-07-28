@@ -12,6 +12,7 @@ public class PlayableNoteView extends PObjectView implements View<PObject> {
     private PObject _model;
 
     public PlayableNoteView(PObject model) {
+        super(model);
         _model = model;
         _model.setView(this);
     }
@@ -21,6 +22,7 @@ public class PlayableNoteView extends PObjectView implements View<PObject> {
     }
 
     public void display(PGraphics graphics) {
+        super.display(graphics);
         Vector position = getPosition();
         float radius = _model.getSize()[0];
 

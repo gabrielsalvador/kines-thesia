@@ -5,18 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8dd3a229-cf9e-48ee-b8a0-e757222cccff" name="Changes" comment="idea config files">
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/Inlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/Outlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/PatchSocket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/Patchcords.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/Trigger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/annotations/InletAnnotation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/annotations/InletsAnnotation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/appState.ser" beforeDir="false" afterPath="$PROJECT_DIR$/appState.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PKeyboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PKeyboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PlayableNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PlayableNote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PKeyboardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PKeyboardView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObjectView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObjectView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PlayableNoteView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PlayableNoteView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/PatchSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/PatchSocket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/views/CanvasView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/views/CanvasView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

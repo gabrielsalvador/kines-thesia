@@ -10,6 +10,7 @@ public class PKeyboardView extends PObjectView implements View<PObject> {
     private PObject _model;
 
     public PKeyboardView(PObject model) {
+        super(model);
         _model = model;
         _model.setView(this);
     }
@@ -19,6 +20,7 @@ public class PKeyboardView extends PObjectView implements View<PObject> {
     }
 
     public void display(PGraphics graphics) {
+        super.display(graphics);
         float[] position = _model.getPosition();
 
         float keyWidth = (float) Defaults.DEFAULT_KEYBOARD_SIZE[0] / 7;
