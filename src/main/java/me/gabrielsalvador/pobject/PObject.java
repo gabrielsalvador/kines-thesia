@@ -4,27 +4,34 @@ package me.gabrielsalvador.pobject;
 import java.io.*;
 import java.util.*;
 
+import me.gabrielsalvador.pobject.routing.PatchSocket;
+import me.gabrielsalvador.pobject.routing.annotations.InletAnnotation;
+
+import me.gabrielsalvador.pobject.routing.annotations.InletsAnnotation;
 import me.gabrielsalvador.views.View;
 
 
 @Properties({
         @Property(name = "position", type = float[].class),
 })
+
 public class PObject implements Serializable  {
 
 
     private boolean _isSelected = false;
     private final Set<PObject> _children = new HashSet<PObject>();
     private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<String, PObjectProperty>();
+    private final LinkedHashMap<String,PObject> _subObjects = new LinkedHashMap<String,PObject>();
     transient private View<PObject> _view;
 
 
     public PObject() {
-        /* Walks up the class hierarchy to get all annotations concerning the properties */
+        /* Walks up the class hierarchy to get all annotations concerning the properties and inlets */
         Class<?> currentClass = this.getClass();
         while (currentClass != null) {
             Properties propertiesAnnotation = currentClass.getAnnotation(Properties.class);
             if (propertiesAnnotation != null) {
+                // Handling properties annotation
                 for (Property propertyAnnotation : propertiesAnnotation.value()) {
                     String name = propertyAnnotation.name();
                     Class<?> type = propertyAnnotation.type();
@@ -35,6 +42,20 @@ public class PObject implements Serializable  {
                     addProperty(property);
                 }
             }
+
+            InletsAnnotation inletsAnnotation = currentClass.getAnnotation(InletsAnnotation.class);
+            if (inletsAnnotation != null) {
+                // Handling inlets annotation
+                for (InletAnnotation inletAnnotation : inletsAnnotation.value()) {
+                    String name = inletAnnotation.name();
+                    Class<?> type = inletAnnotation.type();
+
+                    // Create a new PatchSocket for each inlet and add it to _subObjects
+                    PatchSocket patchSocket = new PatchSocket(this);
+                    _subObjects.put(name, patchSocket);
+                }
+            }
+
             currentClass = currentClass.getSuperclass();
         }
     }
@@ -82,6 +103,10 @@ public class PObject implements Serializable  {
         return _children;
     }
 
+
+    public LinkedHashMap<String,PObject> getSubObjects() {
+        return _subObjects;
+    }
     
     public PObjectProperty getProperty(String name) {
         return _properties.get(name);
@@ -130,7 +155,6 @@ public class PObject implements Serializable  {
         }
         return null;
     }
-
 
 
 }

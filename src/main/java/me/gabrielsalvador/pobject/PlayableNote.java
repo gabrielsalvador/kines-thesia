@@ -18,14 +18,13 @@ import java.io.ObjectInputStream;
 public class PlayableNote extends PObject{
 
 
-
-
     public PlayableNote() {
         super();
         setPosition(new Vector(0, 0));
         setSize((Defaults.DEFAULT_NOTE_SIZE));
         setView(new PlayableNoteView(this));
     }
+
 
     public PlayableNote setPosition(Vector position) {
         //convert Vector to float[]
@@ -36,6 +35,7 @@ public class PlayableNote extends PObject{
         return this;
     }
 
+
     public PlayableNote setSize(float size) {
         //convert Vector to float[]
         float[] s = new float[2];
@@ -43,6 +43,7 @@ public class PlayableNote extends PObject{
         super.setSize(s);
         return this;
     }
+
 
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {
         // default deserialization
