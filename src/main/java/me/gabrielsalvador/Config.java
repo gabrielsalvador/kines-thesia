@@ -19,5 +19,8 @@ public class Config {
     public static final int THEME_COLOR_SELECTED = Color.rgbToInt(100,217,244);
 
 
-
+    public static class Shortcuts {
+        public static final char CLONE = 'c';
+        // Add more shortcuts here if needed
+    }
 }

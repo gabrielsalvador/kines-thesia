@@ -12,10 +12,12 @@ import processing.core.PGraphics;
 
 public class CanvasView implements ControllerView<CanvasController> {
 
-    ArrayList<PObject> pObjects;
+    private ArrayList<PObject> pObjects;
+    private ArrayList<View> gizmos;
 
     public CanvasView() {
         pObjects = AppState.getInstance().getPObjects();
+        gizmos = AppState.getInstance().getGizmos();
     }
 
 
@@ -37,5 +39,7 @@ public class CanvasView implements ControllerView<CanvasController> {
             pObject.getView().display(graphics);
         }
       graphics.popStyle();
+
+        gizmos.forEach(gizmo -> gizmo.display(graphics));
     }
   }

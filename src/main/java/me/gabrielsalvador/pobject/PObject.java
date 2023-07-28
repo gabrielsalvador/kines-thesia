@@ -1,9 +1,7 @@
 package me.gabrielsalvador.pobject;
 
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.*;
 
 import me.gabrielsalvador.views.View;
@@ -116,7 +114,22 @@ public class PObject implements Serializable  {
         return this;
     }
 
+    public PObject clone() {
+        try {
+            // Serialize the current object to a byte array
+            ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteStream);
+            objectOutputStream.writeObject(this);
 
+            // Deserialize the byte array to create a new instance (clone) of the object
+            ByteArrayInputStream byteInputStream = new ByteArrayInputStream(byteStream.toByteArray());
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteInputStream);
+            return (PObject) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 

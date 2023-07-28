@@ -32,6 +32,9 @@ public abstract class Tool implements Serializable {
     public abstract void onClick(int x, int y) ;
 
 
-    public void onPressed(int x, int y) {
-    }
+    public abstract void onPressed(int x, int y);
+    public abstract void onRelease(int x, int y) ;
+
+    // Add this method to handle mouse drag events
+    public abstract void onDrag(int x, int y);
 }

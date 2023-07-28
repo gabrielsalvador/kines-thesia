@@ -7,11 +7,13 @@ import java.util.Set;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.tools.Tool;
+import me.gabrielsalvador.views.View;
 
 public class AppState implements Serializable {
     private static AppState _instance;
 
     private Tool _currentTool;
+    private final ArrayList<View> _gizmos = new ArrayList<View>();
     private final ArrayList<PObject> _pObjects = new ArrayList<PObject>();
 
     private AppState() {}
@@ -39,8 +41,13 @@ public class AppState implements Serializable {
     public ArrayList<PObject> getPObjects() {
         return _pObjects;
     }
+    public ArrayList<View> getGizmos() {  return _gizmos;}
 
     public void addPObject(PObject pObject) {
         _pObjects.add(pObject);
+    }
+
+    public void clearObjects() {
+        _pObjects.clear();
     }
 }

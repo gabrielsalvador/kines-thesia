@@ -25,7 +25,7 @@ public class PlayableNoteView extends PObjectView implements View<PObject> {
         float radius = _model.getSize()[0];
 
         graphics.ellipseMode(PApplet.CENTER);
-        // draw a ball at the position
+
         graphics.pushStyle();
         graphics.strokeWeight(1);
         if(_model.getIsSelected()){
@@ -47,9 +47,7 @@ public class PlayableNoteView extends PObjectView implements View<PObject> {
 
         // inside the circle
         float d = MathUtils.distance(mouseX, mouseY, position.getX(), position.getY());
-        System.out.printf("%f < %f%n", d, radius);
         if (d < Math.abs(radius)) {
-            System.out.println("isMouseOVer = true");
             return true;
         }
 

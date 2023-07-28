@@ -1,14 +1,11 @@
 package me.gabrielsalvador.pobject;
 
-import me.gabrielsalvador.Config;
-import me.gabrielsalvador.utils.MathUtils;
-import me.gabrielsalvador.utils.Vector;
 import me.gabrielsalvador.views.View;
-import processing.core.PApplet;
 import processing.core.PGraphics;
 
-public class PKeyboardView extends PObjectView implements View<PObject> {
 
+
+public class PKeyboardView extends PObjectView implements View<PObject> {
 
     private PObject _model;
 
@@ -24,7 +21,7 @@ public class PKeyboardView extends PObjectView implements View<PObject> {
     public void display(PGraphics graphics) {
         float[] position = _model.getPosition();
 
-        float keyWidth = Defaults.DEFAULT_KEYBOARD_SIZE[0] / 7;
+        float keyWidth = (float) Defaults.DEFAULT_KEYBOARD_SIZE[0] / 7;
         float keyHeight = Defaults.DEFAULT_KEYBOARD_SIZE[1];
 
         float offsetX = position[0] - keyWidth * 7 / 2;

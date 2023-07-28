@@ -47,6 +47,21 @@ public class CommandTool extends Tool {
 
     }
 
+    @Override
+    public void onPressed(int x, int y) {
+
+    }
+
+    @Override
+    public void onRelease(int x, int y) {
+
+    }
+
+    @Override
+    public void onDrag(int x, int y) {
+
+    }
+
 
     public void setFocus(boolean focus) {
         _textfield.setFocus(focus);
@@ -77,12 +92,12 @@ public class CommandTool extends Tool {
                 }else {
                     AppController.getInstance().addPlayableNote(new Vector(x,y));
                 }
+            }else if(split[0].equals("clear")) {
+                AppController.getInstance().clearObjects();
             }
 
             _textfield.clear();
             _textfield.hide();
-
         }
-
     }
 }

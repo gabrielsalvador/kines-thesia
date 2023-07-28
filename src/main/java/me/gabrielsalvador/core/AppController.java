@@ -42,7 +42,9 @@ public class AppController {
     public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
         _propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
     }
-     
 
-   
+
+    public void clearObjects() {
+        AppState.getInstance().clearObjects();
+    }
 }
