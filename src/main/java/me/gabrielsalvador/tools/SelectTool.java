@@ -4,13 +4,15 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
-
 import controlP5.ControlP5;
-import me.gabrielsalvador.Config;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.routing.Inlet;
+import me.gabrielsalvador.pobject.routing.Outlet;
+import me.gabrielsalvador.pobject.routing.PatchSocket;
+import me.gabrielsalvador.pobject.routing.Patchcord;
 import me.gabrielsalvador.views.View;
 import processing.core.PVector;
 import processing.event.KeyEvent;
@@ -20,6 +22,9 @@ public class SelectTool extends Tool {
     private ControlP5 _cp5;
     private PVector startPoint = null;
     private PVector endPoint = null;
+    private PatchSocket startSocket = null;  // Reference to the starting socket
+    private PatchSocket endSocket = null;  // Reference to the ending socket
+
     private PObject selectedObject = null;
     private boolean isCloning = false; // Keep track of whether the object is being cloned
     private PObject clonedObject = null; // Reference to the cloned object
@@ -46,28 +51,26 @@ public class SelectTool extends Tool {
         for (PObject pObject : pObjects) {
             View<PObject> view = pObject.getView();
             if (view.isMouseOver(x, y)) {
+                pObject.onPressed(x, y);
                 pObject.setIsSelected(true);
                 selectedObject = pObject;
                 startPoint = new PVector(x, y);
 
+                // Check if the object is a PatchSocket
+                if (pObject instanceof PatchSocket) {
+                    startSocket = (PatchSocket) pObject;
+                }
+
                 // Check if the meta key is down to decide whether to clone
                 isCloning = _cp5.isAltDown();
-                System.out.println("isCloning: " + isCloning);
 
-
-                if (isCloning) {
-                    // Clone the selected object and add it to the scene
-                    clonedObject = selectedObject.clone();
-                    AppState.getInstance().getGizmos().add(clonedObject.getView());
-                }
+                // ... rest of your code
             } else {
                 pObject.setIsSelected(false);
             }
         }
         AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObject);
     }
-
-
 
 
     @Override
@@ -91,11 +94,35 @@ public class SelectTool extends Tool {
             }
 
             startPoint = currentPosition;
+
+            // Update the endSocket if a PatchSocket is dragged onto
+            ArrayList<PObject> pObjects = AppState.getInstance().getPObjects();
+            for (PObject pObject : pObjects) {
+                View<PObject> view = pObject.getView();
+                if (view.isMouseOver(x, y) && pObject instanceof PatchSocket) {
+                    endSocket = (PatchSocket) pObject;
+                }
+            }
         }
     }
 
     @Override
     public void onRelease(int x, int y) {
+
+        // If both startSocket and endSocket are valid, create a new Patchcord
+        if (startSocket != null && endSocket != null) {
+            if (startSocket.getOwner() instanceof Outlet<?> && endSocket.getOwner() instanceof Outlet<?>) {
+                Outlet<?> outlet = (Outlet<?>) startSocket.getOwner();
+                Inlet<?> inlet = (Inlet<?>) endSocket.getOwner();
+
+                Patchcord newPatchcord = new Patchcord(outlet, inlet);
+            }
+
+
+            // Reset startSocket and endSocket for the next drag operation
+            startSocket = null;
+            endSocket = null;
+        }
 
         //add object and remove gizmo
         if (isCloning) {

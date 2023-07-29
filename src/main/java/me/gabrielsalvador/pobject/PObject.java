@@ -3,10 +3,9 @@ package me.gabrielsalvador.pobject;
 
 import java.io.*;
 import java.util.*;
-
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.routing.PatchSocket;
 import me.gabrielsalvador.pobject.routing.annotations.InletAnnotation;
-
 import me.gabrielsalvador.pobject.routing.annotations.InletsAnnotation;
 import me.gabrielsalvador.views.View;
 
@@ -45,14 +44,14 @@ public class PObject implements Serializable  {
 
             InletsAnnotation inletsAnnotation = currentClass.getAnnotation(InletsAnnotation.class);
             if (inletsAnnotation != null) {
-                // Handling inlets annotation
+
                 for (InletAnnotation inletAnnotation : inletsAnnotation.value()) {
                     String name = inletAnnotation.name();
                     Class<?> type = inletAnnotation.type();
 
-                    // Create a new PatchSocket for each inlet and add it to _subObjects
+
                     PatchSocket patchSocket = new PatchSocket(this);
-                    _subObjects.put(name, patchSocket);
+                    AppController.getInstance().addPObject(patchSocket);
                 }
             }
 
@@ -156,5 +155,8 @@ public class PObject implements Serializable  {
         return null;
     }
 
+    public void onPressed(int x, int y){
+
+    }
 
 }

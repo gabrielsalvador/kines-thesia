@@ -1,7 +1,7 @@
 package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.pobject.routing.Outlet;
-import me.gabrielsalvador.pobject.routing.Patchcords;
+import me.gabrielsalvador.pobject.routing.Patchcord;
 import me.gabrielsalvador.pobject.routing.Trigger;
 import me.gabrielsalvador.pobject.routing.annotations.InletAnnotation;
 import me.gabrielsalvador.pobject.routing.annotations.InletsAnnotation;
@@ -16,7 +16,7 @@ import java.util.HashSet;
 })
 public class PKeyboard extends PObject implements Outlet<Trigger> {
 
-    HashSet<Patchcords> patchcords = new HashSet<>();
+    HashSet<Patchcord> patchcords = new HashSet<>();
 
     public PKeyboard() {
         super();

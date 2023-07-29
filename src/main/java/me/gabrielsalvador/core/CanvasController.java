@@ -66,6 +66,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
     @Override
     public void onMove() {
 
+
     }
 
     @Override

@@ -1,8 +1,12 @@
 package me.gabrielsalvador.pobject.routing;
 
 
+import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.core.CanvasController;
+import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.views.View;
+import processing.core.PApplet;
 import processing.core.PGraphics;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,13 +15,19 @@ import java.io.Serializable;
 
 public class PatchSocket extends PObject implements Serializable {
 
-    private final int SOCKET_SIZE = 5;
-    private final int Y_OFFSET = 10;
+    private final int SOCKET_SIZE = 10;
+    private final int Y_OFFSET = 20;
     private final PObject owner;
 
     public PatchSocket( PObject owner) {
         this.owner = owner;
         this.setView(new PatchSocketView(owner));
+    }
+
+    @Override
+    public void onPressed(int x, int y) {
+        super.onPressed(x, y);
+        System.out.println("PatchSocket onPressed");
     }
 
     @Serial
@@ -27,6 +37,10 @@ public class PatchSocket extends PObject implements Serializable {
 
         setView(new PatchSocketView(owner));
 
+    }
+
+    public PObject getOwner() {
+        return owner;
     }
 
     private class PatchSocketView  implements View<PObject> {
@@ -43,10 +57,17 @@ public class PatchSocket extends PObject implements Serializable {
 
         @Override
         public void display(PGraphics graphics) {
+            //if selected change color
+            if (_model.getIsSelected()) {
+                graphics.fill(255, 0, 0);
+            } else {
+                graphics.fill(0);
+            }
             float[] position = (float[])_model.getProperty("position").getValue();
             graphics.fill(255, 255,255);
             graphics.pushMatrix();
             graphics.translate(position[0], position[1]);
+            graphics.ellipseMode(PApplet.CENTER);
             graphics.ellipse(0, Y_OFFSET,SOCKET_SIZE,SOCKET_SIZE);
             graphics.popMatrix();
         }
@@ -54,8 +75,13 @@ public class PatchSocket extends PObject implements Serializable {
         @Override
         public boolean isMouseOver(int mouseX, int mouseY) {
             float[] position = (float[])_model.getProperty("position").getValue();
-            float d = (float) Math.sqrt(Math.pow(mouseX - position[0], 2) + Math.pow(mouseY - position[1], 2));
-            return d < SOCKET_SIZE;
+            float centerX = position[0];
+            float centerY = position[1] + Y_OFFSET;
+
+            float distance = PApplet.dist(mouseX, mouseY, centerX, centerY);
+
+            boolean isOver =  distance <= SOCKET_SIZE / 2;
+            return isOver;
         }
     }
 }
