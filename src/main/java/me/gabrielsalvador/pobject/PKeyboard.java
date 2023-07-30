@@ -1,6 +1,7 @@
 package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.pobject.routing.Outlet;
+import me.gabrielsalvador.pobject.routing.PatchSocket;
 import me.gabrielsalvador.pobject.routing.Patchcord;
 import me.gabrielsalvador.pobject.routing.Trigger;
 import me.gabrielsalvador.pobject.routing.annotations.InletAnnotation;
@@ -17,6 +18,7 @@ import java.util.HashSet;
 public class PKeyboard extends PObject implements Outlet<Trigger> {
 
     HashSet<Patchcord> patchcords = new HashSet<>();
+    private PatchSocket _patchSocket;
 
     public PKeyboard() {
         super();
@@ -37,5 +39,16 @@ public class PKeyboard extends PObject implements Outlet<Trigger> {
     @Override
     public void send(Trigger message) {
         patchcords.forEach(patchcord -> patchcord.send(message));
+    }
+
+    @Override
+    public void setPatchSocket(PatchSocket endSocket) {
+        this._patchSocket = endSocket;
+    }
+
+    @Override
+    public PatchSocket getPatchSocket() {
+        return this._patchSocket;
+
     }
 }

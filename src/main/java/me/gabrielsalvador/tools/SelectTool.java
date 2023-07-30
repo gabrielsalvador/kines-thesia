@@ -120,6 +120,8 @@ public class SelectTool extends Tool {
 
                 Patchcord newPatchcord = new Patchcord(outlet, inlet);
                 AppState.getInstance().addPObject(newPatchcord);
+                inlet.setPatchSocket(startSocket);
+                outlet.setPatchSocket(endSocket);
                 System.out.println("Created new patchcord");
             }
 

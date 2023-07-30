@@ -1,9 +1,6 @@
 package me.gabrielsalvador.pobject;
 
-import me.gabrielsalvador.pobject.routing.Inlet;
-import me.gabrielsalvador.pobject.routing.Outlet;
-import me.gabrielsalvador.pobject.routing.Patchcord;
-import me.gabrielsalvador.pobject.routing.Trigger;
+import me.gabrielsalvador.pobject.routing.*;
 import me.gabrielsalvador.pobject.routing.annotations.InletAnnotation;
 import me.gabrielsalvador.pobject.routing.annotations.InletsAnnotation;
 
@@ -19,6 +16,7 @@ import java.util.HashSet;
 public class PEmitter extends PObject implements Inlet<Trigger> {
 
     HashSet<Patchcord> patchcords = new HashSet<>();
+    private PatchSocket _patchSocket;
 
     public PEmitter() {
         super();
@@ -41,5 +39,13 @@ public class PEmitter extends PObject implements Inlet<Trigger> {
     @Override
     public void receive(Trigger message) {
 
+    }
+
+    public void setPatchSocket(PatchSocket patchSocket) {
+        this._patchSocket = patchSocket;
+    }
+    @Override
+    public PatchSocket getPatchSocket() {
+        return this._patchSocket;
     }
 }

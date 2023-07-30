@@ -53,15 +53,18 @@ public class Patchcord<T> extends PObject implements Serializable {
         @Override
         public void display(PGraphics graphics) {
             //line from outlet to inlet
-            PObject inlet = (PObject) _model._inlet;
-            PObject outlet = (PObject) _model._outlet;
+            Inlet<?> inlet = (Inlet<?>) _model._inlet;
+            Outlet<?> outlet = (Outlet<?>) _model._outlet;
 
-            graphics.line(
-                    outlet.getPosition()[0],
-                    outlet.getPosition()[1],
-                    inlet.getPosition()[0],
-                    inlet.getPosition()[1]
-            );
+            PatchSocket outletSocket = outlet.getPatchSocket();
+            PatchSocket inletSocket = inlet.getPatchSocket();
+
+            float x1 = outletSocket.getPosition()[0] + outletSocket.getOwner().getPosition()[0];
+            float y1 = outletSocket.getPosition()[1] + outletSocket.getOwner().getPosition()[1];
+            float x2 = inletSocket.getPosition()[0] + inletSocket.getOwner().getPosition()[0];
+            float y2 = inletSocket.getPosition()[1] + inletSocket.getOwner().getPosition()[1];
+
+            graphics.line(x1, y1, x2, y2);
 
 
 

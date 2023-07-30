@@ -168,11 +168,15 @@ public class PObject implements Serializable  {
     }
 
     public void setIsHovered(boolean isHovered,int x, int y) {
-        if(isHovered){
-            onHover(x,y);
-        }else {
-            _isHovered = false;
-            onLeave(x,y);
+       //if not changed do nothing
+        // if changed : call onHover or onLeave
+        if(_isHovered != isHovered){
+            _isHovered = isHovered;
+            if(_isHovered){
+                onHover(x,y);
+            }else{
+                onLeave(x,y);
+            }
         }
     }
 }
