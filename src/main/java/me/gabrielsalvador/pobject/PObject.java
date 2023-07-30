@@ -2,15 +2,17 @@ package me.gabrielsalvador.pobject;
 
 
 import java.io.*;
+import java.net.Socket;
 import java.util.*;
 
+import me.gabrielsalvador.pobject.routing.*;
 import me.gabrielsalvador.views.View;
 
 
 @Properties({
         @Property(name = "position", type = float[].class),
 })
-public class PObject implements Serializable  {
+public class PObject implements Serializable {
 
 
     private boolean _isSelected = false;
@@ -35,10 +37,35 @@ public class PObject implements Serializable  {
                     addProperty(property);
                 }
             }
+
+            // go through the routing annotations and add the inlets and outlets
+            Routing routing = currentClass.getAnnotation(Routing.class);
+            if (routing != null) {
+                for (SetInlet inlet : routing.inlets()) {
+                    if (this instanceof Inlet) {
+                        ArrayList<RoutingSocket<Inlet>> inlets = ((Inlet) this).getInlets();
+                        if (inlets == null) {
+                            ((Inlet)this).setInlets(new ArrayList<RoutingSocket<Inlet>>());
+                        }
+                        RoutingSocket<Inlet> i = new RoutingSocket<Inlet>(this);
+                        ((Inlet) this).addInlet(i);
+                    }
+                }
+                for (SetOutlet outlet : routing.outlets()) {
+                    if (this instanceof Outlet) {
+                        ArrayList<RoutingSocket<Outlet>> outlets = ((Outlet) this).getOutlets();
+                        if (outlets == null) {
+                            ( (Outlet) this).setOutlets(new ArrayList<RoutingSocket<Outlet>>());
+                        }
+                        RoutingSocket<Outlet> o = new RoutingSocket<Outlet>(this);
+                        ((Outlet) this).addOutlet(o);
+                    }
+                }
+            }
+
             currentClass = currentClass.getSuperclass();
         }
     }
-
 
 
     public PObject setPosition(float[] position) {
@@ -48,7 +75,7 @@ public class PObject implements Serializable  {
     }
 
     public float[] getPosition() {
-        return (float[])getProperty("position").getValue();
+        return (float[]) getProperty("position").getValue();
     }
 
     public PObject setSize(float[] size) {
@@ -57,32 +84,31 @@ public class PObject implements Serializable  {
     }
 
     public float[] getSize() {
-        return (float[])getProperty("size").getValue();
+        return (float[]) getProperty("size").getValue();
     }
 
 
-    public PObject setIsSelected(boolean selectedState){
+    public PObject setIsSelected(boolean selectedState) {
         _isSelected = selectedState;
         return this;
     }
 
-    public boolean getIsSelected(){
+    public boolean getIsSelected() {
         return _isSelected;
     }
-
 
 
     public Set<PObject> addChild(PObject pObject) {
         _children.add(pObject);
         return _children;
     }
- 
+
 
     public Set<PObject> getChildren() {
         return _children;
     }
 
-    
+
     public PObjectProperty getProperty(String name) {
         return _properties.get(name);
     }
@@ -92,11 +118,12 @@ public class PObject implements Serializable  {
         _properties.put(property.getName(), property);
         return this;
     }
-    public HashMap<String, PObjectProperty> getProperties () {
+
+    public HashMap<String, PObjectProperty> getProperties() {
         return _properties;
     }
 
-    public PObject addProperties(Map<String,PObjectProperty> properties) {
+    public PObject addProperties(Map<String, PObjectProperty> properties) {
         //add properties to the object
         for (String key : properties.keySet()) {
             addProperty(properties.get(key));
@@ -130,7 +157,6 @@ public class PObject implements Serializable  {
         }
         return null;
     }
-
 
 
 }
