@@ -29,6 +29,16 @@ public class PatchSocket extends PObject implements Serializable {
         super.onPressed(x, y);
         System.out.println("PatchSocket onPressed");
     }
+    @Override
+    public void onHover(int mouseX, int mouseY) {
+        System.out.println("PatchSocket onHover");
+        Sinesthesia.getInstance().cursor(PApplet.HAND);
+    }
+    @Override
+    public void onLeave(int mouseX, int mouseY) {
+        System.out.println("PatchSocket onLeave");
+        Sinesthesia.getInstance().cursor(PApplet.ARROW);
+    }
 
     @Serial
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {
@@ -79,7 +89,6 @@ public class PatchSocket extends PObject implements Serializable {
             float centerY = position[1] + Y_OFFSET;
 
             float distance = PApplet.dist(mouseX, mouseY, centerX, centerY);
-
             boolean isOver =  distance <= SOCKET_SIZE / 2;
             return isOver;
         }

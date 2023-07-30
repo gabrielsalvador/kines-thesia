@@ -59,6 +59,7 @@ public class SelectTool extends Tool {
                 // Check if the object is a PatchSocket
                 if (pObject instanceof PatchSocket) {
                     startSocket = (PatchSocket) pObject;
+                    System.out.println("Start socket selected");
                 }
 
                 // Check if the meta key is down to decide whether to clone
@@ -95,27 +96,31 @@ public class SelectTool extends Tool {
 
             startPoint = currentPosition;
 
-            // Update the endSocket if a PatchSocket is dragged onto
-            ArrayList<PObject> pObjects = AppState.getInstance().getPObjects();
-            for (PObject pObject : pObjects) {
-                View<PObject> view = pObject.getView();
-                if (view.isMouseOver(x, y) && pObject instanceof PatchSocket) {
-                    endSocket = (PatchSocket) pObject;
-                }
-            }
+
         }
     }
 
     @Override
     public void onRelease(int x, int y) {
+        // Update the endSocket if a PatchSocket is dragged onto
+        ArrayList<PObject> pObjects = AppState.getInstance().getPObjects();
+        for (PObject pObject : pObjects) {
+            View<PObject> view = pObject.getView();
+            if (view.isMouseOver(x, y) && pObject instanceof PatchSocket) {
+                endSocket = (PatchSocket) pObject;
+                System.out.println("End socket selected");
+            }
+        }
 
         // If both startSocket and endSocket are valid, create a new Patchcord
         if (startSocket != null && endSocket != null) {
-            if (startSocket.getOwner() instanceof Outlet<?> && endSocket.getOwner() instanceof Outlet<?>) {
+            if (startSocket.getOwner() instanceof Outlet<?> && endSocket.getOwner() instanceof Inlet<?>) {
                 Outlet<?> outlet = (Outlet<?>) startSocket.getOwner();
                 Inlet<?> inlet = (Inlet<?>) endSocket.getOwner();
 
                 Patchcord newPatchcord = new Patchcord(outlet, inlet);
+                AppState.getInstance().addPObject(newPatchcord);
+                System.out.println("Created new patchcord");
             }
 
 

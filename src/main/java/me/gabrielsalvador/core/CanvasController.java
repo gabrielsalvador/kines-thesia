@@ -2,8 +2,10 @@ package me.gabrielsalvador.core;
 
 import controlP5.*;
 import controlP5.events.ReleasedOutsideListener;
+import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.tools.ToolManager;
 import me.gabrielsalvador.views.CanvasView;
+import me.gabrielsalvador.views.View;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 
@@ -65,8 +67,15 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
     @Override
     public void onMove() {
+        //check what PObject the mouse is hovering
+        for (PObject pObject : AppState.getInstance().getPObjects()) {
+            View<PObject> view = pObject.getView();
+            int x = cp5.getPointer().getX() - (int) absolutePosition[0];
+            int y = cp5.getPointer().getY() - (int) absolutePosition[1];
 
+            pObject.setIsHovered(view.isMouseOver(x, y), x, y);
 
+        }
     }
 
     @Override

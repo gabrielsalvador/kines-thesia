@@ -22,6 +22,7 @@ public class PObject implements Serializable  {
     private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<String, PObjectProperty>();
     private final LinkedHashMap<String,PObject> _subObjects = new LinkedHashMap<String,PObject>();
     transient private View<PObject> _view;
+    transient private boolean _isHovered = false;
 
 
     public PObject() {
@@ -159,4 +160,19 @@ public class PObject implements Serializable  {
 
     }
 
+    public void onHover(int x, int y){}
+    public void onLeave(int x, int y){}
+
+    public boolean getIsHovered() {
+        return _isHovered;
+    }
+
+    public void setIsHovered(boolean isHovered,int x, int y) {
+        if(isHovered){
+            onHover(x,y);
+        }else {
+            _isHovered = false;
+            onLeave(x,y);
+        }
+    }
 }

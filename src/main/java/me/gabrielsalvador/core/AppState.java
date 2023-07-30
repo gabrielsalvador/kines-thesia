@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import me.gabrielsalvador.pobject.PEmitter;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.tools.Tool;
+import me.gabrielsalvador.utils.Vector;
 import me.gabrielsalvador.views.View;
 
 public class AppState implements Serializable {
@@ -49,5 +51,11 @@ public class AppState implements Serializable {
 
     public void clearObjects() {
         _pObjects.clear();
+    }
+
+    public void addEmitter(float[] vector) {
+        PEmitter emitter = new PEmitter();
+        emitter.setPosition(vector);
+        _pObjects.add(emitter);
     }
 }

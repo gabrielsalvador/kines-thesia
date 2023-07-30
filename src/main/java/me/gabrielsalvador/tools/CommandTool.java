@@ -68,7 +68,6 @@ public class CommandTool extends Tool {
     }
 
 
-
     class EnterCommand implements TextfieldCommand {
 
         @Override
@@ -85,14 +84,16 @@ public class CommandTool extends Tool {
                 String[] args = command.split(" ");
                 int x = canvas.getPointer().x();
                 int y = canvas.getPointer().y();
-                if(args[1].equals("keyboard")){
+                if (args[1].equals("keyboard")) {
                     PKeyboard pKeyboard = new PKeyboard();
-                    pKeyboard.setPosition(new float[]{x,y});
+                    pKeyboard.setPosition(new float[]{x, y});
                     AppController.getInstance().addPObject(pKeyboard);
-                }else {
-                    AppController.getInstance().addPlayableNote(new Vector(x,y));
+                } else if (args[1].equals("emitter")) {
+                    AppController.getInstance().addEmitter(new float[]{x, y});
+                } else {
+                    AppController.getInstance().addPlayableNote(new Vector(x, y));
                 }
-            }else if(split[0].equals("clear")) {
+            } else if (split[0].equals("clear")) {
                 AppController.getInstance().clearObjects();
             }
 
@@ -101,3 +102,4 @@ public class CommandTool extends Tool {
         }
     }
 }
+

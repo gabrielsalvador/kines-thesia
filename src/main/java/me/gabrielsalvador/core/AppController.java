@@ -47,4 +47,8 @@ public class AppController {
     public void clearObjects() {
         AppState.getInstance().clearObjects();
     }
+
+    public void addEmitter(float[] vector) {
+        AppState.getInstance().addEmitter(vector);
+    }
 }
