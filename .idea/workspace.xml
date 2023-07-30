@@ -5,21 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8dd3a229-cf9e-48ee-b8a0-e757222cccff" name="Changes" comment="idea config files">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/appState.ser" beforeDir="false" afterPath="$PROJECT_DIR$/appState.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/CanvasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/CanvasController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PKeyboardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PKeyboardView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PlayableNoteView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PlayableNoteView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/AddTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/AddTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/CommandTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/CommandTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/SelectTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/SelectTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/Tool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/Tool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/views/CanvasView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/views/CanvasView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,26 +42,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;keyboard-object&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;temurin-17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/gabrielsalvador/Code/sines-thesia/lib&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15429688&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.48965517&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "connectivity-system",
+    "jdk.selected.JAVA_MODULE": "temurin-17",
+    "last_opened_file_path": "/Users/gabrielsalvador/Code/sines-thesia/lib",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15429688",
+    "project.structure.side.proportion": "0.48965517",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="me.gabrielsalvador.pobject" />
