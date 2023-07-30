@@ -11,4 +11,6 @@ public @interface Property {
     String name();
 
     Class<?> type();
+
+    String defaultValue() default "";
 }

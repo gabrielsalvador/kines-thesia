@@ -1,7 +1,5 @@
 package me.gabrielsalvador.pobject.routing;
 
-import me.gabrielsalvador.pobject.routing.SetInlet;
-import me.gabrielsalvador.pobject.routing.SetOutlet;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

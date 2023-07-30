@@ -21,8 +21,9 @@ public class PKeyboardView extends PObjectView implements View<PObject> {
     public void display(PGraphics graphics) {
         float[] position = _model.getPosition();
 
-        float keyWidth = (float) Defaults.DEFAULT_KEYBOARD_SIZE[0] / 7;
-        float keyHeight = Defaults.DEFAULT_KEYBOARD_SIZE[1];
+        float[] size = (float[]) _model.getProperty("size").getValue();
+        float keyWidth = size[0] / 7;
+        float keyHeight = size[1];
 
         float offsetX = position[0] - keyWidth * 7 / 2;
         float offsetY = position[1] - keyHeight / 2;

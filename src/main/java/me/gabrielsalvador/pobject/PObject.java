@@ -5,12 +5,14 @@ import java.io.*;
 import java.net.Socket;
 import java.util.*;
 
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.routing.*;
 import me.gabrielsalvador.views.View;
 
 
 @Properties({
         @Property(name = "position", type = float[].class),
+        @Property(name = "size", type = float[].class,defaultValue = "{100,100}")
 })
 public class PObject implements Serializable {
 
@@ -32,7 +34,7 @@ public class PObject implements Serializable {
                     Class<?> type = propertyAnnotation.type();
 
                     PObjectProperty property = new PObjectProperty(name, type);
-                    property.setValue(Defaults.getDefaultValue(type));
+                    property.setValue(Defaults.getDefaultProperty(this.getClass(),name));
 
                     addProperty(property);
                 }
@@ -48,6 +50,7 @@ public class PObject implements Serializable {
                             ((Inlet)this).setInlets(new ArrayList<RoutingSocket<Inlet>>());
                         }
                         RoutingSocket<Inlet> i = new RoutingSocket<Inlet>(this);
+                        AppController.getInstance().addPObject(i);
                         ((Inlet) this).addInlet(i);
                     }
                 }
@@ -58,6 +61,7 @@ public class PObject implements Serializable {
                             ( (Outlet) this).setOutlets(new ArrayList<RoutingSocket<Outlet>>());
                         }
                         RoutingSocket<Outlet> o = new RoutingSocket<Outlet>(this);
+                        AppController.getInstance().addPObject(o);
                         ((Outlet) this).addOutlet(o);
                     }
                 }
