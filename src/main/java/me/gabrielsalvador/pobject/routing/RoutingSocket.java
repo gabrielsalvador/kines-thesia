@@ -2,16 +2,15 @@ package me.gabrielsalvador.pobject.routing;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.views.View;
+import processing.core.PConstants;
 import processing.core.PGraphics;
 
 import java.io.Serial;
 
 public class RoutingSocket<T extends Routable> extends PObject{
     private PObject _owner;
-
     private Class<T> type;
     private String name;
-
     private RoutingSocketView view;
     public RoutingSocket(PObject _owner) {
         super();
@@ -39,10 +38,10 @@ public class RoutingSocket<T extends Routable> extends PObject{
 
 class RoutingSocketView implements View<PObject> {
 
+    private int SIZE_X = 7;
     RoutingSocket<?> _model;
     public RoutingSocketView(RoutingSocket<?> model) {
         _model = model;
-
     }
 
     @Override
@@ -54,8 +53,10 @@ class RoutingSocketView implements View<PObject> {
     public void display(PGraphics graphics) {
         //draw a circle bellow the Owner, centered with the Owner's width
         float[] position = _model.getOwner().getPosition();
-        float[] size = _model.getOwner().getSize();
-        graphics.ellipse(position[0], position[1] + size[1] / 2, 10, 10);
+        float[] ownerSize = _model.getOwner().getSize();
+        graphics.ellipseMode(PConstants.CENTER);
+        graphics.fill(255);
+        graphics.ellipse(position[0], position[1] + ownerSize[1] + SIZE_X , SIZE_X, SIZE_X);
 
     }
 
