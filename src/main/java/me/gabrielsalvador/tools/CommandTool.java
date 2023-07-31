@@ -7,6 +7,7 @@ import me.gabrielsalvador.common.SkipProcessing;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.core.CanvasController;
+import me.gabrielsalvador.pobject.PEmitter;
 import me.gabrielsalvador.pobject.PKeyboard;
 import me.gabrielsalvador.utils.Vector;
 import processing.core.PApplet;
@@ -89,7 +90,12 @@ public class CommandTool extends Tool {
                     PKeyboard pKeyboard = new PKeyboard();
                     pKeyboard.setPosition(new float[]{x,y});
                     AppController.getInstance().addPObject(pKeyboard);
-                }else {
+                }else if(args[1].equals("emitter")) {
+                    PEmitter pEmitter = new PEmitter();
+                    pEmitter.setPosition(new float[]{x,y});
+                    AppController.getInstance().addPObject(pEmitter);
+                }
+                else {
                     AppController.getInstance().addPlayableNote(new Vector(x,y));
                 }
             }else if(split[0].equals("clear")) {

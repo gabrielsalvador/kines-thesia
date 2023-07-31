@@ -11,15 +11,15 @@ import java.io.Serial;
 import java.util.ArrayList;
 
 @Routing(
-        outlets = {
-                @me.gabrielsalvador.pobject.routing.SetOutlet(name = "outlet", type = String.class)
+        inlets = {
+                @me.gabrielsalvador.pobject.routing.SetInlet(name = "trigger", type = Integer.class)
         }
 )
-public class PKeyboard extends PObject implements Outlet {
+public class PEmitter extends PObject implements Inlet {
 
-    private ArrayList<RoutingSocket<Outlet>> _outlets = new ArrayList<RoutingSocket<Outlet>>();
+    private ArrayList<RoutingSocket<Inlet>> _inlets = new ArrayList<RoutingSocket<Inlet>>();
 
-    public PKeyboard() {
+    public PEmitter() {
         super();
         setView(new PKeyboardView(this));
 
@@ -47,37 +47,35 @@ public class PKeyboard extends PObject implements Outlet {
 
     @Override
     public ArrayList<RoutingSocket<Inlet>> getInlets() {
-        return null;
+        return _inlets;
     }
 
     @Override
     public ArrayList<RoutingSocket<Outlet>> getOutlets() {
-        return _outlets;
+        return null;
     }
 
     @Override
     public void setInlets(ArrayList<RoutingSocket<Inlet>> inlets) {
-
+        _inlets = inlets;
     }
 
     @Override
-    public void setOutlets(ArrayList<RoutingSocket<Outlet>> outlets) {
-        _outlets = outlets;
-    }
+    public void setOutlets(ArrayList<RoutingSocket<Outlet>> outlets) {}
 
     @Override
     public void addInlet(RoutingSocket<Inlet> inlet) {
-        System.out.println("PKeyboard does not have inlets");
+        _inlets.add(inlet);
     }
 
     @Override
     public void addOutlet(RoutingSocket<Outlet> outlet) {
-        _outlets.add(outlet);
+        System.out.println("PKeyboard does not have inlets");
     }
 
 
     @Override
-    public void send(String message) {
+    public void receive(String message) {
 
     }
 }
