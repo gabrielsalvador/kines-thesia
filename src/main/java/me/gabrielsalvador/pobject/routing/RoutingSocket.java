@@ -1,5 +1,6 @@
 package me.gabrielsalvador.pobject.routing;
 
+import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.views.View;
 import processing.core.PApplet;
@@ -7,6 +8,7 @@ import processing.core.PConstants;
 import processing.core.PGraphics;
 
 import java.io.Serial;
+import java.util.ArrayList;
 
 public class RoutingSocket<T extends Routable> extends PObject{
     private PObject _owner;
@@ -35,14 +37,15 @@ public class RoutingSocket<T extends Routable> extends PObject{
 
     }
 
+
     @Override
     public void onEnter(int x, int y) {
-        System.out.println("on Enter");
+
     }
 
     @Override
     public void onLeave(int x, int y) {
-        System.out.println("on Leave");
+
     }
 }
 

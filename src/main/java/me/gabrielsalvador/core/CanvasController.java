@@ -33,12 +33,11 @@ public class CanvasController extends Controller<CanvasController> implements Re
     @Override
     public void mousePressed() {
         super.mousePressed();
-      Textfield t = (Textfield) cp5.get("CommandTextfield");
-      if (t != null) {
-        t.hide();
-        t.clear();
-      }
-
+        Textfield t = (Textfield) cp5.get("CommandTextfield");
+        if (t != null) {
+            t.hide();
+            t.clear();
+        }
     }
 
     @Override
@@ -52,7 +51,6 @@ public class CanvasController extends Controller<CanvasController> implements Re
         int x = cp5.getPointer().getX() - (int) absolutePosition[0];
         int y = cp5.getPointer().getY() - (int) absolutePosition[1];
         _toolManager.getCurrentTool().onDrag(x, y);
-
     }
 
     @Override
@@ -69,8 +67,8 @@ public class CanvasController extends Controller<CanvasController> implements Re
         int x = cp5.getPointer().getX() - (int) absolutePosition[0];
         int y = cp5.getPointer().getY() - (int) absolutePosition[1];
         for (PObject pObject : AppState.getInstance().getPObjects()) {
-            boolean isHovered = pObject.getView().isMouseOver(x,y);
-            pObject.setIsHovered(isHovered,x,y);
+            boolean isHovered = pObject.getView().isMouseOver(x, y);
+            pObject.setIsHovered(isHovered, x, y);
         }
     }
 
@@ -100,6 +98,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
         graphics.pushMatrix();
         graphics.translate(x(position), y(position));
         getView().display(graphics, this);
+        ToolManager.getInstance().getCurrentTool().draw(graphics);
         graphics.popMatrix();
 
     }

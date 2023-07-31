@@ -2,6 +2,10 @@ package me.gabrielsalvador.tools;
 
 
 
+import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.routing.Routable;
+import me.gabrielsalvador.pobject.routing.RoutingSocket;
+import processing.core.PGraphics;
 import processing.event.KeyEvent;
 
 import java.io.Serializable;
@@ -35,6 +39,7 @@ public abstract class Tool implements Serializable {
     public abstract void onPressed(int x, int y);
     public abstract void onRelease(int x, int y) ;
 
-    // Add this method to handle mouse drag events
     public abstract void onDrag(int x, int y);
+
+    public abstract void draw(PGraphics graphics);
 }

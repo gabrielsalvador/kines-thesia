@@ -27,7 +27,7 @@ public class PEmitter extends PObject implements Inlet {
 
     @Override
     public void onEnter(int x, int y) {
-        System.out.println("pkeyboard on enter");
+
     }
 
     @Override

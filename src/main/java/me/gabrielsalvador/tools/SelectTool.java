@@ -12,6 +12,7 @@ import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.views.View;
+import processing.core.PGraphics;
 import processing.core.PVector;
 import processing.event.KeyEvent;
 
@@ -52,7 +53,7 @@ public class SelectTool extends Tool {
 
                 // Check if the meta key is down to decide whether to clone
                 isCloning = _cp5.isAltDown();
-                System.out.println("isCloning: " + isCloning);
+
 
 
                 if (isCloning) {
@@ -95,6 +96,11 @@ public class SelectTool extends Tool {
     }
 
     @Override
+    public void draw(PGraphics graphics) {
+
+    }
+
+    @Override
     public void onRelease(int x, int y) {
 
         //add object and remove gizmo
@@ -111,6 +117,7 @@ public class SelectTool extends Tool {
         clonedObject = null;
 
     }
+
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         _propertyChangeSupport.addPropertyChangeListener(propertyName, listener);

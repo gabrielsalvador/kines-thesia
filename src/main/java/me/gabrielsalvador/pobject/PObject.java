@@ -180,7 +180,6 @@ public abstract class PObject implements Serializable {
         if(_isHovered != isHovered){
             _isHovered = isHovered;
             if(_isHovered){
-                System.out.println("calling on enter");
                 onEnter(x,y);
             }else{
                 onLeave(x,y);

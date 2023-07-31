@@ -27,7 +27,7 @@ public class PKeyboard extends PObject implements Outlet {
 
     @Override
     public void onEnter(int x, int y) {
-        System.out.println("pkeyboard on enter");
+
     }
 
     @Override

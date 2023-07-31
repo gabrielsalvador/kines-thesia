@@ -29,6 +29,7 @@ class ToolboxController extends Group {
             }
             String uii = UUID.randomUUID().toString();
             Button b = new Button(cp5, uii);
+            b.getCaptionLabel().show();
             b.addListener(new ControlListener() {
                 @Override
                 public void controlEvent(ControlEvent controlEvent) {

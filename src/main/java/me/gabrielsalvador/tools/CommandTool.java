@@ -9,8 +9,10 @@ import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.pobject.PEmitter;
 import me.gabrielsalvador.pobject.PKeyboard;
+import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.utils.Vector;
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PVector;
 import processing.event.KeyEvent;
 
@@ -53,13 +55,21 @@ public class CommandTool extends Tool {
 
     }
 
+
+
     @Override
     public void onRelease(int x, int y) {
 
     }
 
+
     @Override
     public void onDrag(int x, int y) {
+
+    }
+
+    @Override
+    public void draw(PGraphics graphics) {
 
     }
 
