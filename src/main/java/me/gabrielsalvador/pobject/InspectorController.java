@@ -133,7 +133,7 @@ public class InspectorController extends Group implements PropertyChangeListener
         } else if (type.getName().equals("[F")) {
             float[] vector = (float[]) property.getValue();
 
-            Controller[] controllers = new Controller[vector.length];
+            Controller<?>[] controllers = new Controller[vector.length];
 
             for (int i = 0; i < vector.length; i++) {
                 Numberbox numberbox = cp5.addNumberbox(property.getName() + i)

@@ -2,6 +2,7 @@ package me.gabrielsalvador.pobject.routing;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.views.View;
+import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 
@@ -34,13 +35,22 @@ public class RoutingSocket<T extends Routable> extends PObject{
 
     }
 
+    @Override
+    public void onEnter(int x, int y) {
+        System.out.println("on Enter");
+    }
+
+    @Override
+    public void onLeave(int x, int y) {
+        System.out.println("on Leave");
+    }
 }
 
-class RoutingSocketView implements View<PObject> {
+class RoutingSocketView<T extends Routable> implements View<PObject> {
 
     private int SIZE_X = 7;
-    RoutingSocket<?> _model;
-    public RoutingSocketView(RoutingSocket<?> model) {
+    RoutingSocket<T> _model;
+    public RoutingSocketView(RoutingSocket<T> model) {
         _model = model;
     }
 
@@ -55,13 +65,24 @@ class RoutingSocketView implements View<PObject> {
         float[] position = _model.getOwner().getPosition();
         float[] ownerSize = _model.getOwner().getSize();
         graphics.ellipseMode(PConstants.CENTER);
-        graphics.fill(255);
+        graphics.fill(_model.getIsHovered() ? 127:255);
         graphics.ellipse(position[0], position[1] + ownerSize[1] + SIZE_X , SIZE_X, SIZE_X);
 
     }
 
     @Override
     public boolean isMouseOver(int mouseX, int mouseY) {
-        return false;
+        float[] position = _model.getOwner().getPosition();
+        float[] ownerSize = _model.getOwner().getSize();
+
+        // calculate the center of the ellipse
+        float centerX = position[0];
+        float centerY = position[1] + ownerSize[1] + SIZE_X;
+
+        // calculate the distance between the mouse and the center of the ellipse
+        float distance = PApplet.dist(mouseX, mouseY, centerX, centerY);
+
+        // check if the distance is less than the radius (SIZE_X / 2)
+        return distance <= SIZE_X / 2;
     }
 }

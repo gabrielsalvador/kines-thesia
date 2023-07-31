@@ -14,10 +14,11 @@ import me.gabrielsalvador.views.View;
         @Property(name = "position", type = float[].class),
         @Property(name = "size", type = float[].class,defaultValue = "{100,100}")
 })
-public class PObject implements Serializable {
+public abstract class PObject implements Serializable {
 
 
     private boolean _isSelected = false;
+    private boolean _isHovered = false;
     private final Set<PObject> _children = new HashSet<PObject>();
     private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<String, PObjectProperty>();
     transient private View<PObject> _view;
@@ -162,5 +163,29 @@ public class PObject implements Serializable {
         return null;
     }
 
+    public void onPressed(int x, int y){
+
+    }
+
+    public abstract void onEnter(int x, int y);
+    public abstract void onLeave(int x, int y);
+
+    public boolean getIsHovered() {
+        return _isHovered;
+    }
+
+    public void setIsHovered(boolean isHovered,int x, int y) {
+        // if not changed do nothing
+        // if changed : call onHover or onLeave
+        if(_isHovered != isHovered){
+            _isHovered = isHovered;
+            if(_isHovered){
+                System.out.println("calling on enter");
+                onEnter(x,y);
+            }else{
+                onLeave(x,y);
+            }
+        }
+    }
 
 }

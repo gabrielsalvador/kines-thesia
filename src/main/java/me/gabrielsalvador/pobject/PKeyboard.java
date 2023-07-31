@@ -25,6 +25,16 @@ public class PKeyboard extends PObject implements Outlet {
 
     }
 
+    @Override
+    public void onEnter(int x, int y) {
+        System.out.println("pkeyboard on enter");
+    }
+
+    @Override
+    public void onLeave(int x, int y) {
+
+    }
+
 
     @Serial
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {

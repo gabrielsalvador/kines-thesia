@@ -6,7 +6,7 @@ import me.gabrielsalvador.tools.ToolManager;
 import me.gabrielsalvador.views.CanvasView;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
-
+import me.gabrielsalvador.pobject.PObject;
 
 // Custom controller class that extends Controller
 public class CanvasController extends Controller<CanvasController> implements ReleasedOutsideListener {
@@ -65,7 +65,13 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
     @Override
     public void onMove() {
-
+        //get which pobject the mouse is hovering
+        int x = cp5.getPointer().getX() - (int) absolutePosition[0];
+        int y = cp5.getPointer().getY() - (int) absolutePosition[1];
+        for (PObject pObject : AppState.getInstance().getPObjects()) {
+            boolean isHovered = pObject.getView().isMouseOver(x,y);
+            pObject.setIsHovered(isHovered,x,y);
+        }
     }
 
     @Override

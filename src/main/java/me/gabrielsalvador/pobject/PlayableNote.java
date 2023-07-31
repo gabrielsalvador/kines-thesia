@@ -27,6 +27,16 @@ public class PlayableNote extends PObject{
         setView(new PlayableNoteView(this));
     }
 
+    @Override
+    public void onEnter(int x, int y) {
+
+    }
+
+    @Override
+    public void onLeave(int x, int y) {
+
+    }
+
     public PlayableNote setPosition(Vector position) {
         //convert Vector to float[]
         float[] pos = new float[2];
