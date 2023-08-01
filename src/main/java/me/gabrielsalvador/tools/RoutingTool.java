@@ -57,7 +57,7 @@ public class RoutingTool extends Tool {
     @Override
     public void draw(PGraphics graphics) {
        if(start != null) {
-           int[] mouse = AppController.getCanvas().getMousePosition();
+           int[] mouse = AppController.getInstance().getCanvas().getMousePosition();
            graphics.line(start.getPosition()[0], start.getPosition()[1], mouse[0], mouse[1]);
        }
     }

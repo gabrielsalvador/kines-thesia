@@ -28,6 +28,7 @@ public class PKeyboardView extends PObjectView implements View<PObject> {
         float offsetX = position[0] - keyWidth * 7 / 2;
         float offsetY = position[1] - keyHeight / 2;
 
+        graphics.pushStyle();
         // Change stroke color when selected
         if (_model.getIsSelected()) {
             graphics.stroke(255, 0, 0);  // Red stroke
@@ -48,6 +49,7 @@ public class PKeyboardView extends PObjectView implements View<PObject> {
                 graphics.rect(offsetX + i * keyWidth + keyWidth / 2, offsetY, keyWidth / 2, keyHeight / 2);
             }
         }
+        graphics.popStyle();
     }
 
 

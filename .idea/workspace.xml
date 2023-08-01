@@ -8,12 +8,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/appState.ser" beforeDir="false" afterPath="$PROJECT_DIR$/appState.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/CanvasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/CanvasController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/AddTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/AddTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/CommandTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/CommandTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PKeyboardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PKeyboardView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/RoutingTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/RoutingTool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/SelectTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/SelectTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/Tool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/Tool.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,11 +200,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObject.java</url>
           <line>36</line>
           <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/SelectTool.java</url>
-          <line>57</line>
-          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

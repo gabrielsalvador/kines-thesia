@@ -1,17 +1,12 @@
 package me.gabrielsalvador.tools;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
-
 import controlP5.ControlP5;
-import me.gabrielsalvador.Config;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.views.View;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import processing.event.KeyEvent;
@@ -19,12 +14,10 @@ import processing.event.KeyEvent;
 public class SelectTool extends Tool {
 
     private ControlP5 _cp5;
-    private PVector startPoint = null;
-    private PVector endPoint = null;
-    private PObject selectedObject = null;
+    private ArrayList<PObject> selectedObjects = new ArrayList<PObject>();
     private boolean isCloning = false; // Keep track of whether the object is being cloned
     private PObject clonedObject = null; // Reference to the cloned object
-    private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
+
 
     public SelectTool() {
         _cp5 = Sinesthesia.getInstance().getCP5();
@@ -42,46 +35,36 @@ public class SelectTool extends Tool {
 
     @Override
     public void onPressed(PObject pObject) {
+
         if (pObject != null) {
-            selectedObject = pObject;
-            int[] mousePosition = AppController.getCanvas().getMousePosition();
-            startPoint = new PVector(mousePosition[0], mousePosition[1]);
-            endPoint = new PVector(pObject.getPosition()[0], pObject.getPosition()[1]);
-            AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObject);
+            if(!pObject.getIsSelected()){
+                selectedObjects.clear();
+            }
+            selectedObjects.add(pObject);
+            AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
+
+        }else{
+            selectedObjects.clear();
+            AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
         }
     }
-
-
 
 
     @Override
     public void onDrag(PObject pObject) {
-        if (selectedObject != null && startPoint != null) {
-            int[] position = AppController.getCanvas().getMousePosition();
-            PVector currentPosition = new PVector(position[0], position[1]);
-            PVector displacement = PVector.sub(currentPosition, startPoint);
-
-            if (isCloning) {
-                // Update the position of the cloned object
-                float[] objPosition = clonedObject.getPosition();
-                objPosition[0] += displacement.x;
-                objPosition[1] += displacement.y;
-                clonedObject.setPosition(objPosition);
-            } else {
-                // Update the position of the selected object
-                float[] objPosition = selectedObject.getPosition();
-                objPosition[0] += displacement.x;
-                objPosition[1] += displacement.y;
-                selectedObject.setPosition(objPosition);
+        if (pObject != null) {
+            for (PObject selectedObject : selectedObjects) {
+                int[] mouse = AppController.getInstance().getCanvas().getMousePosition();
+                float[] objPos = selectedObject.getPosition();
+                selectedObject.setPosition(new float[]{mouse[0], mouse[1]});
             }
-
-            startPoint = currentPosition;
         }
+
     }
 
     @Override
     public void draw(PGraphics graphics) {
-        System.out.println(selectedObject);
+        System.out.println(selectedObjects);
     }
 
     @Override
@@ -93,18 +76,15 @@ public class SelectTool extends Tool {
             AppState.getInstance().getGizmos().remove(clonedObject.getView());
         }
 
-
-        startPoint = null;
-        endPoint = null;
-        selectedObject = null;
         isCloning = false;
         clonedObject = null;
 
+        if (pObject == null) {
+            selectedObjects.clear();
+            AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
+        }
+
     }
 
-
-    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-        _propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
-    }
 }
 

@@ -8,6 +8,7 @@ import me.gabrielsalvador.utils.Vector;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 
 public class AppController {
@@ -28,7 +29,7 @@ public class AppController {
         return _instance;
     }
 
-    public static CanvasController getCanvas(){
+    public  CanvasController getCanvas(){
         if(_canvasController == null){
             _canvasController = (CanvasController) Sinesthesia.getInstance().getCP5().getController("MainCanvas");
         }
@@ -46,6 +47,22 @@ public class AppController {
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         _propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+        _propertyChangeSupport.addPropertyChangeListener("selectedObjects", new PropertyChangeListener(){
+                @Override
+                public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                    if(evt.getNewValue() != null) {
+                        ArrayList<PObject> selectedObjects = (ArrayList<PObject>) evt.getNewValue();
+                        for (PObject pObject : AppState.getInstance().getPObjects()) {
+                            if(selectedObjects.contains(pObject)){
+                                pObject.setIsSelected(true);
+                        }else {
+                                pObject.setIsSelected(false);
+                            }
+                        }
+                    }
+                }
+            }
+        );
     }
 
     public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
