@@ -44,7 +44,8 @@ public class SelectTool extends Tool {
     public void onPressed(PObject pObject) {
         if (pObject != null) {
             selectedObject = pObject;
-            startPoint = new PVector(pObject.getPosition()[0], pObject.getPosition()[1]);
+            int[] mousePosition = AppController.getCanvas().getMousePosition();
+            startPoint = new PVector(mousePosition[0], mousePosition[1]);
             endPoint = new PVector(pObject.getPosition()[0], pObject.getPosition()[1]);
             AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObject);
         }
