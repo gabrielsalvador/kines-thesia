@@ -44,18 +44,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
         isActive = false;
     }
 
-    @Override
-    public void onDrag() {
-        _toolManager.getCurrentTool().onDrag(_currentlyHovering);
-    }
-
-    @Override
-    public void onRelease() {
-        _toolManager.getCurrentTool().onRelease(_currentlyHovering);
-    }
-
-    @Override
-    public void onMove() {
+    private void updateHoveredObject() {
         int[] mousePosition = getMousePosition();
         int x = mousePosition[0];
         int y = mousePosition[1];
@@ -68,8 +57,30 @@ public class CanvasController extends Controller<CanvasController> implements Re
             }
         }
         //if it reaches this point it means that no object is being hovered
-        _currentlyHovering = null;
+        if(_currentlyHovering != null){
+            _currentlyHovering.setIsHovered(false, x, y);
+            _currentlyHovering = null;
+        }
     }
+
+    @Override
+    public void onMove() {
+        updateHoveredObject();
+    }
+
+    @Override
+    public void onDrag() {
+        //the order of these two lines is important, if you update the hovered object first then if when you drag, you drag the mouse out of the object, the object will will stop being hovered mid drag
+        _toolManager.getCurrentTool().onDrag(_currentlyHovering);
+        updateHoveredObject();
+    }
+
+    @Override
+    public void onRelease() {
+        _toolManager.getCurrentTool().onRelease(_currentlyHovering);
+
+    }
+
 
     @Override
     public void onClick() {

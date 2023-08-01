@@ -2,6 +2,7 @@ package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PlayableNote;
+import me.gabrielsalvador.pobject.routing.Inlet;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
 import me.gabrielsalvador.pobject.routing.RoutingSocket;
 import me.gabrielsalvador.utils.Vector;
@@ -80,4 +81,7 @@ public class AppController {
     }
 
 
+    public void addRoutingSocket(PObject owner,RoutingSocket<?> i) {
+        AppState.getInstance().addPObject(i);
+    }
 }

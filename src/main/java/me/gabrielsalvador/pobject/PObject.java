@@ -21,7 +21,7 @@ public abstract class PObject implements Serializable {
     private boolean _isHovered = false;
     private final Set<PObject> _children = new HashSet<PObject>();
     private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<String, PObjectProperty>();
-    transient private View<PObject> _view;
+    transient protected View<PObject> _view;
 
 
     public PObject() {
@@ -51,7 +51,7 @@ public abstract class PObject implements Serializable {
                             ((Inlet)this).setInlets(new ArrayList<RoutingSocket<Inlet>>());
                         }
                         RoutingSocket<Inlet> i = new RoutingSocket<Inlet>(this);
-                        AppController.getInstance().addPObject(i);
+                        AppController.getInstance().addRoutingSocket(this,i);
                         ((Inlet) this).addInlet(i);
                     }
                 }
@@ -62,7 +62,7 @@ public abstract class PObject implements Serializable {
                             ( (Outlet) this).setOutlets(new ArrayList<RoutingSocket<Outlet>>());
                         }
                         RoutingSocket<Outlet> o = new RoutingSocket<Outlet>(this);
-                        AppController.getInstance().addPObject(o);
+                        AppController.getInstance().addRoutingSocket(this,o);
                         ((Outlet) this).addOutlet(o);
                     }
                 }

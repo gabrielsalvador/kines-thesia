@@ -1,14 +1,12 @@
 package me.gabrielsalvador.tools;
 
 import java.util.ArrayList;
-
 import controlP5.ControlP5;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
 import processing.core.PGraphics;
-import processing.core.PVector;
 import processing.event.KeyEvent;
 
 public class SelectTool extends Tool {
@@ -64,7 +62,6 @@ public class SelectTool extends Tool {
 
     @Override
     public void draw(PGraphics graphics) {
-        System.out.println(selectedObjects);
     }
 
     @Override

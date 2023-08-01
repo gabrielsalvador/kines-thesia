@@ -21,7 +21,7 @@ public class PEmitter extends PObject implements Inlet {
 
     public PEmitter() {
         super();
-        setView(new PKeyboardView(this));
+        setView(new PEmitterView(this));
 
     }
 
@@ -41,7 +41,7 @@ public class PEmitter extends PObject implements Inlet {
         // default deserialization
         aInputStream.defaultReadObject();
 
-        setView(new PKeyboardView(this));
+        setView(new PEmitterView(this));
 
     }
 
