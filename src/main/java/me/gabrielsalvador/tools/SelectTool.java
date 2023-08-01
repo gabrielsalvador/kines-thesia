@@ -36,45 +36,28 @@ public class SelectTool extends Tool {
     }
 
     @Override
-    public void onClick(int x, int y) {
+    public void onClick(PObject pObject) {
 
     }
 
     @Override
-    public void onPressed(int x, int y) {
-        ArrayList<PObject> pObjects = AppState.getInstance().getPObjects();
-        selectedObject = null;
-        for (PObject pObject : pObjects) {
-            View<PObject> view = pObject.getView();
-            if (view.isMouseOver(x, y)) {
-                pObject.setIsSelected(true);
-                selectedObject = pObject;
-                startPoint = new PVector(x, y);
-
-                // Check if the meta key is down to decide whether to clone
-                isCloning = _cp5.isAltDown();
-
-
-
-                if (isCloning) {
-                    // Clone the selected object and add it to the scene
-                    clonedObject = selectedObject.clone();
-                    AppState.getInstance().getGizmos().add(clonedObject.getView());
-                }
-            } else {
-                pObject.setIsSelected(false);
-            }
+    public void onPressed(PObject pObject) {
+        if (pObject != null) {
+            selectedObject = pObject;
+            startPoint = new PVector(pObject.getPosition()[0], pObject.getPosition()[1]);
+            endPoint = new PVector(pObject.getPosition()[0], pObject.getPosition()[1]);
+            AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObject);
         }
-        AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObject);
     }
 
 
 
 
     @Override
-    public void onDrag(int x, int y) {
+    public void onDrag(PObject pObject) {
         if (selectedObject != null && startPoint != null) {
-            PVector currentPosition = new PVector(x, y);
+            int[] position = AppController.getCanvas().getMousePosition();
+            PVector currentPosition = new PVector(position[0], position[1]);
             PVector displacement = PVector.sub(currentPosition, startPoint);
 
             if (isCloning) {
@@ -97,11 +80,11 @@ public class SelectTool extends Tool {
 
     @Override
     public void draw(PGraphics graphics) {
-
+        System.out.println(selectedObject);
     }
 
     @Override
-    public void onRelease(int x, int y) {
+    public void onRelease(PObject pObject) {
 
         //add object and remove gizmo
         if (isCloning) {

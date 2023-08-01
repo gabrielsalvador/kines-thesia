@@ -13,10 +13,10 @@ import java.io.Serializable;
 public abstract class Tool implements Serializable {
     private String _name;
     private String _description;
-    
+
 
     public Tool() {
-        
+
     }
 
     public String getName() {
@@ -33,13 +33,12 @@ public abstract class Tool implements Serializable {
 
     public abstract void keyEvent(KeyEvent keyEvent);
 
-    public abstract void onClick(int x, int y) ;
+    public abstract void onClick(PObject pObject);
 
+    public abstract void onPressed(PObject pObject);
+    public abstract void onRelease(PObject pObject) ;
 
-    public abstract void onPressed(int x, int y);
-    public abstract void onRelease(int x, int y) ;
-
-    public abstract void onDrag(int x, int y);
+    public abstract void onDrag(PObject pObject);
 
     public abstract void draw(PGraphics graphics);
 }

@@ -11,6 +11,7 @@ import me.gabrielsalvador.pobject.PObject;
 // Custom controller class that extends Controller
 public class CanvasController extends Controller<CanvasController> implements ReleasedOutsideListener {
 
+    private PObject _currentlyHovering;
     private final ToolManager _toolManager;
 
     public CanvasController(ControlP5 cp5, String name) {
@@ -25,9 +26,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
         isActive = inside();
         setUserInteraction(isActive);
         // x and y are relative to the canvas
-        int x = cp5.getPointer().getX() - (int) absolutePosition[0];
-        int y = cp5.getPointer().getY() - (int) absolutePosition[1];
-        _toolManager.getCurrentTool().onPressed(x, y);
+        _toolManager.getCurrentTool().onPressed(_currentlyHovering);
     }
 
     @Override
@@ -47,29 +46,29 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
     @Override
     public void onDrag() {
-        // x and y are relative to the canvas
-        int x = cp5.getPointer().getX() - (int) absolutePosition[0];
-        int y = cp5.getPointer().getY() - (int) absolutePosition[1];
-        _toolManager.getCurrentTool().onDrag(x, y);
+        _toolManager.getCurrentTool().onDrag(_currentlyHovering);
     }
 
     @Override
     public void onRelease() {
-        // x and y are relative to the canvas
-        int x = cp5.getPointer().getX() - (int) absolutePosition[0];
-        int y = cp5.getPointer().getY() - (int) absolutePosition[1];
-        _toolManager.getCurrentTool().onRelease(x, y);
+        _toolManager.getCurrentTool().onRelease(_currentlyHovering);
     }
 
     @Override
     public void onMove() {
-        //get which pobject the mouse is hovering
-        int x = cp5.getPointer().getX() - (int) absolutePosition[0];
-        int y = cp5.getPointer().getY() - (int) absolutePosition[1];
+        int[] mousePosition = getMousePosition();
+        int x = mousePosition[0];
+        int y = mousePosition[1];
         for (PObject pObject : AppState.getInstance().getPObjects()) {
             boolean isHovered = pObject.getView().isMouseOver(x, y);
-            pObject.setIsHovered(isHovered, x, y);
+            if (isHovered) {
+                pObject.setIsHovered(isHovered, x, y);
+                _currentlyHovering = pObject;
+                return;
+            }
         }
+        //if it reaches this point it means that no object is being hovered
+        _currentlyHovering = null;
     }
 
     @Override
@@ -90,6 +89,12 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
         }
 
+    }
+
+    public int[] getMousePosition() {
+        int x = cp5.getPointer().getX() - (int) absolutePosition[0];
+        int y = cp5.getPointer().getY() - (int) absolutePosition[1];
+        return new int[]{x, y};
     }
 
     @Override

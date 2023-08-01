@@ -18,13 +18,13 @@ public class AddTool extends Tool {
 
 
     @Override
-    public void onClick(int x, int y) {
+    public void onClick(PObject pObject) {
 
         
     }
 
     @Override
-    public void onPressed(int x, int y) {
+    public void onPressed(PObject pObject) {
 
     }
 
@@ -32,13 +32,13 @@ public class AddTool extends Tool {
 
 
     @Override
-    public void onRelease(int x, int y) {
+    public void onRelease(PObject pObject) {
 
     }
 
 
     @Override
-    public void onDrag(int x, int y) {
+    public void onDrag(PObject pObject) {
 
     }
 

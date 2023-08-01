@@ -12,6 +12,7 @@ import java.beans.PropertyChangeSupport;
 
 public class AppController {
     private static AppController _instance;
+    private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
 
 
@@ -27,6 +28,12 @@ public class AppController {
         return _instance;
     }
 
+    public static CanvasController getCanvas(){
+        if(_canvasController == null){
+            _canvasController = (CanvasController) Sinesthesia.getInstance().getCP5().getController("MainCanvas");
+        }
+        return _canvasController;
+    }
     public void addPObject(PObject pObject) {
         AppState.getInstance().addPObject(pObject);
     }
@@ -53,6 +60,7 @@ public class AppController {
     public void AddRouting(RoutingSocket<?> start, RoutingSocket<?> end) {
         RoutingConnection RoutingConnection = new RoutingConnection(start, end);
         AppState.getInstance().addPObject(RoutingConnection);
-
     }
+
+
 }
