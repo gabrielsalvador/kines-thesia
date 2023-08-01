@@ -28,15 +28,14 @@ public class PEmitterView extends PObjectView implements View<PObject> {
 
         // Draw emitter
         graphics.fill(255);  // white
-        graphics.ellipse(position[0], position[1], 20, 20);
+        float[] size = _model.getSize();
+        graphics.ellipse(position[0], position[1], size[0], size[1]);
 
     }
 
     public boolean isMouseOver(int mouseX, int mouseY) {
         float[] position = _model.getPosition();
-
-        // Assuming the emitter is represented as a point
-        // Change this if your emitter has a different representation
-        return mouseX == position[0] && mouseY == position[1];
+        float[] size = _model.getSize();
+        return mouseX > position[0] - size[0] / 2 && mouseX < position[0] + size[0] / 2 && mouseY > position[1] - size[1] / 2 && mouseY < position[1] + size[1] / 2;
     }
 }

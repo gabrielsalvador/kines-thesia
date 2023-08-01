@@ -76,12 +76,12 @@ public class RoutingSocket<T extends Routable> extends PObject{
     }
     @Override
     public void onEnter(int x, int y) {
-        System.out.println("on Enter");
+
     }
 
     @Override
     public void onLeave(int x, int y) {
-        System.out.println("on Leave");
+
     }
 }
 

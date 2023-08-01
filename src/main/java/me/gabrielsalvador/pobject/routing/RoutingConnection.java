@@ -1,5 +1,6 @@
 package me.gabrielsalvador.pobject.routing;
 
+import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.views.View;
 import processing.core.PGraphics;
@@ -51,9 +52,13 @@ public class RoutingConnection extends PObject {
         @Override
         public void display(PGraphics graphics) {
             //line from start to end
-            float[] start = _inlet.getOwner().getPosition();
-            float[] end = _outlet.getOwner().getPosition();
+            float[] start = _inlet.getPosition();
+            float[] end = _outlet.getPosition();
+            graphics.pushStyle();
+            graphics.stroke(Config.THEME_COLOR_ROUTING_CONNECTION);
+            graphics.strokeWeight(2);
             graphics.line(start[0], start[1], end[0], end[1]);
+            graphics.popStyle();
 
         }
 
