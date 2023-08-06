@@ -40,7 +40,6 @@ public class Sinesthesia extends PApplet {
     public void settings() {
         size(1280,820);
         registerMethod("dispose", this);
-        pixelDensity(displayDensity());
     }
 
     public void setup() {
@@ -67,6 +66,7 @@ public class Sinesthesia extends PApplet {
 
             e.printStackTrace();
         }
+
 
 
 
