@@ -1,7 +1,11 @@
 package me.gabrielsalvador.sequencing;
 
 import controlP5.*;
+import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.routing.Inlet;
 import processing.core.PApplet;
+
+import java.util.ArrayList;
 
 public class SequencerController extends Controller<SequencerController> implements Device{
     private final int divisionTime = 32;
@@ -12,17 +16,30 @@ public class SequencerController extends Controller<SequencerController> impleme
     protected int currentY = -1;
     protected int _myMode = MULTIPLES;
     private final boolean[][] steps = new  boolean[divisionTime][divisionPitch];
+
+    /* PObject with inlets where he can send note events */
+    private final ArrayList<Inlet> _connectedPObject = new ArrayList<Inlet>();
+
     public SequencerController(ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);
         setView( (ControllerView) new SequencerView( (SequencerController) this));
         Clock.getInstance().addDevice(this);
     }
 
-
     @Override
     public void clockTick() {
         playhead = (playhead + 1) % divisionTime;
-
+        for (int pitch = 0; pitch < divisionPitch; pitch++) {
+            if (steps[playhead][pitch]) {
+                sendNoteEvent(playhead, pitch);
+            }
+        }
+    }
+    private void sendNoteEvent(int time, int pitch) {
+        for (Inlet inlet : _connectedPObject) {
+            // Assuming the Inlet class has a method to handle note events
+            inlet.receive("%d,%d".formatted(time,pitch));
+        }
     }
 
     @Override
@@ -84,6 +101,11 @@ public class SequencerController extends Controller<SequencerController> impleme
         currentX = -1;
         currentY = -1;
     }
+
+    public void registerPObject(Inlet inlet){
+        _connectedPObject.add(inlet);
+    }
+
     public int getDivisionTime() {
         return divisionTime;
     }

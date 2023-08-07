@@ -1,7 +1,6 @@
 package me.gabrielsalvador.views;
 
 
-
 import java.util.ArrayList;
 import java.util.Set;
 import controlP5.ControllerView;
@@ -9,6 +8,7 @@ import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.core.CanvasController;
 import processing.core.PGraphics;
+
 
 public class CanvasView implements ControllerView<CanvasController> {
 
