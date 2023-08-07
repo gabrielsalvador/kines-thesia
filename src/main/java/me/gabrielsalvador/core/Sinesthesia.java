@@ -48,7 +48,7 @@ public class Sinesthesia extends PApplet {
     public void setup() {
         background(0);
         _cp5 = new ControlP5(this);
-        _clock = new Clock();
+        _clock = Clock.getInstance();
 
         smooth();
         PFont myFont = createFont("fonts/CascadiaCode_VTT.ttf", 12, true);

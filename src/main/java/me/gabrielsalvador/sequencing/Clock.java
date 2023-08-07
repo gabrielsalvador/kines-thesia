@@ -13,13 +13,21 @@ import java.util.concurrent.TimeUnit;
 
 public class Clock {
 
+    private static Clock _instance;
     private final List<Device> _devices = new ArrayList<Device>();
     private final ScheduledExecutorService executorService;
     private int _tempo = 120;
 
-    public Clock() {
+    private Clock() {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
         startTickExecutor();
+    }
+
+    public synchronized static Clock getInstance() {
+        if(_instance == null) {
+            _instance = new Clock();
+        }
+        return _instance;
     }
 
     public void setTempo(int tempo) {

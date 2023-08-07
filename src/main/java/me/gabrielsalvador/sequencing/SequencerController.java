@@ -11,11 +11,13 @@ public class SequencerController extends Controller<SequencerController> impleme
     public SequencerController(ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);
         setView( (ControllerView) new SequencerView( (SequencerController) this));
+        Clock.getInstance().addDevice(this);
     }
 
 
     @Override
     public void clockTick() {
+        playhead = (playhead + 1) % divisionTime;
 
     }
 
