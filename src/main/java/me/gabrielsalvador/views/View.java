@@ -9,4 +9,6 @@ public interface View<T> {
 
     public void display(PGraphics graphics);
     public boolean isMouseOver(int mouseX, int mouseY);
+
+
 }

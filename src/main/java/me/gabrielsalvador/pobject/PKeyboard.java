@@ -1,10 +1,7 @@
 package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.core.Sinesthesia;
-import me.gabrielsalvador.pobject.routing.Inlet;
-import me.gabrielsalvador.pobject.routing.Outlet;
-import me.gabrielsalvador.pobject.routing.Routing;
-import me.gabrielsalvador.pobject.routing.RoutingSocket;
+import me.gabrielsalvador.pobject.routing.*;
 import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.SequencerController;
 
@@ -22,7 +19,7 @@ import static me.gabrielsalvador.Config.MAIN_SEQUENCER;
 )
 public class PKeyboard extends PObject implements Outlet,Inlet {
 
-    private ArrayList<RoutingSocket<Outlet>> _outlets = new ArrayList<RoutingSocket<Outlet>>();
+    private ArrayList<RoutingSocket<Outlet>> _outlets;
 
     public PKeyboard() {
         super();
@@ -92,6 +89,10 @@ public class PKeyboard extends PObject implements Outlet,Inlet {
 
     @Override
     public void receive(String message) {
-        System.out.println("pkeyboard got a message!");
+
+        for (RoutingSocket outlet : getOutlets() ){
+
+            ( (RoutingSocketView) ((RoutingSocket) outlet).getView() ).getBlinkingLigth().blink();
+        }
     }
 }
