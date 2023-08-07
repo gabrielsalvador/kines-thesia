@@ -10,14 +10,19 @@ import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.InspectorController;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.sequencing.Scheduler;
 import me.gabrielsalvador.tools.ToolboxController;
 import processing.core.PApplet;
 import processing.core.PFont;
+
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
 
 public class Sinesthesia extends PApplet {
 
     private static Sinesthesia _instance;
     private ControlP5 _cp5;
+    private Scheduler _scheduler;
 
     public Sinesthesia() {
         super();
@@ -45,6 +50,13 @@ public class Sinesthesia extends PApplet {
     public void setup() {
         background(0);
         _cp5 = new ControlP5(this);
+        _scheduler = new Scheduler();
+        _scheduler.addTrack("sequencer");
+        _scheduler.addEvent("sequencer", () -> {
+            System.out.println("Hello");
+        }, 0);
+        _scheduler.start();
+
         smooth();
         PFont   myFont = createFont("fonts/CascadiaCode_VTT.ttf", 12, true);
         ControlFont cfont = new ControlFont(myFont);
@@ -66,9 +78,6 @@ public class Sinesthesia extends PApplet {
 
             e.printStackTrace();
         }
-
-
-
 
 
     }

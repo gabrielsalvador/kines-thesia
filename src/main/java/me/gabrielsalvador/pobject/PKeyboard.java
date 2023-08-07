@@ -56,9 +56,7 @@ public class PKeyboard extends PObject implements Outlet {
     }
 
     @Override
-    public void setInlets(ArrayList<RoutingSocket<Inlet>> inlets) {
-
-    }
+    public void setInlets(ArrayList<RoutingSocket<Inlet>> inlets) {}
 
     @Override
     public void setOutlets(ArrayList<RoutingSocket<Outlet>> outlets) {
