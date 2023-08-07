@@ -11,6 +11,7 @@ import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.InspectorController;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.sequencing.Clock;
+import me.gabrielsalvador.sequencing.SequencerController;
 import me.gabrielsalvador.tools.ToolboxController;
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -19,7 +20,7 @@ public class Sinesthesia extends PApplet {
 
     private static Sinesthesia _instance;
     private ControlP5 _cp5;
-    private Clock _scheduler;
+    private Clock _clock;
 
     public Sinesthesia() {
         super();
@@ -47,15 +48,10 @@ public class Sinesthesia extends PApplet {
     public void setup() {
         background(0);
         _cp5 = new ControlP5(this);
-        _scheduler = new Clock();
-        _scheduler.addTrack("sequencer");
-        _scheduler.addEvent("sequencer", () -> {
-            System.out.println("Hello");
-        }, 0);
-        _scheduler.start();
+        _clock = new Clock();
 
         smooth();
-        PFont   myFont = createFont("fonts/CascadiaCode_VTT.ttf", 12, true);
+        PFont myFont = createFont("fonts/CascadiaCode_VTT.ttf", 12, true);
         ControlFont cfont = new ControlFont(myFont);
         _cp5.setFont(cfont);
 
@@ -66,6 +62,7 @@ public class Sinesthesia extends PApplet {
         builder.addCustomClasses("Canvas", CanvasController.class);
         builder.addCustomClasses("Toolbox", ToolboxController.class);
         builder.addCustomClasses("Inspector", InspectorController.class);
+        builder.addCustomClasses("Sequencer", SequencerController.class);
 
         try {
             Path xmlPath = Paths.get(Config.RESOURCES_PATH+"/mainLayout.xml");
