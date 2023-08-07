@@ -56,7 +56,6 @@ public class Sinesthesia extends PApplet {
         _cp5.setFont(cfont);
 
 
-        loadAppState();
 
         LayoutBuilder builder = new LayoutBuilder(this, _cp5);
         builder.addCustomClasses("Canvas", CanvasController.class);
@@ -72,6 +71,8 @@ public class Sinesthesia extends PApplet {
 
             e.printStackTrace();
         }
+
+        loadAppState();
 
 
     }
