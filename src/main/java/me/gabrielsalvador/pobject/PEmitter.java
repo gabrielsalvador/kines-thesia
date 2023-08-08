@@ -76,6 +76,6 @@ public class PEmitter extends PObject implements Inlet {
 
     @Override
     public void receive(String message) {
-
+        System.out.println("emitter got a message!");
     }
 }

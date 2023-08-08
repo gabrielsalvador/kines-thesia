@@ -90,7 +90,9 @@ public class PKeyboard extends PObject implements Outlet,Inlet {
     public void receive(String message) {
 
         for (PSocket outlet : getOutlets() ){
-            
+            for(RoutingConnection r : getRoutings()){
+                ((Inlet)r.getDestination().getOwner()).receive(message);
+            }
             ( (RoutingSocketView) outlet.getView() ).getBlinkingLigth().blink();
         }
     }

@@ -9,13 +9,13 @@ import java.io.Serial;
 
 public class RoutingConnection extends PObject {
 
-    private PSocket<Inlet> _inlet;
-    private PSocket<Outlet> _outlet;
+    private PSocket<Inlet> _source;
+    private PSocket<Outlet> _destination;
 
     public RoutingConnection(PSocket<?> inlet, PSocket<?> outlet) {
         super();
-        _inlet = (PSocket<Inlet>) inlet;
-        _outlet = (PSocket<Outlet>) outlet;
+        _source = (PSocket<Inlet>) inlet;
+        _destination = (PSocket<Outlet>) outlet;
         setView(new RoutingConnectionView(this));
     }
     @Override
@@ -37,6 +37,14 @@ public class RoutingConnection extends PObject {
 
     }
 
+    public PSocket<Inlet> getSource() {
+        return _source;
+    }
+
+   public PSocket<Outlet> getDestination(){
+        return _destination;
+   }
+
     private class RoutingConnectionView implements View<PObject> {
         public RoutingConnectionView(RoutingConnection routingConnection, PSocket<?> start, PSocket<?> end) {
         }
@@ -52,8 +60,8 @@ public class RoutingConnection extends PObject {
         @Override
         public void display(PGraphics graphics) {
             //line from start to end
-            float[] start = _inlet.getPosition();
-            float[] end = _outlet.getPosition();
+            float[] start = _source.getPosition();
+            float[] end = _destination.getPosition();
             graphics.pushStyle();
             graphics.stroke(Config.THEME_COLOR_ROUTING_CONNECTION);
             graphics.strokeWeight(2);
