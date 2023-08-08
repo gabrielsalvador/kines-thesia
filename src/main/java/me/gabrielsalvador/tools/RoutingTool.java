@@ -35,9 +35,12 @@ public class RoutingTool extends Tool {
     public void onRelease(PObject pObject) {
         if(pObject instanceof PSocket<?>) {
             if(start != null) {
-                PSocket<?> routingSocket = (PSocket<?>) pObject;
-                if(start.getOwner() != routingSocket.getOwner()) {
-                    RoutingConnection connection = new RoutingConnection(start, routingSocket);
+                PSocket<?> end = (PSocket<?>) pObject;
+                if(start.getOwner() != end.getOwner()) {
+                    RoutingConnection connection = new RoutingConnection(start, end);
+                    ((Routable)start.getOwner()).addRouting(connection);
+                    ((Routable)end.getOwner()).addRouting(connection);
+
                     AppState.getInstance().addPObject(connection);
                 }
             }
