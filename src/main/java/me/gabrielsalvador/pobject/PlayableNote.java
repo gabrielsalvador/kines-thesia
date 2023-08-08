@@ -1,5 +1,6 @@
 package me.gabrielsalvador.pobject;
 
+import me.gabrielsalvador.pobject.views.PlayableNoteView;
 import me.gabrielsalvador.utils.Vector;
 
 import java.io.IOException;

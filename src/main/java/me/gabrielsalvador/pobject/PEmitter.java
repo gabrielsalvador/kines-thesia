@@ -4,6 +4,7 @@ import me.gabrielsalvador.pobject.routing.Inlet;
 import me.gabrielsalvador.pobject.routing.Outlet;
 import me.gabrielsalvador.pobject.routing.Routing;
 import me.gabrielsalvador.pobject.routing.PSocket;
+import me.gabrielsalvador.pobject.views.PEmitterView;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

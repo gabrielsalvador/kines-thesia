@@ -1,6 +1,7 @@
-package me.gabrielsalvador.pobject;
+package me.gabrielsalvador.pobject.views;
 
-import me.gabrielsalvador.views.View;
+import me.gabrielsalvador.pobject.Defaults;
+import me.gabrielsalvador.pobject.PObject;
 import processing.core.PGraphics;
 
 

@@ -6,7 +6,7 @@ import java.util.*;
 
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.routing.*;
-import me.gabrielsalvador.views.View;
+import me.gabrielsalvador.pobject.views.View;
 
 
 @Properties({

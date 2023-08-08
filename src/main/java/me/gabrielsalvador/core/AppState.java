@@ -2,12 +2,10 @@ package me.gabrielsalvador.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.tools.Tool;
-import me.gabrielsalvador.views.View;
+import me.gabrielsalvador.pobject.views.View;
 
 public class AppState implements Serializable {
     private static AppState _instance;

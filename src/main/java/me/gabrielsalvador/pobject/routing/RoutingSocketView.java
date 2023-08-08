@@ -1,8 +1,8 @@
 package me.gabrielsalvador.pobject.routing;
 
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.views.BlinkingLigth;
-import me.gabrielsalvador.views.View;
+import me.gabrielsalvador.pobject.views.BlinkingLigth;
+import me.gabrielsalvador.pobject.views.View;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;

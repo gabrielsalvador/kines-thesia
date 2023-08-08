@@ -2,7 +2,7 @@ package me.gabrielsalvador.pobject.routing;
 
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.views.View;
+import me.gabrielsalvador.pobject.views.View;
 import processing.core.PGraphics;
 
 import java.io.Serial;

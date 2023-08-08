@@ -3,7 +3,7 @@ package me.gabrielsalvador.core;
 import controlP5.*;
 import controlP5.events.ReleasedOutsideListener;
 import me.gabrielsalvador.tools.ToolManager;
-import me.gabrielsalvador.views.CanvasView;
+import me.gabrielsalvador.pobject.views.CanvasView;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import me.gabrielsalvador.pobject.PObject;

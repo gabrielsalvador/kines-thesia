@@ -1,8 +1,8 @@
-package me.gabrielsalvador.views;
+package me.gabrielsalvador.pobject.views;
 
 
 import java.util.ArrayList;
-import java.util.Set;
+
 import controlP5.ControllerView;
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;

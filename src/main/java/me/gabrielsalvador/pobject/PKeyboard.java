@@ -2,6 +2,7 @@ package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.routing.*;
+import me.gabrielsalvador.pobject.views.PKeyboardView;
 import me.gabrielsalvador.sequencing.SequencerController;
 
 import java.io.IOException;

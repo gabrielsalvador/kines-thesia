@@ -1,7 +1,7 @@
-package me.gabrielsalvador.pobject;
+package me.gabrielsalvador.pobject.views;
 
 import me.gabrielsalvador.Config;
-import me.gabrielsalvador.views.View;
+import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.utils.MathUtils;
 import me.gabrielsalvador.utils.Vector;
 import processing.core.PApplet;
