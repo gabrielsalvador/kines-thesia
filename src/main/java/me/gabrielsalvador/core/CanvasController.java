@@ -123,10 +123,8 @@ public class CanvasController extends Controller<CanvasController> implements Re
         graphics.popMatrix();
 
         _physicsManager.step(1f,8, 3);
-        ConcurrentLinkedQueue<PObject> modifications =  AppController.getInstance().getModificationsQueue();
-        for (PObject obj : modifications){
-            AppState.getInstance().addPObject(obj);
-        }
+        AppController.getInstance().applyModifications();
+
 
 
     }

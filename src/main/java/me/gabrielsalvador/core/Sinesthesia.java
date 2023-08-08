@@ -9,7 +9,10 @@ import controlP5.ControlP5;
 import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.InspectorController;
+import me.gabrielsalvador.pobject.PEmitter;
+import me.gabrielsalvador.pobject.PKeyboard;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.routing.RoutingConnection;
 import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.SequencerController;
 import me.gabrielsalvador.tools.ToolboxController;
@@ -87,16 +90,26 @@ public class Sinesthesia extends PApplet {
     }
 
     private void loadAppState() {
-        try (FileInputStream fileIn = new FileInputStream("appState.ser");
-             ObjectInputStream in = new ObjectInputStream(fileIn)) {
-            AppState loadedState = (AppState) in.readObject();
-            AppState.getInstance().setCurrentTool(loadedState.getCurrentTool());
-            for (PObject pObject : loadedState.getPObjects()) {
-                AppState.getInstance().addPObject(pObject);
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        PKeyboard keyboard = new PKeyboard();
+        keyboard.setPosition(new float[]{200,20});
+        AppState.getInstance().addPObject(keyboard);
+        PEmitter emitter = new PEmitter();
+        AppState.getInstance().addPObject(emitter);
+        RoutingConnection connection = new RoutingConnection(keyboard.getOutlets().get(0), emitter.getInlets().get(0));
+        AppState.getInstance().addPObject(connection);
+
+
+
+        //ry (FileInputStream fileIn = new FileInputStream("appState.ser");
+        //    ObjectInputStream in = new ObjectInputStream(fileIn)) {
+        //   AppState loadedState = (AppState) in.readObject();
+        //   AppState.getInstance().setCurrentTool(loadedState.getCurrentTool());
+        //   for (PObject pObject : loadedState.getPObjects()) {
+        //       AppState.getInstance().addPObject(pObject);
+        //   }
+        // catch (IOException | ClassNotFoundException e) {
+        //   e.printStackTrace();
+        //
     }
     public void dispose() {
         // Save the app state

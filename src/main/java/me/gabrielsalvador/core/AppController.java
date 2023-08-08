@@ -11,6 +11,7 @@ import org.jbox2d.common.Vec2;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.SynchronousQueue;
 
@@ -102,4 +103,12 @@ public class AppController {
     }
 
 
+    public void applyModifications() {
+        Iterator<PObject> iterator = _pObjectModificationsQueue.iterator();
+        while (iterator.hasNext()) {
+            PObject obj = iterator.next();
+            AppState.getInstance().addPObject(obj);
+            iterator.remove();
+        }
+    }
 }

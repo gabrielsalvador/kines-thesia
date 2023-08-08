@@ -20,7 +20,7 @@ import java.util.ArrayList;
 )
 public class PEmitter extends PObject implements Inlet {
 
-    private ArrayList<PSocket<Inlet>> _inlets = new ArrayList<PSocket<Inlet>>();
+    private ArrayList<PSocket<Inlet>> _inlets;
 
     public PEmitter() {
         super();
