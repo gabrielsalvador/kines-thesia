@@ -11,7 +11,7 @@ public class RoutingSocketView<T extends Routable> implements View<PObject> {
 
     static protected int SIZE_X = 7;
     RoutingSocket<T> _model;
-    private BlinkingLigth _blinkingLigth = new BlinkingLigth();
+    private BlinkingLigth _blinkingLigth = new BlinkingLigth(SIZE_X);
 
     public RoutingSocketView(RoutingSocket<T> model) {
         _model = model;
@@ -29,11 +29,10 @@ public class RoutingSocketView<T extends Routable> implements View<PObject> {
         float[] ownerSize = _model.getOwner().getSize();
         graphics.pushStyle();
         graphics.pushMatrix();
-        graphics.translate(position[0], position[1] + ownerSize[1]);
+        graphics.translate(position[0], position[1] + ownerSize[1] + SIZE_X);
         graphics.ellipseMode(PConstants.CENTER);
         graphics.fill(_model.getIsHovered() ? 127 : 255);
-        //graphics.ellipse(0, ownerSize[1] + SIZE_X, SIZE_X, SIZE_X);
-        System.out.println("displaying at %f %f".formatted(position[0],position[1]) );
+        graphics.ellipse(0,0,SIZE_X+4,SIZE_X+4);
         _blinkingLigth.display(graphics);
         graphics.popMatrix();
 

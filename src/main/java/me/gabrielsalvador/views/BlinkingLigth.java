@@ -3,7 +3,7 @@ package me.gabrielsalvador.views;
 import processing.core.PGraphics;
 
 public class BlinkingLigth {
-    private final int size = 10;
+    private int _size;
     private final int MAX_BRIGHTNESS = 255;
     private int brigtness = 0;
     private int coolOffRate = 10;
@@ -13,18 +13,22 @@ public class BlinkingLigth {
     private int originalG = 0;    // green component
     private int originalB = 0;    // blue component
 
+    public BlinkingLigth(int size) {
+        _size = size;
+    }
+
     public void display(PGraphics graphics) {
 
-        graphics.colorMode(PGraphics.RGB); // Set color mode to RGB
+        graphics.colorMode(PGraphics.RGB);
 
         // Calculate current RGB values based on brightness
         int currentR = (int) (originalR * (brigtness / (float)MAX_BRIGHTNESS));
         int currentG = (int) (originalG * (brigtness / (float)MAX_BRIGHTNESS));
         int currentB = (int) (originalB * (brigtness / (float)MAX_BRIGHTNESS));
 
-        // Use fill with RGB values
+        graphics.noStroke();
         graphics.fill(currentR, currentG, currentB);
-        graphics.ellipse(0, 0, size, size);
+        graphics.ellipse(0, 0, _size, _size);
 
         if (brigtness > coolOffRate) {
             brigtness -= coolOffRate;
@@ -35,7 +39,6 @@ public class BlinkingLigth {
     }
 
     public void blink() {
-        System.out.println("blinking");
         brigtness = MAX_BRIGHTNESS;
     }
 }

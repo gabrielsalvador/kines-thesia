@@ -84,7 +84,6 @@ public class SequencerController extends Controller<SequencerController> impleme
     public void mousePressed() {
         isActive = getIsInside();
         if (getIsInside()) {
-            System.out.println("inside");
             isPressed = true;
         }
     }
