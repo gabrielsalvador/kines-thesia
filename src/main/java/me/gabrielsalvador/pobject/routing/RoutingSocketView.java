@@ -10,15 +10,15 @@ import processing.core.PGraphics;
 public class RoutingSocketView<T extends Routable> implements View<PObject> {
 
     static protected int SIZE_X = 7;
-    RoutingSocket<T> _model;
+    PSocket<T> _model;
     private BlinkingLigth _blinkingLigth = new BlinkingLigth(SIZE_X);
 
-    public RoutingSocketView(RoutingSocket<T> model) {
+    public RoutingSocketView(PSocket<T> model) {
         _model = model;
     }
 
     @Override
-    public RoutingSocket<?> getModel() {
+    public PSocket<?> getModel() {
         return _model;
     }
 

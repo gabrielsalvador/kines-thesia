@@ -2,9 +2,8 @@ package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PlayableNote;
-import me.gabrielsalvador.pobject.routing.Inlet;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
-import me.gabrielsalvador.pobject.routing.RoutingSocket;
+import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.utils.Vector;
 
 import java.beans.PropertyChangeListener;
@@ -75,13 +74,13 @@ public class AppController {
         AppState.getInstance().clearObjects();
     }
 
-    public void AddRouting(RoutingSocket<?> start, RoutingSocket<?> end) {
+    public void AddRouting(PSocket<?> start, PSocket<?> end) {
         RoutingConnection RoutingConnection = new RoutingConnection(start, end);
         AppState.getInstance().addPObject(RoutingConnection);
     }
 
 
-    public void addRoutingSocket(PObject owner,RoutingSocket<?> i) {
+    public void addRoutingSocket(PObject owner, PSocket<?> i) {
         AppState.getInstance().addPObject(i);
     }
 }

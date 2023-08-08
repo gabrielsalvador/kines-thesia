@@ -11,7 +11,7 @@ import processing.event.KeyEvent;
 
 public class RoutingTool extends Tool {
 
-    RoutingSocket<?> start = null;
+    PSocket<?> start = null;
 
     @Override
     public void keyEvent(KeyEvent keyEvent) {
@@ -25,7 +25,7 @@ public class RoutingTool extends Tool {
 
     @Override
     public void onPressed(PObject pObject) {
-        if(pObject instanceof RoutingSocket<?> routingSocket) {
+        if(pObject instanceof PSocket<?> routingSocket) {
             start = routingSocket;
         }
     }
@@ -33,9 +33,9 @@ public class RoutingTool extends Tool {
 
     @Override
     public void onRelease(PObject pObject) {
-        if(pObject instanceof RoutingSocket<?> ) {
+        if(pObject instanceof PSocket<?>) {
             if(start != null) {
-                RoutingSocket<?> routingSocket = (RoutingSocket<?>) pObject;
+                PSocket<?> routingSocket = (PSocket<?>) pObject;
                 if(start.getOwner() != routingSocket.getOwner()) {
                     RoutingConnection connection = new RoutingConnection(start, routingSocket);
                     AppState.getInstance().addPObject(connection);

@@ -2,7 +2,6 @@ package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.routing.*;
-import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.SequencerController;
 
 import java.io.IOException;
@@ -19,7 +18,7 @@ import static me.gabrielsalvador.Config.MAIN_SEQUENCER;
 )
 public class PKeyboard extends PObject implements Outlet,Inlet {
 
-    private ArrayList<RoutingSocket<Outlet>> _outlets;
+    private ArrayList<PSocket<Outlet>> _outlets;
 
     public PKeyboard() {
         super();
@@ -54,30 +53,30 @@ public class PKeyboard extends PObject implements Outlet,Inlet {
     }
 
     @Override
-    public ArrayList<RoutingSocket<Inlet>> getInlets() {
+    public ArrayList<PSocket<Inlet>> getInlets() {
         return null;
     }
 
     @Override
-    public ArrayList<RoutingSocket<Outlet>> getOutlets() {
+    public ArrayList<PSocket<Outlet>> getOutlets() {
         return _outlets;
     }
 
     @Override
-    public void setInlets(ArrayList<RoutingSocket<Inlet>> inlets) {}
+    public void setInlets(ArrayList<PSocket<Inlet>> inlets) {}
 
     @Override
-    public void setOutlets(ArrayList<RoutingSocket<Outlet>> outlets) {
+    public void setOutlets(ArrayList<PSocket<Outlet>> outlets) {
         _outlets = outlets;
     }
 
     @Override
-    public void addInlet(RoutingSocket<Inlet> inlet) {
+    public void addInlet(PSocket<Inlet> inlet) {
         System.out.println("PKeyboard does not have inlets");
     }
 
     @Override
-    public void addOutlet(RoutingSocket<Outlet> outlet) {
+    public void addOutlet(PSocket<Outlet> outlet) {
         _outlets.add(outlet);
     }
 
@@ -90,9 +89,9 @@ public class PKeyboard extends PObject implements Outlet,Inlet {
     @Override
     public void receive(String message) {
 
-        for (RoutingSocket outlet : getOutlets() ){
+        for (PSocket outlet : getOutlets() ){
 
-            ( (RoutingSocketView) ((RoutingSocket) outlet).getView() ).getBlinkingLigth().blink();
+            ( (RoutingSocketView) ((PSocket) outlet).getView() ).getBlinkingLigth().blink();
         }
     }
 }

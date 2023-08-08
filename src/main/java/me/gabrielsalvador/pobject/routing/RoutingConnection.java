@@ -9,13 +9,13 @@ import java.io.Serial;
 
 public class RoutingConnection extends PObject {
 
-    private RoutingSocket<Inlet> _inlet;
-    private RoutingSocket<Outlet> _outlet;
+    private PSocket<Inlet> _inlet;
+    private PSocket<Outlet> _outlet;
 
-    public RoutingConnection(RoutingSocket<?> inlet, RoutingSocket<?> outlet) {
+    public RoutingConnection(PSocket<?> inlet, PSocket<?> outlet) {
         super();
-        _inlet = (RoutingSocket<Inlet>) inlet;
-        _outlet = (RoutingSocket<Outlet>) outlet;
+        _inlet = (PSocket<Inlet>) inlet;
+        _outlet = (PSocket<Outlet>) outlet;
         setView(new RoutingConnectionView(this));
     }
     @Override
@@ -38,7 +38,7 @@ public class RoutingConnection extends PObject {
     }
 
     private class RoutingConnectionView implements View<PObject> {
-        public RoutingConnectionView(RoutingConnection routingConnection, RoutingSocket<?> start, RoutingSocket<?> end) {
+        public RoutingConnectionView(RoutingConnection routingConnection, PSocket<?> start, PSocket<?> end) {
         }
 
         public RoutingConnectionView(RoutingConnection routingConnection) {

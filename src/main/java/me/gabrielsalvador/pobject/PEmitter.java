@@ -3,7 +3,7 @@ package me.gabrielsalvador.pobject;
 import me.gabrielsalvador.pobject.routing.Inlet;
 import me.gabrielsalvador.pobject.routing.Outlet;
 import me.gabrielsalvador.pobject.routing.Routing;
-import me.gabrielsalvador.pobject.routing.RoutingSocket;
+import me.gabrielsalvador.pobject.routing.PSocket;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 )
 public class PEmitter extends PObject implements Inlet {
 
-    private ArrayList<RoutingSocket<Inlet>> _inlets = new ArrayList<RoutingSocket<Inlet>>();
+    private ArrayList<PSocket<Inlet>> _inlets = new ArrayList<PSocket<Inlet>>();
 
     public PEmitter() {
         super();
@@ -46,30 +46,30 @@ public class PEmitter extends PObject implements Inlet {
     }
 
     @Override
-    public ArrayList<RoutingSocket<Inlet>> getInlets() {
+    public ArrayList<PSocket<Inlet>> getInlets() {
         return _inlets;
     }
 
     @Override
-    public ArrayList<RoutingSocket<Outlet>> getOutlets() {
+    public ArrayList<PSocket<Outlet>> getOutlets() {
         return null;
     }
 
     @Override
-    public void setInlets(ArrayList<RoutingSocket<Inlet>> inlets) {
+    public void setInlets(ArrayList<PSocket<Inlet>> inlets) {
         _inlets = inlets;
     }
 
     @Override
-    public void setOutlets(ArrayList<RoutingSocket<Outlet>> outlets) {}
+    public void setOutlets(ArrayList<PSocket<Outlet>> outlets) {}
 
     @Override
-    public void addInlet(RoutingSocket<Inlet> inlet) {
+    public void addInlet(PSocket<Inlet> inlet) {
         _inlets.add(inlet);
     }
 
     @Override
-    public void addOutlet(RoutingSocket<Outlet> outlet) {
+    public void addOutlet(PSocket<Outlet> outlet) {
         System.out.println("PKeyboard does not have inlets");
     }
 

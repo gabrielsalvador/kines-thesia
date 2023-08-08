@@ -2,7 +2,6 @@ package me.gabrielsalvador.pobject;
 
 
 import java.io.*;
-import java.net.Socket;
 import java.util.*;
 
 import me.gabrielsalvador.core.AppController;
@@ -46,22 +45,22 @@ public abstract class PObject implements Serializable {
             if (routing != null) {
                 for (SetInlet inlet : routing.inlets()) {
                     if (this instanceof Inlet) {
-                        ArrayList<RoutingSocket<Inlet>> inlets = ((Inlet) this).getInlets();
+                        ArrayList<PSocket<Inlet>> inlets = ((Inlet) this).getInlets();
                         if (inlets == null) {
-                            ((Inlet)this).setInlets(new ArrayList<RoutingSocket<Inlet>>());
+                            ((Inlet)this).setInlets(new ArrayList<PSocket<Inlet>>());
                         }
-                        RoutingSocket<Inlet> i = new RoutingSocket<Inlet>(this);
+                        PSocket<Inlet> i = new PSocket<Inlet>(this);
                         AppController.getInstance().addRoutingSocket(this,i);
                         ((Inlet) this).addInlet(i);
                     }
                 }
                 for (SetOutlet outlet : routing.outlets()) {
                     if (this instanceof Outlet) {
-                        ArrayList<RoutingSocket<Outlet>> outlets = ((Outlet) this).getOutlets();
+                        ArrayList<PSocket<Outlet>> outlets = ((Outlet) this).getOutlets();
                         if (outlets == null) {
-                            ( (Outlet) this).setOutlets(new ArrayList<RoutingSocket<Outlet>>());
+                            ( (Outlet) this).setOutlets(new ArrayList<PSocket<Outlet>>());
                         }
-                        RoutingSocket<Outlet> o = new RoutingSocket<Outlet>(this);
+                        PSocket<Outlet> o = new PSocket<Outlet>(this);
                         AppController.getInstance().addRoutingSocket(this,o);
                         ((Outlet) this).addOutlet(o);
                     }

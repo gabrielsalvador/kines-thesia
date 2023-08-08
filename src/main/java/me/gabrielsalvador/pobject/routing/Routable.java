@@ -3,11 +3,11 @@ package me.gabrielsalvador.pobject.routing;
 import java.util.ArrayList;
 
 public interface Routable {
-    public ArrayList<RoutingSocket<Inlet>> getInlets();
-    public ArrayList<RoutingSocket<Outlet>> getOutlets();
-    public void setInlets(ArrayList<RoutingSocket<Inlet>> inlets);
-    public void setOutlets(ArrayList<RoutingSocket<Outlet>> outlets);
-    public  void addInlet(RoutingSocket<Inlet> inlet);
-    public void addOutlet(RoutingSocket<Outlet> outlet);
+    public ArrayList<PSocket<Inlet>> getInlets();
+    public ArrayList<PSocket<Outlet>> getOutlets();
+    public void setInlets(ArrayList<PSocket<Inlet>> inlets);
+    public void setOutlets(ArrayList<PSocket<Outlet>> outlets);
+    public  void addInlet(PSocket<Inlet> inlet);
+    public void addOutlet(PSocket<Outlet> outlet);
 
 }

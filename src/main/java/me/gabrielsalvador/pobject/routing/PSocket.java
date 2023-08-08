@@ -2,21 +2,16 @@ package me.gabrielsalvador.pobject.routing;
 
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.views.BlinkingLigth;
-import me.gabrielsalvador.views.View;
-import processing.core.PApplet;
-import processing.core.PConstants;
-import processing.core.PGraphics;
 
 import java.io.Serial;
 import java.util.ArrayList;
 
-public class RoutingSocket<T extends Routable> extends PObject{
+public class PSocket<T extends Routable> extends PObject{
     private PObject _owner;
     private Class<T> type;
     private String name;
 
-    public RoutingSocket(PObject _owner) {
+    public PSocket(PObject _owner) {
         super();
         this._owner = _owner;
         setView(new RoutingSocketView(this));
@@ -53,9 +48,9 @@ public class RoutingSocket<T extends Routable> extends PObject{
     public void onPress(int x, int y){
         ArrayList<PObject> objects = AppState.getInstance().getPObjects();
         for (PObject object : objects) {
-            if (!(object instanceof RoutingSocket)) continue;
+            if (!(object instanceof PSocket)) continue;
 
-            RoutingSocket<?> socket = (RoutingSocket<?>) object;
+            PSocket<?> socket = (PSocket<?>) object;
             if (!socket.getView().isMouseOver(x, y)) continue;
             if (socket.getOwner() == this.getOwner()) continue;
             if (!(socket.getOwner() instanceof Routable)) continue;
@@ -71,7 +66,7 @@ public class RoutingSocket<T extends Routable> extends PObject{
 
     }
 
-    private void createAndAddConnection(RoutingSocket<?> source, RoutingSocket<?> destination) {
+    private void createAndAddConnection(PSocket<?> source, PSocket<?> destination) {
         RoutingConnection connection = new RoutingConnection(source, destination);
         AppState.getInstance().addPObject(connection);
     }
