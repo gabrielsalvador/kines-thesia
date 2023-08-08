@@ -94,6 +94,7 @@ public class Sinesthesia extends PApplet {
         keyboard.setPosition(new float[]{200,20});
         AppState.getInstance().addPObject(keyboard);
         PEmitter emitter = new PEmitter();
+        emitter.setPosition(new float[]{200,200});
         AppState.getInstance().addPObject(emitter);
         RoutingConnection connection = new RoutingConnection(keyboard.getOutlets().get(0), emitter.getInlets().get(0));
         AppState.getInstance().addPObject(connection);

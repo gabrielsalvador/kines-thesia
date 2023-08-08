@@ -84,17 +84,16 @@ public class PKeyboard extends PObject implements Outlet,Inlet {
 
     @Override
     public void send(String message) {
-
-    }
-
-    @Override
-    public void receive(String message) {
-
         for (PSocket outlet : getOutlets() ){
             for(RoutingConnection r : getRoutings()){
                 ((Inlet)r.getDestination().getOwner()).receive(message);
             }
             ( (RoutingSocketView) outlet.getView() ).getBlinkingLigth().blink();
         }
+    }
+
+    @Override
+    public void receive(String message) {
+        send(message);
     }
 }
