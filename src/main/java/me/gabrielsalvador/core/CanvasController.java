@@ -2,22 +2,27 @@ package me.gabrielsalvador.core;
 
 import controlP5.*;
 import controlP5.events.ReleasedOutsideListener;
+import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.tools.ToolManager;
 import me.gabrielsalvador.pobject.views.CanvasView;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import me.gabrielsalvador.pobject.PObject;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 // Custom controller class that extends Controller
 public class CanvasController extends Controller<CanvasController> implements ReleasedOutsideListener {
 
     private PObject _currentlyHovering;
     private final ToolManager _toolManager;
+    private final PhysicsManager _physicsManager;
 
     public CanvasController(ControlP5 cp5, String name) {
         super(cp5, name);
         _myControllerView = new CanvasView();
         _toolManager = ToolManager.getInstance();
+        _physicsManager = PhysicsManager.getInstance();
     }
 
 
@@ -116,6 +121,13 @@ public class CanvasController extends Controller<CanvasController> implements Re
         getView().display(graphics, this);
         ToolManager.getInstance().getCurrentTool().draw(graphics);
         graphics.popMatrix();
+
+        _physicsManager.step(1f,8, 3);
+        ConcurrentLinkedQueue<PObject> modifications =  AppController.getInstance().getModificationsQueue();
+        for (PObject obj : modifications){
+            AppState.getInstance().addPObject(obj);
+        }
+
 
     }
 

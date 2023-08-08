@@ -1,21 +1,25 @@
 package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PPhysicsNote;
 import me.gabrielsalvador.pobject.PlayableNote;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
 import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.utils.Vector;
+import org.jbox2d.common.Vec2;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.SynchronousQueue;
 
 
 public class AppController {
     private static AppController _instance;
     private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
-
+    private final ConcurrentLinkedQueue<PObject> _pObjectModificationsQueue = new ConcurrentLinkedQueue<PObject>();
 
     private AppController() {
 
@@ -29,6 +33,8 @@ public class AppController {
         return _instance;
     }
 
+
+
     public  CanvasController getCanvas(){
         if(_canvasController == null){
             _canvasController = (CanvasController) Sinesthesia.getInstance().getCP5().getController("MainCanvas");
@@ -36,12 +42,17 @@ public class AppController {
         return _canvasController;
     }
     public void addPObject(PObject pObject) {
-        AppState.getInstance().addPObject(pObject);
+        queueModification(pObject);
     }
 
     public PlayableNote addPlayableNote(Vector position) {
         PlayableNote note = new PlayableNote().setPosition(position);
         AppState.getInstance().addPObject(note);
+        return note;
+    }
+    public PPhysicsNote addPhysicsNote(Vec2 position) {
+        PPhysicsNote note = new PPhysicsNote(position);
+        AppController.getInstance().addPObject(note);
         return note;
     }
 
@@ -69,6 +80,12 @@ public class AppController {
         _propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
     }
 
+    public void queueModification(PObject modification){
+        _pObjectModificationsQueue.add(modification);
+    }
+    public ConcurrentLinkedQueue<PObject> getModificationsQueue() {
+        return _pObjectModificationsQueue;
+    }
 
     public void clearObjects() {
         AppState.getInstance().clearObjects();
@@ -83,4 +100,6 @@ public class AppController {
     public void addRoutingSocket(PObject owner, PSocket<?> i) {
         AppState.getInstance().addPObject(i);
     }
+
+
 }

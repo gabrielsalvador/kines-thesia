@@ -79,6 +79,7 @@ public class Sinesthesia extends PApplet {
 
     public void draw() {
         background(255);
+
     }
 
     public ControlP5 getCP5() {

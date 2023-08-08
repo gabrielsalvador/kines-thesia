@@ -1,10 +1,12 @@
 package me.gabrielsalvador.pobject;
 
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.routing.Inlet;
 import me.gabrielsalvador.pobject.routing.Outlet;
 import me.gabrielsalvador.pobject.routing.Routing;
 import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.pobject.views.PEmitterView;
+import org.jbox2d.common.Vec2;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -77,6 +79,9 @@ public class PEmitter extends PObject implements Inlet {
 
     @Override
     public void receive(String message) {
+
         System.out.println("emitter got a message!");
+
+        AppController.getInstance().addPhysicsNote(new Vec2(getPosition()[0],getPosition()[1]));
     }
 }
