@@ -122,7 +122,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
         ToolManager.getInstance().getCurrentTool().draw(graphics);
         graphics.popMatrix();
 
-        _physicsManager.step(1f,8, 3);
+        _physicsManager.step(1f/30.0f,8, 3);
         AppController.getInstance().applyModifications();
 
 

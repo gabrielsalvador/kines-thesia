@@ -10,6 +10,7 @@ public class PSocket<T extends Routable> extends PObject{
     private PObject _owner;
     private Class<T> type;
     private String name;
+    private  ArrayList<RoutingConnection> _routings = new ArrayList<RoutingConnection>();
 
     public PSocket(PObject _owner) {
         super();
@@ -69,6 +70,13 @@ public class PSocket<T extends Routable> extends PObject{
     private void createAndAddConnection(PSocket<?> source, PSocket<?> destination) {
         RoutingConnection connection = new RoutingConnection(source, destination);
         AppState.getInstance().addPObject(connection);
+    }
+    public   void addRouting(RoutingConnection r){
+        _routings.add(r);
+    }
+
+    public  ArrayList<RoutingConnection> getRoutings(){
+        return _routings;
     }
     @Override
     public void onEnter(int x, int y) {

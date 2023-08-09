@@ -1,7 +1,7 @@
 package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PPhysicsNote;
+import me.gabrielsalvador.pobject.PhysicsPObject;
 import me.gabrielsalvador.pobject.PlayableNote;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
 import me.gabrielsalvador.pobject.routing.PSocket;
@@ -13,7 +13,6 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.SynchronousQueue;
 
 
 public class AppController {
@@ -51,8 +50,8 @@ public class AppController {
         AppState.getInstance().addPObject(note);
         return note;
     }
-    public PPhysicsNote addPhysicsNote(Vec2 position) {
-        PPhysicsNote note = new PPhysicsNote(position);
+    public PhysicsPObject addPhysicsNote(Vec2 position) {
+        PhysicsPObject note = new PhysicsPObject(position);
         AppController.getInstance().addPObject(note);
         return note;
     }

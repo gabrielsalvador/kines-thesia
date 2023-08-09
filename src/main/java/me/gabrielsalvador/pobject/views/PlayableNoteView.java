@@ -7,7 +7,7 @@ import me.gabrielsalvador.utils.Vector;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
-public class PlayableNoteView extends PObjectView implements View<PObject> {
+public class PlayableNoteView  implements View<PObject> {
 
     private PObject _model;
 

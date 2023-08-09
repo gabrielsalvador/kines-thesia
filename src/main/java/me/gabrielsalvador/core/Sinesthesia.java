@@ -12,6 +12,7 @@ import me.gabrielsalvador.pobject.InspectorController;
 import me.gabrielsalvador.pobject.PEmitter;
 import me.gabrielsalvador.pobject.PKeyboard;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.routing.Routable;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
 import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.SequencerController;
@@ -90,29 +91,21 @@ public class Sinesthesia extends PApplet {
     }
 
     private void loadAppState() {
-        PKeyboard keyboard = new PKeyboard();
-        keyboard.setPosition(new float[]{200,20});
-        AppState.getInstance().addPObject(keyboard);
-        PEmitter emitter = new PEmitter();
-        emitter.setPosition(new float[]{200,200});
-        AppState.getInstance().addPObject(emitter);
-        RoutingConnection connection = new RoutingConnection(keyboard.getOutlets().get(0), emitter.getInlets().get(0));
-        AppState.getInstance().addPObject(connection);
 
+        try (FileInputStream fileIn = new FileInputStream("appState.ser");
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            AppState loadedState = (AppState) in.readObject();
+            AppState.getInstance().setCurrentTool(loadedState.getCurrentTool());
+            for (PObject pObject : loadedState.getPObjects()) {
+                AppState.getInstance().addPObject(pObject);
+            }
 
+        } catch (ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        //ry (FileInputStream fileIn = new FileInputStream("appState.ser");
-        //    ObjectInputStream in = new ObjectInputStream(fileIn)) {
-        //   AppState loadedState = (AppState) in.readObject();
-        //   AppState.getInstance().setCurrentTool(loadedState.getCurrentTool());
-        //   for (PObject pObject : loadedState.getPObjects()) {
-        //       AppState.getInstance().addPObject(pObject);
-        //   }
-        // catch (IOException | ClassNotFoundException e) {
-        //   e.printStackTrace();
-        //
     }
-    public void dispose() {
+        public void dispose() {
         // Save the app state
         try (FileOutputStream fileOut = new FileOutputStream("appState.ser");
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {

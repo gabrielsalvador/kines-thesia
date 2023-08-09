@@ -36,8 +36,8 @@ public class SequencerController extends Controller<SequencerController> impleme
         }
     }
     private void sendNoteEvent(int time, int pitch) {
+        /* Send note event to all connected PObjects */
         for (Inlet inlet : _connectedPObject) {
-            // Assuming the Inlet class has a method to handle note events
             inlet.receive("%d,%d".formatted(time,pitch));
         }
     }

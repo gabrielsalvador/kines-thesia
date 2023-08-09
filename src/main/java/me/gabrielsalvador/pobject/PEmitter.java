@@ -80,8 +80,8 @@ public class PEmitter extends PObject implements Inlet {
     @Override
     public void receive(String message) {
 
-        System.out.println("emitter got a message!");
-
-        AppController.getInstance().addPhysicsNote(new Vec2(getPosition()[0],getPosition()[1]));
+        PhysicsPObject p = AppController.getInstance().addPhysicsNote(new Vec2(getPosition()[0],getPosition()[1]));
+        //add initial velocity
+        p.getBody().setLinearVelocity(new Vec2(0, 50));
     }
 }

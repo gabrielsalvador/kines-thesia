@@ -3,7 +3,7 @@ package me.gabrielsalvador.pobject.views;
 import me.gabrielsalvador.pobject.PObject;
 import processing.core.PGraphics;
 
-public class PEmitterView extends PObjectView implements View<PObject> {
+public class PEmitterView  implements View<PObject> {
 
     private PObject _model;
 

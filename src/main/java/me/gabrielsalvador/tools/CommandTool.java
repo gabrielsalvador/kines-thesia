@@ -7,10 +7,9 @@ import me.gabrielsalvador.common.SkipProcessing;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.core.CanvasController;
-import me.gabrielsalvador.pobject.PEmitter;
-import me.gabrielsalvador.pobject.PKeyboard;
-import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.*;
 import me.gabrielsalvador.utils.Vector;
+import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
@@ -104,7 +103,14 @@ public class CommandTool extends Tool {
                     PEmitter pEmitter = new PEmitter();
                     pEmitter.setPosition(new float[]{x,y});
                     AppController.getInstance().addPObject(pEmitter);
+                }else if(args[1].equals("block")) {
+                    PhysicsPObject pPhysicsBlock = new PhysicsPObject(new Vec2(x, y));
+                    //set body to kinematic
+                    pPhysicsBlock.getBody().setType(org.jbox2d.dynamics.BodyType.KINEMATIC);
+                    AppController.getInstance().addPObject(pPhysicsBlock);
+
                 }
+
                 else {
                     AppController.getInstance().addPlayableNote(new Vector(x,y));
                 }

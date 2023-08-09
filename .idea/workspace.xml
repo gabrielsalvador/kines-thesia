@@ -5,10 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8dd3a229-cf9e-48ee-b8a0-e757222cccff" name="Changes" comment="idea config files">
+      <change afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PhysicsPObjectView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/appState.ser" beforeDir="false" afterPath="$PROJECT_DIR$/appState.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/CanvasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/CanvasController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PEmitter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PEmitter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PKeyboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PKeyboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PPhysicsNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsPObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/PSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/PSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/Routable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/Routable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/RoutingConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/RoutingConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PEmitterView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PEmitterView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PKeyboardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PKeyboardView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PObjectView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PlayableNoteView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PlayableNoteView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/sequencing/Clock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/sequencing/Clock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/sequencing/SequencerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/sequencing/SequencerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/CommandTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/CommandTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/RoutingTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/RoutingTool.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +78,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;physics&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;temurin-17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/gabrielsalvador/Code/sines-thesia&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/gabrielsalvador/Code/sines-thesia/src/main/java/me/gabrielsalvador/pobject&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15429688&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.48965517&quot;,
@@ -69,11 +87,12 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="me.gabrielsalvador.pobject" />
       <recent name="me.gabrielsalvador.core" />
       <recent name="me.gabrielsalvador.sequencing" />
-      <recent name="me.gabrielsalvador.pobject" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject" />
       <recent name="$PROJECT_DIR$/lib" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -203,17 +222,25 @@
           <line>113</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/me/gabrielsalvador/sequencing/Clock.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PObject.java</url>
-          <line>27</line>
-          <option name="timeStamp" value="32" />
+          <url>file://$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PhysicsPObjectView.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.routing.PSocket" memberName="_owner" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.views.PhysicsPObjectView" memberName="_model" />
         <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PObjectProperty" memberName="type" />
         <PinnedItemInfo parentTag="controlP5.Group" memberName="absolutePosition" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PKeyboard" memberName="_outlets" />
       </pinned-members>
     </pin-to-top-manager>
   </component>

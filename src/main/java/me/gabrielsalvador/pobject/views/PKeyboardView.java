@@ -6,7 +6,7 @@ import processing.core.PGraphics;
 
 
 
-public class PKeyboardView extends PObjectView implements View<PObject> {
+public class PKeyboardView  implements View<PObject> {
 
     private PObject _model;
 
@@ -52,10 +52,6 @@ public class PKeyboardView extends PObjectView implements View<PObject> {
                 graphics.rect(offsetX + i * keyWidth + keyWidth / 2, offsetY, keyWidth / 2, keyHeight / 2);
             }
         }
-
-
-
-
 
         graphics.popStyle();
         graphics.popMatrix();

@@ -15,7 +15,9 @@ public class RoutingConnection extends PObject {
     public RoutingConnection(PSocket<?> inlet, PSocket<?> outlet) {
         super();
         _source = (PSocket<Inlet>) inlet;
+        _source.addRouting(this);
         _destination = (PSocket<Outlet>) outlet;
+        _destination.addRouting(this);
         setView(new RoutingConnectionView(this));
     }
     @Override

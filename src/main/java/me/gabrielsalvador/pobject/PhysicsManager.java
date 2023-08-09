@@ -1,18 +1,22 @@
 package me.gabrielsalvador.pobject;
 
 
-import me.gabrielsalvador.Config;
+
+import org.jbox2d.callbacks.ContactImpulse;
+import org.jbox2d.callbacks.ContactListener;
+import org.jbox2d.collision.Manifold;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
+import org.jbox2d.dynamics.contacts.Contact;
 
 
 public class PhysicsManager {
     private static PhysicsManager _instance;
     private final Vec2 _gravity = new Vec2(0,9.8f);
-    private World _world = new World(_gravity);
+    private final World _world = new World(_gravity);
     private PhysicsManager(){
-
+        _world.setContactListener(new myContactListener());
     }
     public static PhysicsManager getInstance() {
         if (_instance == null) {
@@ -33,13 +37,14 @@ public class PhysicsManager {
 
 
         CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(radius); // set radius of circle
+        circleShape.setRadius(radius);
 
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = circleShape;
-        fixtureDef.density = 1.0f;
+        fixtureDef.density = 10.0f;
         fixtureDef.friction = 0.3f;
+        fixtureDef.restitution = 0.5f;
 
         // 6. Attach the shape to the body
         circleBody.createFixture(fixtureDef);
@@ -51,4 +56,33 @@ public class PhysicsManager {
         _world.step(timeStep, velocityIterations, positionIterations);
     }
 
+    public World getWorld() {
+        return _world;
+    }
+
+
+}
+
+class myContactListener implements ContactListener{
+
+    @Override
+    public void beginContact(Contact contact) {
+        System.out.println("beginContact");
+        contact.m_fixtureB.getBody().applyForce(new Vec2(0,500),contact.m_fixtureA.getBody().getPosition());
+    }
+
+    @Override
+    public void endContact(Contact contact) {
+
+    }
+
+    @Override
+    public void preSolve(Contact contact, Manifold manifold) {
+
+    }
+
+    @Override
+    public void postSolve(Contact contact, ContactImpulse contactImpulse) {
+
+    }
 }
