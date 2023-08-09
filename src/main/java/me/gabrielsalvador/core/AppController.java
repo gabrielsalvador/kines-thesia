@@ -7,7 +7,6 @@ import me.gabrielsalvador.pobject.routing.RoutingConnection;
 import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.utils.Vector;
 import org.jbox2d.common.Vec2;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;

@@ -7,8 +7,16 @@
     <list default="true" id="8dd3a229-cf9e-48ee-b8a0-e757222cccff" name="Changes" comment="idea config files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/appState.ser" beforeDir="false" afterPath="$PROJECT_DIR$/appState.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PKeyboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PKeyboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AppControllerTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GeneralTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/InputTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PObjectPropertyTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PObjectTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/StateTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ToolTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,6 +221,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PKeyboard.java</url>
           <line>87</line>
           <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/RoutingTool.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="45" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
