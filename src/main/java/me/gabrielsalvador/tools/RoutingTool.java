@@ -40,7 +40,6 @@ public class RoutingTool extends Tool {
                     RoutingConnection connection = new RoutingConnection(start, end);
                     start.addRouting(connection);
                     end.addRouting(connection);
-
                     AppState.getInstance().addPObject(connection);
                 }
             }

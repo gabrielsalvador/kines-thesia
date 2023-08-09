@@ -101,7 +101,7 @@ public class Sinesthesia extends PApplet {
             }
 
         } catch (ClassNotFoundException | IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
     }
