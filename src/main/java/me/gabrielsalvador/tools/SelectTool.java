@@ -68,8 +68,7 @@ public class SelectTool extends Tool {
 
     @Override
     public void onRelease(PObject pObject) {
-        if (pObject == null) return;
-
+        if (pObject != null) return;
             selectedObjects.clear();
             AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
 
