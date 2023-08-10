@@ -22,6 +22,7 @@ class ToolboxController extends Group {
 
 
     public void didSetupLayout() {
+        /*Gets all the tools available in the code and builds the ToolBox*/
         Set<Class<? extends Tool>> tools = ToolManager.getInstance().getTools();
         for (Class<? extends Tool> tool : tools) {
             if (tool.isAnnotationPresent(SkipProcessing.class)) {
@@ -29,7 +30,7 @@ class ToolboxController extends Group {
             }
             String uii = UUID.randomUUID().toString();
             Button b = new Button(cp5, uii);
-            b.getCaptionLabel().show();
+            b.getCaptionLabel().setText(tool.getSimpleName());
             b.addListener(new ControlListener() {
                 @Override
                 public void controlEvent(ControlEvent controlEvent) {
