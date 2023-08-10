@@ -3,6 +3,7 @@ package me.gabrielsalvador.pobject.routing;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.views.View;
+import processing.core.PApplet;
 import processing.core.PGraphics;
 
 import java.io.Serial;
@@ -65,7 +66,10 @@ public class RoutingConnection extends PObject {
             float[] start = _source.getPosition();
             float[] end = _destination.getPosition();
             graphics.pushStyle();
-            graphics.stroke(Config.THEME_COLOR_ROUTING_CONNECTION);
+            if(getIsSelected())
+                graphics.stroke(Config.THEME_COLOR_SELECTED);
+            else
+                graphics.stroke(Config.THEME_COLOR_ROUTING_CONNECTION);
             graphics.strokeWeight(2);
             graphics.line(start[0], start[1], end[0], end[1]);
             graphics.popStyle();
@@ -74,7 +78,29 @@ public class RoutingConnection extends PObject {
 
         @Override
         public boolean isMouseOver(int mouseX, int mouseY) {
-            return false;
+            float[] start = _source.getPosition();
+            float[] end = _destination.getPosition();
+
+            // Find the distances from the point to the start and end of the line
+            float distanceToStart = PApplet.dist(mouseX, mouseY, start[0], start[1]);
+            float distanceToEnd = PApplet.dist(mouseX, mouseY, end[0], end[1]);
+
+            // Length of the line
+            float lineLength = PApplet.dist(start[0], start[1], end[0], end[1]);
+
+            if (distanceToStart + distanceToEnd > lineLength + 0.5) {
+                // The mouse is not over the extended line
+                return false;
+            }
+
+            // Calculate the distance from the point to the line segment
+            float A = mouseY - start[1] - (end[1] - start[1]) / (end[0] - start[0]) * (mouseX - start[0]);
+            float lineDist = Math.abs(A) / (float) Math.sqrt(1 + Math.pow((end[1] - start[1]) / (end[0] - start[0]), 2));
+
+            // Threshold for deciding whether the mouse is over the line
+            float threshold = 2.0f;
+
+            return lineDist <= threshold;
         }
     }
 }
