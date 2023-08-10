@@ -50,6 +50,13 @@ public class ToolManager  {
             e.printStackTrace();
         }
     }
+    public void popTool() {
+        if (_toolHistory.size() > 1) {
+            Tool oldTool = _toolHistory.pop();
+            Tool newTool = _toolHistory.peek();
+            _propertyChangeSupport.firePropertyChange("currentTool", oldTool, newTool);
+        }
+    }
 
     private void loadToolClasses() {
 
@@ -103,6 +110,7 @@ public class ToolManager  {
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         _propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
     }
+
 
 
 }

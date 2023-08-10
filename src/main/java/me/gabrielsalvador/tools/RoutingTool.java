@@ -11,7 +11,7 @@ import processing.event.KeyEvent;
 
 public class RoutingTool extends Tool {
 
-    PSocket<?> start = null;
+    private PSocket<?> start = null;
 
     @Override
     public void keyEvent(KeyEvent keyEvent) {
@@ -62,5 +62,9 @@ public class RoutingTool extends Tool {
            graphics.line(start.getPosition()[0], start.getPosition()[1], mouse[0], mouse[1]);
            graphics.popStyle();
        }
+    }
+
+    public boolean isRouting() {
+        return start != null;
     }
 }

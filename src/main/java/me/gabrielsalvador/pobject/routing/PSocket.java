@@ -2,6 +2,8 @@ package me.gabrielsalvador.pobject.routing;
 
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.tools.RoutingTool;
+import me.gabrielsalvador.tools.ToolManager;
 
 import java.io.Serial;
 import java.util.ArrayList;
@@ -80,12 +82,17 @@ public class PSocket<T extends Routable> extends PObject{
     }
     @Override
     public void onEnter(int x, int y) {
-
+        ToolManager.getInstance().pushTool(RoutingTool.class);
     }
 
     @Override
     public void onLeave(int x, int y) {
-
+        //if not in the middle of a connection
+        if (ToolManager.getInstance().getCurrentTool() instanceof RoutingTool routingTool) {
+            if (!routingTool.isRouting()) {
+                ToolManager.getInstance().popTool();
+            }
+        }
     }
 }
 
