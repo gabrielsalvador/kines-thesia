@@ -34,11 +34,7 @@ class ToolboxController extends Group {
             b.addListener(new ControlListener() {
                 @Override
                 public void controlEvent(ControlEvent controlEvent) {
-                    try {
-                        ToolManager.getInstance().setCurrentTool(tool);
-                    } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
+                    ToolManager.getInstance().pushTool(tool);
                 }
             });
             b.setSwitch(true);

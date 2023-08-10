@@ -4,25 +4,23 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
 import org.reflections.Reflections;
 import processing.event.KeyEvent;
 
 
 public class ToolManager  {
     private static ToolManager _instance;
-    private Tool _currentTool = new SelectTool();
-
-    protected Set<Class<? extends Tool>> tools = new HashSet<>();
+    private Stack<Tool> _toolHistory = new Stack<>();
+    protected Set<Class<? extends Tool>> availableTools = new HashSet<>();
     protected Map<Character, Class<? extends Tool>> keyMappings = new HashMap<>();
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
 
 
     private ToolManager() {
         loadToolClasses();
+        _toolHistory.push(new SelectTool());
     }
 
     public static synchronized ToolManager getInstance() {
@@ -34,19 +32,25 @@ public class ToolManager  {
     }
 
     public Tool getCurrentTool() {
-        return _currentTool;
+        return _toolHistory.peek();
     }
 
-    public void setCurrentTool(Tool tool) {
-        Tool oldTool = this._currentTool;
-        this._currentTool = tool;
-        _propertyChangeSupport.firePropertyChange("currentTool", oldTool, tool);
+
+    public void pushTool(Class<? extends Tool> toolClass) {
+        Tool oldTool = _toolHistory.peek();
+        if(oldTool.getClass() == toolClass) return; // Don't push the same tool twice
+
+        try {
+            Tool newTool = toolClass.getDeclaredConstructor().newInstance();
+
+            _toolHistory.push(newTool);
+
+            _propertyChangeSupport.firePropertyChange("currentTool", oldTool, newTool);
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setCurrentTool(Class<? extends Tool> tool) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Tool newTool = tool.getConstructor().newInstance();
-        setCurrentTool(newTool);
-    }
     private void loadToolClasses() {
 
         Reflections reflections = new Reflections("me.gabrielsalvador.tools");
@@ -54,7 +58,7 @@ public class ToolManager  {
 
         for (Class<? extends Tool> toolClass : toolClasses) {
             if (!Modifier.isAbstract(toolClass.getModifiers())) { // Exclude abstract classes
-                tools.add(toolClass);
+                availableTools.add(toolClass);
                 char key = getShortcutForTool(toolClass);
                 keyMappings.put(key, toolClass);
             }
@@ -82,24 +86,19 @@ public class ToolManager  {
         //tool keyboard shortcuts
         if (keyMappings.containsKey(key)) {
             // Instantiate the tool class and set it as the current tool.
-            try {
-                Class<? extends Tool> toolClass = keyMappings.get(key);
-                Tool newTool = toolClass.getDeclaredConstructor().newInstance();
-                setCurrentTool(newTool);
-
-            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-                e.printStackTrace();
-            }
+            pushTool(keyMappings.get(key));
 
         }
         //send KeyEvent to tool
-        _currentTool.keyEvent(event);
+        _toolHistory.peek().keyEvent(event);
 
     }
 
     public Set<Class<? extends Tool>> getTools() {
-        return tools;
+        return availableTools;
     }
+
+
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         _propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
