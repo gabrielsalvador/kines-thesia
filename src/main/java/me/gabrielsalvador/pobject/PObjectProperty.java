@@ -22,6 +22,7 @@ public class PObjectProperty implements Serializable {
     }
 
     public Object getValue() {
+
         return value;
     }
 

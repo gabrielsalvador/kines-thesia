@@ -17,6 +17,7 @@ public class PEmitterView  implements View<PObject> {
     }
 
     public void display(PGraphics graphics) {
+        graphics.pushStyle();
         float[] position = _model.getPosition();
 
         // Set color when active
@@ -30,7 +31,7 @@ public class PEmitterView  implements View<PObject> {
         graphics.fill(255);  // white
         float[] size = _model.getSize();
         graphics.ellipse(position[0], position[1], size[0], size[1]);
-
+        graphics.popStyle();
     }
 
     public boolean isMouseOver(int mouseX, int mouseY) {
