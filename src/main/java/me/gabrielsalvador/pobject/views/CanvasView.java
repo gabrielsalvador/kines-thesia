@@ -4,6 +4,7 @@ package me.gabrielsalvador.pobject.views;
 import java.util.ArrayList;
 
 import controlP5.ControllerView;
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.core.CanvasController;
@@ -12,12 +13,16 @@ import processing.core.PGraphics;
 
 public class CanvasView implements ControllerView<CanvasController> {
 
-    private ArrayList<PObject> pObjects;
-    private ArrayList<View> gizmos;
+    private final ArrayList<PObject> pObjects;
+
+
+
+    /* Objects that are not part of the physics simulation , they are display only as aid for some features*/
+    private final ArrayList<View> gizmos;
 
     public CanvasView() {
         pObjects = AppState.getInstance().getPObjects();
-        gizmos = AppState.getInstance().getGizmos();
+        gizmos = AppController.getInstance().getGizmos();
     }
 
 
@@ -42,4 +47,6 @@ public class CanvasView implements ControllerView<CanvasController> {
 
         gizmos.forEach(gizmo -> gizmo.display(graphics));
     }
+
+
   }

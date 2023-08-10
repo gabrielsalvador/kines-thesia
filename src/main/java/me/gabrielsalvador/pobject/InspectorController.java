@@ -5,6 +5,7 @@ import me.gabrielsalvador.core.AppController;
 import processing.core.PVector;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -28,8 +29,12 @@ public class InspectorController extends Group implements PropertyChangeListener
     public void propertyChange(PropertyChangeEvent evt) {
         this.clear();
         if (evt.getNewValue() == null) return;
-        if (!(evt.getNewValue() instanceof PObject selectedObject)) return;
         if (!evt.getPropertyName().equals("selectedObjects")) return;
+        if (!(evt.getNewValue() instanceof ArrayList selectedObjects)) return;
+        if (selectedObjects.size() == 0) return;
+
+        /* For now we only edit the first element of the array, later I will work on an averaging system or something like that.*/
+        PObject selectedObject = (PObject) selectedObjects.get(0);
 
         /* Get the properties from the object */
         HashMap<String, PObjectProperty> properties = selectedObject.getProperties();

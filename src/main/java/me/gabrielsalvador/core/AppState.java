@@ -41,6 +41,7 @@ public class AppState implements Serializable {
     }
     public ArrayList<View> getGizmos() {  return _gizmos;}
 
+
     public void addPObject(PObject pObject) {
         _pObjects.add(pObject);
     }

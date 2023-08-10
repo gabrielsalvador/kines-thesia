@@ -5,6 +5,7 @@ import me.gabrielsalvador.pobject.PhysicsPObject;
 import me.gabrielsalvador.pobject.PlayableNote;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
 import me.gabrielsalvador.pobject.routing.PSocket;
+import me.gabrielsalvador.pobject.views.View;
 import me.gabrielsalvador.utils.Vector;
 import org.jbox2d.common.Vec2;
 import java.beans.PropertyChangeListener;
@@ -16,12 +17,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class AppController {
     private static AppController _instance;
+    private static AppState _appState;
     private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
     private final ConcurrentLinkedQueue<PObject> _pObjectModificationsQueue = new ConcurrentLinkedQueue<PObject>();
 
     private AppController() {
-
+        _appState = AppState.getInstance();
     }
 
     public static synchronized AppController getInstance() {
@@ -53,6 +55,14 @@ public class AppController {
         PhysicsPObject note = new PhysicsPObject(position);
         AppController.getInstance().addPObject(note);
         return note;
+    }
+
+    public ArrayList<View> getGizmos() {
+        return _appState.getGizmos();
+    }
+    public void addGizmo(View gizmo) {
+        ArrayList<View> gizmos = _appState.getGizmos();
+        gizmos.add(gizmo);
     }
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {

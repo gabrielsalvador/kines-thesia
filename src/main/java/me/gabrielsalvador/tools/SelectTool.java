@@ -1,11 +1,14 @@
 package me.gabrielsalvador.tools;
 
 import java.util.ArrayList;
+
 import controlP5.ControlP5;
+import controlP5.Pointer;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.views.View;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 
@@ -13,8 +16,6 @@ public class SelectTool extends Tool {
 
     private ControlP5 _cp5;
     private ArrayList<PObject> selectedObjects = new ArrayList<PObject>();
-    private boolean isCloning = false; // Keep track of whether the object is being cloned
-    private PObject clonedObject = null; // Reference to the cloned object
 
 
     public SelectTool() {
@@ -23,6 +24,7 @@ public class SelectTool extends Tool {
 
     @Override
     public void keyEvent(KeyEvent keyEvent) {
+
 
     }
 
@@ -33,18 +35,16 @@ public class SelectTool extends Tool {
 
     @Override
     public void onPressed(PObject pObject) {
-
         if (pObject != null) {
-            if(!pObject.getIsSelected()){
+            if (!pObject.getIsSelected()) {
                 selectedObjects.clear();
             }
             selectedObjects.add(pObject);
-            AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
 
-        }else{
+        } else {
             selectedObjects.clear();
-            AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
         }
+        AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
     }
 
 
@@ -62,26 +62,17 @@ public class SelectTool extends Tool {
 
     @Override
     public void draw(PGraphics graphics) {
+
+
     }
 
     @Override
     public void onRelease(PObject pObject) {
+        if (pObject == null) return;
 
-        //add object and remove gizmo
-        if (isCloning) {
-            AppState.getInstance().addPObject(clonedObject);
-            AppState.getInstance().getGizmos().remove(clonedObject.getView());
-        }
-
-        isCloning = false;
-        clonedObject = null;
-
-        if (pObject == null) {
             selectedObjects.clear();
             AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
-        }
 
     }
-
 }
 
