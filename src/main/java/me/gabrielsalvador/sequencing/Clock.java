@@ -1,5 +1,7 @@
 package me.gabrielsalvador.sequencing;
 
+import me.gabrielsalvador.pobject.PObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -46,9 +48,19 @@ public class Clock {
     }
     int i = 0;
     private void startTickExecutor() {
-        executorService.scheduleAtFixedRate(()->{
-            for (Device d : _devices) {
-                d.clockTick();
+        executorService.scheduleAtFixedRate(() -> {
+            try {
+                System.out.println("Task started.");
+
+                // Your task logic
+                for (Device d : _devices) {
+                    d.clockTick();
+                }
+
+                System.out.println("Task completed.");
+            } catch (Exception e) {
+                System.err.println("Exception caught inside the task.");
+                e.printStackTrace();
             }
         }, 0, getPeriod(), TimeUnit.MILLISECONDS);
     }

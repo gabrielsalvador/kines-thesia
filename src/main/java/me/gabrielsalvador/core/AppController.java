@@ -52,7 +52,8 @@ public class AppController {
         return note;
     }
     public PhysicsPObject addPhysicsNote(Vec2 position) {
-        PhysicsPObject note = new PhysicsPObject(position);
+        PhysicsPObject note = new PhysicsPObject();
+        note.setPosition(new float[]{position.x, position.y});
         AppController.getInstance().addPObject(note);
         return note;
     }

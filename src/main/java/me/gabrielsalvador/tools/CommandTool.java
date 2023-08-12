@@ -104,7 +104,7 @@ public class CommandTool extends Tool {
                     pEmitter.setPosition(new float[]{x,y});
                     AppController.getInstance().addPObject(pEmitter);
                 }else if(args[1].equals("block")) {
-                    PhysicsPObject pPhysicsBlock = new PhysicsPObject(new Vec2(x, y));
+                    PhysicsPObject pPhysicsBlock = new PhysicsPObject().setPosition(new float[]{x,y});
                     //set body to kinematic
                     pPhysicsBlock.getBody().setType(org.jbox2d.dynamics.BodyType.KINEMATIC);
                     AppController.getInstance().addPObject(pPhysicsBlock);

@@ -14,8 +14,6 @@ import me.gabrielsalvador.pobject.views.View;
         @Property(name = "size", type = float[].class,defaultValue = "{100,100}")
 })
 public abstract class PObject implements Serializable {
-
-
     private boolean _isSelected = false;
     private boolean _isHovered = false;
     private final Set<PObject> _children = new HashSet<PObject>();

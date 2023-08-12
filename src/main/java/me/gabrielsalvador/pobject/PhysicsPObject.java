@@ -13,11 +13,10 @@ import java.io.Serial;
 
 public class PhysicsPObject extends PObject{
     transient private Body _body;
-    private Vec2 bufferPosition; // used for serialization
+    private Vec2 bufferPosition = new Vec2(); // used for serialization
     private ContactListener _contactListener;
 
-    public PhysicsPObject(Vec2 position){
-        bufferPosition = position;
+    public PhysicsPObject(){
         initialize();
 
     }
@@ -45,7 +44,8 @@ public class PhysicsPObject extends PObject{
         return new float[]{pos.x,pos.y};
     }
     @Override
-    public PObject setPosition(float[] position){
+    public PhysicsPObject setPosition(float[] position){
+        bufferPosition = new Vec2(position[0],position[1]);
         _body.setTransform(new Vec2(position[0],position[1]),_body.getAngle());
         return this;
     }

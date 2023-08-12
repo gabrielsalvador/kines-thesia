@@ -32,13 +32,10 @@ public class PhysicsManager {
         bodyDef.type = BodyType.DYNAMIC; 
         bodyDef.position.set(position);
 
-
         Body circleBody = _world.createBody(bodyDef);
-
 
         CircleShape circleShape = new CircleShape();
         circleShape.setRadius(radius);
-
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = circleShape;
