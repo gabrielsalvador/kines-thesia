@@ -9,10 +9,7 @@ import me.gabrielsalvador.pobject.routing.*;
 import me.gabrielsalvador.pobject.views.View;
 
 
-@Properties({
-        @Property(name = "position", type = float[].class),
-        @Property(name = "size", type = float[].class,defaultValue = "{100,100}")
-})
+
 public abstract class PObject implements Serializable {
     private boolean _isSelected = false;
     private boolean _isHovered = false;
