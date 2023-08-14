@@ -131,4 +131,9 @@ public abstract class PObject implements Serializable {
     }
 
 
+   //get components
+    public <T extends Component> HashMap<Class<? extends Component>,Component> getComponents() {
+        return _components;
+    }
+
 }

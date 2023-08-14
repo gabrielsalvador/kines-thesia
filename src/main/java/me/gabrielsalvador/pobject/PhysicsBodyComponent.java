@@ -10,9 +10,10 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
 
+import java.util.ArrayList;
+
 public class PhysicsBodyComponent implements BodyComponent {
     private Body _body;
-
     public PhysicsBodyComponent(Vec2 position) {
         _body = PhysicsManager.getInstance().createCircle(position,5);
     }
@@ -26,7 +27,6 @@ public class PhysicsBodyComponent implements BodyComponent {
         _body.setTransform(position, _body.getAngle());
         return this;
     }
-
 
 
     @Override
@@ -56,6 +56,21 @@ public class PhysicsBodyComponent implements BodyComponent {
 
     @Override
     public void update() {
+
+    }
+
+    @Override
+    public String getName() {
+        return "PhysicsBody";
+    }
+
+    @Override
+    public ArrayList<PObjectProperty> getProperties() {
+        //just a test
+        PObjectProperty p = new PObjectProperty("test",int.class);
+        ArrayList<PObjectProperty> list = new ArrayList<>();
+        list.add(p);
+        return list;
 
     }
 

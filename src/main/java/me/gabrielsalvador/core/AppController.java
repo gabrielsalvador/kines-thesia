@@ -1,7 +1,6 @@
 package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PhysicsPObject;
 import me.gabrielsalvador.pobject.PlayableNote;
 import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
@@ -50,12 +49,6 @@ public class AppController {
         PlayableNote note = new PlayableNote();
         BodyComponent body = note.getBodyComponent().setPosition(position);
         AppState.getInstance().addPObject(note);
-        return note;
-    }
-    public PhysicsPObject addPhysicsNote(Vec2 position) {
-        PhysicsPObject note = new PhysicsPObject(position);
-        note.setPosition(new float[]{position.x, position.y});
-        AppController.getInstance().addPObject(note);
         return note;
     }
 

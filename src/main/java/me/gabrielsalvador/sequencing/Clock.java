@@ -50,14 +50,13 @@ public class Clock {
     private void startTickExecutor() {
         executorService.scheduleAtFixedRate(() -> {
             try {
-                System.out.println("Task started.");
 
                 // Your task logic
                 for (Device d : _devices) {
                     d.clockTick();
                 }
 
-                System.out.println("Task completed.");
+
             } catch (Exception e) {
                 System.err.println("Exception caught inside the task.");
                 e.printStackTrace();

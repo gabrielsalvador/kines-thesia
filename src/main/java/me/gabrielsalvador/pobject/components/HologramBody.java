@@ -1,8 +1,11 @@
 package me.gabrielsalvador.pobject.components;
 
+import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.pobject.views.RectangleShape;
 import me.gabrielsalvador.pobject.views.Shape;
 import org.jbox2d.common.Vec2;
+
+import java.util.ArrayList;
 
 public class HologramBody implements BodyComponent{
 
@@ -45,5 +48,19 @@ public class HologramBody implements BodyComponent{
     @Override
     public void update() {
 
+    }
+
+    @Override
+    public String getName() {
+        return "HologramBody";
+    }
+
+    @Override
+    public ArrayList<PObjectProperty> getProperties() {
+        //just a test
+        PObjectProperty p = new PObjectProperty("test",int.class);
+        ArrayList<PObjectProperty> list = new ArrayList<>();
+        list.add(p);
+        return list;
     }
 }

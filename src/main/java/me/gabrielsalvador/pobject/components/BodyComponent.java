@@ -14,7 +14,6 @@ public interface BodyComponent extends Component {
     public Vec2 getPosition();
     public BodyComponent setPosition(Vec2 position);
 
-
     Shape getShape();
 
     void setShape(Shape shape);

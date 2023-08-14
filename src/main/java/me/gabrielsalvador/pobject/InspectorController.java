@@ -2,6 +2,7 @@ package me.gabrielsalvador.pobject;
 
 import controlP5.*;
 import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.pobject.components.Component;
 import processing.core.PVector;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -36,17 +37,29 @@ public class InspectorController extends Group implements PropertyChangeListener
         /* For now we only edit the first element of the array, later I will work on an averaging system or something like that.*/
         PObject selectedObject = (PObject) selectedObjects.get(0);
 
-        /* Get the properties from the object */
-        HashMap<String, PObjectProperty> properties = selectedObject.getProperties();
+        /* Get the components from the object */
+        HashMap<Class<? extends Component>, Component> components = selectedObject.getComponents();
 
-        /* Iterate over the properties and build the controllers to change them*/
-        for (String key : properties.keySet()) {
-            PObjectProperty property = properties.get(key);
-            Class<?> type = property.getType();
+        /* Iterate over the components and build the controllers to change them*/
+        for (Class<?> key : components.keySet()) {
+            Component component = components.get(key);
 
-            buildGroupForProperty(property, type);
+
+            buildGroupsForComponent(component);
         }
 
+    }
+
+    private void buildGroupsForComponent(Component component) {
+        Textlabel label = new Textlabel(cp5, "label" + component.getClass().getName());
+        label.setText("Component: " + component.getName());
+        addChildVertically(label);
+
+
+        ArrayList<PObjectProperty> properties = component.getProperties();
+        for (PObjectProperty property : properties) {
+            buildGroupForProperty(property, property.getType());
+        }
     }
 
     private void buildGroupForProperty(PObjectProperty property, Class<?> type) {
