@@ -4,11 +4,9 @@ package me.gabrielsalvador.pobject;
 import java.io.*;
 import java.util.*;
 
-import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.components.HologramBody;
-import me.gabrielsalvador.pobject.routing.*;
 import me.gabrielsalvador.pobject.views.View;
 
 
@@ -23,6 +21,7 @@ public abstract class PObject implements Serializable {
 
 
     public PObject() {
+        //default body for every PObject
         addComponent(BodyComponent.class,new HologramBody());
     }
 
@@ -81,7 +80,7 @@ public abstract class PObject implements Serializable {
         return _view;
     }
 
-    public <T extends BodyComponent> T getBody() {
+    public <T extends BodyComponent> T getBodyComponent() {
         return getComponent(BodyComponent.class);
     }
 

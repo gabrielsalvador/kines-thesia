@@ -13,6 +13,9 @@ import org.jbox2d.dynamics.BodyType;
 public class PhysicsBodyComponent implements BodyComponent {
     private Body _body;
 
+    public PhysicsBodyComponent(Vec2 position) {
+        _body = PhysicsManager.getInstance().createCircle(position,5);
+    }
     @Override
     public Vec2 getPosition() {
         return _body.getPosition();

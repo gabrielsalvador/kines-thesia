@@ -89,6 +89,6 @@ public class PEmitter extends PObject implements Inlet {
         PhysicsBodyComponent body = (PhysicsBodyComponent) getComponent(BodyComponent.class);
         PhysicsPObject p = AppController.getInstance().addPhysicsNote( body.getPosition());
         //add initial velocity
-        ((PhysicsBodyComponent) p.getBody()).setLinearVelocity(new Vec2(0, 50));
+        ((PhysicsBodyComponent) p.getBodyComponent()).setLinearVelocity(new Vec2(0, 50));
     }
 }

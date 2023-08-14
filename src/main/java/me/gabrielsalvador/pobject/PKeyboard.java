@@ -1,6 +1,8 @@
 package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.pobject.components.BodyComponent;
+import me.gabrielsalvador.pobject.components.HologramBody;
 import me.gabrielsalvador.pobject.routing.*;
 import me.gabrielsalvador.pobject.views.PKeyboardView;
 import me.gabrielsalvador.pobject.views.RoutingSocketView;
@@ -28,6 +30,7 @@ public class PKeyboard extends PObject implements Outlet,Inlet {
     }
 
     protected void initialize() {
+        addComponent(BodyComponent.class,new HologramBody());
         setView(new PKeyboardView(this));
         SequencerController sequencer = (SequencerController) Sinesthesia.getInstance().getCP5().get(MAIN_SEQUENCER);
         sequencer.registerPObject(this);

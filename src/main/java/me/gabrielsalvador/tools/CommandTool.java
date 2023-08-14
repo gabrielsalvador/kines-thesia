@@ -9,9 +9,7 @@ import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.pobject.*;
 import me.gabrielsalvador.pobject.components.BodyComponent;
-import me.gabrielsalvador.pobject.components.HologramBody;
 import me.gabrielsalvador.pobject.views.RectangleShape;
-import me.gabrielsalvador.utils.Vector;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -99,20 +97,22 @@ public class CommandTool extends Tool {
                 int y = canvas.getPointer().y();
                 if(args[1].equals("keyboard")){
                     PKeyboard pKeyboard = new PKeyboard();
-                    BodyComponent bodyComponent = pKeyboard.getBody();
+                    BodyComponent bodyComponent = pKeyboard.getBodyComponent();
                     bodyComponent.setPosition(new Vec2(x,y));
                     RectangleShape rectangleShape = new RectangleShape(new Vec2(50,20));
                     bodyComponent.setShape(rectangleShape);
                     AppController.getInstance().addPObject(pKeyboard);
                 }else if(args[1].equals("emitter")) {
                     PEmitter pEmitter = new PEmitter();
-                    pEmitter.getBody().setPosition(new Vec2(x,y));
+                    pEmitter.getBodyComponent().setPosition(new Vec2(x,y));
                     AppController.getInstance().addPObject(pEmitter);
                 }else if(args[1].equals("block")) {
-                    PhysicsPObject pPhysicsBlock = new PhysicsPObject().setPosition(new float[]{x,y});
+                    PObject object = new PlayableNote();
+                    PhysicsBodyComponent body = new PhysicsBodyComponent(new Vec2(x,y));
+                    object.addComponent(BodyComponent.class,body);
                     //set body to kinematic
-                    ((PhysicsBodyComponent)pPhysicsBlock.getBody()).setType(org.jbox2d.dynamics.BodyType.KINEMATIC);
-                    AppController.getInstance().addPObject(pPhysicsBlock);
+                    body.getJBox2DBody().setType(org.jbox2d.dynamics.BodyType.KINEMATIC);
+                    AppController.getInstance().addPObject(object);
 
                 }
 

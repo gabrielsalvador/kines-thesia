@@ -2,21 +2,21 @@ package me.gabrielsalvador.pobject.views;
 
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PhysicsBodyComponent;
 import me.gabrielsalvador.pobject.components.BodyComponent;
-import me.gabrielsalvador.utils.MathUtils;
 import me.gabrielsalvador.utils.Vector;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
 public class PlayableNoteView implements View<PObject> {
 
     private PObject _model;
-    private BodyComponent _body;
+
 
     public PlayableNoteView(PObject model) {
         _model = model;
-        _body = _model.getComponent(BodyComponent.class);
         _model.setView(this);
     }
 
@@ -25,8 +25,9 @@ public class PlayableNoteView implements View<PObject> {
     }
 
     public void display(PGraphics graphics) {
-        Vec2 position = _body.getPosition();
-        Shape s = _body.getShape();
+        BodyComponent bodyComponent = _model.getBodyComponent();
+        Vec2 position = bodyComponent.getPosition();
+        Shape s = _model.getBodyComponent().getShape();
 
         graphics.ellipseMode(PApplet.CENTER);
         graphics.pushStyle();
@@ -43,11 +44,15 @@ public class PlayableNoteView implements View<PObject> {
     }
 
     public boolean isMouseOver(int mouseX, int mouseY) {
-      return _body.getShape().isMouseOver(mouseX, mouseY, _body.getPosition().x, _body.getPosition().y);
+        PhysicsBodyComponent bodyComponent = (PhysicsBodyComponent)_model.getBodyComponent();
+        Vec2 position = bodyComponent.getJBox2DBody().getPosition();
+        Shape s = bodyComponent.getShape();
+      return s.isMouseOver(mouseX, mouseY, position.x, position.y);
     }
 
     public Vector getPosition() {
-        Vec2 pos = _body.getPosition();
+        PhysicsBodyComponent bodyComponent = (PhysicsBodyComponent)_model.getBodyComponent();
+        Vec2 pos = bodyComponent.getPosition();
         return new Vector(pos.x, pos.y);
     }
 }

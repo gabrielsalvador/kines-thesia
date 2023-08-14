@@ -1,6 +1,7 @@
 package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.Config;
+import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.pobject.views.PhysicsPObjectView;
 import me.gabrielsalvador.pobject.views.View;
 import org.jbox2d.callbacks.ContactListener;
@@ -16,15 +17,16 @@ public class PhysicsPObject extends PObject{
     private Vec2 bufferPosition = new Vec2(); // used for serialization
     private ContactListener _contactListener;
 
-    public PhysicsPObject(){
+    public PhysicsPObject(Vec2 position){
+        bufferPosition = position;
         initialize();
 
     }
 
     /*TODO: add this to PPObject class, so its a standard for every child*/
     protected void initialize() {
+        addComponent(BodyComponent.class,new PhysicsBodyComponent(bufferPosition));
         setView((View)new PhysicsPObjectView(this));
-        _body = PhysicsManager.getInstance().createCircle(bufferPosition, Config.PHYSICS_NOTE_DEFAULT_SIZE);
     }
 
 

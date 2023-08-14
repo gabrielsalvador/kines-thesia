@@ -7,7 +7,6 @@ import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
 import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.pobject.views.View;
-import me.gabrielsalvador.utils.Vector;
 import org.jbox2d.common.Vec2;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -49,12 +48,12 @@ public class AppController {
 
     public PlayableNote addPlayableNote(Vec2 position) {
         PlayableNote note = new PlayableNote();
-        BodyComponent body = note.getBody().setPosition(position);
+        BodyComponent body = note.getBodyComponent().setPosition(position);
         AppState.getInstance().addPObject(note);
         return note;
     }
     public PhysicsPObject addPhysicsNote(Vec2 position) {
-        PhysicsPObject note = new PhysicsPObject();
+        PhysicsPObject note = new PhysicsPObject(position);
         note.setPosition(new float[]{position.x, position.y});
         AppController.getInstance().addPObject(note);
         return note;

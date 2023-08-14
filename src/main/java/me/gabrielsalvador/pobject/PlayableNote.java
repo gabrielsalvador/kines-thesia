@@ -25,13 +25,12 @@ public class PlayableNote extends PObject{
 
     public PlayableNote() {
         super();
-        BodyComponent body = getBody();
-        getBody().setPosition(new Vec2(0, 0));
         initialize();
     }
 
     @Override
     protected void initialize() {
+
         setView(new PlayableNoteView(this));
     }
 

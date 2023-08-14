@@ -18,7 +18,7 @@ public class PhysicsPObjectView implements View<PhysicsPObject>{
 
     public PhysicsPObjectView(PhysicsPObject model) {
         _model = model;
-        _bodyComponent = _model.getBody();
+        _bodyComponent = _model.getBodyComponent();
         _body = _bodyComponent.getJBox2DBody();
     }
     @Override
@@ -73,7 +73,7 @@ public class PhysicsPObjectView implements View<PhysicsPObject>{
 
     @Override
     public boolean isMouseOver(int mouseX, int mouseY) {
-        org.jbox2d.common.Vec2 position = _model.getBody().getPosition();
+        org.jbox2d.common.Vec2 position = _model.getBodyComponent().getPosition();
         Vec2 mouse = new Vec2(mouseX,mouseY);
         float distance = org.jbox2d.common.MathUtils.distanceSquared(position, mouse);
 
