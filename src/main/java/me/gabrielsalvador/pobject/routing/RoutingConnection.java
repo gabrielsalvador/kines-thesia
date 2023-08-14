@@ -19,8 +19,13 @@ public class RoutingConnection extends PObject {
         _source.addRouting(this);
         _destination = (PSocket<Outlet>) outlet;
         _destination.addRouting(this);
+    }
+
+    @Override
+    protected void initialize() {
         setView(new RoutingConnectionView(this));
     }
+
     @Override
     public void onEnter(int x, int y) {
 
@@ -36,7 +41,7 @@ public class RoutingConnection extends PObject {
         // default deserialization
         aInputStream.defaultReadObject();
 
-        setView(new RoutingConnectionView(this));
+        initialize();
 
     }
 

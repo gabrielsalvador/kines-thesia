@@ -2,8 +2,12 @@ package me.gabrielsalvador.pobject.routing;
 
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.components.BodyComponent;
+import me.gabrielsalvador.pobject.views.RectangleShape;
+import me.gabrielsalvador.pobject.views.RoutingSocketView;
 import me.gabrielsalvador.tools.RoutingTool;
 import me.gabrielsalvador.tools.ToolManager;
+import org.jbox2d.common.Vec2;
 
 import java.io.Serial;
 import java.util.ArrayList;
@@ -17,9 +21,14 @@ public class PSocket<T extends Routable> extends PObject{
     public PSocket(PObject _owner) {
         super();
         this._owner = _owner;
-        setView(new RoutingSocketView(this));
+        initialize();
     }
 
+    @Override
+    protected void initialize() {
+        setView(new RoutingSocketView(this));
+
+    }
     public void setOwner(PObject owner) {
         _owner = owner;
     }
@@ -27,14 +36,15 @@ public class PSocket<T extends Routable> extends PObject{
         return _owner;
     }
 
-    @Override
+
     public float[] getPosition() {
-        float[] position = _owner.getPosition();
-        float[] ownerSize = _owner.getSize();
-        return new float[]{position[0], position[1] + ownerSize[1] + getSize()[1] };
+        BodyComponent body = (BodyComponent) _owner.getComponent(BodyComponent.class);
+        Vec2 position = body.getPosition();
+        float[] ownerSize = ((RectangleShape) body.getShape()).getBoundayBox();
+        return new float[]{position.x, position.y + ownerSize[0] + getSize()[1] };
     }
 
-    @Override
+
     public float[] getSize() {
         return new float[]{RoutingSocketView.SIZE_X, RoutingSocketView.SIZE_X};
     }
@@ -44,7 +54,7 @@ public class PSocket<T extends Routable> extends PObject{
         // default deserialization
         aInputStream.defaultReadObject();
 
-        setView(new RoutingSocketView(this));
+        initialize();
 
     }
 
@@ -80,6 +90,9 @@ public class PSocket<T extends Routable> extends PObject{
     public  ArrayList<RoutingConnection> getRoutings(){
         return _routings;
     }
+
+
+
     @Override
     public void onEnter(int x, int y) {
         ToolManager.getInstance().pushTool(RoutingTool.class);

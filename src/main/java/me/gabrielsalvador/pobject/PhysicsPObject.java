@@ -22,7 +22,7 @@ public class PhysicsPObject extends PObject{
     }
 
     /*TODO: add this to PPObject class, so its a standard for every child*/
-    private void initialize() {
+    protected void initialize() {
         setView((View)new PhysicsPObjectView(this));
         _body = PhysicsManager.getInstance().createCircle(bufferPosition, Config.PHYSICS_NOTE_DEFAULT_SIZE);
     }
@@ -38,21 +38,19 @@ public class PhysicsPObject extends PObject{
 
     }
 
-    @Override
+
     public float[] getPosition() {
         Vec2 pos = _body.getPosition();
         return new float[]{pos.x,pos.y};
     }
-    @Override
+
     public PhysicsPObject setPosition(float[] position){
         bufferPosition = new Vec2(position[0],position[1]);
         _body.setTransform(new Vec2(position[0],position[1]),_body.getAngle());
         return this;
     }
 
-    public Body getBody(){
-        return _body;
-    }
+
 
     public void onCollision(ContactListener contactListener){
     }

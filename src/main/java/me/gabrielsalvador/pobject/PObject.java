@@ -5,6 +5,9 @@ import java.io.*;
 import java.util.*;
 
 import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.pobject.components.BodyComponent;
+import me.gabrielsalvador.pobject.components.Component;
+import me.gabrielsalvador.pobject.components.HologramBody;
 import me.gabrielsalvador.pobject.routing.*;
 import me.gabrielsalvador.pobject.views.View;
 
@@ -15,76 +18,17 @@ public abstract class PObject implements Serializable {
     private boolean _isHovered = false;
     private final Set<PObject> _children = new HashSet<PObject>();
     private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<String, PObjectProperty>();
+    private final LinkedHashMap<Class<? extends Component>,Component> _components = new LinkedHashMap<Class<? extends Component>,Component>();
     transient protected View<PObject> _view;
 
 
     public PObject() {
-        /* Walks up the class hierarchy to get all annotations concerning the properties */
-        Class<?> currentClass = this.getClass();
-        while (currentClass != null) {
-            Properties propertiesAnnotation = currentClass.getAnnotation(Properties.class);
-            if (propertiesAnnotation != null) {
-                for (Property propertyAnnotation : propertiesAnnotation.value()) {
-                    String name = propertyAnnotation.name();
-                    Class<?> type = propertyAnnotation.type();
-
-                    PObjectProperty property = new PObjectProperty(name, type);
-                    property.setValue(Defaults.getDefaultProperty(this.getClass(),name));
-
-                    addProperty(property);
-                }
-            }
-
-            // go through the routing annotations and add the inlets and outlets
-            Routing routing = currentClass.getAnnotation(Routing.class);
-            if (routing != null) {
-                for (SetInlet inlet : routing.inlets()) {
-                    if (this instanceof Inlet) {
-                        ArrayList<PSocket<Inlet>> inlets = ((Inlet) this).getInlets();
-                        if (inlets == null) {
-                            ((Inlet)this).setInlets(new ArrayList<PSocket<Inlet>>());
-                        }
-                        PSocket<Inlet> i = new PSocket<Inlet>(this);
-                        AppController.getInstance().addRoutingSocket(this,i);
-                        ((Inlet) this).addInlet(i);
-                    }
-                }
-                for (SetOutlet outlet : routing.outlets()) {
-                    if (this instanceof Outlet) {
-                        ArrayList<PSocket<Outlet>> outlets = ((Outlet) this).getOutlets();
-                        if (outlets == null) {
-                            ( (Outlet) this).setOutlets(new ArrayList<PSocket<Outlet>>());
-                        }
-                        PSocket<Outlet> o = new PSocket<Outlet>(this);
-                        AppController.getInstance().addRoutingSocket(this,o);
-                        ((Outlet) this).addOutlet(o);
-                    }
-                }
-            }
-
-            currentClass = currentClass.getSuperclass();
-        }
+        addComponent(BodyComponent.class,new HologramBody());
     }
 
+    //use this method for things that need to be initialized after deserialization but don't forget the constructor also needs to call it
+    protected abstract void initialize();
 
-    public PObject setPosition(float[] position) {
-        PObjectProperty property = getProperty("position");
-        property.setValue(position);
-        return this;
-    }
-
-    public float[] getPosition() {
-        return (float[]) getProperty("position").getValue();
-    }
-
-    public PObject setSize(float[] size) {
-        getProperty("size").setValue(size);
-        return this;
-    }
-
-    public float[] getSize() {
-        return (float[]) getProperty("size").getValue();
-    }
 
 
     public PObject setIsSelected(boolean selectedState) {
@@ -122,17 +66,23 @@ public abstract class PObject implements Serializable {
         return _properties;
     }
 
-    public PObject addProperties(Map<String, PObjectProperty> properties) {
-        //add properties to the object
-        for (String key : properties.keySet()) {
-            addProperty(properties.get(key));
-        }
+
+    public <T extends Component> T getComponent(Class<? extends Component> componentClass) {
+        return (T) _components.get(componentClass);
+    }
+
+    public <T extends Component> PObject addComponent(Class<T> _class,T instance) {
+        _components.put(_class,instance);
         return this;
     }
 
 
     public View<PObject> getView() {
         return _view;
+    }
+
+    public <T extends BodyComponent> T getBody() {
+        return getComponent(BodyComponent.class);
     }
 
     public PObject setView(View<PObject> view) {

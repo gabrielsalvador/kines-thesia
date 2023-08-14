@@ -3,8 +3,8 @@ package me.gabrielsalvador.pobject;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.routing.*;
 import me.gabrielsalvador.pobject.views.PKeyboardView;
+import me.gabrielsalvador.pobject.views.RoutingSocketView;
 import me.gabrielsalvador.sequencing.SequencerController;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serial;
@@ -24,10 +24,10 @@ public class PKeyboard extends PObject implements Outlet,Inlet {
     public PKeyboard() {
         super();
         initialize();
-
+        initializeRouting();
     }
 
-    private void initialize() {
+    protected void initialize() {
         setView(new PKeyboardView(this));
         SequencerController sequencer = (SequencerController) Sinesthesia.getInstance().getCP5().get(MAIN_SEQUENCER);
         sequencer.registerPObject(this);

@@ -3,6 +3,7 @@ package me.gabrielsalvador.core;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsPObject;
 import me.gabrielsalvador.pobject.PlayableNote;
+import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
 import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.pobject.views.View;
@@ -46,8 +47,9 @@ public class AppController {
         queueModification(pObject);
     }
 
-    public PlayableNote addPlayableNote(Vector position) {
-        PlayableNote note = new PlayableNote().setPosition(position);
+    public PlayableNote addPlayableNote(Vec2 position) {
+        PlayableNote note = new PlayableNote();
+        BodyComponent body = note.getBody().setPosition(position);
         AppState.getInstance().addPObject(note);
         return note;
     }

@@ -1,14 +1,18 @@
 package me.gabrielsalvador.pobject.views;
 
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.components.BodyComponent;
+import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
 public class PEmitterView  implements View<PObject> {
 
     private PObject _model;
+    private BodyComponent _body;
 
     public PEmitterView(PObject model) {
         _model = model;
+        _body = _model.getComponent(BodyComponent.class);
         _model.setView(this);
     }
 
@@ -18,7 +22,7 @@ public class PEmitterView  implements View<PObject> {
 
     public void display(PGraphics graphics) {
         graphics.pushStyle();
-        float[] position = _model.getPosition();
+        Vec2 position = _body.getPosition();
 
         // Set color when active
         if (_model.getIsSelected()) {
@@ -29,14 +33,14 @@ public class PEmitterView  implements View<PObject> {
 
         // Draw emitter
         graphics.fill(255);  // white
-        float[] size = _model.getSize();
-        graphics.ellipse(position[0], position[1], size[0], size[1]);
+        Shape shape = _body.getShape();
+        shape.display(graphics, position.x, position.y);
         graphics.popStyle();
     }
 
     public boolean isMouseOver(int mouseX, int mouseY) {
-        float[] position = _model.getPosition();
-        float[] size = _model.getSize();
-        return mouseX > position[0] - size[0] / 2 && mouseX < position[0] + size[0] / 2 && mouseY > position[1] - size[1] / 2 && mouseY < position[1] + size[1] / 2;
+        Vec2 position = _body.getPosition();
+        Shape shape = _body.getShape();
+        return shape.isMouseOver(mouseX, mouseY, position.x, position.y);
     }
 }

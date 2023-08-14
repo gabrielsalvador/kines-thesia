@@ -8,11 +8,13 @@ import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.pobject.*;
+import me.gabrielsalvador.pobject.components.BodyComponent;
+import me.gabrielsalvador.pobject.components.HologramBody;
+import me.gabrielsalvador.pobject.views.RectangleShape;
 import me.gabrielsalvador.utils.Vector;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import processing.core.PVector;
 import processing.event.KeyEvent;
 
 @SkipProcessing
@@ -97,22 +99,24 @@ public class CommandTool extends Tool {
                 int y = canvas.getPointer().y();
                 if(args[1].equals("keyboard")){
                     PKeyboard pKeyboard = new PKeyboard();
-                    pKeyboard.setPosition(new float[]{x,y});
+                    BodyComponent bodyComponent = pKeyboard.getBody();
+                    bodyComponent.setPosition(new Vec2(x,y));
+                    bodyComponent.setShape(new RectangleShape(new Vec2(20,20)));
                     AppController.getInstance().addPObject(pKeyboard);
                 }else if(args[1].equals("emitter")) {
                     PEmitter pEmitter = new PEmitter();
-                    pEmitter.setPosition(new float[]{x,y});
+                    pEmitter.getBody().setPosition(new Vec2(x,y));
                     AppController.getInstance().addPObject(pEmitter);
                 }else if(args[1].equals("block")) {
                     PhysicsPObject pPhysicsBlock = new PhysicsPObject().setPosition(new float[]{x,y});
                     //set body to kinematic
-                    pPhysicsBlock.getBody().setType(org.jbox2d.dynamics.BodyType.KINEMATIC);
+                    ((PhysicsBodyComponent)pPhysicsBlock.getBody()).setType(org.jbox2d.dynamics.BodyType.KINEMATIC);
                     AppController.getInstance().addPObject(pPhysicsBlock);
 
                 }
 
                 else {
-                    AppController.getInstance().addPlayableNote(new Vector(x,y));
+                    AppController.getInstance().addPlayableNote(new Vec2(x, y));
                 }
             }else if(split[0].equals("clear")) {
                 AppController.getInstance().clearObjects();

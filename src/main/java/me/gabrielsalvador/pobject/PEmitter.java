@@ -1,6 +1,7 @@
 package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.pobject.routing.Inlet;
 import me.gabrielsalvador.pobject.routing.Outlet;
 import me.gabrielsalvador.pobject.routing.Routing;
@@ -24,8 +25,13 @@ public class PEmitter extends PObject implements Inlet {
 
     public PEmitter() {
         super();
-        setView(new PEmitterView(this));
+        initialize();
 
+    }
+
+    @Override
+    protected void initialize() {
+        setView(new PEmitterView(this));
     }
 
     @Override
@@ -44,7 +50,7 @@ public class PEmitter extends PObject implements Inlet {
         // default deserialization
         aInputStream.defaultReadObject();
 
-        setView(new PEmitterView(this));
+        initialize();
 
     }
 
@@ -80,8 +86,9 @@ public class PEmitter extends PObject implements Inlet {
     @Override
     public void receive(String message) {
 
-        PhysicsPObject p = AppController.getInstance().addPhysicsNote(new Vec2(getPosition()[0],getPosition()[1]));
+        PhysicsBodyComponent body = (PhysicsBodyComponent) getComponent(BodyComponent.class);
+        PhysicsPObject p = AppController.getInstance().addPhysicsNote( body.getPosition());
         //add initial velocity
-        p.getBody().setLinearVelocity(new Vec2(0, 50));
+        ((PhysicsBodyComponent) p.getBody()).setLinearVelocity(new Vec2(0, 50));
     }
 }

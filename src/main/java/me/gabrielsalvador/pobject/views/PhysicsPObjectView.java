@@ -1,7 +1,7 @@
 package me.gabrielsalvador.pobject.views;
 
 
-import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PhysicsBodyComponent;
 import me.gabrielsalvador.pobject.PhysicsPObject;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -12,10 +12,14 @@ import processing.core.PGraphics;
 public class PhysicsPObjectView implements View<PhysicsPObject>{
 
     private PhysicsPObject _model;
+    private PhysicsBodyComponent _bodyComponent;
+    private Body _body;
 
 
     public PhysicsPObjectView(PhysicsPObject model) {
         _model = model;
+        _bodyComponent = _model.getBody();
+        _body = _bodyComponent.getJBox2DBody();
     }
     @Override
     public PhysicsPObject getModel() {
@@ -24,14 +28,14 @@ public class PhysicsPObjectView implements View<PhysicsPObject>{
 
     @Override
     public void display(PGraphics graphics) {
-        Body body = getModel().getBody();
-        org.jbox2d.common.Vec2 position = body.getPosition();
+
+        org.jbox2d.common.Vec2 position = _body.getPosition();
         graphics.pushMatrix();
         graphics.translate(position.x, position.y);
-        graphics.rotate(body.getAngle());
+        graphics.rotate(_body.getAngle());
         graphics.fill(255);  // white
 
-        for (Fixture f = body.getFixtureList(); f != null; f = f.getNext()) {
+        for (Fixture f = _body.getFixtureList(); f != null; f = f.getNext()) {
             if (f.getShape() instanceof org.jbox2d.collision.shapes.CircleShape) {
                 org.jbox2d.collision.shapes.CircleShape circle = (org.jbox2d.collision.shapes.CircleShape) f.getShape();
                 float radius = circle.m_radius;
@@ -74,7 +78,7 @@ public class PhysicsPObjectView implements View<PhysicsPObject>{
         float distance = org.jbox2d.common.MathUtils.distanceSquared(position, mouse);
 
         // Assuming circle shape for simplicity
-        float radius = ((org.jbox2d.collision.shapes.CircleShape) _model.getBody().getFixtureList().getShape()).m_radius;
+        float radius = ((org.jbox2d.collision.shapes.CircleShape) _body.getFixtureList().getShape()).m_radius;
 
         return distance <= radius * radius;
     }

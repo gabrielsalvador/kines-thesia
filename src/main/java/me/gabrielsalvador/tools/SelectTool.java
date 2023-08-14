@@ -9,6 +9,7 @@ import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.views.View;
+import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 
@@ -53,8 +54,8 @@ public class SelectTool extends Tool {
         if (pObject != null) {
             for (PObject selectedObject : selectedObjects) {
                 int[] mouse = AppController.getInstance().getCanvas().getMousePosition();
-                float[] objPos = selectedObject.getPosition();
-                selectedObject.setPosition(new float[]{mouse[0], mouse[1]});
+                Vec2 objPos = selectedObject.getBody().getPosition();
+                selectedObject.getBody().setPosition(new Vec2(mouse[0], mouse[1]));
             }
         }
 

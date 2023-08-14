@@ -1,20 +1,24 @@
-package me.gabrielsalvador.pobject.routing;
+package me.gabrielsalvador.pobject.views;
 
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.views.BlinkingLigth;
-import me.gabrielsalvador.pobject.views.View;
+import me.gabrielsalvador.pobject.routing.PSocket;
+import me.gabrielsalvador.pobject.routing.Routable;
+import me.gabrielsalvador.pobject.components.BodyComponent;
+import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 
 public class RoutingSocketView<T extends Routable> implements View<PObject> {
 
-    static protected int SIZE_X = 7;
+    static public int SIZE_X = 7;
     PSocket<T> _model;
     private BlinkingLigth _blinkingLigth = new BlinkingLigth(SIZE_X);
+    private BodyComponent _body;
 
     public RoutingSocketView(PSocket<T> model) {
         _model = model;
+        _body = _model.getOwner().getComponent(BodyComponent.class);
     }
 
     @Override
@@ -24,34 +28,28 @@ public class RoutingSocketView<T extends Routable> implements View<PObject> {
 
     @Override
     public void display(PGraphics graphics) {
-        //draw a circle bellow the Owner, centered with the Owner's width
-        float[] position = _model.getOwner().getPosition();
-        float[] ownerSize = _model.getOwner().getSize();
+        Vec2 position = _body.getPosition();
+        float[] ownerSize = ((RectangleShape)_body.getShape()).getBoundayBox();
         graphics.pushStyle();
         graphics.pushMatrix();
-        graphics.translate(position[0], position[1] + ownerSize[1] + SIZE_X);
+        graphics.translate(position.x, position.y + ownerSize[1] + SIZE_X);
         graphics.ellipseMode(PConstants.CENTER);
         graphics.fill(_model.getIsHovered() ? 127 : 255);
-        graphics.ellipse(0,0,SIZE_X+4,SIZE_X+4);
+        graphics.ellipse(0, 0, SIZE_X + 4, SIZE_X + 4);
         _blinkingLigth.display(graphics);
         graphics.popMatrix();
-
     }
 
     @Override
     public boolean isMouseOver(int mouseX, int mouseY) {
-        float[] position = _model.getOwner().getPosition();
-        float[] ownerSize = _model.getOwner().getSize();
+        Vec2 position = _body.getPosition();
+        float[] ownerSize = ((RectangleShape)_body.getShape()).getBoundayBox();
 
-        // calculate the center of the ellipse
-        float centerX = position[0];
-        float centerY = position[1] + ownerSize[1] + SIZE_X;
+        float centerX = position.x;
+        float centerY = position.y + ownerSize[1] + SIZE_X;
 
-        // calculate the distance between the mouse and the center of the ellipse
         float distance = PApplet.dist(mouseX, mouseY, centerX, centerY);
-
-        // check if the distance is less than the radius (SIZE_X / 2)
-        return distance <= SIZE_X / 2 + 4; //+4 pixels for a better hover
+        return distance <= SIZE_X / 2 + 4;
     }
 
     public BlinkingLigth getBlinkingLigth() {

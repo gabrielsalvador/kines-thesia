@@ -2,6 +2,8 @@ package me.gabrielsalvador.pobject.views;
 
 import me.gabrielsalvador.pobject.Defaults;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.components.BodyComponent;
+import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
 
@@ -9,10 +11,12 @@ import processing.core.PGraphics;
 public class PKeyboardView  implements View<PObject> {
 
     private PObject _model;
+    private BodyComponent _body;
 
 
     public PKeyboardView(PObject model) {
         _model = model;
+        _body = (BodyComponent) _model.getComponent(BodyComponent.class);
         _model.setView(this);
     }
 
@@ -21,14 +25,14 @@ public class PKeyboardView  implements View<PObject> {
     }
 
     public void display(PGraphics graphics) {
-        float[] position = _model.getPosition();
+        Vec2 position = _body.getPosition();
 
-        float[] size = (float[]) _model.getProperty("size").getValue();
+        float[] size = (float[]) ((RectangleShape )_body.getShape()).getBoundayBox();
         float keyWidth = size[0] / 7;
         float keyHeight = size[1];
 
-        float offsetX = position[0] - keyWidth * 7 / 2;
-        float offsetY = position[1] - keyHeight / 2;
+        float offsetX = position.x - keyWidth * 7 / 2;
+        float offsetY = position.y - keyHeight / 2;
 
         graphics.pushStyle();
         graphics.pushMatrix();
@@ -59,13 +63,13 @@ public class PKeyboardView  implements View<PObject> {
 
 
     public boolean isMouseOver(int mouseX, int mouseY) {
-        float[] position = _model.getPosition();
+        Vec2 position = _body.getPosition();
 
         float keyWidth = Defaults.DEFAULT_KEYBOARD_SIZE[0];
         float keyHeight = Defaults.DEFAULT_KEYBOARD_SIZE[1];
 
-        float offsetX = position[0] - keyWidth / 2;
-        float offsetY = position[1] - keyHeight / 2;
+        float offsetX = position.x - keyWidth / 2;
+        float offsetY = position.y - keyHeight / 2;
 
         return mouseX >= offsetX && mouseX <= offsetX + keyWidth
                 && mouseY >= offsetY && mouseY <= offsetY + keyHeight;
