@@ -32,18 +32,13 @@ public class HologramBody implements BodyComponent{
 
 
     @Override
-    public void setSize(float defaultNoteSize) {
-
-    }
-
-    @Override
     public Shape getShape() {
         return _shape;
     }
 
     @Override
     public void setShape(Shape shape) {
-
+        _shape = shape;
     }
 
 

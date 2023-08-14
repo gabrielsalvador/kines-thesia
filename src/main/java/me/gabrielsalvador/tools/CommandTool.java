@@ -101,7 +101,8 @@ public class CommandTool extends Tool {
                     PKeyboard pKeyboard = new PKeyboard();
                     BodyComponent bodyComponent = pKeyboard.getBody();
                     bodyComponent.setPosition(new Vec2(x,y));
-                    bodyComponent.setShape(new RectangleShape(new Vec2(20,20)));
+                    RectangleShape rectangleShape = new RectangleShape(new Vec2(50,20));
+                    bodyComponent.setShape(rectangleShape);
                     AppController.getInstance().addPObject(pKeyboard);
                 }else if(args[1].equals("emitter")) {
                     PEmitter pEmitter = new PEmitter();

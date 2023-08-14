@@ -24,10 +24,7 @@ public class PhysicsBodyComponent implements BodyComponent {
         return this;
     }
 
-    @Override
-    public void setSize(float defaultNoteSize) {
-        // Implementation will depend on the specifics of your requirements
-    }
+
 
     @Override
     public Shape getShape() {
@@ -51,7 +48,7 @@ public class PhysicsBodyComponent implements BodyComponent {
 
     @Override
     public void setShape(Shape shape) {
-//
+
     }
 
     @Override

@@ -14,8 +14,6 @@ public interface BodyComponent extends Component {
     public Vec2 getPosition();
     public BodyComponent setPosition(Vec2 position);
 
-    void setSize(float defaultNoteSize);
-
 
     Shape getShape();
 
