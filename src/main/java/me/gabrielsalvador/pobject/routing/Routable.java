@@ -25,7 +25,7 @@ public interface Routable {
                         if (inlets == null) {
                             ((Inlet)this).setInlets(new ArrayList<PSocket<Inlet>>());
                         }
-                        PSocket<Inlet> i = new PSocket<Inlet>((PObject) this);
+                        PSocket<Inlet> i = new PSocket<Inlet>((PObject) this, Inlet.class);
                         AppController.getInstance().addRoutingSocket((PObject) this,i);
                         ((Inlet) this).addInlet(i);
                     }
@@ -36,7 +36,7 @@ public interface Routable {
                         if (outlets == null) {
                             ( (Outlet) this).setOutlets(new ArrayList<PSocket<Outlet>>());
                         }
-                        PSocket<Outlet> o = new PSocket<Outlet>((PObject) this);
+                        PSocket<Outlet> o = new PSocket<Outlet>((PObject) this,Outlet.class);
                         AppController.getInstance().addRoutingSocket((PObject) this,o);
                         ((Outlet) this).addOutlet(o);
                     }

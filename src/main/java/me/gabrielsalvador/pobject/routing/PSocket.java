@@ -19,12 +19,14 @@ public class PSocket<T extends Routable> extends PObject {
     private String name;
     private ArrayList<RoutingConnection> _routings = new ArrayList<RoutingConnection>();
 
-    public PSocket(PObject _owner) {
+    public PSocket(PObject _owner, Class<T> type) {
         super();
         this._owner = _owner;
 
         HologramBody ownersBody = (HologramBody)_owner.getBodyComponent();
-        BodyComponent myBody = ownersBody.createChild(new Vec2(0,0), new Vec2(PSocketView.SIZE_X, PSocketView.SIZE_X));
+        float yOffSet = type == Inlet.class ? -30 : 10;
+
+        BodyComponent myBody = ownersBody.createChild(new Vec2(0,yOffSet), new Vec2(PSocketView.SIZE_X, PSocketView.SIZE_X ));
         addComponent(BodyComponent.class, myBody);
         initialize();
     }
