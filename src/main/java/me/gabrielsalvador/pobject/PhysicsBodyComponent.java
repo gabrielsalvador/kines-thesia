@@ -85,4 +85,8 @@ public class PhysicsBodyComponent implements BodyComponent {
     public void setType(BodyType bodyType) {
         _body.setType(bodyType);
     }
+
+    public void onCollision(PhysicsBodyComponent other) {
+        System.out.println("Collision");
+    }
 }

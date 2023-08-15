@@ -1,5 +1,7 @@
 package me.gabrielsalvador.pobject;
 
+import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.pobject.routing.Inlet;
 import me.gabrielsalvador.pobject.routing.Outlet;
 import me.gabrielsalvador.pobject.routing.Routing;
@@ -72,5 +74,12 @@ public class PEmitter extends PObject implements Inlet {
     }
 
     @Override
-    public void receive(String message) {}
+    public void receive(String message) {
+        //create new pobject with physics body
+        PObject pObject = new PlayableNote();
+        PhysicsBodyComponent bodyComponent = new PhysicsBodyComponent(getBodyComponent().getPosition());
+        pObject.addComponent(BodyComponent.class, bodyComponent);
+        bodyComponent.setPosition(getBodyComponent().getPosition());
+        AppController.getInstance().addPObject(pObject);
+    }
 }
