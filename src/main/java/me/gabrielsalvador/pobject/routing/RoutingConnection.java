@@ -5,7 +5,6 @@ import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.views.View;
 import processing.core.PApplet;
 import processing.core.PGraphics;
-
 import java.io.Serial;
 
 public class RoutingConnection extends PObject {
@@ -19,6 +18,7 @@ public class RoutingConnection extends PObject {
         _source.addRouting(this);
         _destination = (PSocket<Outlet>) outlet;
         _destination.addRouting(this);
+        initialize();
     }
 
     @Override
@@ -40,9 +40,7 @@ public class RoutingConnection extends PObject {
     private void readObject(java.io.ObjectInputStream aInputStream) throws ClassNotFoundException, java.io.IOException {
         // default deserialization
         aInputStream.defaultReadObject();
-
         initialize();
-
     }
 
     public PSocket<Inlet> getSource() {

@@ -5,7 +5,7 @@ import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.pobject.components.HologramBody;
 import me.gabrielsalvador.pobject.routing.*;
 import me.gabrielsalvador.pobject.views.PKeyboardView;
-import me.gabrielsalvador.pobject.views.RoutingSocketView;
+import me.gabrielsalvador.pobject.views.PSocketView;
 import me.gabrielsalvador.sequencing.SequencerController;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -26,7 +26,7 @@ public class PKeyboard extends PObject implements Outlet,Inlet {
     public PKeyboard() {
         super();
         initialize();
-        initializeRouting();
+
     }
 
     protected void initialize() {
@@ -34,6 +34,7 @@ public class PKeyboard extends PObject implements Outlet,Inlet {
         setView(new PKeyboardView(this));
         SequencerController sequencer = (SequencerController) Sinesthesia.getInstance().getCP5().get(MAIN_SEQUENCER);
         sequencer.registerPObject(this);
+        initializeRouting();
     }
 
     @Override
@@ -93,7 +94,7 @@ public class PKeyboard extends PObject implements Outlet,Inlet {
                 ((Inlet)r.getDestination().getOwner()).receive(message);
                 }
             }
-            ( (RoutingSocketView) outlet.getView() ).getBlinkingLigth().blink();
+            ( (PSocketView) outlet.getView() ).getBlinkingLigth().blink();
         }
     }
 

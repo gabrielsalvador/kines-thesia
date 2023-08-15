@@ -24,6 +24,16 @@ public class PEmitterView  implements View<PObject> {
         graphics.pushStyle();
         Vec2 position = _body.getPosition();
 
+        // Get the width and height of the emitter shape
+        Shape shape = _body.getShape();
+        float size[] = shape.getBoundayBox();
+        float halfWidth = size[0] / 2.0f;
+        float halfHeight = size[1] / 2.0f;
+
+        // Adjust the position so that the top-leftmost point is at the center
+        float adjustedX = position.x - halfWidth;
+        float adjustedY = position.y - halfHeight;
+
         // Set color when active
         if (_model.getIsSelected()) {
             graphics.stroke(255, 0, 0);  // Red stroke
@@ -33,14 +43,24 @@ public class PEmitterView  implements View<PObject> {
 
         // Draw emitter
         graphics.fill(255);  // white
-        Shape shape = _body.getShape();
-        shape.display(graphics, position.x, position.y);
+        shape.display(graphics, adjustedX, adjustedY);
         graphics.popStyle();
     }
 
     public boolean isMouseOver(int mouseX, int mouseY) {
         Vec2 position = _body.getPosition();
-        Shape shape = _body.getShape();
-        return shape.isMouseOver(mouseX, mouseY, position.x, position.y);
+
+        // Get the width and height of the emitter shape
+        RectangleShape shape = (RectangleShape) _body.getShape();
+        float size[] = shape.getBoundayBox();
+        float halfWidth = size[0] / 2.0f;
+        float halfHeight = size[1] / 2.0f;
+
+        // Adjust the position so that the top-leftmost point is at the center
+        float adjustedX = position.x - halfWidth;
+        float adjustedY = position.y - halfHeight;
+
+        return shape.isMouseOver(mouseX, mouseY, adjustedX, adjustedY);
     }
+
 }

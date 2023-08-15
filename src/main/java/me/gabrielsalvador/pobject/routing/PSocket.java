@@ -3,8 +3,9 @@ package me.gabrielsalvador.pobject.routing;
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.BodyComponent;
+import me.gabrielsalvador.pobject.components.HologramBody;
 import me.gabrielsalvador.pobject.views.RectangleShape;
-import me.gabrielsalvador.pobject.views.RoutingSocketView;
+import me.gabrielsalvador.pobject.views.PSocketView;
 import me.gabrielsalvador.tools.RoutingTool;
 import me.gabrielsalvador.tools.ToolManager;
 import org.jbox2d.common.Vec2;
@@ -12,41 +13,47 @@ import org.jbox2d.common.Vec2;
 import java.io.Serial;
 import java.util.ArrayList;
 
-public class PSocket<T extends Routable> extends PObject{
+public class PSocket<T extends Routable> extends PObject {
     private PObject _owner;
     private Class<T> type;
     private String name;
-    private  ArrayList<RoutingConnection> _routings = new ArrayList<RoutingConnection>();
+    private ArrayList<RoutingConnection> _routings = new ArrayList<RoutingConnection>();
 
     public PSocket(PObject _owner) {
         super();
         this._owner = _owner;
+
+        HologramBody ownersBody = (HologramBody)_owner.getBodyComponent();
+        BodyComponent myBody = ownersBody.createChild(new Vec2(0,0), new Vec2(PSocketView.SIZE_X, PSocketView.SIZE_X));
+        addComponent(BodyComponent.class, myBody);
         initialize();
     }
 
     @Override
     protected void initialize() {
-        setView(new RoutingSocketView(this));
+        setView(new PSocketView(this));
 
     }
+
     public void setOwner(PObject owner) {
         _owner = owner;
     }
+
     public PObject getOwner() {
         return _owner;
     }
 
 
     public float[] getPosition() {
-        BodyComponent body = (BodyComponent) _owner.getComponent(BodyComponent.class);
+        BodyComponent body = (BodyComponent) getComponent(BodyComponent.class);
         Vec2 position = body.getPosition();
         float[] ownerSize = ((RectangleShape) body.getShape()).getBoundayBox();
-        return new float[]{position.x, position.y + ownerSize[0] + getSize()[1] };
+        return new float[]{position.x, position.y + ownerSize[0] + getSize()[1]};
     }
 
 
     public float[] getSize() {
-        return new float[]{RoutingSocketView.SIZE_X, RoutingSocketView.SIZE_X};
+        return new float[]{PSocketView.SIZE_X, PSocketView.SIZE_X};
     }
 
     @Serial
@@ -58,7 +65,7 @@ public class PSocket<T extends Routable> extends PObject{
 
     }
 
-    public void onPress(int x, int y){
+    public void onPress(int x, int y) {
         ArrayList<PObject> objects = AppState.getInstance().getPObjects();
         for (PObject object : objects) {
             if (!(object instanceof PSocket)) continue;
@@ -83,14 +90,14 @@ public class PSocket<T extends Routable> extends PObject{
         RoutingConnection connection = new RoutingConnection(source, destination);
         AppState.getInstance().addPObject(connection);
     }
-    public   void addRouting(RoutingConnection r){
+
+    public void addRouting(RoutingConnection r) {
         _routings.add(r);
     }
 
-    public  ArrayList<RoutingConnection> getRoutings(){
+    public ArrayList<RoutingConnection> getRoutings() {
         return _routings;
     }
-
 
 
     @Override

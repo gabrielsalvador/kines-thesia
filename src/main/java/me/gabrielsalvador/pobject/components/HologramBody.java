@@ -11,8 +11,11 @@ public class HologramBody implements BodyComponent{
 
     private Shape _shape;
     private Vec2 _position;
+    private ArrayList<HologramBody> _children = new ArrayList<>();
+    private HologramBody _parent;
 
     public HologramBody(Vec2 position, Vec2 size){
+        _position = position;
         _shape = new RectangleShape( size);
     }
 
@@ -24,7 +27,7 @@ public class HologramBody implements BodyComponent{
 
     @Override
     public Vec2 getPosition() {
-        return _position;
+        return _parent != null ? _parent.getPosition().add(_position) : _position;
     }
 
     @Override
@@ -62,5 +65,18 @@ public class HologramBody implements BodyComponent{
         ArrayList<PObjectProperty> list = new ArrayList<>();
         list.add(p);
         return list;
+    }
+    public void setParent(HologramBody parent){
+        _parent = parent;
+    }
+    public HologramBody createChild(Vec2 position, Vec2 size){
+        HologramBody child = new HologramBody(position, size);
+        child.setParent(this);
+        _children.add(child);
+        return child;
+    }
+    public void addChild(HologramBody child){
+        child.setParent(this);
+        _children.add(child);
     }
 }

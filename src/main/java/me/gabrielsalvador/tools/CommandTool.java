@@ -104,7 +104,9 @@ public class CommandTool extends Tool {
                     AppController.getInstance().addPObject(pKeyboard);
                 }else if(args[1].equals("emitter")) {
                     PEmitter pEmitter = new PEmitter();
-                    pEmitter.getBodyComponent().setPosition(new Vec2(x,y));
+                    BodyComponent bc = pEmitter.getBodyComponent();
+                    bc.setPosition(new Vec2(x,y));
+                    bc.setShape(new RectangleShape(new Vec2(50,20)));
                     AppController.getInstance().addPObject(pEmitter);
                 }else if(args[1].equals("block")) {
                     PObject object = new PlayableNote();

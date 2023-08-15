@@ -1,15 +1,10 @@
 package me.gabrielsalvador.pobject;
 
-import me.gabrielsalvador.core.AppController;
-import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.pobject.routing.Inlet;
 import me.gabrielsalvador.pobject.routing.Outlet;
 import me.gabrielsalvador.pobject.routing.Routing;
 import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.pobject.views.PEmitterView;
-import me.gabrielsalvador.pobject.views.PlayableNoteView;
-import org.jbox2d.common.Vec2;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serial;
@@ -27,7 +22,7 @@ public class PEmitter extends PObject implements Inlet {
     public PEmitter() {
         super();
         initialize();
-
+        initializeRouting();
     }
 
     @Override
@@ -36,23 +31,16 @@ public class PEmitter extends PObject implements Inlet {
     }
 
     @Override
-    public void onEnter(int x, int y) {
-
-    }
+    public void onEnter(int x, int y) {}
 
     @Override
-    public void onLeave(int x, int y) {
-
-    }
-
+    public void onLeave(int x, int y) {}
 
     @Serial
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {
         // default deserialization
         aInputStream.defaultReadObject();
-
         initialize();
-
     }
 
     @Override
@@ -83,9 +71,6 @@ public class PEmitter extends PObject implements Inlet {
         System.out.println("PKeyboard does not have inlets");
     }
 
-
     @Override
-    public void receive(String message) {
-
-      }
+    public void receive(String message) {}
 }

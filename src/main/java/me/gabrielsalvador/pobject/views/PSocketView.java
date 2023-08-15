@@ -9,16 +9,15 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 
-public class RoutingSocketView<T extends Routable> implements View<PObject> {
+public class PSocketView<T extends Routable> implements View<PObject> {
 
     static public int SIZE_X = 7;
     PSocket<T> _model;
     private BlinkingLigth _blinkingLigth = new BlinkingLigth(SIZE_X);
-    private BodyComponent _body;
 
-    public RoutingSocketView(PSocket<T> model) {
+
+    public PSocketView(PSocket<T> model) {
         _model = model;
-        _body = _model.getOwner().getComponent(BodyComponent.class);
     }
 
     @Override
@@ -28,6 +27,7 @@ public class RoutingSocketView<T extends Routable> implements View<PObject> {
 
     @Override
     public void display(PGraphics graphics) {
+        BodyComponent _body = _model.getComponent(BodyComponent.class);
         Vec2 position = _body.getPosition();
         float[] ownerSize = ((RectangleShape)_body.getShape()).getBoundayBox();
         graphics.pushStyle();
@@ -42,6 +42,7 @@ public class RoutingSocketView<T extends Routable> implements View<PObject> {
 
     @Override
     public boolean isMouseOver(int mouseX, int mouseY) {
+        BodyComponent _body = _model.getComponent(BodyComponent.class);
         Vec2 position = _body.getPosition();
         float[] ownerSize = ((RectangleShape)_body.getShape()).getBoundayBox();
 
