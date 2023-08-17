@@ -3,7 +3,9 @@ package me.gabrielsalvador.pobject.views;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
-public class RectangleShape extends Shape {
+import java.io.Serializable;
+
+public class RectangleShape extends Shape implements Serializable {
 
     private Vec2 _size;
 

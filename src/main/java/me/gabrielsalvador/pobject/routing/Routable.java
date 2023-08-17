@@ -15,6 +15,7 @@ public interface Routable {
 
     public default void initializeRouting() {
         // go through the routing annotations and add the inlets and outlets
+
         Class<?> currentClass = this.getClass();
         while (currentClass != null) {
             Routing routing = currentClass.getAnnotation(Routing.class);

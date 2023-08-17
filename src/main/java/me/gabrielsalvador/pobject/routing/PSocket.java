@@ -1,5 +1,6 @@
 package me.gabrielsalvador.pobject.routing;
 
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.BodyComponent;
@@ -34,7 +35,6 @@ public class PSocket<T extends Routable> extends PObject {
     @Override
     protected void initialize() {
         setView(new PSocketView(this));
-
     }
 
     public void setOwner(PObject owner) {
@@ -90,7 +90,7 @@ public class PSocket<T extends Routable> extends PObject {
 
     private void createAndAddConnection(PSocket<?> source, PSocket<?> destination) {
         RoutingConnection connection = new RoutingConnection(source, destination);
-        AppState.getInstance().addPObject(connection);
+        AppController.getInstance().addPObject(connection);
     }
 
     public void addRouting(RoutingConnection r) {

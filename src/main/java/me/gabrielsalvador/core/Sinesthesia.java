@@ -93,7 +93,7 @@ public class Sinesthesia extends PApplet {
             AppState loadedState = (AppState) in.readObject();
             AppState.getInstance().setCurrentTool(loadedState.getCurrentTool());
             for (PObject pObject : loadedState.getPObjects()) {
-                AppState.getInstance().addPObject(pObject);
+                AppController.getInstance().addPObject(pObject);
             }
 
         } catch (ClassNotFoundException | IOException e) {

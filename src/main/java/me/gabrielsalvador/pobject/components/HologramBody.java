@@ -4,10 +4,10 @@ import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.pobject.views.RectangleShape;
 import me.gabrielsalvador.pobject.views.Shape;
 import org.jbox2d.common.Vec2;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class HologramBody implements BodyComponent{
+public class HologramBody implements BodyComponent , Serializable {
 
     private Shape _shape;
     private Vec2 _position;
@@ -79,4 +79,6 @@ public class HologramBody implements BodyComponent{
         child.setParent(this);
         _children.add(child);
     }
+
+
 }

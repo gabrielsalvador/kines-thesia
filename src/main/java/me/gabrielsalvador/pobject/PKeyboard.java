@@ -26,15 +26,13 @@ public class PKeyboard extends PObject implements Outlet,Inlet {
     public PKeyboard() {
         super();
         initialize();
-
+        initializeRouting();
     }
 
     protected void initialize() {
-        addComponent(BodyComponent.class,new HologramBody());
         setView(new PKeyboardView(this));
         SequencerController sequencer = (SequencerController) Sinesthesia.getInstance().getCP5().get(MAIN_SEQUENCER);
         sequencer.registerPObject(this);
-        initializeRouting();
     }
 
     @Override
