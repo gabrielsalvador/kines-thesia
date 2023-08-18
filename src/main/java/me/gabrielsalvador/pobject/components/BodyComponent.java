@@ -9,12 +9,24 @@ import org.jbox2d.dynamics.BodyType;
 
 import java.awt.*;
 
-public interface BodyComponent extends Component {
+public class BodyComponent extends Component {
 
-    public Vec2 getPosition();
-    public BodyComponent setPosition(Vec2 position);
+    private Vec2 _position;
+    private Shape _shape;
 
-    Shape getShape();
+    public Vec2 getPosition(){
+        return _position;
+    }
+    public BodyComponent setPosition(Vec2 position){
+        _position = position;
+        return this;
+    }
 
-    void setShape(Shape shape);
+    public Shape getShape(){
+        return _shape;
+    }
+
+    public void setShape(Shape shape){
+        _shape = shape;
+    }
 }

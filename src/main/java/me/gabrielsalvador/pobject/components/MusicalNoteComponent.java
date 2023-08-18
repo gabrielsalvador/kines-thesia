@@ -6,7 +6,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MusicalNoteComponent implements Component, Serializable {
+public class MusicalNoteComponent extends Component implements Serializable {
 
 
     @InspectableProperty

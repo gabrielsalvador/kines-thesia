@@ -7,7 +7,7 @@ import org.jbox2d.common.Vec2;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class HologramBody implements BodyComponent , Serializable {
+public class HologramBody extends BodyComponent implements Serializable {
 
     private Shape _shape;
     private Vec2 _position;

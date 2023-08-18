@@ -89,20 +89,7 @@ public class InspectorController extends Group implements PropertyChangeListener
             controllers[i].setHeight(container.getHeight());
             controllers[i].setGroup(container);
 
-            System.out.println("will add listener to controller: " + controllers[i].getName());
 
-            controllers[i].addCallback(new CallbackListener() {
-                @Override
-                public void controlEvent(CallbackEvent theEvent) {
-
-                    //get the text
-                    Controller<?> controller = theEvent.getController();
-                    if(controller instanceof Textfield){
-                        System.out.println(theEvent.getAction());
-                        String text = ((Textfield) controller).getText();
-                        System.out.println("Textfield: " + text);
-                }}
-            });
         }
 
 
@@ -141,6 +128,9 @@ public class InspectorController extends Group implements PropertyChangeListener
                     .setSize(100, 20)
                     .setGroup(this)
                     .setValue((String) property.getValue());
+
+            setupCallback(textfield, property);
+
             return new Controller[]{textfield};
         } else if (type == PVector.class) {
             Numberbox numberbox = cp5.addNumberbox(property.getName())
@@ -172,6 +162,18 @@ public class InspectorController extends Group implements PropertyChangeListener
         t.setText(typeName + " Not Implmtld");
         return new Controller[]{t};
 
+    }
+
+    private void setupCallback(Textfield textfield, PObjectProperty property) {
+        textfield.addCallback(new CallbackListener() {
+            @Override
+            public void controlEvent(CallbackEvent callbackEvent) {
+                if (callbackEvent.getAction() == ControlP5.ACTION_BROADCAST) {
+                    System.out.println("property set to " + textfield.getText());
+                    property.setValue(textfield.getText());
+                }
+            }
+        });
     }
 
 

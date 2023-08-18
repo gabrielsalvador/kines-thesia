@@ -13,7 +13,7 @@ import org.jbox2d.dynamics.BodyType;
 import java.io.*;
 import java.util.ArrayList;
 
-public class PhysicsBodyComponent  implements BodyComponent, Serializable {
+public class PhysicsBodyComponent extends BodyComponent implements Serializable {
 
     transient private Body _body;
 
@@ -68,8 +68,6 @@ public class PhysicsBodyComponent  implements BodyComponent, Serializable {
     public String getName() {
         return "PhysicsBody";
     }
-
-
 
     public Body getJBox2DBody(){
         return _body;
