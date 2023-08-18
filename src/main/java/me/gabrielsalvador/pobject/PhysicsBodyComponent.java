@@ -1,19 +1,24 @@
 package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.pobject.components.BodyComponent;
+import me.gabrielsalvador.pobject.components.BodyData;
 import me.gabrielsalvador.pobject.views.CircleShape;
 import me.gabrielsalvador.pobject.views.PolygonShape;
-import me.gabrielsalvador.pobject.views.RectangleShape;
 import me.gabrielsalvador.pobject.views.Shape;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
 
+import java.io.*;
 import java.util.ArrayList;
 
-public class PhysicsBodyComponent implements BodyComponent {
-    private Body _body;
+public class PhysicsBodyComponent  implements BodyComponent, Serializable {
+
+    transient private Body _body;
+
+    /* used to serialize body data and recreate the body on deserialization */
+    private BodyData _bodyData = new BodyData();
     public PhysicsBodyComponent(Vec2 position) {
         _body = PhysicsManager.getInstance().createCircle(position,5);
     }
@@ -88,5 +93,36 @@ public class PhysicsBodyComponent implements BodyComponent {
 
     public void onCollision(PhysicsBodyComponent other) {
         System.out.println("Collision");
+    }
+
+    private void updateBodyData() {
+        _bodyData.x = _body.getPosition().x;
+        _bodyData.y = _body.getPosition().y;
+        _bodyData.angle = _body.getAngle();
+        _bodyData.linearVelocityX = _body.getLinearVelocity().x;
+        _bodyData.linearVelocityY = _body.getLinearVelocity().y;
+        _bodyData.angularVelocity = _body.getAngularVelocity();
+        _bodyData.bodyType = _body.getType();
+
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        updateBodyData();
+        out.defaultWriteObject();
+    }
+
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        recreateBody();
+    }
+
+    private void recreateBody() {
+
+        _body = PhysicsManager.getInstance().createCircle(new Vec2(_bodyData.x, _bodyData.y), 5);
+        _body.setTransform(new Vec2(_bodyData.x, _bodyData.y), _bodyData.angle);
+        _body.setLinearVelocity(new Vec2(_bodyData.linearVelocityX, _bodyData.linearVelocityY));
+        _body.setAngularVelocity(_bodyData.angularVelocity);
+        _body.setType(_bodyData.bodyType);
     }
 }
