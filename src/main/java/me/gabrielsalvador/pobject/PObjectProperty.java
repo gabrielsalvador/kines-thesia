@@ -6,6 +6,8 @@ public class PObjectProperty implements Serializable {
     private String name;
     private Object value;
     private Class<?> type;
+    private Runnable onChanged;  // Callback when value changes
+
 
     public PObjectProperty(String name, Class<?> type) {
         this.name = name;
@@ -18,6 +20,7 @@ public class PObjectProperty implements Serializable {
 
     public PObjectProperty setValue(Object value) {
         this.value = value;
+        if (onChanged != null) onChanged.run();
         return this;
     }
 
@@ -28,5 +31,10 @@ public class PObjectProperty implements Serializable {
 
     public Class<?> getType() {
         return type;
+    }
+
+
+    public void setOnChanged(Runnable onChanged) {
+        this.onChanged = onChanged;
     }
 }

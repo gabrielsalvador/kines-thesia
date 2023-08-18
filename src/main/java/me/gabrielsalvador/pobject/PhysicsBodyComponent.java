@@ -16,9 +16,12 @@ import java.util.ArrayList;
 public class PhysicsBodyComponent extends BodyComponent implements Serializable {
 
     transient private Body _body;
-
     /* used to serialize body data and recreate the body on deserialization */
     private BodyData _bodyData = new BodyData();
+
+    @InspectableProperty
+    private Runnable onCollision;
+
     public PhysicsBodyComponent(Vec2 position) {
         _body = PhysicsManager.getInstance().createCircle(position,5);
     }

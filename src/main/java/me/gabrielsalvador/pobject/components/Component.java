@@ -42,12 +42,10 @@ public class Component {
 
     public ArrayList<PObjectProperty> getProperties() {
 
-        // If cachedProperties is already populated, return it.
         if (!cachedProperties.isEmpty()) {
             return cachedProperties;
         }
 
-        // Extract fields annotated with InspectableProperty
         for (Field field : this.getClass().getDeclaredFields()) {
             if (field.isAnnotationPresent(InspectableProperty.class)) {
                 InspectableProperty propertyAnnotation = field.getAnnotation(InspectableProperty.class);
@@ -56,7 +54,19 @@ public class Component {
                 try {
                     field.setAccessible(true);
 
-                    PObjectProperty property = new PObjectProperty(displayName, field.getType()).setValue(field.get(this));
+                    PObjectProperty property = new PObjectProperty(displayName, field.getType())
+                            .setValue(field.get(this));
+
+                    // Update the original field when PObjectProperty changes
+                    property.setOnChanged(() -> {
+                        try {
+                            System.out.println("Updating field " + field.getName() + " with value " + property.getValue());
+                            field.set(this, property.getValue());  // Update the original field when PObjectProperty changes
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
                     cachedProperties.add(property);
 
                 } catch (IllegalAccessException e) {
@@ -65,12 +75,11 @@ public class Component {
             }
         }
 
-        //... extend for methods ...
-
         return cachedProperties;
     }
 
-    // Additional methods to manage cachedProperties can be added here, e.g., to clear or update the cache.
+
+
 
 }
 
