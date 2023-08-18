@@ -88,19 +88,20 @@ public class InspectorController extends Group implements PropertyChangeListener
             controllers[i].setPosition(container.getWidth()/2 + (container.getWidth()/2/controllers.length) * (i), 0);
             controllers[i].setHeight(container.getHeight());
             controllers[i].setGroup(container);
-            controllers[i].addListener(new ControlListener() {
-                public void controlEvent(ControlEvent theEvent) {
-                    //if property is a vector
-                    if (type.getName().equals("[F")) {
-                        float[] vector = new float[controllers.length];
-                        for (int i = 0; i < controllers.length; i++) {
-                            vector[i] = controllers[i].getValue();
-                        }
-                        property.setValue(vector);
-                    } else {
-                        property.setValue(theEvent.getController().getValue());
-                    }
-                }
+
+            System.out.println("will add listener to controller: " + controllers[i].getName());
+
+            controllers[i].addCallback(new CallbackListener() {
+                @Override
+                public void controlEvent(CallbackEvent theEvent) {
+
+                    //get the text
+                    Controller<?> controller = theEvent.getController();
+                    if(controller instanceof Textfield){
+                        System.out.println(theEvent.getAction());
+                        String text = ((Textfield) controller).getText();
+                        System.out.println("Textfield: " + text);
+                }}
             });
         }
 
@@ -172,4 +173,6 @@ public class InspectorController extends Group implements PropertyChangeListener
         return new Controller[]{t};
 
     }
+
+
 }

@@ -2,9 +2,16 @@ package me.gabrielsalvador.pobject.components;
 
 import me.gabrielsalvador.pobject.PObjectProperty;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MusicalNoteComponent implements Component{
+public class MusicalNoteComponent implements Component, Serializable {
+
+
+    @InspectableProperty
+    private String _sampleName = "";
+
     @Override
     public void update() {
 
@@ -15,8 +22,5 @@ public class MusicalNoteComponent implements Component{
         return null;
     }
 
-    @Override
-    public ArrayList<PObjectProperty> getProperties() {
-        return null;
-    }
+
 }

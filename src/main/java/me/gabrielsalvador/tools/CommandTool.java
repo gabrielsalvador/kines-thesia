@@ -9,6 +9,7 @@ import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.pobject.*;
 import me.gabrielsalvador.pobject.components.BodyComponent;
+import me.gabrielsalvador.pobject.components.MusicalNoteComponent;
 import me.gabrielsalvador.pobject.views.RectangleShape;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
@@ -112,6 +113,7 @@ public class CommandTool extends Tool {
                     PObject object = new PlayableNote();
                     PhysicsBodyComponent body = new PhysicsBodyComponent(new Vec2(x,y));
                     object.addComponent(BodyComponent.class,body);
+                    object.addComponent(MusicalNoteComponent.class,new MusicalNoteComponent());
                     //set body to kinematic
                     body.getJBox2DBody().setType(org.jbox2d.dynamics.BodyType.KINEMATIC);
                     AppController.getInstance().addPObject(object);

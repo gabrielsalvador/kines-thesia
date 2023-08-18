@@ -69,15 +69,7 @@ public class PhysicsBodyComponent  implements BodyComponent, Serializable {
         return "PhysicsBody";
     }
 
-    @Override
-    public ArrayList<PObjectProperty> getProperties() {
-        //just a test
-        PObjectProperty p = new PObjectProperty("test",int.class);
-        ArrayList<PObjectProperty> list = new ArrayList<>();
-        list.add(p);
-        return list;
 
-    }
 
     public Body getJBox2DBody(){
         return _body;
