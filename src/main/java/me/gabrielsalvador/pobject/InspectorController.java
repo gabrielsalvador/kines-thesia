@@ -128,7 +128,8 @@ public class InspectorController extends Group implements PropertyChangeListener
                     .setSize(100, 20)
                     .setGroup(this)
                     .setValue((String) property.getValue());
-
+            textfield.setAutoClear(false);
+            textfield.getCaptionLabel().hide();
             setupCallback(textfield, property);
 
             return new Controller[]{textfield};
