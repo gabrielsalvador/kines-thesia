@@ -1,5 +1,6 @@
 package me.gabrielsalvador.pobject.components;
 
+import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.views.RectangleShape;
 import me.gabrielsalvador.pobject.views.Shape;
 import org.jbox2d.collision.AABB;
@@ -14,6 +15,9 @@ public class BodyComponent extends Component {
     private Vec2 _position;
     private Shape _shape;
 
+    public BodyComponent(PObject owner){
+        super(owner);
+    }
     public Vec2 getPosition(){
         return _position;
     }

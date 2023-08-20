@@ -3,13 +3,15 @@ package me.gabrielsalvador.pobject;
 import java.io.Serializable;
 
 public class PObjectProperty implements Serializable {
+    private PObject _owner;
     private String name;
     private Object value;
     private Class<?> type;
     private Runnable onChanged;  // Callback when value changes
 
 
-    public PObjectProperty(String name, Class<?> type) {
+    public PObjectProperty(PObject _owner,String name, Class<?> type) {
+        this._owner = _owner;
         this.name = name;
         this.type = type;
     }
@@ -36,5 +38,9 @@ public class PObjectProperty implements Serializable {
 
     public void setOnChanged(Runnable onChanged) {
         this.onChanged = onChanged;
+    }
+
+    public PObject getOwner() {
+        return _owner;
     }
 }

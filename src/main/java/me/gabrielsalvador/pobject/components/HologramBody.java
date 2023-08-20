@@ -1,5 +1,6 @@
 package me.gabrielsalvador.pobject.components;
 
+import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.pobject.views.RectangleShape;
 import me.gabrielsalvador.pobject.views.Shape;
@@ -14,12 +15,14 @@ public class HologramBody extends BodyComponent implements Serializable {
     private ArrayList<HologramBody> _children = new ArrayList<>();
     private HologramBody _parent;
 
-    public HologramBody(Vec2 position, Vec2 size){
+    public HologramBody(PObject owner,Vec2 position, Vec2 size){
+        super(owner);
         _position = position;
         _shape = new RectangleShape( size);
     }
 
-    public HologramBody() {
+    public HologramBody(PObject owner) {
+        super(owner);
         _position = new Vec2(0,0);
         _shape = new RectangleShape(new Vec2(0,0));
     }
@@ -58,19 +61,12 @@ public class HologramBody extends BodyComponent implements Serializable {
         return "HologramBody";
     }
 
-    @Override
-    public ArrayList<PObjectProperty> getProperties() {
-        //just a test
-        PObjectProperty p = new PObjectProperty("test",int.class);
-        ArrayList<PObjectProperty> list = new ArrayList<>();
-        list.add(p);
-        return list;
-    }
+
     public void setParent(HologramBody parent){
         _parent = parent;
     }
     public HologramBody createChild(Vec2 position, Vec2 size){
-        HologramBody child = new HologramBody(position, size);
+        HologramBody child = new HologramBody(_owner,position, size);
         child.setParent(this);
         _children.add(child);
         return child;

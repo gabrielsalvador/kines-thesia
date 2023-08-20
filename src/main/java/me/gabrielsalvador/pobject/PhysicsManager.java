@@ -65,8 +65,19 @@ class myContactListener implements ContactListener{
 
     @Override
     public void beginContact(Contact contact) {
-        System.out.println("beginContact");
-        contact.m_fixtureB.getBody().applyForce(new Vec2(0,500),contact.m_fixtureA.getBody().getPosition());
+
+
+        PhysicsBodyComponent objA = (PhysicsBodyComponent) contact.getFixtureA().getUserData();
+        PhysicsBodyComponent objB = (PhysicsBodyComponent) contact.getFixtureB().getUserData();
+        if(objA == null || objB == null){
+            return;
+        }
+        objA.onCollision(objB);
+        objB.onCollision(objA);
+
+
+
+
     }
 
     @Override

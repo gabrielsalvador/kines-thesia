@@ -1,5 +1,6 @@
 package me.gabrielsalvador.pobject.components;
 
+import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObjectProperty;
 
 import java.io.Serial;
@@ -11,6 +12,10 @@ public class MusicalNoteComponent extends Component implements Serializable {
 
     @InspectableProperty
     private String _sampleName = "";
+
+    public MusicalNoteComponent(PObject owner) {
+        super(owner);
+    }
 
     @Override
     public void update() {

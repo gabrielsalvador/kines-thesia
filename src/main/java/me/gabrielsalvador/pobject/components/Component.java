@@ -1,6 +1,8 @@
 package me.gabrielsalvador.pobject.components;
 
 
+import controlP5.Pointer;
+import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObjectProperty;
 
 import java.lang.annotation.ElementType;
@@ -24,6 +26,11 @@ import java.util.ArrayList;
 public class Component {
 
     private ArrayList<PObjectProperty> cachedProperties = new ArrayList<>();
+    protected PObject _owner;
+
+    public Component(PObject owner) {
+        _owner = owner;
+    }
 
     public void update() {
         // Implementation here
@@ -54,8 +61,7 @@ public class Component {
                 try {
                     field.setAccessible(true);
 
-                    PObjectProperty property = new PObjectProperty(displayName, field.getType())
-                            .setValue(field.get(this));
+                    PObjectProperty property = new PObjectProperty(_owner,displayName, field.getType()).setValue(field.get(this));
 
                     // Update the original field when PObjectProperty changes
                     property.setOnChanged(() -> {

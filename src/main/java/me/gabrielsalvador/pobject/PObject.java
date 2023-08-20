@@ -22,7 +22,7 @@ public abstract class PObject implements Serializable {
 
     public PObject() {
         //default body for every PObject
-        addComponent(BodyComponent.class,new HologramBody());
+        addComponent(BodyComponent.class,new HologramBody(this));
     }
 
     //use this method for things that need to be initialized after deserialization but don't forget the constructor also needs to call it

@@ -2,6 +2,7 @@ package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.pobject.components.BodyData;
+import me.gabrielsalvador.pobject.components.MusicalNoteComponent;
 import me.gabrielsalvador.pobject.views.CircleShape;
 import me.gabrielsalvador.pobject.views.PolygonShape;
 import me.gabrielsalvador.pobject.views.Shape;
@@ -20,10 +21,12 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     private BodyData _bodyData = new BodyData();
 
     @InspectableProperty
-    private Runnable onCollision;
+    private MusicalNoteComponent _onColision;
 
-    public PhysicsBodyComponent(Vec2 position) {
-        _body = PhysicsManager.getInstance().createCircle(position,5);
+
+    public PhysicsBodyComponent(PObject owner,Vec2 position) {
+        super(owner);
+        createBody();
     }
     @Override
     public Vec2 getPosition() {
@@ -32,6 +35,8 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     @Override
     public BodyComponent setPosition(Vec2 position) {
+        _bodyData.x = position.x;
+        _bodyData.y = position.y;
         _body.setTransform(position, _body.getAngle());
         return this;
     }
@@ -82,10 +87,11 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     public void setType(BodyType bodyType) {
         _body.setType(bodyType);
+
     }
 
     public void onCollision(PhysicsBodyComponent other) {
-        System.out.println("Collision");
+        System.out.println("Collision with " + other.getName());
     }
 
     private void updateBodyData() {
@@ -107,15 +113,15 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        recreateBody();
+        createBody();
     }
 
-    private void recreateBody() {
-
+    private void createBody() {
         _body = PhysicsManager.getInstance().createCircle(new Vec2(_bodyData.x, _bodyData.y), 5);
         _body.setTransform(new Vec2(_bodyData.x, _bodyData.y), _bodyData.angle);
         _body.setLinearVelocity(new Vec2(_bodyData.linearVelocityX, _bodyData.linearVelocityY));
         _body.setAngularVelocity(_bodyData.angularVelocity);
         _body.setType(_bodyData.bodyType);
+        _body.setUserData(this);
     }
 }
