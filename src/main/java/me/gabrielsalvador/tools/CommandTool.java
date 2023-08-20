@@ -30,6 +30,7 @@ public class CommandTool extends Tool {
             _textfield = cp5.addTextfield("CommandTextfield");
         }
         _textfield.show();
+        _textfield.bringToFront();
         _textfield.setFocus(true);
         _textfield.skipNextEvent();
         _textfield.getKeyMapping().put((int) PApplet.ENTER, new EnterCommand());
