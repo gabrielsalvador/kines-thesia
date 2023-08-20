@@ -38,6 +38,7 @@ public class ToolManager  {
 
     public void pushTool(Class<? extends Tool> toolClass) {
         Tool oldTool = _toolHistory.peek();
+        if(oldTool.getClass() == toolClass) return; // Don't push the same tool twice
 
         try {
             Tool newTool = toolClass.getDeclaredConstructor().newInstance();
