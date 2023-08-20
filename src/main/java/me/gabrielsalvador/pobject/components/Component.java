@@ -5,6 +5,7 @@ import controlP5.Pointer;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObjectProperty;
 
+import java.io.Serializable;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -23,11 +24,13 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-public class Component {
+public class Component implements Serializable {
 
     private ArrayList<PObjectProperty> cachedProperties = new ArrayList<>();
     protected PObject _owner;
 
+    public Component() {
+    }
     public Component(PObject owner) {
         _owner = owner;
     }
@@ -48,7 +51,6 @@ public class Component {
     }
 
     public ArrayList<PObjectProperty> getProperties() {
-
         if (!cachedProperties.isEmpty()) {
             return cachedProperties;
         }
@@ -61,14 +63,18 @@ public class Component {
                 try {
                     field.setAccessible(true);
 
-                    PObjectProperty property = new PObjectProperty(_owner,displayName, field.getType()).setValue(field.get(this));
+                    PObjectProperty property = new PObjectProperty(_owner, displayName, field.getType())
+                            .setValue(field.get(this));
+
 
                     // Update the original field when PObjectProperty changes
                     property.setOnChanged(() -> {
                         try {
-                            System.out.println("Updating field " + field.getName() + " with value " + property.getValue());
-                            field.set(this, property.getValue());  // Update the original field when PObjectProperty changes
-                        } catch (IllegalAccessException e) {
+                            Field currentField = this.getClass().getDeclaredField(property.getName() );
+                            currentField.setAccessible(true);
+                            System.out.println("Updating field " + currentField.getName() + " with value " + property.getValue());
+                            currentField.set(this, property.getValue());
+                        } catch (NoSuchFieldException | IllegalAccessException e) {
                             e.printStackTrace();
                         }
                     });
@@ -80,9 +86,9 @@ public class Component {
                 }
             }
         }
-
         return cachedProperties;
     }
+
 
 
 

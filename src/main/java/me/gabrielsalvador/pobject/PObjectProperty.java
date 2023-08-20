@@ -1,13 +1,17 @@
 package me.gabrielsalvador.pobject;
 
+import me.gabrielsalvador.common.SerializableRunnable;
+
 import java.io.Serializable;
+
+
 
 public class PObjectProperty implements Serializable {
     private PObject _owner;
     private String name;
     private Object value;
     private Class<?> type;
-    private Runnable onChanged;  // Callback when value changes
+    private SerializableRunnable onChanged;  // Callback when value changes
 
 
     public PObjectProperty(PObject _owner,String name, Class<?> type) {
@@ -36,7 +40,7 @@ public class PObjectProperty implements Serializable {
     }
 
 
-    public void setOnChanged(Runnable onChanged) {
+    public void setOnChanged(SerializableRunnable onChanged) {
         this.onChanged = onChanged;
     }
 

@@ -15,6 +15,9 @@ public class BodyComponent extends Component {
     private Vec2 _position;
     private Shape _shape;
 
+    public BodyComponent(){
+        super();
+    }
     public BodyComponent(PObject owner){
         super(owner);
     }
