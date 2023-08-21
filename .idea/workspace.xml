@@ -5,12 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8dd3a229-cf9e-48ee-b8a0-e757222cccff" name="Changes" comment="idea config files">
+      <change afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/audio/AudioManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/sequencing/SequencerState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/SeaArr78_HHC.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/kick.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/sample.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/sample2.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/snare.wav" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/appState.ser" beforeDir="false" afterPath="$PROJECT_DIR$/appState.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/InspectorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/InspectorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/AppState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsBodyComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsBodyComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/components/MusicalNoteComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/components/MusicalNoteComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/sequencing/SequencerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/sequencing/SequencerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +67,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;component-system&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;audio-manager&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;temurin-17&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/gabrielsalvador/Code/sines-thesia/src/main/java/me/gabrielsalvador/pobject&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
@@ -71,10 +78,10 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="me.gabrielsalvador.sequencing" />
       <recent name="me.gabrielsalvador.pobject.views" />
       <recent name="me.gabrielsalvador.pobject" />
       <recent name="me.gabrielsalvador.core" />
-      <recent name="me.gabrielsalvador.sequencing" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject" />
@@ -200,10 +207,6 @@
         <breakpoint type="java-exception">
           <properties class="java.lang.IllegalAccessError" package="java.lang" />
           <option name="timeStamp" value="10" />
-        </breakpoint>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NullPointerException" package="java.lang" />
-          <option name="timeStamp" value="42" />
         </breakpoint>
         <line-breakpoint enabled="true" type="java-field">
           <url>file://$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/RoutingTool.java</url>

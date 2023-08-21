@@ -55,8 +55,6 @@ public class Sinesthesia extends PApplet {
         ControlFont cfont = new ControlFont(myFont);
         _cp5.setFont(cfont);
 
-
-
         LayoutBuilder builder = new LayoutBuilder(this, _cp5);
         builder.addCustomClasses("Canvas", CanvasController.class);
         builder.addCustomClasses("Toolbox", ToolboxController.class);

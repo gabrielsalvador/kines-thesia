@@ -1,5 +1,6 @@
 package me.gabrielsalvador.pobject;
 
+import me.gabrielsalvador.audio.AudioManager;
 import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.pobject.components.BodyData;
 import me.gabrielsalvador.pobject.components.MusicalNoteComponent;
@@ -94,7 +95,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         if (_onColision != null) {
             String sampleName = _onColision.getSampleName();
             if (sampleName != null && !sampleName.isEmpty()) {
-                System.out.println("Playing sample " + sampleName);
+                AudioManager.getInstance().play(sampleName);
             }
         }
     }
