@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.sequencing.SequencerState;
 import me.gabrielsalvador.tools.Tool;
 import me.gabrielsalvador.pobject.views.View;
 
 public class AppState implements Serializable {
     private static AppState _instance;
-
     private Tool _currentTool;
+    private final SequencerState _sequencerState = new SequencerState();
     private final ArrayList<View> _gizmos = new ArrayList<View>();
     private final ArrayList<PObject> _pObjects = new ArrayList<PObject>();
 
@@ -49,6 +50,22 @@ public class AppState implements Serializable {
     public void clearObjects() {
         for(int i = 0 ; i < _pObjects.size() ; i++){
             _pObjects.remove(i);
+        }
+    }
+
+    public SequencerState getSequencerState() {
+        return _sequencerState;
+    }
+
+
+    public void loadSequencerState(SequencerState sequencerState) {
+        int timeSteps = sequencerState.getSteps().length;
+        int pitchSteps = sequencerState.getSteps()[0].length;
+
+        for (int x = 0; x < timeSteps; x++) {
+            for (int y = 0; y < pitchSteps; y++) {
+                _sequencerState.setStep(x, y, sequencerState.getSteps()[x][y]);
+            }
         }
     }
 }

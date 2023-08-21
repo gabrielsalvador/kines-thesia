@@ -89,11 +89,12 @@ public class Sinesthesia extends PApplet {
         try (FileInputStream fileIn = new FileInputStream("appState.ser");
              ObjectInputStream in = new ObjectInputStream(fileIn)) {
             AppState loadedState = (AppState) in.readObject();
-            AppState.getInstance().setCurrentTool(loadedState.getCurrentTool());
+            AppState myState = AppState.getInstance();
+            myState.setCurrentTool(loadedState.getCurrentTool());
             for (PObject pObject : loadedState.getPObjects()) {
-                AppController.getInstance().addPObject(pObject);
+                myState.addPObject(pObject);
             }
-
+            myState.loadSequencerState(loadedState.getSequencerState());
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }

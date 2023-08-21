@@ -1,6 +1,7 @@
 package me.gabrielsalvador.sequencing;
 
 import controlP5.*;
+import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.routing.Inlet;
 import processing.core.PApplet;
@@ -8,14 +9,14 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 public class SequencerController extends Controller<SequencerController> implements Device{
-    private final int divisionTime = 32;
-    private final int divisionPitch = 12;
+    public static final int DIVISION_TIME = 32 ;
+    public static final int DIVISION_PITCH = 12;
     private int playhead = 0;
     protected boolean isPressed;
     protected int currentX = -1;
     protected int currentY = -1;
     protected int _myMode = MULTIPLES;
-    private final boolean[][] steps = new  boolean[divisionTime][divisionPitch];
+    private SequencerState _sequencerState;
 
     /* PObject with inlets where he can send note events */
     private final ArrayList<Inlet> _connectedPObject = new ArrayList<Inlet>();
@@ -24,13 +25,15 @@ public class SequencerController extends Controller<SequencerController> impleme
         super(theControlP5, theName);
         setView( (ControllerView) new SequencerView( (SequencerController) this));
         Clock.getInstance().addDevice(this);
+        _sequencerState = AppState.getInstance().getSequencerState();
+
     }
 
     @Override
     public void clockTick() {
-        playhead = (playhead + 1) % divisionTime;
-        for (int pitch = 0; pitch < divisionPitch; pitch++) {
-            if (steps[playhead][pitch]) {
+        playhead = (playhead + 1) % DIVISION_TIME;
+        for (int pitch = 0; pitch < DIVISION_PITCH; pitch++) {
+            if (_sequencerState.getSteps()[playhead][pitch]) {
                 sendNoteEvent(playhead, pitch);
             }
         }
@@ -54,23 +57,18 @@ public class SequencerController extends Controller<SequencerController> impleme
                 if (tX != currentX || tY != currentY) {
                     tX = PApplet.min(PApplet.max(0, tX), getDivisionTime() - 1);
                     tY = PApplet.min(PApplet.max(0, tY), getDivisionPitch() - 1);
-                    boolean isMarkerActive = (getSteps()[tX][tY] == true) ? true : false;
+                    boolean isMarkerActive = getSteps()[tX][tY];
                     switch (_myMode) {
                         default:
                         case (SINGLE_COLUMN):
-                            for (int i = 0; i < getDivisionPitch(); i++) {
-                                getSteps()[tX][i] = false;
-                            }
-                            getSteps()[tX][tY] = (!isMarkerActive) ? true : getSteps()[tX][tY];
-                            break;
                         case (SINGLE_ROW):
                             for (int i = 0; i < getDivisionPitch(); i++) {
-                                getSteps()[tX][i] = false;
+                                _sequencerState.setStep(tX, i, false);
                             }
-                            getSteps()[tX][tY] = (!isMarkerActive) ? true : getSteps()[tX][tY];
+                            _sequencerState.setStep(tX, tY, !isMarkerActive);
                             break;
                         case (MULTIPLES):
-                            getSteps()[tX][tY] = !getSteps()[tX][tY];
+                            _sequencerState.setStep(tX, tY, !getSteps()[tX][tY]);
                             break;
                     }
                     currentX = tX;
@@ -80,6 +78,7 @@ public class SequencerController extends Controller<SequencerController> impleme
         }
         return this;
     }
+
 
     public void mousePressed() {
         isActive = getIsInside();
@@ -106,14 +105,14 @@ public class SequencerController extends Controller<SequencerController> impleme
     }
 
     public int getDivisionTime() {
-        return divisionTime;
+        return DIVISION_TIME;
     }
 
     public int getDivisionPitch() {
-        return divisionPitch;
+        return DIVISION_PITCH;
     }
     public boolean[][] getSteps() {
-        return steps;
+        return _sequencerState.getSteps();
     }
     public int getPlayhead(){
         return playhead;
