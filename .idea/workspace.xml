@@ -7,6 +7,10 @@
     <list default="true" id="8dd3a229-cf9e-48ee-b8a0-e757222cccff" name="Changes" comment="idea config files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/appState.ser" beforeDir="false" afterPath="$PROJECT_DIR$/appState.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/InspectorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/InspectorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsBodyComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsBodyComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/components/MusicalNoteComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/components/MusicalNoteComponent.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,6 +220,7 @@
         <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PObjectProperty" memberName="type" />
         <PinnedItemInfo parentTag="controlP5.Group" memberName="absolutePosition" />
         <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PKeyboard" memberName="_components" />
+        <PinnedItemInfo parentTag="org.jbox2d.dynamics.Fixture" memberName="m_body" />
         <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PKeyboard" memberName="_outlets" />
         <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PlayableNote" memberName="_components" />
         <PinnedItemInfo parentTag="java.util.LinkedHashMap$Entry" memberName="key" />

@@ -91,7 +91,12 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     }
 
     public void onCollision(PhysicsBodyComponent other) {
-        System.out.println("Collision with " + other.getName());
+        if (_onColision != null) {
+            String sampleName = _onColision.getSampleName();
+            if (sampleName != null && !sampleName.isEmpty()) {
+                System.out.println("Playing sample " + sampleName);
+            }
+        }
     }
 
     private void updateBodyData() {

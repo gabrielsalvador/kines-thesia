@@ -203,6 +203,15 @@ public class InspectorController extends Group implements PropertyChangeListener
     }
 
     private void setupTextfieldCallback(Textfield textfield, PObjectProperty property) {
+        textfield.addCallback(new CallbackListener() {
+            @Override
+            public void controlEvent(CallbackEvent callbackEvent) {
+                if (callbackEvent.getAction() == ControlP5.ACTION_BROADCAST) {
+                    String value = textfield.getText();
+                    property.setValue(value);
+                }
+            }
+        });
     }
 
     private void setupScrollableListCallback(Controller controller, PObjectProperty property) {

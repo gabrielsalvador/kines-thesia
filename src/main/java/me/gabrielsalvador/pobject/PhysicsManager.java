@@ -67,13 +67,15 @@ class myContactListener implements ContactListener{
     public void beginContact(Contact contact) {
 
 
-        PhysicsBodyComponent objA = (PhysicsBodyComponent) contact.getFixtureA().getUserData();
-        PhysicsBodyComponent objB = (PhysicsBodyComponent) contact.getFixtureB().getUserData();
+        PhysicsBodyComponent objA = (PhysicsBodyComponent) contact.getFixtureA().getBody().getUserData();
+        PhysicsBodyComponent objB = (PhysicsBodyComponent) contact.getFixtureB().getBody().getUserData();
         if(objA == null || objB == null){
             return;
         }
+
         objA.onCollision(objB);
         objB.onCollision(objA);
+
 
 
 

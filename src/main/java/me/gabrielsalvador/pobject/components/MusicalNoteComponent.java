@@ -27,5 +27,7 @@ public class MusicalNoteComponent extends Component implements Serializable {
         return "Musical Note Information";
     }
 
-
+    public String getSampleName() {
+        return _sampleName;
+    }
 }
