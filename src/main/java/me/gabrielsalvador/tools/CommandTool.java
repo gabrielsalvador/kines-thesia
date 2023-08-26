@@ -112,7 +112,8 @@ public class CommandTool extends Tool {
                     AppController.getInstance().addPObject(pEmitter);
                 }else if(args[1].equals("block")) {
                     PObject object = new PlayableNote();
-                    PhysicsBodyComponent body = new PhysicsBodyComponent(object,new Vec2(x,y));
+                    PhysicsBodyComponent body = new PhysicsBodyComponent(object);
+                    body.setPosition(new Vec2(x,y));
                     object.addComponent(BodyComponent.class,body);
                     object.addComponent(MusicalNoteComponent.class,new MusicalNoteComponent(object));
                     //set body to kinematic

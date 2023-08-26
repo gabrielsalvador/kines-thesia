@@ -79,7 +79,8 @@ public class PEmitter extends PObject implements Inlet {
     public void receive(String message) {
         //create new pobject with physics body
         PObject pObject = new PlayableNote();
-        PhysicsBodyComponent bodyComponent = new PhysicsBodyComponent(pObject,getBodyComponent().getPosition());
+        PhysicsBodyComponent bodyComponent = new PhysicsBodyComponent(pObject);
+        bodyComponent.setPosition(getBodyComponent().getPosition());
         bodyComponent.setType(BodyType.DYNAMIC);
         pObject.addComponent(BodyComponent.class, bodyComponent);
         bodyComponent.setPosition(getBodyComponent().getPosition());

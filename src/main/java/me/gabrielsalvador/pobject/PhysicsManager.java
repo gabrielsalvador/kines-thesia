@@ -50,7 +50,13 @@ public class PhysicsManager {
         return circleBody;
     }
 
-    public void step(float timeStep, int velocityIterations, int positionIterations) {
+    public  void step(float timeStep, int velocityIterations, int positionIterations) {
+        //remove bodies that are over the border
+        for (Body body = _world.getBodyList(); body != null; body = body.getNext()) {
+            if (body.getPosition().x > 500 || body.getPosition().x < 0 || body.getPosition().y > 500 || body.getPosition().y < 0) {
+                _world.destroyBody(body);
+            }
+        }
         _world.step(timeStep, velocityIterations, positionIterations);
     }
 

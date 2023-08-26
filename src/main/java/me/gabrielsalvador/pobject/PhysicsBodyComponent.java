@@ -25,9 +25,10 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     private MusicalNoteComponent _onColision;
 
 
-    public PhysicsBodyComponent(PObject owner,Vec2 position) {
+    public PhysicsBodyComponent(PObject owner) {
         super(owner);
         createBody();
+
     }
     @Override
     public Vec2 getPosition() {
@@ -45,6 +46,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     @Override
     public Shape getShape() {
+        if(_body == null || _body.getFixtureList() == null) return null;
         ShapeType type = _body.getFixtureList().getShape().getType();
 
         if (type == ShapeType.CIRCLE) {

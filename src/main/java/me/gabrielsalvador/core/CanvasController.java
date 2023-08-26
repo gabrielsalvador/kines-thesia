@@ -5,6 +5,7 @@ import controlP5.events.ReleasedOutsideListener;
 import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.tools.ToolManager;
 import me.gabrielsalvador.pobject.views.CanvasView;
+import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import me.gabrielsalvador.pobject.PObject;
@@ -14,9 +15,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 // Custom controller class that extends Controller
 public class CanvasController extends Controller<CanvasController> implements ReleasedOutsideListener {
 
+    private final Sinesthesia _pApplet = Sinesthesia.getInstance();
     private PObject _currentlyHovering;
     private final ToolManager _toolManager;
     private final PhysicsManager _physicsManager;
+    private float _fixedTimeStep = 2 ;
+
+
 
     public CanvasController(ControlP5 cp5, String name) {
         super(cp5, name);
@@ -115,14 +120,18 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
     @Override
     public void draw(PGraphics graphics) {
-
         graphics.pushMatrix();
         graphics.translate(x(position), y(position));
         getView().display(graphics, this);
         ToolManager.getInstance().getCurrentTool().draw(graphics);
         graphics.popMatrix();
 
-        _physicsManager.step(1f/30.0f,8, 3);
+        float accumulatedTime = _pApplet.getAccumulatedTime();
+        float fixedTimeStep = _fixedTimeStep;
+        while (accumulatedTime >= fixedTimeStep) {
+            PhysicsManager.getInstance().step(fixedTimeStep, 8, 3);
+            accumulatedTime -= fixedTimeStep;
+        }
         AppController.getInstance().applyModifications();
 
 

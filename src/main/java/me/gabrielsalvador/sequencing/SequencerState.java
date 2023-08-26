@@ -7,9 +7,6 @@ public class SequencerState implements Serializable {
 
     private boolean[][] _steps = new boolean[SequencerController.DIVISION_TIME][SequencerController.DIVISION_PITCH];
 
-
-
-
     public boolean[][] getSteps() {
         return _steps;
     }

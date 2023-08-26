@@ -28,6 +28,7 @@ public class PlayableNoteView implements View<PObject> {
         BodyComponent bodyComponent = _model.getBodyComponent();
         Vec2 position = bodyComponent.getPosition();
         Shape s = _model.getBodyComponent().getShape();
+        if(s == null) return;
 
         graphics.ellipseMode(PApplet.CENTER);
         graphics.pushStyle();
@@ -47,6 +48,7 @@ public class PlayableNoteView implements View<PObject> {
         PhysicsBodyComponent bodyComponent = (PhysicsBodyComponent)_model.getBodyComponent();
         Vec2 position = bodyComponent.getJBox2DBody().getPosition();
         Shape s = bodyComponent.getShape();
+        if(s == null) return false;
       return s.isMouseOver(mouseX, mouseY, position.x, position.y);
     }
 

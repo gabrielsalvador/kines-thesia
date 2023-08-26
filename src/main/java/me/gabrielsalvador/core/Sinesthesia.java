@@ -21,6 +21,10 @@ public class Sinesthesia extends PApplet {
     private static Sinesthesia _instance;
     private ControlP5 _cp5;
     private Clock _clock;
+    private float lastTime;
+    private float accumulatedTime = 0;
+
+
 
     public Sinesthesia() {
         super();
@@ -76,6 +80,11 @@ public class Sinesthesia extends PApplet {
     }
 
     public void draw() {
+        float currentTime = millis();
+        float deltaTime = (currentTime - lastTime) / 1000.0f;
+        lastTime = currentTime;
+        accumulatedTime += deltaTime;
+
         background(255);
 
     }
@@ -113,5 +122,13 @@ public class Sinesthesia extends PApplet {
         super.dispose();
 
     }
+
+    public float getAccumulatedTime() {
+        return accumulatedTime;
+    }
+
+
+
+
 
 }
