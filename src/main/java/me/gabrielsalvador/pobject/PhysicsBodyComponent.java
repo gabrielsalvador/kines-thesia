@@ -11,9 +11,7 @@ import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
-
 import java.io.*;
-import java.util.ArrayList;
 
 public class PhysicsBodyComponent extends BodyComponent implements Serializable {
 
@@ -28,17 +26,22 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     public PhysicsBodyComponent(PObject owner,Vec2 position) {
         super(owner);
         createBody();
+        setPosition(position);
     }
     @Override
     public Vec2 getPosition() {
-        return _body.getPosition();
+        Vec2 position = _body.getPosition();
+        float[] pixels = new float[]{position.x,position.y};
+        Vec2 vector = PhysicsManager.getInstance().coordWorldToPixels(pixels[0],pixels[1]);
+        return vector;
     }
 
     @Override
     public BodyComponent setPosition(Vec2 position) {
-        _bodyData.x = position.x;
-        _bodyData.y = position.y;
-        _body.setTransform(position, _body.getAngle());
+        Vec2 worldCoords = PhysicsManager.getInstance().coordPixelsToWorld(position.x, position.y);
+        _bodyData.x = worldCoords.x;
+        _bodyData.y = worldCoords.y;
+        _body.setTransform(worldCoords, _body.getAngle());
         return this;
     }
 
@@ -122,6 +125,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         createBody();
     }
 
+    //we need to recreate the body on deserialization
     private void createBody() {
         _body = PhysicsManager.getInstance().createCircle(new Vec2(_bodyData.x, _bodyData.y), 5);
         _body.setTransform(new Vec2(_bodyData.x, _bodyData.y), _bodyData.angle);

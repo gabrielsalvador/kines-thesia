@@ -17,6 +17,9 @@ public class CanvasController extends Controller<CanvasController> implements Re
     private PObject _currentlyHovering;
     private final ToolManager _toolManager;
     private final PhysicsManager _physicsManager;
+    private long _lastTime = System.nanoTime();
+    private float _accumulator = 0.0f;
+    private final float _timeStep = 1.0f / 60.0f;
 
     public CanvasController(ControlP5 cp5, String name) {
         super(cp5, name);
@@ -113,20 +116,32 @@ public class CanvasController extends Controller<CanvasController> implements Re
         return new int[]{x, y};
     }
 
+    private final float maxFrameTime = 1.0f / 15.0f;  // Limit frameTime to 1/15th of a second
+
     @Override
     public void draw(PGraphics graphics) {
-
         graphics.pushMatrix();
         graphics.translate(x(position), y(position));
         getView().display(graphics, this);
         ToolManager.getInstance().getCurrentTool().draw(graphics);
         graphics.popMatrix();
 
-        _physicsManager.step(1f/30.0f,8, 3);
+        long currentTime = System.nanoTime();
+        float frameTime = (currentTime - _lastTime) / 1_000_000_000.0f;
+        _lastTime = currentTime;
+
+        frameTime = Math.min(frameTime, maxFrameTime);  // Clamp frameTime to a maximum value
+
+        _physicsManager.step(frameTime/2, 8, 3);
+
         AppController.getInstance().applyModifications();
-
-
-
     }
+
+
+
+
+
+
+
 
 }
