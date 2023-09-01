@@ -51,7 +51,7 @@ public class SelectTool extends Tool {
         if (pObject != null) {
             for (PObject selectedObject : selectedObjects) {
                 int[] mouse = AppController.getInstance().getCanvas().getMousePosition();
-                Vec2 objPos = selectedObject.getBodyComponent().getPosition();
+                System.out.println("mouse: " + mouse[0] + " " + mouse[1]);
                 selectedObject.getBodyComponent().setPosition(new Vec2(mouse[0], mouse[1]));
             }
         }

@@ -6,18 +6,18 @@ import processing.core.PGraphics;
 
 public class CircleShape extends Shape {
 
-    Vec2 _position;
+
     float _radius;
 
     public CircleShape(Vec2 position, float radius) {
-        _position = position;
+
         _radius = radius;
     }
 
     @Override
     public boolean isMouseOver(int mouseX, int mouseY, float x, float y) {
         // inside the circle
-        float d = MathUtils.distance(mouseX, mouseY, _position.x, _position.y);
+        float d = MathUtils.distance(mouseX, mouseY, x, y);
         return d < Math.abs(_radius);
     }
 
