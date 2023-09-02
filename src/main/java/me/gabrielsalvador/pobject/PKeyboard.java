@@ -35,6 +35,11 @@ public class PKeyboard extends PObject implements Outlet,Inlet {
         sequencer.registerPObject(this);
     }
 
+    public void remove(){
+        SequencerController sequencer = (SequencerController) Sinesthesia.getInstance().getCP5().get(MAIN_SEQUENCER);
+        sequencer.unregisterPObject(this);
+    }
+
     @Override
     public void onEnter(int x, int y) {
 

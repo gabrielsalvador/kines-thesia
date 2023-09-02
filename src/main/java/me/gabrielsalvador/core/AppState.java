@@ -48,7 +48,8 @@ public class AppState implements Serializable {
     }
 
     public void clearObjects() {
-        for(int i = 0 ; i < _pObjects.size() ; i++){
+        for (int i = _pObjects.size() - 1; i >= 0; i--) {
+            _pObjects.get(i).remove();
             _pObjects.remove(i);
         }
     }

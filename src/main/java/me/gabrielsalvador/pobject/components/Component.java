@@ -72,7 +72,6 @@ public class Component implements Serializable {
                         try {
                             Field currentField = this.getClass().getDeclaredField(property.getName() );
                             currentField.setAccessible(true);
-                            System.out.println("Updating field " + currentField.getName() + " with value " + property.getValue());
                             currentField.set(this, property.getValue());
                         } catch (NoSuchFieldException | IllegalAccessException e) {
                             e.printStackTrace();

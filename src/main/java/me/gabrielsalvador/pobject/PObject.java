@@ -136,4 +136,5 @@ public abstract class PObject implements Serializable {
         return _components;
     }
 
+    public abstract void remove();
 }

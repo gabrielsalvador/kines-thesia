@@ -36,6 +36,11 @@ public class RoutingConnection extends PObject {
 
     }
 
+    @Override
+    public void remove() {
+
+    }
+
     @Serial
     private void readObject(java.io.ObjectInputStream aInputStream) throws ClassNotFoundException, java.io.IOException {
         // default deserialization

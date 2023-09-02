@@ -30,8 +30,10 @@ public class PlayableNote extends PObject{
 
     }
 
+    @Override
+    public void remove() {
 
-
+    }
 
 
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {

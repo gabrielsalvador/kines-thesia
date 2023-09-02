@@ -116,5 +116,10 @@ public class PSocket<T extends Routable> extends PObject {
             }
         }
     }
+
+    @Override
+    public void remove() {
+
+    }
 }
 

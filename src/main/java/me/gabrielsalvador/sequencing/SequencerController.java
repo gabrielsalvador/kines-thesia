@@ -2,6 +2,7 @@ package me.gabrielsalvador.sequencing;
 
 import controlP5.*;
 import me.gabrielsalvador.core.AppState;
+import me.gabrielsalvador.pobject.PKeyboard;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.routing.Inlet;
 import processing.core.PApplet;
@@ -103,6 +104,9 @@ public class SequencerController extends Controller<SequencerController> impleme
     public void registerPObject(Inlet inlet){
         _connectedPObject.add(inlet);
     }
+    public void unregisterPObject(Inlet inlet){
+        _connectedPObject.remove(inlet);
+    }
 
     public int getDivisionTime() {
         return DIVISION_TIME;
@@ -117,4 +121,6 @@ public class SequencerController extends Controller<SequencerController> impleme
     public int getPlayhead(){
         return playhead;
     }
+
+
 }

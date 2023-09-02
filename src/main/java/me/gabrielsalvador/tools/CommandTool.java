@@ -5,6 +5,7 @@ import controlP5.Textfield;
 import controlP5.TextfieldCommand;
 import me.gabrielsalvador.common.SkipProcessing;
 import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.pobject.*;
@@ -120,7 +121,7 @@ public class CommandTool extends Tool {
                     body.getJBox2DBody().setType(org.jbox2d.dynamics.BodyType.KINEMATIC);
                     AppController.getInstance().addPObject(object);
                 }
-                else if (args[1].equals("eSystem")){
+                else if (args[1].equals("esystem")){
                     // add emitter and keyboard connected together
                     PKeyboard pKeyboard = new PKeyboard();
                     BodyComponent bodyComponent = pKeyboard.getBodyComponent();
@@ -142,7 +143,9 @@ public class CommandTool extends Tool {
                     AppController.getInstance().addPlayableNote(new Vec2(x, y));
                 }
             }else if(split[0].equals("clear")) {
-                AppController.getInstance().clearObjects();
+                AppController.getInstance().queueModification(() -> {
+                    AppState.getInstance().clearObjects();
+                });
             }
 
             _textfield.clear();
