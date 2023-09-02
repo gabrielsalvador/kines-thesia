@@ -25,7 +25,7 @@ public class PKeyboardView  implements View<PObject> {
     }
 
     public void display(PGraphics graphics) {
-        Vec2 position = _body.getPosition();
+        Vec2 position = _body.getPixelPosition();
 
         float[] size = (float[]) ((RectangleShape )_body.getShape()).getBoundayBox();
         float keyWidth = size[0] / 7;
@@ -63,13 +63,13 @@ public class PKeyboardView  implements View<PObject> {
 
 
     public boolean isMouseOver(int mouseX, int mouseY) {
-        Vec2 position = _body.getPosition();
 
+        Vec2 pixelPosition = _body.getPixelPosition();
         float keyWidth = Defaults.DEFAULT_KEYBOARD_SIZE[0];
         float keyHeight = Defaults.DEFAULT_KEYBOARD_SIZE[1];
 
-        float offsetX = position.x - keyWidth / 2;
-        float offsetY = position.y - keyHeight / 2;
+        float offsetX = pixelPosition.x - keyWidth / 2;
+        float offsetY = pixelPosition.y - keyHeight / 2;
 
         return mouseX >= offsetX && mouseX <= offsetX + keyWidth
                 && mouseY >= offsetY && mouseY <= offsetY + keyHeight;

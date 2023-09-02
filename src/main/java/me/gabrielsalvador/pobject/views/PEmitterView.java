@@ -22,7 +22,7 @@ public class PEmitterView  implements View<PObject> {
 
     public void display(PGraphics graphics) {
         graphics.pushStyle();
-        Vec2 position = _body.getPosition();
+        Vec2 position = _body.getPixelPosition();
 
         // Get the width and height of the emitter shape
         Shape shape = _body.getShape();
@@ -48,7 +48,7 @@ public class PEmitterView  implements View<PObject> {
     }
 
     public boolean isMouseOver(int mouseX, int mouseY) {
-        Vec2 position = _body.getPosition();
+        Vec2 position = _body.getPixelPosition();
 
         // Get the width and height of the emitter shape
         RectangleShape shape = (RectangleShape) _body.getShape();

@@ -74,21 +74,21 @@ public class Sinesthesia extends PApplet {
             e.printStackTrace();
         }
 
-        //loadAppState();
+        loadAppState();
 //        PObject pObject = new PlayableNote();
 //        PhysicsBodyComponent bodyComponent = new PhysicsBodyComponent(pObject,new Vec2(0,0));
 //        pObject.addComponent(BodyComponent.class, bodyComponent);
 //        AppController.getInstance().addPObject(pObject);
 //
 //        PObject pObject2 = new PlayableNote();
-//        PhysicsBodyComponent bodyComponent2 = new PhysicsBodyComponent(pObject2,new Vec2(0,10));
+//        PhysicsBodyComponent bodyComponent2 = new PhysicsBodyComponent(pObject2,new Vec2(5,5));
 //        pObject2.addComponent(BodyComponent.class, bodyComponent2);
 //        AppController.getInstance().addPObject(pObject2);
 
-        PObject pObject3 = new PlayableNote();
-        PhysicsBodyComponent bodyComponent3 = new PhysicsBodyComponent(pObject3,new Vec2(100,100));
-        pObject3.addComponent(BodyComponent.class, bodyComponent3);
-        AppController.getInstance().addPObject(pObject3);
+//        PObject pObject3 = new PlayableNote();
+//        PhysicsBodyComponent bodyComponent3 = new PhysicsBodyComponent(pObject3,new Vec2(100,100));
+//        pObject3.addComponent(BodyComponent.class, bodyComponent3);
+//        AppController.getInstance().addPObject(pObject3);
 
     }
 

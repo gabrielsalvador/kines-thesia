@@ -2,6 +2,7 @@ package me.gabrielsalvador.pobject.components;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObjectProperty;
+import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.views.RectangleShape;
 import me.gabrielsalvador.pobject.views.Shape;
 import org.jbox2d.common.Vec2;
@@ -33,9 +34,19 @@ public class HologramBody extends BodyComponent implements Serializable {
         return _parent != null ? _parent.getPosition().add(_position) : _position;
     }
 
+    public Vec2 getPixelPosition() {
+        Vec2 worldCoords = getPosition();
+        Vec2 pixels = PhysicsManager.getInstance().coordWorldToPixels(worldCoords.x, worldCoords.y);
+        return pixels;
+    }
+
     @Override
     public BodyComponent setPosition(Vec2 position) {
         _position = position;
+        return this;
+    }
+    public BodyComponent setPixelPosition(Vec2 position) {
+        _position = PhysicsManager.getInstance().coordPixelsToWorld(position.x, position.y);
         return this;
     }
 

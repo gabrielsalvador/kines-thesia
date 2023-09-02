@@ -25,7 +25,7 @@ public class PSocket<T extends Routable> extends PObject {
         this._owner = _owner;
 
         HologramBody ownersBody = (HologramBody)_owner.getBodyComponent();
-        float yOffSet = type == Inlet.class ? -30 : 10;
+        float yOffSet = type == Inlet.class ? -3 : 1;
 
         BodyComponent myBody = ownersBody.createChild(new Vec2(0,yOffSet), new Vec2(PSocketView.SIZE_X, PSocketView.SIZE_X ));
         addComponent(BodyComponent.class, myBody);
@@ -46,9 +46,9 @@ public class PSocket<T extends Routable> extends PObject {
     }
 
 
-    public float[] getPosition() {
-        BodyComponent body = (BodyComponent) getComponent(BodyComponent.class);
-        Vec2 position = body.getPosition();
+    public float[] getPixelPosition() {
+        BodyComponent body = ( BodyComponent ) getComponent(BodyComponent.class);
+        Vec2 position = body.getPixelPosition();
         float[] ownerSize = ((RectangleShape) body.getShape()).getBoundayBox();
         return new float[]{position.x, position.y + ownerSize[0] + getSize()[1]};
     }

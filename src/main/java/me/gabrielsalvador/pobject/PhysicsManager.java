@@ -27,7 +27,7 @@ public class PhysicsManager {
     // Variables to keep track of translating between world and screen coordinates
     float transX = 0.0f;
     float transY = 0.0f;
-    float scaleFactor = 200.0f;
+    float scaleFactor = 10.0f;
     int yFlip;// = Y_FLIP_INDICATOR; //flip y coordinate
 
     public static PhysicsManager getInstance() {
@@ -56,27 +56,22 @@ public class PhysicsManager {
         fixtureDef.friction = 0.3f;
         fixtureDef.restitution = 0.5f;
 
-        // 6. Attach the shape to the body
         circleBody.createFixture(fixtureDef);
 
         return circleBody;
     }
 
     public Vec2 coordWorldToPixels(float worldX, float worldY) {
-
-        float pixelX = PApplet.map(worldX, 0.0f, 1.0f, transX, transX+scaleFactor);
-        float pixelY = PApplet.map(worldY, 0.0f, 1.0f, transY, transY+scaleFactor);
-        if (yFlip == Y_FLIP_INDICATOR) pixelY = PApplet.map(pixelY,0.0f,parent.height, parent.height,0.0f);
+        float pixelX = worldX * scaleFactor + transX;
+        float pixelY = worldY * scaleFactor + transY;
+        if (yFlip == Y_FLIP_INDICATOR) pixelY = parent.height - pixelY;
         return new Vec2(pixelX, pixelY);
     }
 
     public Vec2 coordPixelsToWorld(float pixelX, float pixelY) {
-        float worldX = PApplet.map(pixelX, transX, transX+scaleFactor, 0.0f, 1.0f);
-        float worldY = pixelY;
-        if (yFlip == Y_FLIP_INDICATOR) {
-            worldY = PApplet.map(pixelY, parent.height, 0.0f, 0.0f, parent.height);
-        }
-        worldY = PApplet.map(worldY, transY, transY+scaleFactor, 0.0f, 1.0f);
+        float worldX = (pixelX - transX) / scaleFactor;
+        float worldY = (pixelY - transY) / scaleFactor;
+        if (yFlip == Y_FLIP_INDICATOR) worldY = (parent.height - pixelY - transY) / scaleFactor;
         return new Vec2(worldX, worldY);
     }
 
@@ -89,6 +84,9 @@ public class PhysicsManager {
     }
 
 
+    public float worldToPixelScale(float worldScale) {
+        return worldScale * scaleFactor;
+    }
 }
 
 class myContactListener implements ContactListener{

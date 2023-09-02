@@ -7,7 +7,9 @@ import me.gabrielsalvador.pobject.routing.Outlet;
 import me.gabrielsalvador.pobject.routing.Routing;
 import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.pobject.views.PEmitterView;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
+import processing.core.PVector;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -79,7 +81,8 @@ public class PEmitter extends PObject implements Inlet {
     public void receive(String message) {
         //create new pobject with physics body
         PObject pObject = new PlayableNote();
-        PhysicsBodyComponent bodyComponent = new PhysicsBodyComponent(pObject,getBodyComponent().getPosition());
+        Vec2 emitterPos = getBodyComponent().getPixelPosition();
+        PhysicsBodyComponent bodyComponent = new PhysicsBodyComponent(pObject,emitterPos);
         bodyComponent.setType(BodyType.DYNAMIC);
         pObject.addComponent(BodyComponent.class, bodyComponent);
         bodyComponent.setPosition(getBodyComponent().getPosition());

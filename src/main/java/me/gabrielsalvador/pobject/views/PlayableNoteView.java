@@ -6,7 +6,6 @@ import me.gabrielsalvador.pobject.PhysicsBodyComponent;
 import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.utils.Vector;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 

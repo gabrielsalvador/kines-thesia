@@ -1,6 +1,7 @@
 package me.gabrielsalvador.pobject.components;
 
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.views.RectangleShape;
 import me.gabrielsalvador.pobject.views.Shape;
 import org.jbox2d.collision.AABB;
@@ -24,6 +25,9 @@ public class BodyComponent extends Component {
     public Vec2 getPosition(){
         return _position;
     }
+    public Vec2 getPixelPosition(){
+        return PhysicsManager.getInstance().coordWorldToPixels(_position.x, _position.y);
+    }
     public BodyComponent setPosition(Vec2 position){
         _position = position;
         return this;
@@ -35,5 +39,11 @@ public class BodyComponent extends Component {
 
     public void setShape(Shape shape){
         _shape = shape;
+    }
+
+
+    public BodyComponent setPixelPosition(Vec2 vec2) {
+        _position = PhysicsManager.getInstance().coordPixelsToWorld(vec2.x, vec2.y);
+        return this;
     }
 }

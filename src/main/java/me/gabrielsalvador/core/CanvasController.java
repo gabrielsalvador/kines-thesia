@@ -57,6 +57,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
         int x = mousePosition[0];
         int y = mousePosition[1];
         for (PObject pObject : AppState.getInstance().getPObjects()) {
+
             boolean isHovered = pObject.getView().isMouseOver(x, y);
             if (isHovered) {
                 pObject.setIsHovered(isHovered, x, y);

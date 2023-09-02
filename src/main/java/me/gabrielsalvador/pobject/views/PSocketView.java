@@ -28,7 +28,7 @@ public class PSocketView<T extends Routable> implements View<PObject> {
     @Override
     public void display(PGraphics graphics) {
         BodyComponent _body = _model.getComponent(BodyComponent.class);
-        Vec2 position = _body.getPosition();
+        Vec2 position = _body.getPixelPosition();
         float[] ownerSize = ((RectangleShape)_body.getShape()).getBoundayBox();
         graphics.pushStyle();
         graphics.pushMatrix();
@@ -43,7 +43,7 @@ public class PSocketView<T extends Routable> implements View<PObject> {
     @Override
     public boolean isMouseOver(int mouseX, int mouseY) {
         BodyComponent _body = _model.getComponent(BodyComponent.class);
-        Vec2 position = _body.getPosition();
+        Vec2 position = _body.getPixelPosition();
         float[] ownerSize = ((RectangleShape)_body.getShape()).getBoundayBox();
 
         float centerX = position.x;

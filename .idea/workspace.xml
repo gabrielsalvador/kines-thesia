@@ -9,8 +9,18 @@
       <change beforePath="$PROJECT_DIR$/appState.ser" beforeDir="false" afterPath="$PROJECT_DIR$/appState.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/CanvasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/CanvasController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PEmitter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PEmitter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsBodyComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsBodyComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/components/BodyComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/components/BodyComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/components/HologramBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/components/HologramBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/PSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/routing/PSocket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/CircleShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/CircleShape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PEmitterView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PEmitterView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PKeyboardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PKeyboardView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PSocketView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PSocketView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PlayableNoteView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PlayableNoteView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/CommandTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/CommandTool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/SelectTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/SelectTool.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -202,11 +212,6 @@
           <properties class="java.lang.IllegalAccessError" package="java.lang" />
           <option name="timeStamp" value="10" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/CircleShape.java</url>
-          <line>19</line>
-          <option name="timeStamp" value="105" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>

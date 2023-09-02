@@ -66,8 +66,8 @@ public class RoutingConnection extends PObject {
         @Override
         public void display(PGraphics graphics) {
             //line from start to end
-            float[] start = _source.getPosition();
-            float[] end = _destination.getPosition();
+            float[] start = _source.getPixelPosition();
+            float[] end = _destination.getPixelPosition();
             graphics.pushStyle();
             if(getIsSelected())
                 graphics.stroke(Config.THEME_COLOR_SELECTED);
@@ -81,8 +81,8 @@ public class RoutingConnection extends PObject {
 
         @Override
         public boolean isMouseOver(int mouseX, int mouseY) {
-            float[] start = _source.getPosition();
-            float[] end = _destination.getPosition();
+            float[] start = _source.getPixelPosition();
+            float[] end = _destination.getPixelPosition();
 
             // Find the distances from the point to the start and end of the line
             float distanceToStart = PApplet.dist(mouseX, mouseY, start[0], start[1]);

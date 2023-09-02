@@ -26,18 +26,24 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     public PhysicsBodyComponent(PObject owner,Vec2 position) {
         super(owner);
         createBody();
-        setPosition(position);
+        setPixelPosition(position);
     }
     @Override
     public Vec2 getPosition() {
         Vec2 position = _body.getPosition();
         float[] pixels = new float[]{position.x,position.y};
-        Vec2 vector = PhysicsManager.getInstance().coordWorldToPixels(pixels[0],pixels[1]);
+        Vec2 vector = new Vec2(pixels[0],pixels[1]);
         return vector;
     }
 
     @Override
     public BodyComponent setPosition(Vec2 position) {
+        _body.setTransform(position, _body.getAngle());
+        return this;
+    }
+
+  //function to set the position of the body in pixels
+    public BodyComponent setPixelPosition(Vec2 position) {
         Vec2 worldCoords = PhysicsManager.getInstance().coordPixelsToWorld(position.x, position.y);
         _bodyData.x = worldCoords.x;
         _bodyData.y = worldCoords.y;
@@ -127,7 +133,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     //we need to recreate the body on deserialization
     private void createBody() {
-        _body = PhysicsManager.getInstance().createCircle(new Vec2(_bodyData.x, _bodyData.y), 5);
+        _body = PhysicsManager.getInstance().createCircle(new Vec2(_bodyData.x, _bodyData.y), 1);
         _body.setTransform(new Vec2(_bodyData.x, _bodyData.y), _bodyData.angle);
         _body.setLinearVelocity(new Vec2(_bodyData.linearVelocityX, _bodyData.linearVelocityY));
         _body.setAngularVelocity(_bodyData.angularVelocity);

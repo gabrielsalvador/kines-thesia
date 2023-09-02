@@ -1,5 +1,6 @@
 package me.gabrielsalvador.pobject.views;
 
+import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.utils.MathUtils;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
@@ -23,7 +24,10 @@ public class CircleShape extends Shape {
 
     @Override
     public void display(PGraphics graphics, float x, float y) {
-        graphics.ellipse(x, y, _radius * 2, _radius * 2);
+        Vec2 pixelCoords = PhysicsManager.getInstance().coordWorldToPixels(x, y);
+        float pixelRadius = PhysicsManager.getInstance().worldToPixelScale(_radius);
+
+        graphics.ellipse(pixelCoords.x, pixelCoords.y, pixelRadius * 2, pixelRadius * 2);
     }
 
     @Override

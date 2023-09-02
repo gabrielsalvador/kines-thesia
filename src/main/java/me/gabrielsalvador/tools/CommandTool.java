@@ -100,14 +100,14 @@ public class CommandTool extends Tool {
                 if(args[1].equals("keyboard")){
                     PKeyboard pKeyboard = new PKeyboard();
                     BodyComponent bodyComponent = pKeyboard.getBodyComponent();
-                    bodyComponent.setPosition(new Vec2(x,y));
+                    bodyComponent.setPixelPosition(new Vec2(x,y));
                     RectangleShape rectangleShape = new RectangleShape(new Vec2(50,20));
                     bodyComponent.setShape(rectangleShape);
                     AppController.getInstance().addPObject(pKeyboard);
                 }else if(args[1].equals("emitter")) {
                     PEmitter pEmitter = new PEmitter();
                     BodyComponent bc = pEmitter.getBodyComponent();
-                    bc.setPosition(new Vec2(x,y));
+                    bc.setPixelPosition(new Vec2(x,y));
                     bc.setShape(new RectangleShape(new Vec2(50,20)));
                     AppController.getInstance().addPObject(pEmitter);
                 }else if(args[1].equals("block")) {

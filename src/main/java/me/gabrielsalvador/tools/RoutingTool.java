@@ -59,7 +59,7 @@ public class RoutingTool extends Tool {
            graphics.pushStyle();
            graphics.stroke(Config.THEME_COLOR_ROUTING_CONNECTION);
            graphics.strokeWeight(2);
-           graphics.line(start.getPosition()[0], start.getPosition()[1], mouse[0], mouse[1]);
+           graphics.line(start.getPixelPosition()[0], start.getPixelPosition()[1], mouse[0], mouse[1]);
            graphics.popStyle();
        }
     }

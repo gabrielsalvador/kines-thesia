@@ -1,7 +1,6 @@
 package me.gabrielsalvador.tools;
 
 import java.util.ArrayList;
-
 import controlP5.ControlP5;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.Sinesthesia;
@@ -52,7 +51,7 @@ public class SelectTool extends Tool {
             for (PObject selectedObject : selectedObjects) {
                 int[] mouse = AppController.getInstance().getCanvas().getMousePosition();
                 System.out.println("mouse: " + mouse[0] + " " + mouse[1]);
-                selectedObject.getBodyComponent().setPosition(new Vec2(mouse[0], mouse[1]));
+                selectedObject.getBodyComponent().setPixelPosition(new Vec2(mouse[0], mouse[1]));
             }
         }
 
