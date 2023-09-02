@@ -3,7 +3,6 @@ package me.gabrielsalvador.pobject;
 
 
 import me.gabrielsalvador.core.Sinesthesia;
-import me.gabrielsalvador.pobject.components.BodyData;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;

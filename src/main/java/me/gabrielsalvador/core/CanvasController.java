@@ -17,8 +17,11 @@ public class CanvasController extends Controller<CanvasController> implements Re
     private PObject _currentlyHovering;
     private final ToolManager _toolManager;
     private final PhysicsManager _physicsManager;
+    /* time elapsed since last frame */
     private long _lastTime = System.nanoTime();
+    /* time accumulated since last physics step */
     private float _accumulator = 0.0f;
+    /* rate at which physics simulation moves forward */
     private final float _timeStep = 1.0f / 60.0f;
 
     public CanvasController(ControlP5 cp5, String name) {

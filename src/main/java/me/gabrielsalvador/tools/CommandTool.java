@@ -10,6 +10,7 @@ import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.pobject.*;
 import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.pobject.components.MusicalNoteComponent;
+import me.gabrielsalvador.pobject.routing.RoutingConnection;
 import me.gabrielsalvador.pobject.views.RectangleShape;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
@@ -118,6 +119,22 @@ public class CommandTool extends Tool {
                     //set body to kinematic
                     body.getJBox2DBody().setType(org.jbox2d.dynamics.BodyType.KINEMATIC);
                     AppController.getInstance().addPObject(object);
+                }
+                else if (args[1].equals("eSystem")){
+                    // add emitter and keyboard connected together
+                    PKeyboard pKeyboard = new PKeyboard();
+                    BodyComponent bodyComponent = pKeyboard.getBodyComponent();
+                    bodyComponent.setPixelPosition(new Vec2(x,y));
+                    RectangleShape rectangleShape = new RectangleShape(new Vec2(50,20));
+                    bodyComponent.setShape(rectangleShape);
+                    AppController.getInstance().addPObject(pKeyboard);
+                    PEmitter pEmitter = new PEmitter();
+                    BodyComponent bc = pEmitter.getBodyComponent();
+                    bc.setPixelPosition(new Vec2(x,y));
+                    bc.setShape(new RectangleShape(new Vec2(50,20)));
+                    AppController.getInstance().addPObject(pEmitter);
+                    // connect them
+                    RoutingConnection routingConnection = new RoutingConnection(pKeyboard.getOutlets().get(0),pEmitter.getInlets().get(0));
 
                 }
 

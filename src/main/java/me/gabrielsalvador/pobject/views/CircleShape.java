@@ -19,7 +19,8 @@ public class CircleShape extends Shape {
     public boolean isMouseOver(int mouseX, int mouseY, float x, float y) {
         // inside the circle
         float d = MathUtils.distance(mouseX, mouseY, x, y);
-        return d < Math.abs(_radius);
+        float pixelRadius = PhysicsManager.getInstance().worldToPixelScale(_radius);
+        return d < Math.abs(pixelRadius);
     }
 
     @Override

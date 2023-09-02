@@ -79,13 +79,17 @@ public class PEmitter extends PObject implements Inlet {
 
     @Override
     public void receive(String message) {
-        //create new pobject with physics body
-        PObject pObject = new PlayableNote();
-        Vec2 emitterPos = getBodyComponent().getPixelPosition();
-        PhysicsBodyComponent bodyComponent = new PhysicsBodyComponent(pObject,emitterPos);
-        bodyComponent.setType(BodyType.DYNAMIC);
-        pObject.addComponent(BodyComponent.class, bodyComponent);
-        bodyComponent.setPosition(getBodyComponent().getPosition());
-        AppController.getInstance().addPObject(pObject);
+
+        AppController.getInstance().queueModification(() -> {
+            PObject pObject = new PlayableNote();
+            Vec2 emitterPos = getBodyComponent().getPixelPosition();
+            PhysicsBodyComponent bodyComponent = new PhysicsBodyComponent(pObject,emitterPos);
+            bodyComponent.setType(BodyType.DYNAMIC);
+            pObject.addComponent(BodyComponent.class, bodyComponent);
+            bodyComponent.setPosition(getBodyComponent().getPosition());
+            AppController.getInstance().addPObject(pObject);
+        });
+
+
     }
 }

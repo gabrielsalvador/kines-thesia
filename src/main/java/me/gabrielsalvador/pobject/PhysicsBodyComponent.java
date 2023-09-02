@@ -39,6 +39,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     @Override
     public BodyComponent setPosition(Vec2 position) {
         _body.setTransform(position, _body.getAngle());
+        _position = position;
         return this;
     }
 
@@ -48,6 +49,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         _bodyData.x = worldCoords.x;
         _bodyData.y = worldCoords.y;
         _body.setTransform(worldCoords, _body.getAngle());
+        setPosition(worldCoords);
         return this;
     }
 

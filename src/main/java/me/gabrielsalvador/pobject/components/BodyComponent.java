@@ -13,7 +13,7 @@ import java.awt.*;
 
 public class BodyComponent extends Component {
 
-    private Vec2 _position;
+    protected Vec2 _position;
     private Shape _shape;
 
     public BodyComponent(){

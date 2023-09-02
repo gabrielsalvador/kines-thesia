@@ -44,17 +44,13 @@ public class PlayableNoteView implements View<PObject> {
 
     public boolean isMouseOver(int mouseX, int mouseY) {
         PhysicsBodyComponent bodyComponent = _model.getBodyComponent();
-        Vec2 position = bodyComponent.getPosition();
+        Vec2 position = bodyComponent.getPixelPosition();
         Shape s = bodyComponent.getShape();
         boolean result = s.isMouseOver(mouseX, mouseY, position.x, position.y);
-        System.out.println("mouseX, mouseY, position.x, position.y: " + mouseX + ", " + mouseY + ", " + position.x + ", " + position.y);
+        System.out.println("result: " + result);
         return result;
 
     }
 
-    public Vector getPosition() {
-        PhysicsBodyComponent bodyComponent = (PhysicsBodyComponent)_model.getBodyComponent();
-        Vec2 pos = bodyComponent.getPosition();
-        return new Vector(pos.x, pos.y);
-    }
+
 }

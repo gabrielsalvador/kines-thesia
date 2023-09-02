@@ -19,7 +19,7 @@ public class AppController {
     private static AppState _appState;
     private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
-    private final ConcurrentLinkedQueue<PObject> _pObjectModificationsQueue = new ConcurrentLinkedQueue<PObject>();
+    private final ConcurrentLinkedQueue<Runnable> _pObjectModificationsQueue = new ConcurrentLinkedQueue<Runnable>();
 
     private AppController() {
         _appState = AppState.getInstance();
@@ -42,7 +42,10 @@ public class AppController {
         return _canvasController;
     }
     public void addPObject(PObject pObject) {
-        queueModification(pObject);
+        Runnable modification = () -> {
+            _appState.addPObject(pObject);
+        };
+        queueModification(modification);
     }
 
     public PlayableNote addPlayableNote(Vec2 position) {
@@ -84,10 +87,8 @@ public class AppController {
         _propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
     }
 
-    public void queueModification(PObject modification){
-        _pObjectModificationsQueue.add(modification);
-    }
-    public ConcurrentLinkedQueue<PObject> getModificationsQueue() {
+
+    public ConcurrentLinkedQueue<Runnable> getModificationsQueue() {
         return _pObjectModificationsQueue;
     }
 
@@ -105,12 +106,15 @@ public class AppController {
         AppState.getInstance().addPObject(i);
     }
 
+    public void queueModification(Runnable modification){
+        _pObjectModificationsQueue.add(modification);
+    }
 
     public void applyModifications() {
-        Iterator<PObject> iterator = _pObjectModificationsQueue.iterator();
+        Iterator<Runnable> iterator = _pObjectModificationsQueue.iterator();
         while (iterator.hasNext()) {
-            PObject obj = iterator.next();
-            AppState.getInstance().addPObject(obj);
+            Runnable mofidication = iterator.next();
+            mofidication.run();
             iterator.remove();
         }
     }
