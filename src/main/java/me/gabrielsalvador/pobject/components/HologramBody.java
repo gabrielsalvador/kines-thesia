@@ -50,6 +50,11 @@ public class HologramBody extends BodyComponent implements Serializable {
         return this;
     }
 
+    @Override
+    public void moveByPixels(Vec2 amount) {
+
+    }
+
 
     @Override
     public Shape getShape() {

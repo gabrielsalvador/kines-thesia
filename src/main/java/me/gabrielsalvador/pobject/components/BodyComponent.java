@@ -11,7 +11,7 @@ import org.jbox2d.dynamics.BodyType;
 
 import java.awt.*;
 
-public class BodyComponent extends Component {
+public abstract class BodyComponent extends Component {
 
     protected Vec2 _position;
     private Shape _shape;
@@ -47,8 +47,7 @@ public class BodyComponent extends Component {
         return this;
     }
 
-    public void movePixels(Vec2 displacement) {
-        Vec2 worldCoords = PhysicsManager.getInstance().coordPixelsToWorld(displacement.x, displacement.y);
-        _position.addLocal(worldCoords);
-    }
+
+
+   public abstract void moveByPixels(Vec2 amount);
 }

@@ -142,4 +142,10 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         _body.setType(_bodyData.bodyType);
         _body.setUserData(this);
     }
+
+    public void moveByPixels(Vec2 displacement) {
+        Vec2 worldCoords = PhysicsManager.getInstance().coordPixelsToWorld(displacement.x, displacement.y);
+        _position.addLocal(worldCoords);
+        _body.setTransform(_position, _body.getAngle());
+    }
 }
