@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import controlP5.ControlP5;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
+import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
 import org.jbox2d.common.Vec2;
@@ -11,12 +12,15 @@ import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import me.gabrielsalvador.utils.MathUtils;
 
+
+
 public class SelectTool extends Tool {
 
     private ControlP5 _cp5;
     private ArrayList<PObject> selectedObjects = new ArrayList<PObject>();
     private Vec2 _selectionStart = null;
     private Vec2 _selectionEnd = null;
+    private CanvasController canvasController;
 
     public SelectTool() {
         _cp5 = Sinesthesia.getInstance().getCP5();
@@ -35,48 +39,33 @@ public class SelectTool extends Tool {
 
     @Override
     public void onPressed(PObject pObject) {
-        if (pObject != null) {
-            if (!pObject.getIsSelected()) {
-                selectedObjects.clear();
-            }
-            selectedObjects.add(pObject);
-
-        } else {
-            selectedObjects.clear();
-            _selectionStart = new Vec2(AppController.getInstance().getCanvas().getMousePosition()[0], AppController.getInstance().getCanvas().getMousePosition()[1]);
-        }
+        selectedObjects.clear();
+        _selectionStart = new Vec2(getCanvas().getMousePosition()[0], getCanvas().getMousePosition()[1]);
         AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
     }
 
 
     @Override
     public void onDrag(PObject pObject) {
-        if (pObject != null) {
+        _selectionEnd = new Vec2(getCanvas().getMousePosition()[0], getCanvas().getMousePosition()[1]);
+        //get objects inside the selection
 
-            for (PObject selectedObject : selectedObjects) {
-                int[] mouse = AppController.getInstance().getCanvas().getMousePosition();
-                selectedObject.getBodyComponent().setPixelPosition(new Vec2(mouse[0], mouse[1]));
+        for (PObject p : AppState.getInstance().getPObjects()) {
+            Vec2 position = p.getBodyComponent().getPixelPosition();
+            if (MathUtils.isInsideRectangle(position, _selectionStart, new Vec2(getCanvas().getMousePosition()[0], getCanvas().getMousePosition()[1]))){
+                p.setIsSelected(true);
+                selectedObjects.add(p);
             }
-        } else {
-
-            if (_selectionStart == null || _selectionEnd == null) return;
-            // Check if objects are within the selection rectangle
-            for (PObject pObject1 : AppState.getInstance().getPObjects()) {
-                Vec2 position = pObject1.getBodyComponent().getPixelPosition();
-                if ( MathUtils.isInsideRectangle(position, _selectionStart, _selectionEnd) ) {
-                    selectedObjects.add(pObject1);
-                }
-            }
-
-            AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
         }
+            AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
+
     }
 
 
     @Override
     public void draw(PGraphics graphics) {
-        if (_selectionStart != null) {
-            _selectionEnd = new Vec2(AppController.getInstance().getCanvas().getMousePosition()[0], AppController.getInstance().getCanvas().getMousePosition()[1]);
+        if (_selectionStart != null && _selectionEnd != null) {
+
             graphics.fill(255, 255, 255, 50);
             graphics.noStroke();
             graphics.rect(_selectionStart.x, _selectionStart.y, _selectionEnd.x - _selectionStart.x, _selectionEnd.y - _selectionStart.y);
@@ -89,9 +78,15 @@ public class SelectTool extends Tool {
         if( pObject == null) {
             _selectionStart = null;
             _selectionEnd = null;
-//            selectedObjects.clear();
             AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
         }
+    }
+
+    public CanvasController getCanvas() {
+        if (canvasController == null) {
+            this.canvasController = (CanvasController) _cp5.get("MainCanvas");
+        }
+        return canvasController;
     }
 }
 
