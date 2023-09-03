@@ -46,4 +46,9 @@ public class BodyComponent extends Component {
         _position = PhysicsManager.getInstance().coordPixelsToWorld(vec2.x, vec2.y);
         return this;
     }
+
+    public void movePixels(Vec2 displacement) {
+        Vec2 worldCoords = PhysicsManager.getInstance().coordPixelsToWorld(displacement.x, displacement.y);
+        _position.addLocal(worldCoords);
+    }
 }

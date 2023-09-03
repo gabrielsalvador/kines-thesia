@@ -9,6 +9,7 @@ import me.gabrielsalvador.pobject.PObject;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
+import me.gabrielsalvador.utils.MathUtils;
 
 public class SelectTool extends Tool {
 
@@ -51,22 +52,18 @@ public class SelectTool extends Tool {
     @Override
     public void onDrag(PObject pObject) {
         if (pObject != null) {
+
             for (PObject selectedObject : selectedObjects) {
                 int[] mouse = AppController.getInstance().getCanvas().getMousePosition();
                 selectedObject.getBodyComponent().setPixelPosition(new Vec2(mouse[0], mouse[1]));
             }
         } else {
-            // Update selection end point
-            _selectionEnd = new Vec2(AppController.getInstance().getCanvas().getMousePosition()[0], AppController.getInstance().getCanvas().getMousePosition()[1]);
 
-            // Clear previous selections
-            selectedObjects.clear();
-
+            if (_selectionStart == null || _selectionEnd == null) return;
             // Check if objects are within the selection rectangle
             for (PObject pObject1 : AppState.getInstance().getPObjects()) {
                 Vec2 position = pObject1.getBodyComponent().getPixelPosition();
-                if (position.x >= _selectionStart.x && position.x <= _selectionEnd.x &&
-                        position.y >= _selectionStart.y && position.y <= _selectionEnd.y) {
+                if ( MathUtils.isInsideRectangle(position, _selectionStart, _selectionEnd) ) {
                     selectedObjects.add(pObject1);
                 }
             }
