@@ -21,44 +21,37 @@ public class AudioManager {
     }
 
     public void play(String filename) {
-        try {
-            String filePath = Paths.get(Config.RESOURCES_PATH + "/" + filename).toAbsolutePath().toString();
+        new Thread(() -> {
+            try {
+                String filePath = Paths.get(Config.RESOURCES_PATH + "/" + filename).toAbsolutePath().toString();
+                File audioFile = new File(filePath);
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
+                Clip clip = AudioSystem.getClip();
+                AudioFormat baseFormat = audioInputStream.getFormat();
+                AudioFormat decodedFormat = new AudioFormat(
+                        AudioFormat.Encoding.PCM_SIGNED,
+                        baseFormat.getSampleRate(),
+                        16,
+                        baseFormat.getChannels(),
+                        baseFormat.getChannels() * 2,
+                        baseFormat.getSampleRate(),
+                        false
+                );
+                AudioInputStream decodedAudioInputStream = AudioSystem.getAudioInputStream(decodedFormat, audioInputStream);
+                clip.open(decodedAudioInputStream);
+                clip.start();
 
-
-            File audioFile = new File(filePath);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
-
-
-            Clip clip = AudioSystem.getClip();
-            AudioFormat baseFormat = audioInputStream.getFormat();
-            AudioFormat decodedFormat = new AudioFormat(
-                    AudioFormat.Encoding.PCM_SIGNED,
-                    baseFormat.getSampleRate(),
-                    16,
-                    baseFormat.getChannels(),
-                    baseFormat.getChannels() * 2,
-                    baseFormat.getSampleRate(),
-                    false
-            );
-            AudioInputStream decodedAudioInputStream = AudioSystem.getAudioInputStream(decodedFormat, audioInputStream);
-
-            clip.open(decodedAudioInputStream);
-
-
-            clip.start();
-
-
-            clip.addLineListener(new LineListener() {
-                @Override
-                public void update(LineEvent event) {
+                clip.addLineListener(event -> {
                     if (event.getType() == LineEvent.Type.STOP) {
                         event.getLine().close();
                     }
-                }
-            });
+                });
 
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
-        }
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
+
+
 }
