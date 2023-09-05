@@ -10,9 +10,11 @@ import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.pobject.*;
 import me.gabrielsalvador.pobject.components.BodyComponent;
+import me.gabrielsalvador.pobject.components.BodyData;
 import me.gabrielsalvador.pobject.components.MusicalNoteComponent;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
 import me.gabrielsalvador.pobject.views.RectangleShape;
+import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -114,7 +116,12 @@ public class CommandTool extends Tool {
                     AppController.getInstance().addPObject(pEmitter);
                 }else if(args[1].equals("block")) {
                     PObject object = new PlayableNote();
-                    PhysicsBodyComponent body = new PhysicsBodyComponent(object,new Vec2(x,y));
+                    BodyData bodyData = new BodyData();
+                    Vec2 worldPos = PhysicsManager.getInstance().coordPixelsToWorld(x,y);
+                    bodyData.x = worldPos.x;
+                    bodyData.y = worldPos.y;
+                    bodyData.shapeType = ShapeType.CIRCLE;
+                    PhysicsBodyComponent body = new PhysicsBodyComponent(object,bodyData);
                     object.addComponent(BodyComponent.class,body);
                     object.addComponent(MusicalNoteComponent.class,new MusicalNoteComponent(object));
                     //set body to kinematic

@@ -10,7 +10,6 @@ public class RectangleShape extends Shape implements Serializable {
     private Vec2 _size;
 
     public RectangleShape( Vec2 size) {
-
         _size = size;
     }
     @Override

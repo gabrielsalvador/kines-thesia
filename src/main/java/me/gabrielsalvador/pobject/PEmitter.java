@@ -3,12 +3,14 @@ package me.gabrielsalvador.pobject;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.components.BodyComponent;
+import me.gabrielsalvador.pobject.components.BodyData;
 import me.gabrielsalvador.pobject.routing.Inlet;
 import me.gabrielsalvador.pobject.routing.Outlet;
 import me.gabrielsalvador.pobject.routing.Routing;
 import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.pobject.views.PEmitterView;
 import me.gabrielsalvador.sequencing.SequencerController;
+import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
 import processing.core.PVector;
@@ -93,7 +95,11 @@ public class PEmitter extends PObject implements Inlet {
         AppController.getInstance().queueModification(() -> {
             PObject pObject = new PlayableNote();
             Vec2 emitterPos = getBodyComponent().getPixelPosition();
-            PhysicsBodyComponent bodyComponent = new PhysicsBodyComponent(pObject,emitterPos);
+            BodyData bodyData = new BodyData();
+            bodyData.x = emitterPos.x;
+            bodyData.y = emitterPos.y;
+            bodyData.shapeType = ShapeType.CIRCLE;
+            PhysicsBodyComponent bodyComponent = new PhysicsBodyComponent(pObject,bodyData);
             bodyComponent.setType(BodyType.DYNAMIC);
             pObject.addComponent(BodyComponent.class, bodyComponent);
             bodyComponent.setPosition(getBodyComponent().getPosition());

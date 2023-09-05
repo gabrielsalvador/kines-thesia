@@ -1,5 +1,7 @@
 package me.gabrielsalvador.pobject.components;
 
+import org.jbox2d.collision.shapes.Shape;
+import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 
 import org.jbox2d.dynamics.BodyType;
@@ -11,5 +13,7 @@ public class BodyData implements Serializable {
     public float linearVelocityX, linearVelocityY;
     public float angularVelocity;
     public BodyType bodyType;
-    // ... Add more properties as needed, e.g., fixtures, mass properties, etc.
+    public ShapeType shapeType;
+
+    public Vec2[] vertices;
 }

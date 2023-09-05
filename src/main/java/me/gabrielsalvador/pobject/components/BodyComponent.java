@@ -22,11 +22,10 @@ public abstract class BodyComponent extends Component {
     public BodyComponent(PObject owner){
         super(owner);
     }
-    public Vec2 getPosition(){
-        return _position;
-    }
+    public abstract Vec2 getPosition();
     public Vec2 getPixelPosition(){
-        return PhysicsManager.getInstance().coordWorldToPixels(_position.x, _position.y);
+        Vec2 position = getPosition();
+        return PhysicsManager.getInstance().coordWorldToPixels(position.x, position.y);
     }
     public BodyComponent setPosition(Vec2 position){
         _position = position;

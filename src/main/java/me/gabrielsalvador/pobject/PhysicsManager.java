@@ -3,10 +3,12 @@ package me.gabrielsalvador.pobject;
 
 
 import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.pobject.components.BodyData;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.Contact;
@@ -60,6 +62,26 @@ public class PhysicsManager {
         return circleBody;
     }
 
+    public Body createPolygon(BodyData data) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = data.bodyType;
+        bodyDef.position.set(data.x, data.y);
+        Body body = _world.createBody(bodyDef);
+        PolygonShape polygonShape = new PolygonShape();
+        Vec2[] vertices = new Vec2[data.vertices.length];
+        for (int i = 0; i < data.vertices.length; i++) {
+            vertices[i] = new Vec2(data.vertices[i].x, data.vertices[i].y);
+        }
+        polygonShape.set(vertices, vertices.length);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = polygonShape;
+        fixtureDef.density = 10.0f;
+        fixtureDef.friction = 0.3f;
+        fixtureDef.restitution = 0.5f;
+        body.createFixture(fixtureDef);
+        return body;
+    }
+
     public Vec2 coordWorldToPixels(float worldX, float worldY) {
         float pixelX = worldX * scaleFactor + transX;
         float pixelY = worldY * scaleFactor + transY;
@@ -86,6 +108,8 @@ public class PhysicsManager {
     public float worldToPixelScale(float worldScale) {
         return worldScale * scaleFactor;
     }
+
+
 }
 
 class myContactListener implements ContactListener{

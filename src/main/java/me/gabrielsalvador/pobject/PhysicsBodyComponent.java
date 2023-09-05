@@ -28,12 +28,14 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         createBody();
         setPixelPosition(position);
     }
+    public PhysicsBodyComponent(PObject owner,BodyData bodyData) {
+        super(owner);
+        _bodyData = bodyData;
+        createBody();
+    }
     @Override
     public Vec2 getPosition() {
-        Vec2 position = _body.getPosition();
-        float[] pixels = new float[]{position.x,position.y};
-        Vec2 vector = new Vec2(pixels[0],pixels[1]);
-        return vector;
+        return _body.getPosition();
     }
 
     @Override
@@ -135,17 +137,26 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     //we need to recreate the body on deserialization
     private void createBody() {
-        _body = PhysicsManager.getInstance().createCircle(new Vec2(_bodyData.x, _bodyData.y), 1);
+        switch (_bodyData.shapeType) {
+            case CIRCLE:
+                _body = PhysicsManager.getInstance().createCircle(new Vec2(_bodyData.x, _bodyData.y), 1);
+                break;
+            case POLYGON:
+                _body = PhysicsManager.getInstance().createPolygon(_bodyData);
+                break;
+        }
         _body.setTransform(new Vec2(_bodyData.x, _bodyData.y), _bodyData.angle);
         _body.setLinearVelocity(new Vec2(_bodyData.linearVelocityX, _bodyData.linearVelocityY));
         _body.setAngularVelocity(_bodyData.angularVelocity);
         _body.setType(_bodyData.bodyType);
         _body.setUserData(this);
+
+
     }
 
     public void moveByPixels(Vec2 displacement) {
         Vec2 worldCoords = PhysicsManager.getInstance().coordPixelsToWorld(displacement.x, displacement.y);
-        _position.addLocal(worldCoords);
-        _body.setTransform(_position, _body.getAngle());
+        getPosition().addLocal(worldCoords);
+        _body.setTransform(getPosition(), _body.getAngle());
     }
 }
