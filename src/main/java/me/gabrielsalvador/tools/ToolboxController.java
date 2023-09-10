@@ -2,12 +2,8 @@ package me.gabrielsalvador.tools;
 
 import controlP5.*;
 import me.gabrielsalvador.common.SkipProcessing;
-import me.gabrielsalvador.tools.Tool;
-import me.gabrielsalvador.tools.ToolManager;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public
@@ -19,6 +15,7 @@ class ToolboxController extends Group {
         super(theControlP5, theName);
 
     }
+
 
 
     public void didSetupLayout() {
