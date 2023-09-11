@@ -12,7 +12,7 @@ public class Clock {
 
     private static Clock _instance;
     private final List<Device> _devices = new ArrayList<Device>();
-    private final ScheduledExecutorService executorService;
+    private ScheduledExecutorService executorService;
     private int _tempo = 10;
 
     private Clock() {
@@ -68,4 +68,26 @@ public class Clock {
         executorService.shutdownNow();
         startTickExecutor();
     }
+
+    public void togglePlay() {
+        if (executorService.isShutdown() || executorService.isTerminated()) {
+            play();
+        } else {
+            pause();
+        }
+    }
+
+    public void play() {
+        if (executorService.isShutdown() || executorService.isTerminated()) {
+            executorService = Executors.newSingleThreadScheduledExecutor();
+            startTickExecutor();
+        }
+    }
+
+    public void pause() {
+        if (!executorService.isShutdown() || !executorService.isTerminated()) {
+            executorService.shutdownNow();
+        }
+    }
+
 }

@@ -106,11 +106,6 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
     @Override
     public void keyEvent(KeyEvent theKeyEvent) {
-        if (isUserInteraction && isActive && theKeyEvent.getAction() == KeyEvent.PRESS) {
-
-            _toolManager.keyEvent(theKeyEvent);
-
-        }
 
     }
 

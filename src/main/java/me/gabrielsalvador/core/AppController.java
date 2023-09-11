@@ -20,6 +20,7 @@ public class AppController {
     private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
     private final ConcurrentLinkedQueue<Runnable> _pObjectModificationsQueue = new ConcurrentLinkedQueue<Runnable>();
+    private final InputManager _inputManager = InputManager.getInstance();
 
     private AppController() {
         _appState = AppState.getInstance();
@@ -118,4 +119,8 @@ public class AppController {
             iterator.remove();
         }
     }
+
+
+
+
 }
