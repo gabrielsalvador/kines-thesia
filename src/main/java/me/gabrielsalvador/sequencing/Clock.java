@@ -11,8 +11,9 @@ import java.util.concurrent.TimeUnit;
 public class Clock {
 
     private static Clock _instance;
-    private final List<Device> _devices = new ArrayList<Device>();
+    private final List<Device> _devices = new ArrayList<>();
     private ScheduledExecutorService executorService;
+    private TransportState _transportState = TransportState.STOPPED;
     private int _tempo = 10;
 
     private Clock() {
@@ -21,7 +22,7 @@ public class Clock {
     }
 
     public synchronized static Clock getInstance() {
-        if(_instance == null) {
+        if (_instance == null) {
             _instance = new Clock();
         }
         return _instance;
@@ -32,10 +33,23 @@ public class Clock {
         restartTickExecutor();
     }
 
-    private void tick() {
-
-        for (Device d : _devices) {
-            d.clockTick();
+    private void startTickExecutor() {
+        if (executorService.isShutdown() || executorService.isTerminated()) {
+            executorService = Executors.newSingleThreadScheduledExecutor();
+            executorService.scheduleAtFixedRate(() -> {
+                try {
+                    for (Device d : _devices) {
+                        if (Thread.currentThread().isInterrupted()) {
+                            return;
+                        }
+                        d.clockTick();
+                    }
+                } catch (Exception e) {
+                    System.err.println("Exception caught inside the task.");
+                    e.printStackTrace();
+                }
+            }, 0, getPeriod(), TimeUnit.MILLISECONDS);
+            _transportState = TransportState.PLAYING;
         }
     }
 
@@ -46,26 +60,9 @@ public class Clock {
     public void addDevice(Device device) {
         _devices.add(device);
     }
-    int i = 0;
-    private void startTickExecutor() {
-        executorService.scheduleAtFixedRate(() -> {
-            try {
-
-                // Your task logic
-                for (Device d : _devices) {
-                    d.clockTick();
-                }
-
-
-            } catch (Exception e) {
-                System.err.println("Exception caught inside the task.");
-                e.printStackTrace();
-            }
-        }, 0, getPeriod(), TimeUnit.MILLISECONDS);
-    }
 
     private void restartTickExecutor() {
-        executorService.shutdownNow();
+        pause();
         startTickExecutor();
     }
 
@@ -78,16 +75,17 @@ public class Clock {
     }
 
     public void play() {
-        if (executorService.isShutdown() || executorService.isTerminated()) {
-            executorService = Executors.newSingleThreadScheduledExecutor();
-            startTickExecutor();
-        }
+        startTickExecutor();
     }
 
     public void pause() {
-        if (!executorService.isShutdown() || !executorService.isTerminated()) {
+        if (!executorService.isShutdown()) {
             executorService.shutdownNow();
+            _transportState = TransportState.PAUSED;
         }
     }
 
+    public TransportState getTransportState() {
+        return _transportState;
+    }
 }

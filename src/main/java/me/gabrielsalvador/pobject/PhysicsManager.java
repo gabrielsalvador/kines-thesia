@@ -2,8 +2,11 @@ package me.gabrielsalvador.pobject;
 
 
 
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.components.BodyData;
+import me.gabrielsalvador.sequencing.Clock;
+import me.gabrielsalvador.sequencing.TransportState;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
@@ -35,6 +38,7 @@ public class PhysicsManager {
         if (_instance == null) {
             _instance = new PhysicsManager();
         }
+
 
         return _instance;
     }
@@ -97,7 +101,10 @@ public class PhysicsManager {
     }
 
     public void step(float timeStep, int velocityIterations, int positionIterations) {
-        _world.step(timeStep, velocityIterations, positionIterations);
+
+        if (Clock.getInstance().getTransportState() == TransportState.PLAYING) {
+            _world.step(timeStep, velocityIterations, positionIterations);
+        }
     }
 
     public World getWorld() {
@@ -143,4 +150,5 @@ class myContactListener implements ContactListener{
     public void postSolve(Contact contact, ContactImpulse contactImpulse) {
 
     }
+
 }
