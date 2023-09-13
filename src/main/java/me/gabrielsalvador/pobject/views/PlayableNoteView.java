@@ -4,7 +4,7 @@ import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
-import me.gabrielsalvador.pobject.components.body.Shape;
+import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -26,7 +26,7 @@ public class PlayableNoteView implements View<PObject> {
     public void display(PGraphics graphics) {
         BodyComponent bodyComponent = _model.getBodyComponent();
         Vec2 position = bodyComponent.getPosition();
-        Shape s = _model.getBodyComponent().getShape();
+        AbstractShape s = _model.getBodyComponent().getShape();
 
         graphics.ellipseMode(PApplet.CENTER);
         graphics.pushStyle();
@@ -45,7 +45,7 @@ public class PlayableNoteView implements View<PObject> {
     public boolean isMouseOver(int mouseX, int mouseY) {
         PhysicsBodyComponent bodyComponent = _model.getBodyComponent();
         Vec2 position = bodyComponent.getPixelPosition();
-        Shape s = bodyComponent.getShape();
+        AbstractShape s = bodyComponent.getShape();
         boolean result = s.isMouseOver(mouseX, mouseY, position.x, position.y);
         return result;
 

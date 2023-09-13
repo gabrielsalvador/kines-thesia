@@ -3,6 +3,7 @@ package me.gabrielsalvador.pobject.views;
 import me.gabrielsalvador.pobject.Defaults;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
+import me.gabrielsalvador.pobject.components.body.shape.RectanglePShape;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
@@ -27,7 +28,7 @@ public class PKeyboardView  implements View<PObject> {
     public void display(PGraphics graphics) {
         Vec2 position = _body.getPixelPosition();
 
-        float[] size = (float[]) ((RectangleShape )_body.getShape()).getBoundayBox();
+        float[] size = (float[]) ((RectanglePShape)_body.getShape()).getBoundaries();
         float keyWidth = size[0] / 7;
         float keyHeight = size[1];
 

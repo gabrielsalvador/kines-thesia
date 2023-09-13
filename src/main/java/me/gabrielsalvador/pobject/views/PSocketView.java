@@ -1,6 +1,7 @@
 package me.gabrielsalvador.pobject.views;
 
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.components.body.shape.RectanglePShape;
 import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.pobject.routing.Routable;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
@@ -29,7 +30,7 @@ public class PSocketView<T extends Routable> implements View<PObject> {
     public void display(PGraphics graphics) {
         BodyComponent _body = _model.getComponent(BodyComponent.class);
         Vec2 position = _body.getPixelPosition();
-        float[] ownerSize = ((RectangleShape)_body.getShape()).getBoundayBox();
+        float[] ownerSize = ((RectanglePShape)_body.getShape()).getBoundaries();
         graphics.pushStyle();
         graphics.pushMatrix();
         graphics.translate(position.x, position.y + ownerSize[1] + SIZE_X);
@@ -44,7 +45,7 @@ public class PSocketView<T extends Routable> implements View<PObject> {
     public boolean isMouseOver(int mouseX, int mouseY) {
         BodyComponent _body = _model.getComponent(BodyComponent.class);
         Vec2 position = _body.getPixelPosition();
-        float[] ownerSize = ((RectangleShape)_body.getShape()).getBoundayBox();
+        float[] ownerSize = ((RectanglePShape)_body.getShape()).getBoundaries();
 
         float centerX = position.x;
         float centerY = position.y + ownerSize[1] + SIZE_X;

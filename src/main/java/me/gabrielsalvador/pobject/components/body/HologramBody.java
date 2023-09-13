@@ -2,14 +2,15 @@ package me.gabrielsalvador.pobject.components.body;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsManager;
-import me.gabrielsalvador.pobject.views.RectangleShape;
+import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
+import me.gabrielsalvador.pobject.components.body.shape.RectanglePShape;
 import org.jbox2d.common.Vec2;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class HologramBody extends BodyComponent implements Serializable {
 
-    private Shape _shape;
+    private AbstractShape _shape;
     private Vec2 _position;
     private ArrayList<HologramBody> _children = new ArrayList<>();
     private HologramBody _parent;
@@ -17,13 +18,13 @@ public class HologramBody extends BodyComponent implements Serializable {
     public HologramBody(PObject owner,Vec2 position, Vec2 size){
         super(owner);
         _position = position;
-        _shape = new RectangleShape( size);
+        _shape = new RectanglePShape( size);
     }
 
     public HologramBody(PObject owner) {
         super(owner);
         _position = new Vec2(0,0);
-        _shape = new RectangleShape(new Vec2(0,0));
+        _shape = new RectanglePShape(new Vec2(0,0));
     }
 
 
@@ -55,12 +56,12 @@ public class HologramBody extends BodyComponent implements Serializable {
 
 
     @Override
-    public Shape getShape() {
+    public AbstractShape getShape() {
         return _shape;
     }
 
     @Override
-    public void setShape(Shape shape) {
+    public void setShape(AbstractShape shape) {
         _shape = shape;
     }
 

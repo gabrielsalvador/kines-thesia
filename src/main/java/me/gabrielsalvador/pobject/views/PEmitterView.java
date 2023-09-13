@@ -2,7 +2,8 @@ package me.gabrielsalvador.pobject.views;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
-import me.gabrielsalvador.pobject.components.body.Shape;
+import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
+import me.gabrielsalvador.pobject.components.body.shape.RectanglePShape;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
@@ -26,8 +27,8 @@ public class PEmitterView  implements View<PObject> {
         Vec2 position = _body.getPixelPosition();
 
         // Get the width and height of the emitter shape
-        Shape shape = _body.getShape();
-        float size[] = shape.getBoundayBox();
+        AbstractShape shape = _body.getShape();
+        float size[] = shape.getBoundaries();
         float halfWidth = size[0] / 2.0f;
         float halfHeight = size[1] / 2.0f;
 
@@ -52,8 +53,8 @@ public class PEmitterView  implements View<PObject> {
         Vec2 position = _body.getPixelPosition();
 
         // Get the width and height of the emitter shape
-        RectangleShape shape = (RectangleShape) _body.getShape();
-        float size[] = shape.getBoundayBox();
+        RectanglePShape shape = (RectanglePShape) _body.getShape();
+        float size[] = shape.getBoundaries();
         float halfWidth = size[0] / 2.0f;
         float halfHeight = size[1] / 2.0f;
 

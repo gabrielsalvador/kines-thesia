@@ -5,7 +5,7 @@ import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
-import me.gabrielsalvador.pobject.views.RectangleShape;
+import me.gabrielsalvador.pobject.components.body.shape.RectanglePShape;
 import me.gabrielsalvador.pobject.views.PSocketView;
 import me.gabrielsalvador.tools.RoutingTool;
 import me.gabrielsalvador.tools.ToolManager;
@@ -49,7 +49,7 @@ public class PSocket<T extends Routable> extends PObject {
     public float[] getPixelPosition() {
         BodyComponent body = ( BodyComponent ) getComponent(BodyComponent.class);
         Vec2 position = body.getPixelPosition();
-        float[] ownerSize = ((RectangleShape) body.getShape()).getBoundayBox();
+        float[] ownerSize = ((RectanglePShape) body.getShape()).getBoundaries();
         return new float[]{position.x, position.y + ownerSize[0] + getSize()[1]};
     }
 

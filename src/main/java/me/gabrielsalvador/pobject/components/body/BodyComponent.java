@@ -3,12 +3,13 @@ package me.gabrielsalvador.pobject.components.body;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.Component;
+import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
 import org.jbox2d.common.Vec2;
 
 public abstract class BodyComponent extends Component {
 
     protected Vec2 _position;
-    private Shape _shape;
+    private AbstractShape _shape;
 
     public BodyComponent(){
         super();
@@ -26,11 +27,11 @@ public abstract class BodyComponent extends Component {
         return this;
     }
 
-    public Shape getShape(){
+    public AbstractShape getShape(){
         return _shape;
     }
 
-    public void setShape(Shape shape){
+    public void setShape(AbstractShape shape){
         _shape = shape;
     }
 

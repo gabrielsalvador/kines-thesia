@@ -4,8 +4,8 @@ import me.gabrielsalvador.audio.AudioManager;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.MusicalNoteComponent;
-import me.gabrielsalvador.pobject.views.CircleShape;
-import me.gabrielsalvador.pobject.views.PolygonShape;
+import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
+import me.gabrielsalvador.pobject.components.body.shape.JShape;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -15,6 +15,7 @@ import java.io.*;
 public class PhysicsBodyComponent extends BodyComponent implements Serializable {
 
     transient private Body _body;
+    private JShape _shape;
     /* used to serialize body data and recreate the body on deserialization */
     private BodyData _bodyData = new BodyData();
 
@@ -56,27 +57,12 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
 
     @Override
-    public Shape getShape() {
-        ShapeType type = _body.getFixtureList().getShape().getType();
-
-        if (type == ShapeType.CIRCLE) {
-            return new CircleShape(_body.getPosition(), _body.getFixtureList().getShape().getRadius());
-        } else if (type == ShapeType.POLYGON) {
-            org.jbox2d.collision.shapes.PolygonShape jboxPolygon = (org.jbox2d.collision.shapes.PolygonShape) _body.getFixtureList().getShape();
-            PolygonShape polygon = new PolygonShape();
-            for (int i = 0; i < jboxPolygon.getVertexCount(); i++) {
-                Vec2 vertex = jboxPolygon.getVertex(i);
-                polygon.addVertex(vertex.x, vertex.y);
-            }
-            return polygon;
-        } else {
-
-            return null;
-        }
+    public AbstractShape getShape() {
+        return _shape;
     }
 
     @Override
-    public void setShape(Shape shape) {
+    public void setShape(AbstractShape shape) {
 
     }
 
@@ -144,6 +130,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
                 _body = PhysicsManager.getInstance().createPolygon(_bodyData);
                 break;
         }
+        _shape = new JShape(_body.getFixtureList().getShape(),this);
         _body.setTransform(new Vec2(_bodyData.x, _bodyData.y), _bodyData.angle);
         _body.setLinearVelocity(new Vec2(_bodyData.linearVelocityX, _bodyData.linearVelocityY));
         _body.setAngularVelocity(_bodyData.angularVelocity);
@@ -157,5 +144,9 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         Vec2 worldCoords = PhysicsManager.getInstance().coordPixelsToWorld(displacement.x, displacement.y);
         getPosition().addLocal(worldCoords);
         _body.setTransform(getPosition(), _body.getAngle());
+    }
+
+    public float getAngle() {
+        return _body.getAngle();
     }
 }

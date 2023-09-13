@@ -13,8 +13,8 @@ import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.BodyData;
 import me.gabrielsalvador.pobject.components.MusicalNoteComponent;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
+import me.gabrielsalvador.pobject.components.body.shape.RectanglePShape;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
-import me.gabrielsalvador.pobject.views.RectangleShape;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
@@ -106,14 +106,14 @@ public class CommandTool extends Tool {
                     PKeyboard pKeyboard = new PKeyboard();
                     BodyComponent bodyComponent = pKeyboard.getBodyComponent();
                     bodyComponent.setPixelPosition(new Vec2(x,y));
-                    RectangleShape rectangleShape = new RectangleShape(new Vec2(50,20));
+                    RectanglePShape rectangleShape = new RectanglePShape(new Vec2(50,20));
                     bodyComponent.setShape(rectangleShape);
                     AppController.getInstance().addPObject(pKeyboard);
                 }else if(args[1].equals("emitter")) {
                     PEmitter pEmitter = new PEmitter();
                     BodyComponent bc = pEmitter.getBodyComponent();
                     bc.setPixelPosition(new Vec2(x,y));
-                    bc.setShape(new RectangleShape(new Vec2(50,20)));
+                    bc.setShape(new RectanglePShape(new Vec2(50,20)));
                     AppController.getInstance().addPObject(pEmitter);
                 }else if(args[1].equals("block")) {
                     PObject object = new PlayableNote();
@@ -134,13 +134,13 @@ public class CommandTool extends Tool {
                     PKeyboard pKeyboard = new PKeyboard();
                     BodyComponent bodyComponent = pKeyboard.getBodyComponent();
                     bodyComponent.setPixelPosition(new Vec2(x,y));
-                    RectangleShape rectangleShape = new RectangleShape(new Vec2(50,20));
+                    RectanglePShape rectangleShape = new RectanglePShape(new Vec2(50,20));
                     bodyComponent.setShape(rectangleShape);
                     AppController.getInstance().addPObject(pKeyboard);
                     PEmitter pEmitter = new PEmitter();
                     BodyComponent bc = pEmitter.getBodyComponent();
                     bc.setPixelPosition(new Vec2(x,y));
-                    bc.setShape(new RectangleShape(new Vec2(50,20)));
+                    bc.setShape(new RectanglePShape(new Vec2(50,20)));
                     AppController.getInstance().addPObject(pEmitter);
                     // connect them
                     RoutingConnection routingConnection = new RoutingConnection(pKeyboard.getOutlets().get(0),pEmitter.getInlets().get(0));
