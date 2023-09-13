@@ -2,8 +2,9 @@ package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.Sinesthesia;
-import me.gabrielsalvador.pobject.components.BodyComponent;
-import me.gabrielsalvador.pobject.components.BodyData;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
+import me.gabrielsalvador.pobject.components.body.BodyData;
+import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.pobject.routing.Inlet;
 import me.gabrielsalvador.pobject.routing.Outlet;
 import me.gabrielsalvador.pobject.routing.Routing;
@@ -13,7 +14,6 @@ import me.gabrielsalvador.sequencing.SequencerController;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
-import processing.core.PVector;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

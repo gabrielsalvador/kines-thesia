@@ -2,9 +2,9 @@ package me.gabrielsalvador.pobject.views;
 
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PhysicsBodyComponent;
-import me.gabrielsalvador.pobject.components.BodyComponent;
-import me.gabrielsalvador.utils.Vector;
+import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
+import me.gabrielsalvador.pobject.components.body.Shape;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;

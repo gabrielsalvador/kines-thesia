@@ -1,4 +1,4 @@
-package me.gabrielsalvador.pobject.components;
+package me.gabrielsalvador.pobject.components.body;
 
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.collision.shapes.ShapeType;

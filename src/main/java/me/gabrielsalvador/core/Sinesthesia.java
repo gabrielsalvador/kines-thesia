@@ -10,13 +10,9 @@ import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.InspectorController;
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PhysicsBodyComponent;
-import me.gabrielsalvador.pobject.PlayableNote;
-import me.gabrielsalvador.pobject.components.BodyComponent;
 import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.SequencerController;
 import me.gabrielsalvador.tools.ToolboxController;
-import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PFont;
 

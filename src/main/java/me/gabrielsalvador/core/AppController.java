@@ -2,7 +2,7 @@ package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PlayableNote;
-import me.gabrielsalvador.pobject.components.BodyComponent;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
 import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.pobject.views.View;

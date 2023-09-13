@@ -1,8 +1,6 @@
 package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.core.Sinesthesia;
-import me.gabrielsalvador.pobject.components.BodyComponent;
-import me.gabrielsalvador.pobject.components.HologramBody;
 import me.gabrielsalvador.pobject.routing.*;
 import me.gabrielsalvador.pobject.views.PKeyboardView;
 import me.gabrielsalvador.pobject.views.PSocketView;

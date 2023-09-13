@@ -1,4 +1,4 @@
-package me.gabrielsalvador.pobject.views;
+package me.gabrielsalvador.pobject.components.body;
 
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;

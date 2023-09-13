@@ -1,10 +1,8 @@
-package me.gabrielsalvador.pobject.components;
+package me.gabrielsalvador.pobject.components.body;
 
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.views.RectangleShape;
-import me.gabrielsalvador.pobject.views.Shape;
 import org.jbox2d.common.Vec2;
 import java.io.Serializable;
 import java.util.ArrayList;

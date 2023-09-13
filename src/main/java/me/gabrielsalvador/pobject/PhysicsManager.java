@@ -2,9 +2,9 @@ package me.gabrielsalvador.pobject;
 
 
 
-import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.Sinesthesia;
-import me.gabrielsalvador.pobject.components.BodyData;
+import me.gabrielsalvador.pobject.components.body.BodyData;
+import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.TransportState;
 import org.jbox2d.callbacks.ContactImpulse;

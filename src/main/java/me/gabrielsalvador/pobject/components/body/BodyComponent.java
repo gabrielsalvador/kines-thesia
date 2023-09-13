@@ -1,15 +1,9 @@
-package me.gabrielsalvador.pobject.components;
+package me.gabrielsalvador.pobject.components.body;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsManager;
-import me.gabrielsalvador.pobject.views.RectangleShape;
-import me.gabrielsalvador.pobject.views.Shape;
-import org.jbox2d.collision.AABB;
+import me.gabrielsalvador.pobject.components.Component;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyType;
-
-import java.awt.*;
 
 public abstract class BodyComponent extends Component {
 

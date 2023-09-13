@@ -1,12 +1,11 @@
-package me.gabrielsalvador.pobject;
+package me.gabrielsalvador.pobject.components.body;
 
 import me.gabrielsalvador.audio.AudioManager;
-import me.gabrielsalvador.pobject.components.BodyComponent;
-import me.gabrielsalvador.pobject.components.BodyData;
+import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.MusicalNoteComponent;
 import me.gabrielsalvador.pobject.views.CircleShape;
 import me.gabrielsalvador.pobject.views.PolygonShape;
-import me.gabrielsalvador.pobject.views.Shape;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -23,7 +22,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     private MusicalNoteComponent _onColision;
 
 
-    public PhysicsBodyComponent(PObject owner,Vec2 position) {
+    public PhysicsBodyComponent(PObject owner, Vec2 position) {
         super(owner);
         createBody();
         setPixelPosition(position);

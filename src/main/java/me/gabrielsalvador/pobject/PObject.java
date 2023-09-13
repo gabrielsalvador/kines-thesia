@@ -4,9 +4,9 @@ package me.gabrielsalvador.pobject;
 import java.io.*;
 import java.util.*;
 
-import me.gabrielsalvador.pobject.components.BodyComponent;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.Component;
-import me.gabrielsalvador.pobject.components.HologramBody;
+import me.gabrielsalvador.pobject.components.body.HologramBody;
 import me.gabrielsalvador.pobject.views.View;
 
 

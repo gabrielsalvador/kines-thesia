@@ -3,7 +3,7 @@ package me.gabrielsalvador.pobject.views;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.pobject.routing.Routable;
-import me.gabrielsalvador.pobject.components.BodyComponent;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PConstants;
