@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="07637f48-dbbd-4f87-8a4b-b3589535c7c8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/appState.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="improving-drawing-shapes" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2VGXm2jtaOuE4TClB0Sj7SrOEyC" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="me.gabrielsalvador.pobject.components.body" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="KInesthesia" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="me.gabrielsalvador.core.Sinesthesia" />
+      <module name="sines-thesia" />
+      <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+        <option name="credential" />
+        <option name="region" />
+        <option name="useCurrentConnection" value="false" />
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="07637f48-dbbd-4f87-8a4b-b3589535c7c8" name="Changes" comment="" />
+      <created>1694463545913</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1694463545913</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/components/BodyComponent.java</url>
+          <line>29</line>
+          <properties class="me.gabrielsalvador.pobject.components.BodyComponent" method="setPosition">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.routing.PSocket" memberName="_owner" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.views.PhysicsPObjectView" memberName="_model" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PhysicsManager" memberName="_world" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PObjectProperty" memberName="type" />
+        <PinnedItemInfo parentTag="controlP5.Group" memberName="absolutePosition" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PKeyboard" memberName="_components" />
+        <PinnedItemInfo parentTag="org.jbox2d.dynamics.Fixture" memberName="m_body" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PKeyboard" memberName="_outlets" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PlayableNote" memberName="_components" />
+        <PinnedItemInfo parentTag="java.util.LinkedHashMap$Entry" memberName="key" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.core.AppState" memberName="_sequencerState" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+</project>
