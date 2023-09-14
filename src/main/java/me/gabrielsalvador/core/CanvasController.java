@@ -96,7 +96,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
     @Override
     public void onClick() {
-
+        _toolManager.getCurrentTool().onClick(_currentlyHovering);
     }
 
     @Override

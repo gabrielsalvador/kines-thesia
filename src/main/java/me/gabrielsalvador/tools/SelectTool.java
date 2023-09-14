@@ -1,6 +1,7 @@
 package me.gabrielsalvador.tools;
 
 import java.util.ArrayList;
+
 import controlP5.ControlP5;
 import me.gabrielsalvador.core.*;
 import me.gabrielsalvador.pobject.PObject;
@@ -22,6 +23,7 @@ public class SelectTool extends Tool {
     public SelectTool() {
         _cp5 = Sinesthesia.getInstance().getCP5();
     }
+
     @Override
     public void keyEvent(KeyEvent keyEvent) {
 
@@ -29,15 +31,15 @@ public class SelectTool extends Tool {
 
     @Override
     public void onClick(PObject pObject) {
-        if (pObject != null) {
-            if (!selectedObjects.contains(pObject)) {
-                clearSelection();  // Clear previous selections if you want single select behavior
-                selectedObjects.add(pObject);
-                pObject.setIsSelected(true);
-            }
-        } else {
-            clearSelection();  // This will deselect everything when you click on an empty space
-        }
+//        System.out.println("Selecting object");
+//        if (pObject != null) {
+//            clearSelection();
+//            pObject.setIsSelected(true);
+
+//            AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
+//        } else {
+//            clearSelection();  // This will deselect everything when you click on an empty space
+//        }
     }
 
     @Override
@@ -53,6 +55,7 @@ public class SelectTool extends Tool {
             }
             // Start the selection square at the mouse position
             _selectionStart = new Vec2(getCanvas().getMousePosition()[0], getCanvas().getMousePosition()[1]);
+            AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
         }
         if (_dragging) {
             _initialDragPosition = new Vec2(getCanvas().getMousePosition()[0], getCanvas().getMousePosition()[1]);
@@ -86,6 +89,7 @@ public class SelectTool extends Tool {
             // Update the selection square's end position
             _selectionEnd = new Vec2(getCanvas().getMousePosition()[0], getCanvas().getMousePosition()[1]);
             checkForObjectsInsideSelection();
+            AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
         }
     }
 
@@ -116,6 +120,7 @@ public class SelectTool extends Tool {
             p.setIsSelected(false);
         }
         selectedObjects.clear();
+        AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
     }
 
     private void checkForObjectsInsideSelection() {
