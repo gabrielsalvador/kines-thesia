@@ -25,7 +25,7 @@ public class PlayableNoteView implements View<PObject> {
 
     public void display(PGraphics graphics) {
         BodyComponent bodyComponent = _model.getBodyComponent();
-        Vec2 position = bodyComponent.getPosition();
+        Vec2 position = bodyComponent.getPixelPosition();
         AbstractShape s = _model.getBodyComponent().getShape();
 
         graphics.ellipseMode(PApplet.CENTER);

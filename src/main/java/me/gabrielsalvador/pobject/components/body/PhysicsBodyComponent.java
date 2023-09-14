@@ -33,6 +33,9 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         _bodyData = bodyData;
         createBody();
     }
+
+
+
     @Override
     public Vec2 getPosition() {
         return _body.getPosition();

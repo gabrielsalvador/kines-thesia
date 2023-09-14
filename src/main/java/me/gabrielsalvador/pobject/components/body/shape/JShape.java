@@ -1,5 +1,6 @@
 package me.gabrielsalvador.pobject.components.body.shape;
 
+import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import org.jbox2d.collision.AABB;
@@ -21,11 +22,18 @@ public class JShape extends AbstractShape {
     @Override
     public boolean isMouseOver(int mouseX, int mouseY, float x, float y) {
         float[] boundaries = getBoundaries();
-        float minX = boundaries[0] + x;
-        float minY = boundaries[1] + y;
-        float maxX = boundaries[2] + x;
-        float maxY = boundaries[3] + y;
-        return mouseX >= minX && mouseX <= maxX && mouseY >= minY && mouseY <= maxY;
+        float[] pixels = new float[boundaries.length];
+        //convert to pixels
+        pixels[0] = boundaries[0] * PhysicsManager.getInstance().worldToPixelScale(boundaries[0]);
+        pixels[1] = boundaries[1] * PhysicsManager.getInstance().worldToPixelScale(boundaries[1]);
+        pixels[2] = boundaries[2] * PhysicsManager.getInstance().worldToPixelScale(boundaries[2]);
+        pixels[3] = boundaries[3] * PhysicsManager.getInstance().worldToPixelScale(boundaries[3]);
+        return mouseX > pixels[0] + x && mouseX < pixels[2] + x && mouseY > pixels[1] + y && mouseY < pixels[3] + y;
+
+
+
+
+
     }
 
     @Override
@@ -35,7 +43,6 @@ public class JShape extends AbstractShape {
 
         graphics.pushMatrix();
         float angle = _owner.getAngle();
-        Vec2 position = _owner.getPosition();
         graphics.translate(x , y );
         graphics.rotate(angle);
 
@@ -49,7 +56,7 @@ public class JShape extends AbstractShape {
             int vertexCount = polygon.m_count;
             graphics.beginShape();
             for (int i = 0; i < vertexCount; i++) {
-                Vec2 vertex = polygon.m_vertices[i];
+                Vec2 vertex = PhysicsManager.getInstance().coordWorldToPixels(polygon.m_vertices[i].x, polygon.m_vertices[i].y);
                 graphics.vertex(vertex.x, vertex.y);
             }
             graphics.endShape(PGraphics.CLOSE);
