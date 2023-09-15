@@ -29,17 +29,11 @@ public class JShape extends AbstractShape {
         pixels[2] = boundaries[2] * PhysicsManager.getInstance().worldToPixelScale(boundaries[2]);
         pixels[3] = boundaries[3] * PhysicsManager.getInstance().worldToPixelScale(boundaries[3]);
         return mouseX > pixels[0] + x && mouseX < pixels[2] + x && mouseY > pixels[1] + y && mouseY < pixels[3] + y;
-
-
-
-
-
     }
 
     @Override
     public void display(PGraphics graphics, float x, float y) {
-        graphics.fill(255); // white
-        graphics.stroke(0); // black
+
 
         graphics.pushMatrix();
         float angle = _owner.getAngle();
