@@ -20,6 +20,11 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     /* used to serialize body data and recreate the body on deserialization */
     private BodyData _bodyData = new BodyData();
 
+    @InspectableProperty(displayName = "Static")
+    private boolean _isStatic = false;
+
+
+
     @InspectableProperty
     private MusicalNoteComponent _onColision;
 
@@ -157,5 +162,17 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     public float getAngle() {
         return _body.getAngle();
+    }
+
+    @InspectableProperty.SetterFor("Static")
+    public void setIsStatic(boolean isStatic) {
+        System.out.println("setIsStatic");
+
+        _isStatic = isStatic;
+        if (isStatic) {
+            _body.setType(BodyType.STATIC);
+        } else {
+            _body.setType(BodyType.DYNAMIC);
+        }
     }
 }

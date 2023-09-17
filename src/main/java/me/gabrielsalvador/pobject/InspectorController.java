@@ -105,12 +105,15 @@ public class InspectorController extends Group implements PropertyChangeListener
     }
 
     private Controller[] buildControllerForProperty(Group container, PObjectProperty property, Class<?> type) {
-        if (type == Boolean.class) {
+        if (type == boolean.class) {
             Toggle toggle = cp5.addToggle(property.getName())
                     .setPosition(0, 0)
                     .setSize(20, 20)
                     .setGroup(this)
                     .setValue((Boolean) property.getValue());
+
+            setupCheckboxCallback(toggle, property);
+
             return new Controller[]{toggle};
         } else if (type == int.class) {
             Numberbox numberbox = cp5.addNumberbox(property.getName())
@@ -204,6 +207,18 @@ public class InspectorController extends Group implements PropertyChangeListener
         t.setText(typeName + " Not Implmtld");
         return new Controller[]{t};
 
+    }
+
+    private void setupCheckboxCallback(Toggle toggle, PObjectProperty property) {
+        toggle.addCallback(new CallbackListener() {
+            @Override
+            public void controlEvent(CallbackEvent callbackEvent) {
+                if (callbackEvent.getAction() == ControlP5.ACTION_BROADCAST) {
+                    boolean value = toggle.getState();
+                    property.setValue(value);
+                }
+            }
+        });
     }
 
     private void setupTextfieldCallback(Textfield textfield, PObjectProperty property) {
