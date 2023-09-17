@@ -23,6 +23,11 @@ public class MusicalNoteComponent extends Component implements Serializable {
     }
 
     @Override
+    public void display() {
+
+    }
+
+    @Override
     public String getName() {
         return "Musical Note Information";
     }

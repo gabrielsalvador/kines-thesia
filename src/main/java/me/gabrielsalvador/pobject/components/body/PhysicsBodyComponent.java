@@ -76,6 +76,11 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     }
 
     @Override
+    public void display() {
+
+    }
+
+    @Override
     public String getName() {
         return "PhysicsBody";
     }

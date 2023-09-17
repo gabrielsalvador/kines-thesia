@@ -1,21 +1,23 @@
 package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.common.SerializableRunnable;
+import me.gabrielsalvador.pobject.components.Component;
 
 import java.io.Serializable;
-
+import java.lang.reflect.Method;
 
 
 public class PObjectProperty implements Serializable {
-    private final PObject _owner;
+    private final Component _owner;
     private final String name;
-    private Object value;
+    private Object _value;
     private final Class<?> type;
-    private SerializableRunnable onChanged;  // Callback when value changes
+
+    private Method setter;
 
 
-    public PObjectProperty(PObject _owner,String name, Class<?> type) {
-        this._owner = _owner;
+    public PObjectProperty(Component owner, String name, Class<?> type) {
+        this._owner = owner;
         this.name = name;
         this.type = type;
     }
@@ -24,15 +26,11 @@ public class PObjectProperty implements Serializable {
         return name;
     }
 
-    public PObjectProperty setValue(Object value) {
-        this.value = value;
-        if (onChanged != null) onChanged.run();
-        return this;
-    }
+
 
     public Object getValue() {
 
-        return value;
+        return _value;
     }
 
     public Class<?> getType() {
@@ -40,11 +38,28 @@ public class PObjectProperty implements Serializable {
     }
 
 
-    public void setOnChanged(SerializableRunnable onChanged) {
-        this.onChanged = onChanged;
-    }
 
-    public PObject getOwner() {
+
+    public Object getOwner() {
         return _owner;
     }
+
+    public void setSetter(Method method) {
+        setter = method;
+    }
+
+    public PObjectProperty setValue(Object value) {
+
+        _value = value;
+        if(setter == null) {
+            return this;
+        }
+        try {
+            setter.invoke(_owner,value);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
 }

@@ -1,6 +1,7 @@
 package routing;
 
 import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.pobject.PlayableNote;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
@@ -34,8 +35,10 @@ class RoutingTests {
         RoutingConnection c = new RoutingConnection(obj1, obj2);
         Component comp =  c.getComponent(RoutingComponent.class);
         List<?> props = comp.getProperties();
-        //assert prop has one element
-        assertEquals(1, props.size());
+        PObjectProperty prop = (PObjectProperty) props.get(0);
+        prop.setValue(10);
+        assertEquals(10, prop.getValue());
+
 
 
     }

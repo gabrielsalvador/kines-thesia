@@ -72,6 +72,11 @@ public class HologramBody extends BodyComponent implements Serializable {
     }
 
     @Override
+    public void display() {
+
+    }
+
+    @Override
     public String getName() {
         return "HologramBody";
     }

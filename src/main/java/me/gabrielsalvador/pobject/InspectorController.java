@@ -112,12 +112,15 @@ public class InspectorController extends Group implements PropertyChangeListener
                     .setGroup(this)
                     .setValue((Boolean) property.getValue());
             return new Controller[]{toggle};
-        } else if (type == Integer.class) {
+        } else if (type == int.class) {
             Numberbox numberbox = cp5.addNumberbox(property.getName())
                     .setPosition(0, 0)
                     .setSize(100, 20)
                     .setGroup(this)
                     .setValue((Integer) property.getValue());
+
+            setupNumberboxCallback(numberbox, property);
+
             return new Controller[]{numberbox};
         } else if (type == Float.class) {
             Numberbox numberbox = cp5.addNumberbox(property.getName())
@@ -171,7 +174,9 @@ public class InspectorController extends Group implements PropertyChangeListener
                     .setType(ScrollableList.DROPDOWN)
                     .setBackgroundColor(255)
                     .close();
-            HashMap<Class<? extends Component>,Component> components = property.getOwner().getComponents();
+
+            Component component = (Component) property.getOwner();
+            HashMap<Class<? extends Component>,Component> components = component.getOwner().getComponents();
             for (Class<?> key : components.keySet()) {
 
                 int i = 0;
@@ -235,5 +240,17 @@ public class InspectorController extends Group implements PropertyChangeListener
         });
     }
 
+
+    private void setupNumberboxCallback(Numberbox numberbox, PObjectProperty property) {
+        numberbox.addCallback(new CallbackListener() {
+            @Override
+            public void controlEvent(CallbackEvent callbackEvent) {
+                if (callbackEvent.getAction() == ControlP5.ACTION_BROADCAST) {
+                    int value = (int) numberbox.getValue();
+                    property.setValue(value);
+                }
+            }
+        });
+    }
 
 }

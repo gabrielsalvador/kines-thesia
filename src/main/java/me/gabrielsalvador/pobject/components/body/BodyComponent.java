@@ -11,9 +11,7 @@ public abstract class BodyComponent extends Component {
     protected Vec2 _position;
     private AbstractShape _shape;
 
-    public BodyComponent(){
-        super();
-    }
+
     public BodyComponent(PObject owner){
         super(owner);
     }

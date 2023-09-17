@@ -37,7 +37,7 @@ public class Sinesthesia extends PApplet {
     }
 
     public static void main(String[] args) {
-        System.setProperty("sun.java2d.uiScale.enabled", "false");
+        System.setProperty("sun.java2d.uiScale.enabled", "true");
         PApplet.main("me.gabrielsalvador.core.Sinesthesia");
     }
 

@@ -16,18 +16,23 @@ import me.gabrielsalvador.pobject.views.View;
 
 
 public abstract class PObject implements Serializable {
-    
+
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.FIELD, ElementType.METHOD})
     public @interface InspectableProperty {
         String displayName() default "";
         String setter() default "";  // Name of the setter method
+
+        @Retention(RetentionPolicy.RUNTIME)
+        public @interface SetterFor {
+            String value();
+        }
     }
 
     private boolean _isSelected = false;
     private boolean _isHovered = false;
     private final Set<PObject> _children = new HashSet<PObject>();
-    private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<String, PObjectProperty>();
+    transient private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<String, PObjectProperty>();
     private final LinkedHashMap<Class<? extends Component>,Component> _components = new LinkedHashMap<Class<? extends Component>,Component>();
     transient protected View<PObject> _view;
 
