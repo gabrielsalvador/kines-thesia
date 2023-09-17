@@ -20,7 +20,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
     /* time elapsed since last frame */
     private long _lastTime = System.nanoTime();
     /* time accumulated since last physics step */
-    private float _accumulator = 0.0f;
+    private final float _accumulator = 0.0f;
     /* rate at which physics simulation moves forward */
     private final float _timeStep = 1.0f / 60.0f;
 

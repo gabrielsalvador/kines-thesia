@@ -12,9 +12,9 @@ import me.gabrielsalvador.utils.MathUtils;
 
 public class SelectTool extends Tool {
 
-    private ControlP5 _cp5;
+    private final ControlP5 _cp5;
     private CanvasController _canvas;
-    private ArrayList<PObject> selectedObjects = new ArrayList<>();
+    private final ArrayList<PObject> selectedObjects = new ArrayList<>();
     private Vec2 _selectionStart = null;
     private Vec2 _selectionEnd = null;
     private boolean _dragging = false;

@@ -12,7 +12,7 @@ public class HologramBody extends BodyComponent implements Serializable {
 
     private AbstractShape _shape;
     private Vec2 _position;
-    private ArrayList<HologramBody> _children = new ArrayList<>();
+    private final ArrayList<HologramBody> _children = new ArrayList<>();
     private HologramBody _parent;
 
     public HologramBody(PObject owner,Vec2 position, Vec2 size){

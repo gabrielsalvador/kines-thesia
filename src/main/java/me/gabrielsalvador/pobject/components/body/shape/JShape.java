@@ -11,8 +11,8 @@ import processing.core.PGraphics;
 
 public class JShape extends AbstractShape {
 
-    private PhysicsBodyComponent _owner;
-    private Shape _shape;
+    private final PhysicsBodyComponent _owner;
+    private final Shape _shape;
 
     public JShape(Shape shape, PhysicsBodyComponent owner) {
         _owner = owner;
@@ -40,13 +40,11 @@ public class JShape extends AbstractShape {
         graphics.translate(x , y );
         graphics.rotate(angle);
 
-        if (_shape instanceof org.jbox2d.collision.shapes.CircleShape) {
-            org.jbox2d.collision.shapes.CircleShape circle = (org.jbox2d.collision.shapes.CircleShape) _shape;
+        if (_shape instanceof org.jbox2d.collision.shapes.CircleShape circle) {
             float radius = circle.m_radius;
             graphics.ellipse(0, 0, 2 * radius, 2 * radius);
 
-        } else if (_shape instanceof org.jbox2d.collision.shapes.PolygonShape) {
-            org.jbox2d.collision.shapes.PolygonShape polygon = (org.jbox2d.collision.shapes.PolygonShape) _shape;
+        } else if (_shape instanceof org.jbox2d.collision.shapes.PolygonShape polygon) {
             int vertexCount = polygon.m_count;
             graphics.beginShape();
             for (int i = 0; i < vertexCount; i++) {
@@ -55,14 +53,12 @@ public class JShape extends AbstractShape {
             }
             graphics.endShape(PGraphics.CLOSE);
 
-        } else if (_shape instanceof org.jbox2d.collision.shapes.EdgeShape) {
-            org.jbox2d.collision.shapes.EdgeShape edge = (org.jbox2d.collision.shapes.EdgeShape) _shape;
+        } else if (_shape instanceof org.jbox2d.collision.shapes.EdgeShape edge) {
             Vec2 vertex1 = edge.m_vertex1;
             Vec2 vertex2 = edge.m_vertex2;
             graphics.line(vertex1.x, vertex1.y, vertex2.x, vertex2.y);
 
-        } else if (_shape instanceof org.jbox2d.collision.shapes.ChainShape) {
-            org.jbox2d.collision.shapes.ChainShape chain = (org.jbox2d.collision.shapes.ChainShape) _shape;
+        } else if (_shape instanceof org.jbox2d.collision.shapes.ChainShape chain) {
             int vertexCount = chain.m_count;
             for (int i = 0; i < vertexCount - 1; i++) {
                 Vec2 vertexA = chain.m_vertices[i];

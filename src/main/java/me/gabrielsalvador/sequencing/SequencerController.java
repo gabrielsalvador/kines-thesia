@@ -17,14 +17,14 @@ public class SequencerController extends Controller<SequencerController> impleme
     protected int currentX = -1;
     protected int currentY = -1;
     protected int _myMode = MULTIPLES;
-    private SequencerState _sequencerState;
+    private final SequencerState _sequencerState;
 
     /* PObject with inlets where he can send note events */
     private final ArrayList<Inlet> _connectedPObject = new ArrayList<Inlet>();
 
     public SequencerController(ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);
-        setView( (ControllerView) new SequencerView( (SequencerController) this));
+        setView(new SequencerView(this));
         Clock.getInstance().addDevice(this);
         _sequencerState = AppState.getInstance().getSequencerState();
 

@@ -2,6 +2,7 @@ package me.gabrielsalvador.pobject.routing;
 
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.views.View;
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -9,14 +10,14 @@ import java.io.Serial;
 
 public class RoutingConnection extends PObject {
 
-    private PSocket<Inlet> _source;
-    private PSocket<Outlet> _destination;
+    private final PSocket _source;
+    private final PSocket _destination;
 
-    public RoutingConnection(PSocket<?> inlet, PSocket<?> outlet) {
+    public RoutingConnection(PSocket inlet, PSocket outlet) {
         super();
-        _source = (PSocket<Inlet>) inlet;
+        _source = inlet;
         _source.addRouting(this);
-        _destination = (PSocket<Outlet>) outlet;
+        _destination = outlet;
         _destination.addRouting(this);
         initialize();
     }
@@ -24,6 +25,7 @@ public class RoutingConnection extends PObject {
     @Override
     protected void initialize() {
         setView(new RoutingConnectionView(this));
+        addComponent(RoutingComponent.class, new RoutingComponent(RoutingComponent.RouterType.CONNECTION));
     }
 
     @Override
@@ -48,16 +50,16 @@ public class RoutingConnection extends PObject {
         initialize();
     }
 
-    public PSocket<Inlet> getSource() {
+    public PSocket getSource() {
         return _source;
     }
 
-   public PSocket<Outlet> getDestination(){
+   public PSocket getDestination(){
         return _destination;
    }
 
     private class RoutingConnectionView implements View<PObject> {
-        public RoutingConnectionView(RoutingConnection routingConnection, PSocket<?> start, PSocket<?> end) {
+        public RoutingConnectionView(RoutingConnection routingConnection, PSocket start, PSocket end) {
         }
 
         public RoutingConnectionView(RoutingConnection routingConnection) {

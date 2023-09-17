@@ -13,16 +13,16 @@ import processing.core.PGraphics;
 public class PSocketView<T extends Routable> implements View<PObject> {
 
     static public int SIZE_X = 7;
-    PSocket<T> _model;
-    private BlinkingLigth _blinkingLigth = new BlinkingLigth(SIZE_X);
+    PSocket _model;
+    private final BlinkingLigth _blinkingLigth = new BlinkingLigth(SIZE_X);
 
 
-    public PSocketView(PSocket<T> model) {
+    public PSocketView(PSocket model) {
         _model = model;
     }
 
     @Override
-    public PSocket<?> getModel() {
+    public PSocket getModel() {
         return _model;
     }
 
@@ -30,7 +30,7 @@ public class PSocketView<T extends Routable> implements View<PObject> {
     public void display(PGraphics graphics) {
         BodyComponent _body = _model.getComponent(BodyComponent.class);
         Vec2 position = _body.getPixelPosition();
-        float[] ownerSize = ((RectanglePShape)_body.getShape()).getBoundaries();
+        float[] ownerSize = _body.getShape().getBoundaries();
         graphics.pushStyle();
         graphics.pushMatrix();
         graphics.translate(position.x, position.y + ownerSize[1] + SIZE_X);
@@ -45,7 +45,7 @@ public class PSocketView<T extends Routable> implements View<PObject> {
     public boolean isMouseOver(int mouseX, int mouseY) {
         BodyComponent _body = _model.getComponent(BodyComponent.class);
         Vec2 position = _body.getPixelPosition();
-        float[] ownerSize = ((RectanglePShape)_body.getShape()).getBoundaries();
+        float[] ownerSize = _body.getShape().getBoundaries();
 
         float centerX = position.x;
         float centerY = position.y + ownerSize[1] + SIZE_X;

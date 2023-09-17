@@ -13,9 +13,6 @@ public class MathUtils {
         float lowerRightX = java.lang.Math.max(selectionStart.x, selectionEnd.x);
         float lowerRightY = java.lang.Math.max(selectionStart.y, selectionEnd.y);
 
-        if(position.x >= upperLeftX && position.x <= lowerRightX && position.y >= upperLeftY && position.y <= lowerRightY) {
-            return true;
-        }
-        return false;
+        return position.x >= upperLeftX && position.x <= lowerRightX && position.y >= upperLeftY && position.y <= lowerRightY;
     }
 }

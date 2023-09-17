@@ -44,7 +44,6 @@ class ToolboxController extends Group {
                     updateButtonStates((Tool) evt.getOldValue(), (Tool) evt.getNewValue());
                 }
             });
-            ;
             b.setWidth(getWidth());
             addChildHorizontally(b);
         }

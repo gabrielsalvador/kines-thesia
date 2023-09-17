@@ -10,9 +10,9 @@ import processing.event.KeyEvent;
 public class InputManager {
 
     private static InputManager _instance;
-    private static ToolManager _toolManager = ToolManager.getInstance();
+    private static final ToolManager _toolManager = ToolManager.getInstance();
 
-    private HashMap<Character, Runnable> _keyMappings = new HashMap<>() {{
+    private final HashMap<Character, Runnable> _keyMappings = new HashMap<>() {{
         put('W', () -> System.out.println("W key pressed: Moving up!"));
         put('A', () -> System.out.println("A key pressed: Moving left!"));
         put(' ',() -> Clock.getInstance().togglePlay());

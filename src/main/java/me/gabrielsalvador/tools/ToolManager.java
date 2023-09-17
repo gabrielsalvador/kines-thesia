@@ -12,7 +12,7 @@ import processing.event.KeyEvent;
 
 public class ToolManager  {
     private static ToolManager _instance;
-    private Stack<Tool> _toolHistory = new Stack<>();
+    private final Stack<Tool> _toolHistory = new Stack<>();
     protected Set<Class<? extends Tool>> availableTools = new HashSet<>();
     protected Map<Character, Class<? extends Tool>> keyMappings = new HashMap<>();
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);

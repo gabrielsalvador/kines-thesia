@@ -1,8 +1,8 @@
 package me.gabrielsalvador.sequencing;
 
 public class Trigger implements MusicEvent{
-    private int _pitch;
-    private int _velocity;
+    private final int _pitch;
+    private final int _velocity;
 
     public Trigger(int pitch, int velocity) {
         _pitch = pitch;

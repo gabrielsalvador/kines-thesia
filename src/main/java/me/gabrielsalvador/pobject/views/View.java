@@ -5,10 +5,10 @@ import processing.core.PGraphics;
 public interface View<T> {
     
 
-    public T getModel();
+    T getModel();
 
-    public void display(PGraphics graphics);
-    public boolean isMouseOver(int mouseX, int mouseY);
+    void display(PGraphics graphics);
+    boolean isMouseOver(int mouseX, int mouseY);
 
 
 }

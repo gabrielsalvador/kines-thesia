@@ -11,7 +11,7 @@ public class MusicalNoteComponent extends Component implements Serializable {
 
 
     @InspectableProperty
-    private String _sampleName = "";
+    private final String _sampleName = "";
 
     public MusicalNoteComponent(PObject owner) {
         super(owner);

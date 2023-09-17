@@ -7,10 +7,10 @@ import java.io.Serializable;
 
 
 public class PObjectProperty implements Serializable {
-    private PObject _owner;
-    private String name;
+    private final PObject _owner;
+    private final String name;
     private Object value;
-    private Class<?> type;
+    private final Class<?> type;
     private SerializableRunnable onChanged;  // Callback when value changes
 
 

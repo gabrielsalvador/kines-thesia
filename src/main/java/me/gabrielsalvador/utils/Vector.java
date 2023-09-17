@@ -4,7 +4,7 @@ import processing.core.PVector;
 
 /* just a wrapper for the processing class PVector */
 public class Vector {
-        private PVector pVector;
+        private final PVector pVector;
     
         public Vector() {
             this.pVector = new PVector();

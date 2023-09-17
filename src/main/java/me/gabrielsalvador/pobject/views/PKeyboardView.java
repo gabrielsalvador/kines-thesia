@@ -11,13 +11,13 @@ import processing.core.PGraphics;
 
 public class PKeyboardView  implements View<PObject> {
 
-    private PObject _model;
-    private BodyComponent _body;
+    private final PObject _model;
+    private final BodyComponent _body;
 
 
     public PKeyboardView(PObject model) {
         _model = model;
-        _body = (BodyComponent) _model.getComponent(BodyComponent.class);
+        _body = _model.getComponent(BodyComponent.class);
         _model.setView(this);
     }
 
@@ -28,7 +28,7 @@ public class PKeyboardView  implements View<PObject> {
     public void display(PGraphics graphics) {
         Vec2 position = _body.getPixelPosition();
 
-        float[] size = (float[]) ((RectanglePShape)_body.getShape()).getBoundaries();
+        float[] size = _body.getShape().getBoundaries();
         float keyWidth = size[0] / 7;
         float keyHeight = size[1];
 

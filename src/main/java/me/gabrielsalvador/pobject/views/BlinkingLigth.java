@@ -3,15 +3,15 @@ package me.gabrielsalvador.pobject.views;
 import processing.core.PGraphics;
 
 public class BlinkingLigth {
-    private int _size;
+    private final int _size;
     private final int MAX_BRIGHTNESS = 255;
     private int brigtness = 0;
-    private int coolOffRate = 10;
+    private final int coolOffRate = 10;
 
     // Color values for the blinking light
-    private int originalR = 255;  // red component (Set to red for this example)
-    private int originalG = 0;    // green component
-    private int originalB = 0;    // blue component
+    private final int originalR = 255;  // red component (Set to red for this example)
+    private final int originalG = 0;    // green component
+    private final int originalB = 0;    // blue component
 
     public BlinkingLigth(int size) {
         _size = size;

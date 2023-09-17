@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class Component implements Serializable {
 
-    private ArrayList<PObjectProperty> cachedProperties = new ArrayList<>();
+    private final ArrayList<PObjectProperty> cachedProperties = new ArrayList<>();
     protected PObject _owner;
 
     public Component() {

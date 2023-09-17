@@ -5,7 +5,7 @@ import controlP5.Matrix;
 import processing.core.PGraphics;
 
 class SequencerView implements ControllerView<SequencerController> {
-    private SequencerController _controller;
+    private final SequencerController _controller;
     SequencerView(SequencerController controller) {
         _controller = controller;
     }
@@ -24,7 +24,7 @@ class SequencerView implements ControllerView<SequencerController> {
         for(int x = 0; x < _controller.getDivisionTime() ; ++x) {
             for(int y = 0; y < _controller.getDivisionPitch() ; ++y) {
                 theGraphics.noStroke();
-                theGraphics.fill(_controller.getSteps()[x][y] == true ? _controller.getColor().getActive() : _controller.getColor().getBackground());
+                theGraphics.fill(_controller.getSteps()[x][y] ? _controller.getColor().getActive() : _controller.getColor().getBackground());
                 theGraphics.rect((float)x * stepX, (float)y * stepY, stepX, stepY);
                 if (x > 0) {
                     theGraphics.stroke(30.0F, 30.0F, 30.0F);

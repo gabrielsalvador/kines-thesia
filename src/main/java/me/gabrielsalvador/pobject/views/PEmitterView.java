@@ -9,8 +9,8 @@ import processing.core.PGraphics;
 
 public class PEmitterView  implements View<PObject> {
 
-    private PObject _model;
-    private BodyComponent _body;
+    private final PObject _model;
+    private final BodyComponent _body;
 
     public PEmitterView(PObject model) {
         _model = model;
@@ -28,7 +28,7 @@ public class PEmitterView  implements View<PObject> {
 
         // Get the width and height of the emitter shape
         AbstractShape shape = _body.getShape();
-        float size[] = shape.getBoundaries();
+        float[] size = shape.getBoundaries();
         float halfWidth = size[0] / 2.0f;
         float halfHeight = size[1] / 2.0f;
 
@@ -54,7 +54,7 @@ public class PEmitterView  implements View<PObject> {
 
         // Get the width and height of the emitter shape
         RectanglePShape shape = (RectanglePShape) _body.getShape();
-        float size[] = shape.getBoundaries();
+        float[] size = shape.getBoundaries();
         float halfWidth = size[0] / 2.0f;
         float halfHeight = size[1] / 2.0f;
 

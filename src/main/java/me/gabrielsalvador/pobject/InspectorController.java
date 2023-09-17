@@ -16,7 +16,7 @@ import java.util.Map;
 public class InspectorController extends Group implements PropertyChangeListener {
 
     private static final int IDENTATION = 10 ;
-    private int DEFAULT_HEIGHT = 30;
+    private final int DEFAULT_HEIGHT = 30;
     private PObject _object;
 
     public InspectorController(ControlP5 theControlP5, String theName) {
@@ -171,7 +171,6 @@ public class InspectorController extends Group implements PropertyChangeListener
                     .setType(ScrollableList.DROPDOWN)
                     .setBackgroundColor(255)
                     .close();
-                    ;
             HashMap<Class<? extends Component>,Component> components = property.getOwner().getComponents();
             for (Class<?> key : components.keySet()) {
 

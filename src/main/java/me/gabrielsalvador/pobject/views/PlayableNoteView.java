@@ -11,7 +11,7 @@ import processing.core.PGraphics;
 
 public class PlayableNoteView implements View<PObject> {
 
-    private PObject _model;
+    private final PObject _model;
 
 
     public PlayableNoteView(PObject model) {

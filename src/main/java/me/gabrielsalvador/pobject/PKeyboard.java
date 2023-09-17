@@ -19,7 +19,7 @@ import static me.gabrielsalvador.Config.MAIN_SEQUENCER;
 )
 public class PKeyboard extends PObject implements Outlet,Inlet {
 
-    private ArrayList<PSocket<Outlet>> _outlets;
+    private ArrayList<PSocket> _outlets;
 
     public PKeyboard() {
         super();
@@ -59,37 +59,37 @@ public class PKeyboard extends PObject implements Outlet,Inlet {
     }
 
     @Override
-    public ArrayList<PSocket<Inlet>> getInlets() {
+    public ArrayList<PSocket> getInlets() {
         return null;
     }
 
     @Override
-    public ArrayList<PSocket<Outlet>> getOutlets() {
+    public ArrayList<PSocket> getOutlets() {
         return _outlets;
     }
 
     @Override
-    public void setInlets(ArrayList<PSocket<Inlet>> inlets) {}
+    public void setInlets(ArrayList<PSocket> inlets) {}
 
     @Override
-    public void setOutlets(ArrayList<PSocket<Outlet>> outlets) {
+    public void setOutlets(ArrayList<PSocket> outlets) {
         _outlets = outlets;
     }
 
     @Override
-    public void addInlet(PSocket<Inlet> inlet) {
+    public void addInlet(PSocket inlet) {
         System.out.println("PKeyboard does not have inlets");
     }
 
     @Override
-    public void addOutlet(PSocket<Outlet> outlet) {
+    public void addOutlet(PSocket outlet) {
         _outlets.add(outlet);
     }
 
 
     @Override
     public void send(String message) {
-        for (PSocket<?> outlet : getOutlets() ){
+        for (PSocket outlet : getOutlets() ){
             for(RoutingConnection r : outlet.getRoutings()){
                 if(r.getSource().getOwner() == this){
                 ((Inlet)r.getDestination().getOwner()).receive(message);

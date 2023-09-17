@@ -95,9 +95,9 @@ public class CommandTool extends Tool {
             CanvasController canvas = (CanvasController) cp5.getController("MainCanvas");
             canvas.setUserInteraction(true);
 
-            Textfield tf = (Textfield) _textfield;
+            Textfield tf = _textfield;
             String command = tf.getText();
-            String split[] = command.split(" ");
+            String[] split = command.split(" ");
             if (split[0].equals("add")) {
                 String[] args = command.split(" ");
                 int x = canvas.getPointer().x();

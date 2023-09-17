@@ -14,18 +14,18 @@ import org.jbox2d.common.Vec2;
 import java.io.Serial;
 import java.util.ArrayList;
 
-public class PSocket<T extends Routable> extends PObject {
+public class PSocket extends PObject {
     private PObject _owner;
-    private Class<T> type;
-    private String name;
-    private ArrayList<RoutingConnection> _routings = new ArrayList<RoutingConnection>();
 
-    public PSocket(PObject _owner, Class<T> type) {
+    private String name;
+    private final ArrayList<RoutingConnection> _routings = new ArrayList<RoutingConnection>();
+
+    public PSocket(PObject _owner) {
         super();
         this._owner = _owner;
 
-        HologramBody ownersBody = (HologramBody)_owner.getBodyComponent();
-        float yOffSet = type == Inlet.class ? -3 : 1;
+        HologramBody ownersBody = _owner.getBodyComponent();
+        float yOffSet = 1;
 
         BodyComponent myBody = ownersBody.createChild(new Vec2(0,yOffSet), new Vec2(PSocketView.SIZE_X, PSocketView.SIZE_X ));
         addComponent(BodyComponent.class, myBody);
@@ -47,9 +47,9 @@ public class PSocket<T extends Routable> extends PObject {
 
 
     public float[] getPixelPosition() {
-        BodyComponent body = ( BodyComponent ) getComponent(BodyComponent.class);
+        BodyComponent body = getComponent(BodyComponent.class);
         Vec2 position = body.getPixelPosition();
-        float[] ownerSize = ((RectanglePShape) body.getShape()).getBoundaries();
+        float[] ownerSize = body.getShape().getBoundaries();
         return new float[]{position.x, position.y + ownerSize[0] + getSize()[1]};
     }
 
@@ -70,9 +70,8 @@ public class PSocket<T extends Routable> extends PObject {
     public void onPress(int x, int y) {
         ArrayList<PObject> objects = AppState.getInstance().getPObjects();
         for (PObject object : objects) {
-            if (!(object instanceof PSocket)) continue;
+            if (!(object instanceof PSocket socket)) continue;
 
-            PSocket<?> socket = (PSocket<?>) object;
             if (!socket.getView().isMouseOver(x, y)) continue;
             if (socket.getOwner() == this.getOwner()) continue;
             if (!(socket.getOwner() instanceof Routable)) continue;
@@ -88,7 +87,7 @@ public class PSocket<T extends Routable> extends PObject {
 
     }
 
-    private void createAndAddConnection(PSocket<?> source, PSocket<?> destination) {
+    private void createAndAddConnection(PSocket source, PSocket destination) {
         RoutingConnection connection = new RoutingConnection(source, destination);
         AppController.getInstance().addPObject(connection);
     }

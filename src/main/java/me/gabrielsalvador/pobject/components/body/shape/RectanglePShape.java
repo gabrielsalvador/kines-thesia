@@ -6,7 +6,7 @@ import processing.core.PGraphics;
 
 public class RectanglePShape extends PShape{
 
-    private Vec2 _size;
+    private final Vec2 _size;
 
     public RectanglePShape(Vec2 size) {
         _size = size;

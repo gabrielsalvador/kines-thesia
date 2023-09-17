@@ -20,7 +20,7 @@ public class BoxTool extends Tool{
     private Vec2 _initialPosition;
     private Vec2 _finalPosition;
     private CanvasController _canvas;
-    private ControlP5 _cp5;
+    private final ControlP5 _cp5;
 
     public BoxTool() {
         _cp5 = Sinesthesia.getInstance().getCP5();

@@ -1,7 +1,7 @@
 package me.gabrielsalvador.pobject;
 
 public class Modification<T extends PObject> {
-    private Class<T> type;
+    private final Class<T> type;
 
     public Modification(Class<T> type) {
         this.type = type;

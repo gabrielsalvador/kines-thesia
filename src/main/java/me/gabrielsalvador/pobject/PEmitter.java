@@ -6,7 +6,6 @@ import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.BodyData;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.pobject.routing.Inlet;
-import me.gabrielsalvador.pobject.routing.Outlet;
 import me.gabrielsalvador.pobject.routing.Routing;
 import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.pobject.views.PEmitterView;
@@ -29,7 +28,7 @@ import static me.gabrielsalvador.Config.MAIN_SEQUENCER;
 )
 public class PEmitter extends PObject implements Inlet {
 
-    private ArrayList<PSocket<Inlet>> _inlets;
+    private ArrayList<PSocket> _inlets;
 
     public PEmitter() {
         super();
@@ -62,30 +61,30 @@ public class PEmitter extends PObject implements Inlet {
     }
 
     @Override
-    public ArrayList<PSocket<Inlet>> getInlets() {
+    public ArrayList<PSocket> getInlets() {
         return _inlets;
     }
 
     @Override
-    public ArrayList<PSocket<Outlet>> getOutlets() {
+    public ArrayList<PSocket> getOutlets() {
         return null;
     }
 
     @Override
-    public void setInlets(ArrayList<PSocket<Inlet>> inlets) {
+    public void setInlets(ArrayList<PSocket> inlets) {
         _inlets = inlets;
     }
 
     @Override
-    public void setOutlets(ArrayList<PSocket<Outlet>> outlets) {}
+    public void setOutlets(ArrayList<PSocket> outlets) {}
 
     @Override
-    public void addInlet(PSocket<Inlet> inlet) {
+    public void addInlet(PSocket inlet) {
         _inlets.add(inlet);
     }
 
     @Override
-    public void addOutlet(PSocket<Outlet> outlet) {
+    public void addOutlet(PSocket outlet) {
         System.out.println("PKeyboard does not have inlets");
     }
 
