@@ -2,6 +2,10 @@ package me.gabrielsalvador.pobject;
 
 
 import java.io.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.*;
 
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
@@ -12,6 +16,14 @@ import me.gabrielsalvador.pobject.views.View;
 
 
 public abstract class PObject implements Serializable {
+    
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.FIELD, ElementType.METHOD})
+    public @interface InspectableProperty {
+        String displayName() default "";
+        String setter() default "";  // Name of the setter method
+    }
+
     private boolean _isSelected = false;
     private boolean _isHovered = false;
     private final Set<PObject> _children = new HashSet<PObject>();

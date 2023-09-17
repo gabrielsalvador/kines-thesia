@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class MusicalNoteComponent extends Component implements Serializable {
 
 
-    @InspectableProperty
+    @PObject.InspectableProperty
     private final String _sampleName = "";
 
     public MusicalNoteComponent(PObject owner) {

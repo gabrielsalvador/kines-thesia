@@ -1,5 +1,8 @@
 package me.gabrielsalvador.pobject.components;
 
+
+import me.gabrielsalvador.pobject.PObject.InspectableProperty;
+
 public class RoutingComponent extends Component{
     public enum RouterType{
         ENDPOINT,

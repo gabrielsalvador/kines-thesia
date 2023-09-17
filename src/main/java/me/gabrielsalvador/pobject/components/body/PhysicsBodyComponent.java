@@ -11,6 +11,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
 import java.io.*;
+import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 
 public class PhysicsBodyComponent extends BodyComponent implements Serializable {
 

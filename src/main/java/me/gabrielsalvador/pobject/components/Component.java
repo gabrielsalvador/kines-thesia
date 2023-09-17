@@ -3,6 +3,7 @@ package me.gabrielsalvador.pobject.components;
 
 import controlP5.Pointer;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.PObjectProperty;
 
 import java.io.Serializable;
@@ -44,11 +45,7 @@ public class Component implements Serializable {
         return "";
     }
 
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.FIELD, ElementType.METHOD})
-    public @interface InspectableProperty {
-        String displayName() default "";
-    }
+
 
     public ArrayList<PObjectProperty> getProperties() {
         if (!cachedProperties.isEmpty()) {
