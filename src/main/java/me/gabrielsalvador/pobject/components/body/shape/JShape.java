@@ -42,6 +42,9 @@ public class JShape extends AbstractShape {
 
         if (_shape instanceof org.jbox2d.collision.shapes.CircleShape circle) {
             float radius = circle.m_radius;
+            //convert to pixels
+            radius = radius * PhysicsManager.getInstance().worldToPixelScale(radius);
+
             graphics.ellipse(0, 0, 2 * radius, 2 * radius);
 
         } else if (_shape instanceof org.jbox2d.collision.shapes.PolygonShape polygon) {
