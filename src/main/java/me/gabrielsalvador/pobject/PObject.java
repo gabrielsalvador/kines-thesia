@@ -106,22 +106,6 @@ public abstract class PObject implements Serializable {
         return this;
     }
 
-    public PObject clone() {
-        try {
-            // Serialize the current object to a byte array
-            ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteStream);
-            objectOutputStream.writeObject(this);
-
-            // Deserialize the byte array to create a new instance (clone) of the object
-            ByteArrayInputStream byteInputStream = new ByteArrayInputStream(byteStream.toByteArray());
-            ObjectInputStream objectInputStream = new ObjectInputStream(byteInputStream);
-            return (PObject) objectInputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public void onPressed(int x, int y){
 

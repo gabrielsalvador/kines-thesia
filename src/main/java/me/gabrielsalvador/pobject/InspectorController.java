@@ -9,15 +9,12 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class InspectorController extends Group implements PropertyChangeListener {
 
     private static final int IDENTATION = 10 ;
     private final int DEFAULT_HEIGHT = 30;
-    private PObject _object;
 
     public InspectorController(ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);

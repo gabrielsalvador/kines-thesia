@@ -1,7 +1,6 @@
 package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PlayableNote;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
 import me.gabrielsalvador.pobject.routing.PSocket;
@@ -50,12 +49,7 @@ public class AppController {
         return pObject;
     }
 
-    public PlayableNote addPlayableNote(Vec2 position) {
-        PlayableNote note = new PlayableNote();
-        BodyComponent body = note.getBodyComponent().setPosition(position);
-        AppState.getInstance().addPObject(note);
-        return note;
-    }
+
 
     public ArrayList<View> getGizmos() {
         return _appState.getGizmos();
