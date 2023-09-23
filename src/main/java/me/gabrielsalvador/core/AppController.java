@@ -1,11 +1,7 @@
 package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.components.body.BodyComponent;
-import me.gabrielsalvador.pobject.routing.RoutingConnection;
-import me.gabrielsalvador.pobject.routing.PSocket;
 import me.gabrielsalvador.pobject.views.View;
-import org.jbox2d.common.Vec2;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -88,15 +84,11 @@ public class AppController {
         AppState.getInstance().clearObjects();
     }
 
-    public void AddRouting(PSocket start, PSocket end) {
-        RoutingConnection RoutingConnection = new RoutingConnection(start, end);
-        AppState.getInstance().addPObject(RoutingConnection);
+    public void AddRouting() {
+
     }
 
 
-    public void addRoutingSocket(PObject owner, PSocket i) {
-        AppState.getInstance().addPObject(i);
-    }
 
     public void queueModification(Runnable modification){
         _pObjectModificationsQueue.add(modification);

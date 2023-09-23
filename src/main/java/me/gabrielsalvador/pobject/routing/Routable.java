@@ -6,12 +6,12 @@ import me.gabrielsalvador.pobject.PObject;
 import java.util.ArrayList;
 
 public interface Routable {
-    ArrayList<PSocket> getInlets();
-    ArrayList<PSocket> getOutlets();
-    void setInlets(ArrayList<PSocket> inlets);
-    void setOutlets(ArrayList<PSocket> outlets);
-    void addInlet(PSocket inlet);
-    void addOutlet(PSocket outlet);
+    ArrayList<PObject> getInlets();
+    ArrayList<PObject> getOutlets();
+    void setInlets(ArrayList<PObject> inlets);
+    void setOutlets(ArrayList<PObject> outlets);
+    void addInlet(PObject inlet);
+    void addOutlet(PObject outlet);
 
     default void initializeRouting() {
         // go through the routing annotations and add the inlets and outlets
@@ -22,24 +22,24 @@ public interface Routable {
             if (routing != null) {
                 for (SetInlet inlet : routing.inlets()) {
                     if (this instanceof Inlet) {
-                        ArrayList<PSocket> inlets = this.getInlets();
+                        ArrayList<PObject> inlets = this.getInlets();
                         if (inlets == null) {
-                            this.setInlets(new ArrayList<PSocket>());
+                            this.setInlets(new ArrayList<PObject>());
                         }
-                        PSocket i = new PSocket((PObject) this);
-                        AppController.getInstance().addRoutingSocket((PObject) this,i);
-                        this.addInlet(i);
+//                        PObject i = new PObject((PObject) this);
+//                        AppController.getInstance().addPObject((PObject) this,i);
+//                        this.addInlet(i);
                     }
                 }
                 for (SetOutlet outlet : routing.outlets()) {
                     if (this instanceof Outlet) {
-                        ArrayList<PSocket> outlets = this.getOutlets();
+                        ArrayList<PObject> outlets = this.getOutlets();
                         if (outlets == null) {
-                            this.setOutlets(new ArrayList<PSocket>());
+                            this.setOutlets(new ArrayList<PObject>());
                         }
-                        PSocket o = new PSocket((PObject) this);
-                        AppController.getInstance().addRoutingSocket((PObject) this,o);
-                        this.addOutlet(o);
+//                        PObject o = new PObject((PObject) this);
+//                        AppController.getInstance().addRoutingSocket((PObject) this,o);
+//                        this.addOutlet(o);
                     }
                 }
             }
