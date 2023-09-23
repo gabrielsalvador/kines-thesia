@@ -42,7 +42,7 @@ public class Sinesthesia extends PApplet {
     }
 
     public void settings() {
-        size(1280,820,P3D);
+        size(1280,820);
         registerMethod("dispose", this);
     }
 
