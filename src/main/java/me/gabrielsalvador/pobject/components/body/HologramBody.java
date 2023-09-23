@@ -5,6 +5,8 @@ import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
 import me.gabrielsalvador.pobject.components.body.shape.RectanglePShape;
 import org.jbox2d.common.Vec2;
+import processing.core.PGraphics;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -72,7 +74,7 @@ public class HologramBody extends BodyComponent implements Serializable {
     }
 
     @Override
-    public void display() {
+    public void display(PGraphics graphics) {
 
     }
 

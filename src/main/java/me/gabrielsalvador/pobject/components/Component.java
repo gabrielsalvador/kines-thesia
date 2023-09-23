@@ -6,6 +6,7 @@ import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty.SetterFor;
 import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.pobject.views.View;
+import processing.core.PGraphics;
 
 import java.io.IOException;
 import java.io.Serial;
@@ -39,7 +40,7 @@ public abstract class  Component implements Serializable {
         // Implementation here
     }
 
-    public abstract void display() ;
+    public abstract void display(PGraphics graphics) ;
     public String getName() {
         // Implementation here
         return "";

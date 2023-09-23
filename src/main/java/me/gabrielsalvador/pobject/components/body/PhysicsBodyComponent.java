@@ -3,15 +3,14 @@ package me.gabrielsalvador.pobject.components.body;
 import me.gabrielsalvador.audio.AudioManager;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsManager;
-import me.gabrielsalvador.pobject.components.MusicalNoteComponent;
 import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
 import me.gabrielsalvador.pobject.components.body.shape.JShape;
-import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
 import java.io.*;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
+import processing.core.PGraphics;
 
 public class PhysicsBodyComponent extends BodyComponent implements Serializable {
 
@@ -25,8 +24,6 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
 
 
-    @InspectableProperty
-    private MusicalNoteComponent _onColision;
 
 
     public PhysicsBodyComponent(PObject owner, Vec2 position) {
@@ -81,8 +78,8 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     }
 
     @Override
-    public void display() {
-
+    public void display(PGraphics graphics) {
+        _view.display(graphics, this);
     }
 
     @Override
@@ -104,12 +101,12 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     }
 
     public void onCollision(PhysicsBodyComponent other) {
-        if (_onColision != null) {
-            String sampleName = _onColision.getSampleName();
-            if (sampleName != null && !sampleName.isEmpty()) {
-                AudioManager.getInstance().play(sampleName);
-            }
-        }
+//        if (_onColision != null) {
+//            String sampleName = _onColision.getSampleName();
+//            if (sampleName != null && !sampleName.isEmpty()) {
+//                AudioManager.getInstance().play(sampleName);
+//            }
+//        }
     }
 
     private void updateBodyData() {

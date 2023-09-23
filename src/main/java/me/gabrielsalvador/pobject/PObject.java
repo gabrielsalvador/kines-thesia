@@ -132,7 +132,7 @@ public class PObject implements Serializable {
 
     public void display(PGraphics graphics) {
         for (Component component : _components.values()) {
-            component.display();
+            component.display(graphics);
         }
     }
 

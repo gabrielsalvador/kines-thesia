@@ -45,7 +45,7 @@ public class CanvasView implements ControllerView<CanvasController> {
         }
       graphics.popStyle();
 
-        gizmos.forEach(gizmo -> gizmo.display(graphics));
+        
     }
 
 
