@@ -41,7 +41,10 @@ public abstract class  Component implements Serializable {
     }
 
     public abstract void display(PGraphics graphics) ;
-    
+    public String getName() {
+        // Implementation here
+        return "";
+    }
 
 
 
