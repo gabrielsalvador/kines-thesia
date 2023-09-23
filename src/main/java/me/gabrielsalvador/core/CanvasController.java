@@ -3,13 +3,13 @@ package me.gabrielsalvador.core;
 import controlP5.*;
 import controlP5.events.ReleasedOutsideListener;
 import me.gabrielsalvador.pobject.PhysicsManager;
+import me.gabrielsalvador.pobject.components.Component;
+import me.gabrielsalvador.pobject.views.View;
 import me.gabrielsalvador.tools.ToolManager;
 import me.gabrielsalvador.pobject.views.CanvasView;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import me.gabrielsalvador.pobject.PObject;
-
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 // Custom controller class that extends Controller
 public class CanvasController extends Controller<CanvasController> implements ReleasedOutsideListener {
@@ -60,12 +60,15 @@ public class CanvasController extends Controller<CanvasController> implements Re
         int x = mousePosition[0];
         int y = mousePosition[1];
         for (PObject pObject : AppState.getInstance().getPObjects()) {
-
-            boolean isHovered = pObject.getBodyComponent().getView().isMouseOver(x, y);
-            if (isHovered) {
-                pObject.setIsHovered(isHovered, x, y);
-                _currentlyHovering = pObject;
-                return;
+            for (Component component : pObject.getComponents().values()) {
+                View<Component> view = component.getView();
+                if (view == null) {  continue; }
+                boolean isHovered = view.isMouseOver(x, y);
+                if (isHovered) {
+                    pObject.setIsHovered(isHovered, x, y);
+                    _currentlyHovering = pObject;
+                    return;
+                }
             }
         }
         //if it reaches this point it means that no object is being hovered
