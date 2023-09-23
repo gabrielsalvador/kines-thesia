@@ -104,6 +104,9 @@ public class AppController {
     }
 
 
-
-
+    public PObject createPObject() {
+        PObject pObject = new PObject();
+        addPObject(pObject);
+        return pObject;
+    }
 }
