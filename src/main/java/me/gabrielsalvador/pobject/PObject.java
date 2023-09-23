@@ -10,10 +10,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Set;
+
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
 import me.gabrielsalvador.pobject.views.View;
+import processing.core.PGraphics;
 
 public class PObject implements Serializable {
 
@@ -22,7 +25,7 @@ public class PObject implements Serializable {
     private final Set<PObject> _children = new HashSet<>();
     transient private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<>();
     private final LinkedHashMap<Class<? extends Component>, Component> _components = new LinkedHashMap<>();
-    transient protected View<PObject> _view;
+
 
     public PObject() {
         // Default body for every PObject
@@ -41,6 +44,7 @@ public class PObject implements Serializable {
         _children.clear();
         _properties.clear();
         _components.clear();
+        AppController.getInstance().enqueueRemovePObject(this);
 
     }
     // Setters and Getters
@@ -53,14 +57,6 @@ public class PObject implements Serializable {
         return _isSelected;
     }
 
-    public PObject setView(View<PObject> view) {
-        _view = view;
-        return this;
-    }
-
-    public View<PObject> getView() {
-        return _view;
-    }
 
     // Child Management
     public Set<PObject> addChild(PObject pObject) {
@@ -96,11 +92,7 @@ public class PObject implements Serializable {
         return this;
     }
 
-    public <T extends Component> PObject addComponent(Class<T> _class) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        T instance = _class.getConstructor(PObject.class).newInstance(this);
-        _components.put(_class, instance);
-        return this;
-    }
+
 
     public <T extends BodyComponent> T getBodyComponent() {
         return getComponent(BodyComponent.class);
@@ -136,6 +128,12 @@ public class PObject implements Serializable {
 
     public boolean getIsHovered() {
         return _isHovered;
+    }
+
+    public void display(PGraphics graphics) {
+        for (Component component : _components.values()) {
+            component.display();
+        }
     }
 
     @Retention(RetentionPolicy.RUNTIME)

@@ -41,8 +41,7 @@ public class CanvasView implements ControllerView<CanvasController> {
 
       /*draw pobjects*/
         for (PObject pObject : pObjects) {
-            View<?> view = pObject.getView();
-            if(view != null) view.display(graphics);
+            pObject.display(graphics);
         }
       graphics.popStyle();
 

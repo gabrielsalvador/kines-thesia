@@ -14,7 +14,7 @@ public class AppController {
     private static AppState _appState;
     private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
-    private final ConcurrentLinkedQueue<Runnable> _pObjectModificationsQueue = new ConcurrentLinkedQueue<Runnable>();
+    private final ConcurrentLinkedQueue<Runnable> _modificationsQueue = new ConcurrentLinkedQueue<Runnable>();
     private final InputManager _inputManager = InputManager.getInstance();
 
     private AppController() {
@@ -77,7 +77,7 @@ public class AppController {
 
 
     public ConcurrentLinkedQueue<Runnable> getModificationsQueue() {
-        return _pObjectModificationsQueue;
+        return _modificationsQueue;
     }
 
     public void clearObjects() {
@@ -91,11 +91,11 @@ public class AppController {
 
 
     public void queueModification(Runnable modification){
-        _pObjectModificationsQueue.add(modification);
+        _modificationsQueue.add(modification);
     }
 
     public void applyModifications() {
-        Iterator<Runnable> iterator = _pObjectModificationsQueue.iterator();
+        Iterator<Runnable> iterator = _modificationsQueue.iterator();
         while (iterator.hasNext()) {
             Runnable mofidication = iterator.next();
             mofidication.run();
@@ -108,5 +108,19 @@ public class AppController {
         PObject pObject = new PObject();
         addPObject(pObject);
         return pObject;
+    }
+
+    public void removePObjectImmiadiately(PObject pObject) {
+
+            _appState.getPObjects().remove(pObject);
+
+
+    }
+
+    public void enqueueRemovePObject(PObject pObject) {
+        Runnable modification = () -> {
+            _appState.getPObjects().remove(pObject);
+        };
+        queueModification(modification);
     }
 }
