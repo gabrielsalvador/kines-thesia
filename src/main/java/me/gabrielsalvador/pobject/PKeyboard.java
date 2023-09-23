@@ -1,28 +1,41 @@
 package me.gabrielsalvador.pobject;
 
-import me.gabrielsalvador.pobject.routing.Inlet;
-import me.gabrielsalvador.pobject.routing.Outlet;
-import me.gabrielsalvador.pobject.routing.Routing;
-import me.gabrielsalvador.pobject.routing.RoutingSocket;
-
+import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.pobject.routing.*;
+import me.gabrielsalvador.pobject.views.PKeyboardView;
+import me.gabrielsalvador.pobject.views.PSocketView;
+import me.gabrielsalvador.sequencing.SequencerController;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serial;
 import java.util.ArrayList;
+
+import static me.gabrielsalvador.Config.MAIN_SEQUENCER;
 
 @Routing(
         outlets = {
                 @me.gabrielsalvador.pobject.routing.SetOutlet(name = "outlet", type = String.class)
         }
 )
-public class PKeyboard extends PObject implements Outlet {
+public class PKeyboard extends PObject implements Outlet,Inlet {
 
-    private ArrayList<RoutingSocket<Outlet>> _outlets = new ArrayList<RoutingSocket<Outlet>>();
+    private ArrayList<PSocket> _outlets;
 
     public PKeyboard() {
         super();
-        setView(new PKeyboardView(this));
+        initialize();
+        initializeRouting();
+    }
 
+    protected void initialize() {
+        setView(new PKeyboardView(this));
+        SequencerController sequencer = (SequencerController) Sinesthesia.getInstance().getCP5().get(MAIN_SEQUENCER);
+        sequencer.registerPObject(this);
+    }
+
+    public void remove(){
+        SequencerController sequencer = (SequencerController) Sinesthesia.getInstance().getCP5().get(MAIN_SEQUENCER);
+        sequencer.unregisterPObject(this);
     }
 
     @Override
@@ -41,43 +54,53 @@ public class PKeyboard extends PObject implements Outlet {
         // default deserialization
         aInputStream.defaultReadObject();
 
-        setView(new PKeyboardView(this));
+        initialize();
 
     }
 
     @Override
-    public ArrayList<RoutingSocket<Inlet>> getInlets() {
+    public ArrayList<PSocket> getInlets() {
         return null;
     }
 
     @Override
-    public ArrayList<RoutingSocket<Outlet>> getOutlets() {
+    public ArrayList<PSocket> getOutlets() {
         return _outlets;
     }
 
     @Override
-    public void setInlets(ArrayList<RoutingSocket<Inlet>> inlets) {
-
-    }
+    public void setInlets(ArrayList<PSocket> inlets) {}
 
     @Override
-    public void setOutlets(ArrayList<RoutingSocket<Outlet>> outlets) {
+    public void setOutlets(ArrayList<PSocket> outlets) {
         _outlets = outlets;
     }
 
     @Override
-    public void addInlet(RoutingSocket<Inlet> inlet) {
+    public void addInlet(PSocket inlet) {
         System.out.println("PKeyboard does not have inlets");
     }
 
     @Override
-    public void addOutlet(RoutingSocket<Outlet> outlet) {
+    public void addOutlet(PSocket outlet) {
         _outlets.add(outlet);
     }
 
 
     @Override
     public void send(String message) {
+        for (PSocket outlet : getOutlets() ){
+            for(RoutingConnection r : outlet.getRoutings()){
+                if(r.getSource().getOwner() == this){
+                ((Inlet)r.getDestination().getOwner()).receive(message);
+                }
+            }
+            ( (PSocketView) outlet.getView() ).getBlinkingLigth().blink();
+        }
+    }
 
+    @Override
+    public void receive(String message) {
+        send(message);
     }
 }

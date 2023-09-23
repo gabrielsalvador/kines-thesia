@@ -11,7 +11,7 @@ import processing.event.KeyEvent;
 
 public class RoutingTool extends Tool {
 
-    RoutingSocket<?> start = null;
+    private PSocket start = null;
 
     @Override
     public void keyEvent(KeyEvent keyEvent) {
@@ -25,7 +25,7 @@ public class RoutingTool extends Tool {
 
     @Override
     public void onPressed(PObject pObject) {
-        if(pObject instanceof RoutingSocket<?> routingSocket) {
+        if(pObject instanceof PSocket routingSocket) {
             start = routingSocket;
         }
     }
@@ -33,11 +33,11 @@ public class RoutingTool extends Tool {
 
     @Override
     public void onRelease(PObject pObject) {
-        if(pObject instanceof RoutingSocket<?> ) {
+        if(pObject instanceof PSocket) {
             if(start != null) {
-                RoutingSocket<?> routingSocket = (RoutingSocket<?>) pObject;
-                if(start.getOwner() != routingSocket.getOwner()) {
-                    RoutingConnection connection = new RoutingConnection(start, routingSocket);
+                PSocket end = (PSocket) pObject;
+                if(start.getOwner() != end.getOwner()) {
+                    RoutingConnection connection = new RoutingConnection(start, end);
                     AppState.getInstance().addPObject(connection);
                 }
             }
@@ -59,8 +59,12 @@ public class RoutingTool extends Tool {
            graphics.pushStyle();
            graphics.stroke(Config.THEME_COLOR_ROUTING_CONNECTION);
            graphics.strokeWeight(2);
-           graphics.line(start.getPosition()[0], start.getPosition()[1], mouse[0], mouse[1]);
+           graphics.line(start.getPixelPosition()[0], start.getPixelPosition()[1], mouse[0], mouse[1]);
            graphics.popStyle();
        }
+    }
+
+    public boolean isRouting() {
+        return start != null;
     }
 }

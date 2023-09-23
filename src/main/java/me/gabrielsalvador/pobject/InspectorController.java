@@ -2,15 +2,21 @@ package me.gabrielsalvador.pobject;
 
 import controlP5.*;
 import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.pobject.components.Component;
+import me.gabrielsalvador.utils.Color;
 import processing.core.PVector;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class InspectorController extends Group implements PropertyChangeListener {
 
-    private int DEFAULT_HEIGHT = 30;
+    private static final int IDENTATION = 10 ;
+    private final int DEFAULT_HEIGHT = 30;
     private PObject _object;
 
     public InspectorController(ControlP5 theControlP5, String theName) {
@@ -28,20 +34,37 @@ public class InspectorController extends Group implements PropertyChangeListener
     public void propertyChange(PropertyChangeEvent evt) {
         this.clear();
         if (evt.getNewValue() == null) return;
-        if (!(evt.getNewValue() instanceof PObject selectedObject)) return;
         if (!evt.getPropertyName().equals("selectedObjects")) return;
+        if (!(evt.getNewValue() instanceof ArrayList selectedObjects)) return;
+        if (selectedObjects.size() == 0) return;
 
-        /* Get the properties from the object */
-        HashMap<String, PObjectProperty> properties = selectedObject.getProperties();
+        /* For now we only edit the first element of the array, later I will work on an averaging system or something like that.*/
+        PObject selectedObject = (PObject) selectedObjects.get(0);
 
-        /* Iterate over the properties and build the controllers to change them*/
-        for (String key : properties.keySet()) {
-            PObjectProperty property = properties.get(key);
-            Class<?> type = property.getType();
+        /* Get the components from the object */
+        HashMap<Class<? extends Component>, Component> components = selectedObject.getComponents();
 
-            buildGroupForProperty(property, type);
+        /* Iterate over the components and build the controllers to change them*/
+        for (Class<?> key : components.keySet()) {
+            Component component = components.get(key);
+
+
+            buildGroupsForComponent(component);
         }
 
+    }
+
+    private void buildGroupsForComponent(Component component) {
+        Textlabel label = new Textlabel(cp5, "label" + component.getClass().getName());
+        label.setColorBackground(Color.rgbToInt(0, 244, 0));
+        label.setText("Component: " + component.getName());
+        addChildVertically(label);
+
+
+        ArrayList<PObjectProperty> properties = component.getProperties();
+        for (PObjectProperty property : properties) {
+             buildGroupForProperty(property, property.getType());
+        }
     }
 
     private void buildGroupForProperty(PObjectProperty property, Class<?> type) {
@@ -54,6 +77,9 @@ public class InspectorController extends Group implements PropertyChangeListener
         container.setWidth(getWidth());
         container.setHeight(DEFAULT_HEIGHT);
         container.hideBar();
+        //random color
+        int color = Color.random();
+        container.setColorBackground(color);
 
         /* Build the label */
         Textlabel label = new Textlabel(cp5, "label" + property.getName());
@@ -61,53 +87,43 @@ public class InspectorController extends Group implements PropertyChangeListener
         label.setText(property.getName());
         label.setHeight(container.getHeight());
 
-
         /* Build the controller */
         Controller<?>[] controllers = buildControllerForProperty(container, property, type);
         /* puts all controllers in place and adds a listener for then values change*/
         for(int i= 0; i < controllers.length; i++) {
             controllers[i].setWidth(container.getWidth()/2/controllers.length);
             controllers[i].setPosition(container.getWidth()/2 + (container.getWidth()/2/controllers.length) * (i), 0);
-            controllers[i].setHeight(container.getHeight());
             controllers[i].setGroup(container);
-            controllers[i].addListener(new ControlListener() {
-                public void controlEvent(ControlEvent theEvent) {
-                    //if property is a vector
-                    if (type.getName().equals("[F")) {
-                        float[] vector = new float[controllers.length];
-                        for (int i = 0; i < controllers.length; i++) {
-                            vector[i] = controllers[i].getValue();
-                        }
-                        property.setValue(vector);
-                    } else {
-                        property.setValue(theEvent.getController().getValue());
-                    }
-                }
-            });
         }
-
-
 
         /* Add the group to the inspector */
         addChildVertically(container);
-        //container.moveTo(this);
+        //indent container
+        float[] position = container.getPosition();
+        container.setPosition(position[0] + IDENTATION, position[1]);
 
     }
 
     private Controller[] buildControllerForProperty(Group container, PObjectProperty property, Class<?> type) {
-        if (type == Boolean.class) {
+        if (type == boolean.class) {
             Toggle toggle = cp5.addToggle(property.getName())
                     .setPosition(0, 0)
                     .setSize(20, 20)
                     .setGroup(this)
                     .setValue((Boolean) property.getValue());
+
+            setupCheckboxCallback(toggle, property);
+
             return new Controller[]{toggle};
-        } else if (type == Integer.class) {
+        } else if (type == int.class) {
             Numberbox numberbox = cp5.addNumberbox(property.getName())
                     .setPosition(0, 0)
                     .setSize(100, 20)
                     .setGroup(this)
                     .setValue((Integer) property.getValue());
+
+            setupNumberboxCallback(numberbox, property);
+
             return new Controller[]{numberbox};
         } else if (type == Float.class) {
             Numberbox numberbox = cp5.addNumberbox(property.getName())
@@ -122,6 +138,10 @@ public class InspectorController extends Group implements PropertyChangeListener
                     .setSize(100, 20)
                     .setGroup(this)
                     .setValue((String) property.getValue());
+            textfield.setAutoClear(false);
+            textfield.getCaptionLabel().hide();
+            setupTextfieldCallback(textfield, property);
+
             return new Controller[]{textfield};
         } else if (type == PVector.class) {
             Numberbox numberbox = cp5.addNumberbox(property.getName())
@@ -147,6 +167,40 @@ public class InspectorController extends Group implements PropertyChangeListener
             return controllers;
 
         }
+        else if(Component.class.isAssignableFrom(type)){
+            ScrollableList list = cp5.addScrollableList(property.getName())
+                    .setPosition(0, 0)
+                    .setSize(100, 100)
+                    .setGroup(this)
+                    .setBarHeight(20)
+                    .setItemHeight(20)
+                    .setType(ScrollableList.DROPDOWN)
+                    .setBackgroundColor(255)
+                    .close();
+
+            Component component = (Component) property.getOwner();
+            HashMap<Class<? extends Component>,Component> components = component.getOwner().getComponents();
+            for (Class<?> key : components.keySet()) {
+
+                int i = 0;
+                if(type.isAssignableFrom(key)) {
+                    list.addItem(components.get(key).getName(),components.get(key));
+                    //if its the current value, select it
+                    if(components.get(key) == property.getValue()){
+                        list.setValue(i);
+                    }
+                }
+            }
+
+
+
+            setupScrollableListCallback(list,property);
+
+            return new Controller[]{list};
+        }
+
+
+
         Textlabel t = new Textlabel(cp5, "Property" + property.getName());
         String typeName = type.getName().substring(0, Math.min(type.toString().length(), 10));
 
@@ -154,4 +208,64 @@ public class InspectorController extends Group implements PropertyChangeListener
         return new Controller[]{t};
 
     }
+
+    private void setupCheckboxCallback(Toggle toggle, PObjectProperty property) {
+        toggle.addCallback(new CallbackListener() {
+            @Override
+            public void controlEvent(CallbackEvent callbackEvent) {
+                if (callbackEvent.getAction() == ControlP5.ACTION_BROADCAST) {
+                    boolean value = toggle.getState();
+                    property.setValue(value);
+                }
+            }
+        });
+    }
+
+    private void setupTextfieldCallback(Textfield textfield, PObjectProperty property) {
+        textfield.addCallback(new CallbackListener() {
+            @Override
+            public void controlEvent(CallbackEvent callbackEvent) {
+                if (callbackEvent.getAction() == ControlP5.ACTION_BROADCAST) {
+                    String value = textfield.getText();
+                    property.setValue(value);
+                }
+            }
+        });
+    }
+
+    private void setupScrollableListCallback(Controller controller, PObjectProperty property) {
+        controller.addCallback(new CallbackListener() {
+            @Override
+            public void controlEvent(CallbackEvent callbackEvent) {
+
+                //on press
+                if (callbackEvent.getAction() == ControlP5.ACTION_PRESS) {
+                    controller.bringToFront();
+                }
+
+                ScrollableList controller = (ScrollableList) callbackEvent.getController();
+
+                if (callbackEvent.getAction() == ControlP5.ACTION_BROADCAST) {
+                    int index = (int) controller.getValue();
+                    Object value = controller.getItem(index).get("value");
+                    System.out.println("property set to " + value);
+                    property.setValue(value);
+                }
+            }
+        });
+    }
+
+
+    private void setupNumberboxCallback(Numberbox numberbox, PObjectProperty property) {
+        numberbox.addCallback(new CallbackListener() {
+            @Override
+            public void controlEvent(CallbackEvent callbackEvent) {
+                if (callbackEvent.getAction() == ControlP5.ACTION_BROADCAST) {
+                    int value = (int) numberbox.getValue();
+                    property.setValue(value);
+                }
+            }
+        });
+    }
+
 }

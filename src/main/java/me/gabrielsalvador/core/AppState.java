@@ -2,17 +2,16 @@ package me.gabrielsalvador.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.sequencing.SequencerState;
 import me.gabrielsalvador.tools.Tool;
-import me.gabrielsalvador.views.View;
+import me.gabrielsalvador.pobject.views.View;
 
 public class AppState implements Serializable {
     private static AppState _instance;
-
     private Tool _currentTool;
+    private final SequencerState _sequencerState = new SequencerState();
     private final ArrayList<View> _gizmos = new ArrayList<View>();
     private final ArrayList<PObject> _pObjects = new ArrayList<PObject>();
 
@@ -43,11 +42,31 @@ public class AppState implements Serializable {
     }
     public ArrayList<View> getGizmos() {  return _gizmos;}
 
+
     public void addPObject(PObject pObject) {
         _pObjects.add(pObject);
     }
 
     public void clearObjects() {
-        _pObjects.clear();
+        for (int i = _pObjects.size() - 1; i >= 0; i--) {
+            _pObjects.get(i).remove();
+            _pObjects.remove(i);
+        }
+    }
+
+    public SequencerState getSequencerState() {
+        return _sequencerState;
+    }
+
+
+    public void loadSequencerState(SequencerState sequencerState) {
+        int timeSteps = sequencerState.getSteps().length;
+        int pitchSteps = sequencerState.getSteps()[0].length;
+
+        for (int x = 0; x < timeSteps; x++) {
+            for (int y = 0; y < pitchSteps; y++) {
+                _sequencerState.setStep(x, y, sequencerState.getSteps()[x][y]);
+            }
+        }
     }
 }

@@ -7,20 +7,21 @@ import me.gabrielsalvador.utils.Color;
 
 import java.util.Map;
 
-public class Config {
-    public static final String RESOURCES_PATH = "src/main/resources";
-    public static final String ICON_FOLDER_PATH = RESOURCES_PATH + "/icons";
-    public static final Map<Class<? extends Tool>, String> toolIconNames = Map.of(
+public interface Config {
+    String RESOURCES_PATH = "src/main/resources";
+    String ICON_FOLDER_PATH = RESOURCES_PATH + "/icons";
+    Map<Class<? extends Tool>, String> toolIconNames = Map.of(
             SelectTool.class, "selectTool.png",
             AddTool.class,"addTool.png");
 
-    
+    String MAIN_SEQUENCER = "sequencer";
 
-    public static final int THEME_COLOR_SELECTED = Color.rgbToInt(100,217,244);
-    public static final int THEME_COLOR_ROUTING_CONNECTION = Color.rgbToInt(95,207,249);
+    int THEME_COLOR_SELECTED = Color.rgbToInt(255,123,244);
+    int THEME_COLOR_ROUTING_CONNECTION = Color.rgbToInt(95,207,249);
+    float PHYSICS_NOTE_DEFAULT_SIZE = 3;
 
 
-    public static class Shortcuts {
+    class Shortcuts {
         public static final char CLONE = 'c';
         // Add more shortcuts here if needed
     }

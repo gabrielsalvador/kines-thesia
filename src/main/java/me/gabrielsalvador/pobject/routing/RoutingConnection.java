@@ -2,22 +2,33 @@ package me.gabrielsalvador.pobject.routing;
 
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.views.View;
+import me.gabrielsalvador.pobject.components.RoutingComponent;
+import me.gabrielsalvador.pobject.views.RoutingConnectionView;
+import me.gabrielsalvador.pobject.views.View;
+import processing.core.PApplet;
 import processing.core.PGraphics;
-
 import java.io.Serial;
 
 public class RoutingConnection extends PObject {
 
-    private RoutingSocket<Inlet> _inlet;
-    private RoutingSocket<Outlet> _outlet;
+    private final PSocket _source;
+    private final PSocket _destination;
 
-    public RoutingConnection(RoutingSocket<?> inlet, RoutingSocket<?> outlet) {
+    public RoutingConnection(PSocket inlet, PSocket outlet) {
         super();
-        _inlet = (RoutingSocket<Inlet>) inlet;
-        _outlet = (RoutingSocket<Outlet>) outlet;
+        _source = inlet;
+        _source.addRouting(this);
+        _destination = outlet;
+        _destination.addRouting(this);
+        addComponent(RoutingComponent.class, new RoutingComponent(this,RoutingComponent.RouterType.CONNECTION));
+        initialize();
+    }
+
+    @Override
+    protected void initialize() {
         setView(new RoutingConnectionView(this));
     }
+
     @Override
     public void onEnter(int x, int y) {
 
@@ -28,43 +39,25 @@ public class RoutingConnection extends PObject {
 
     }
 
+    @Override
+    public void remove() {
+
+    }
+
     @Serial
     private void readObject(java.io.ObjectInputStream aInputStream) throws ClassNotFoundException, java.io.IOException {
         // default deserialization
         aInputStream.defaultReadObject();
-
-        setView(new RoutingConnectionView(this));
-
+        initialize();
     }
 
-    private class RoutingConnectionView implements View<PObject> {
-        public RoutingConnectionView(RoutingConnection routingConnection, RoutingSocket<?> start, RoutingSocket<?> end) {
-        }
-
-        public RoutingConnectionView(RoutingConnection routingConnection) {
-        }
-
-        @Override
-        public PObject getModel() {
-            return null;
-        }
-
-        @Override
-        public void display(PGraphics graphics) {
-            //line from start to end
-            float[] start = _inlet.getPosition();
-            float[] end = _outlet.getPosition();
-            graphics.pushStyle();
-            graphics.stroke(Config.THEME_COLOR_ROUTING_CONNECTION);
-            graphics.strokeWeight(2);
-            graphics.line(start[0], start[1], end[0], end[1]);
-            graphics.popStyle();
-
-        }
-
-        @Override
-        public boolean isMouseOver(int mouseX, int mouseY) {
-            return false;
-        }
+    public PSocket getSource() {
+        return _source;
     }
+
+   public PSocket getDestination(){
+        return _destination;
+   }
+
+
 }

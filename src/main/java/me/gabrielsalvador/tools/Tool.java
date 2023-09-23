@@ -3,8 +3,6 @@ package me.gabrielsalvador.tools;
 
 
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.routing.Routable;
-import me.gabrielsalvador.pobject.routing.RoutingSocket;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 

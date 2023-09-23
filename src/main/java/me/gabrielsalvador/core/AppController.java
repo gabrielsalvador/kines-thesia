@@ -2,24 +2,28 @@ package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PlayableNote;
-import me.gabrielsalvador.pobject.routing.Inlet;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.routing.RoutingConnection;
-import me.gabrielsalvador.pobject.routing.RoutingSocket;
-import me.gabrielsalvador.utils.Vector;
-
+import me.gabrielsalvador.pobject.routing.PSocket;
+import me.gabrielsalvador.pobject.views.View;
+import org.jbox2d.common.Vec2;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 
 public class AppController {
     private static AppController _instance;
+    private static AppState _appState;
     private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
-
+    private final ConcurrentLinkedQueue<Runnable> _pObjectModificationsQueue = new ConcurrentLinkedQueue<Runnable>();
+    private final InputManager _inputManager = InputManager.getInstance();
 
     private AppController() {
-
+        _appState = AppState.getInstance();
     }
 
     public static synchronized AppController getInstance() {
@@ -30,20 +34,35 @@ public class AppController {
         return _instance;
     }
 
+
+
     public  CanvasController getCanvas(){
         if(_canvasController == null){
             _canvasController = (CanvasController) Sinesthesia.getInstance().getCP5().getController("MainCanvas");
         }
         return _canvasController;
     }
-    public void addPObject(PObject pObject) {
-        AppState.getInstance().addPObject(pObject);
+    public PObject addPObject(PObject pObject) {
+        Runnable modification = () -> {
+            _appState.addPObject(pObject);
+        };
+        queueModification(modification);
+        return pObject;
     }
 
-    public PlayableNote addPlayableNote(Vector position) {
-        PlayableNote note = new PlayableNote().setPosition(position);
+    public PlayableNote addPlayableNote(Vec2 position) {
+        PlayableNote note = new PlayableNote();
+        BodyComponent body = note.getBodyComponent().setPosition(position);
         AppState.getInstance().addPObject(note);
         return note;
+    }
+
+    public ArrayList<View> getGizmos() {
+        return _appState.getGizmos();
+    }
+    public void addGizmo(View gizmo) {
+        ArrayList<View> gizmos = _appState.getGizmos();
+        gizmos.add(gizmo);
     }
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
@@ -54,11 +73,7 @@ public class AppController {
                     if(evt.getNewValue() != null) {
                         ArrayList<PObject> selectedObjects = (ArrayList<PObject>) evt.getNewValue();
                         for (PObject pObject : AppState.getInstance().getPObjects()) {
-                            if(selectedObjects.contains(pObject)){
-                                pObject.setIsSelected(true);
-                        }else {
-                                pObject.setIsSelected(false);
-                            }
+                            pObject.setIsSelected(selectedObjects.contains(pObject));
                         }
                     }
                 }
@@ -71,17 +86,38 @@ public class AppController {
     }
 
 
+    public ConcurrentLinkedQueue<Runnable> getModificationsQueue() {
+        return _pObjectModificationsQueue;
+    }
+
     public void clearObjects() {
         AppState.getInstance().clearObjects();
     }
 
-    public void AddRouting(RoutingSocket<?> start, RoutingSocket<?> end) {
+    public void AddRouting(PSocket start, PSocket end) {
         RoutingConnection RoutingConnection = new RoutingConnection(start, end);
         AppState.getInstance().addPObject(RoutingConnection);
     }
 
 
-    public void addRoutingSocket(PObject owner,RoutingSocket<?> i) {
+    public void addRoutingSocket(PObject owner, PSocket i) {
         AppState.getInstance().addPObject(i);
     }
+
+    public void queueModification(Runnable modification){
+        _pObjectModificationsQueue.add(modification);
+    }
+
+    public void applyModifications() {
+        Iterator<Runnable> iterator = _pObjectModificationsQueue.iterator();
+        while (iterator.hasNext()) {
+            Runnable mofidication = iterator.next();
+            mofidication.run();
+            iterator.remove();
+        }
+    }
+
+
+
+
 }

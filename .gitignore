@@ -28,3 +28,6 @@ target/
 
 
  appState.ser
+
+.cosine
+.idea/workspace.xml

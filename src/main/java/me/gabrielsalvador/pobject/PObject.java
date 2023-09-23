@@ -2,95 +2,49 @@ package me.gabrielsalvador.pobject;
 
 
 import java.io.*;
-import java.net.Socket;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.*;
 
-import me.gabrielsalvador.core.AppController;
-import me.gabrielsalvador.pobject.routing.*;
-import me.gabrielsalvador.views.View;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
+import me.gabrielsalvador.pobject.components.Component;
+import me.gabrielsalvador.pobject.components.body.HologramBody;
+import me.gabrielsalvador.pobject.views.View;
 
 
-@Properties({
-        @Property(name = "position", type = float[].class),
-        @Property(name = "size", type = float[].class,defaultValue = "{100,100}")
-})
+
 public abstract class PObject implements Serializable {
 
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.FIELD, ElementType.METHOD})
+    public @interface InspectableProperty {
+        String displayName() default "";
+        String setter() default "";  // Name of the setter method
+
+        @Retention(RetentionPolicy.RUNTIME)
+        public @interface SetterFor {
+            String value();
+        }
+    }
 
     private boolean _isSelected = false;
     private boolean _isHovered = false;
     private final Set<PObject> _children = new HashSet<PObject>();
-    private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<String, PObjectProperty>();
+    transient private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<String, PObjectProperty>();
+    private final LinkedHashMap<Class<? extends Component>,Component> _components = new LinkedHashMap<Class<? extends Component>,Component>();
     transient protected View<PObject> _view;
 
 
     public PObject() {
-        /* Walks up the class hierarchy to get all annotations concerning the properties */
-        Class<?> currentClass = this.getClass();
-        while (currentClass != null) {
-            Properties propertiesAnnotation = currentClass.getAnnotation(Properties.class);
-            if (propertiesAnnotation != null) {
-                for (Property propertyAnnotation : propertiesAnnotation.value()) {
-                    String name = propertyAnnotation.name();
-                    Class<?> type = propertyAnnotation.type();
-
-                    PObjectProperty property = new PObjectProperty(name, type);
-                    property.setValue(Defaults.getDefaultProperty(this.getClass(),name));
-
-                    addProperty(property);
-                }
-            }
-
-            // go through the routing annotations and add the inlets and outlets
-            Routing routing = currentClass.getAnnotation(Routing.class);
-            if (routing != null) {
-                for (SetInlet inlet : routing.inlets()) {
-                    if (this instanceof Inlet) {
-                        ArrayList<RoutingSocket<Inlet>> inlets = ((Inlet) this).getInlets();
-                        if (inlets == null) {
-                            ((Inlet)this).setInlets(new ArrayList<RoutingSocket<Inlet>>());
-                        }
-                        RoutingSocket<Inlet> i = new RoutingSocket<Inlet>(this);
-                        AppController.getInstance().addRoutingSocket(this,i);
-                        ((Inlet) this).addInlet(i);
-                    }
-                }
-                for (SetOutlet outlet : routing.outlets()) {
-                    if (this instanceof Outlet) {
-                        ArrayList<RoutingSocket<Outlet>> outlets = ((Outlet) this).getOutlets();
-                        if (outlets == null) {
-                            ( (Outlet) this).setOutlets(new ArrayList<RoutingSocket<Outlet>>());
-                        }
-                        RoutingSocket<Outlet> o = new RoutingSocket<Outlet>(this);
-                        AppController.getInstance().addRoutingSocket(this,o);
-                        ((Outlet) this).addOutlet(o);
-                    }
-                }
-            }
-
-            currentClass = currentClass.getSuperclass();
-        }
+        //default body for every PObject
+        addComponent(BodyComponent.class,new HologramBody(this));
     }
 
+    //use this method for things that need to be initialized after deserialization but don't forget the constructor also needs to call it
+    protected abstract void initialize();
 
-    public PObject setPosition(float[] position) {
-        PObjectProperty property = getProperty("position");
-        property.setValue(position);
-        return this;
-    }
-
-    public float[] getPosition() {
-        return (float[]) getProperty("position").getValue();
-    }
-
-    public PObject setSize(float[] size) {
-        getProperty("size").setValue(size);
-        return this;
-    }
-
-    public float[] getSize() {
-        return (float[]) getProperty("size").getValue();
-    }
 
 
     public PObject setIsSelected(boolean selectedState) {
@@ -128,17 +82,23 @@ public abstract class PObject implements Serializable {
         return _properties;
     }
 
-    public PObject addProperties(Map<String, PObjectProperty> properties) {
-        //add properties to the object
-        for (String key : properties.keySet()) {
-            addProperty(properties.get(key));
-        }
+
+    public <T extends Component> T getComponent(Class<? extends Component> componentClass) {
+        return (T) _components.get(componentClass);
+    }
+
+    public <T extends Component> PObject addComponent(Class<T> _class,T instance) {
+        _components.put(_class,instance);
         return this;
     }
 
 
     public View<PObject> getView() {
         return _view;
+    }
+
+    public <T extends BodyComponent> T getBodyComponent() {
+        return getComponent(BodyComponent.class);
     }
 
     public PObject setView(View<PObject> view) {
@@ -187,4 +147,11 @@ public abstract class PObject implements Serializable {
         }
     }
 
+
+   //get components
+    public <T extends Component> HashMap<Class<? extends Component>,Component> getComponents() {
+        return _components;
+    }
+
+    public abstract void remove();
 }
