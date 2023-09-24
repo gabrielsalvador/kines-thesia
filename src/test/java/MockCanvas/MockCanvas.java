@@ -29,4 +29,8 @@ public class MockCanvas {
             _currentlyHovering = null;
         }
     }
+
+    public PObject getHoveringObject() {
+        return _currentlyHovering;
+    }
 }

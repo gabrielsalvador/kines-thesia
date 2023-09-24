@@ -32,12 +32,11 @@ public class JShape extends AbstractShape {
     }
 
     @Override
-    public void display(PGraphics graphics, float x, float y) {
+    public void display(PGraphics graphics) {
 
 
         graphics.pushMatrix();
         float angle = _owner.getAngle();
-        graphics.translate(x , y );
         graphics.rotate(angle);
 
         if (_shape instanceof org.jbox2d.collision.shapes.CircleShape circle) {

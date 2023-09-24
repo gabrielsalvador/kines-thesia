@@ -15,12 +15,13 @@ public class RectanglePShape extends PShape{
 
     @Override
     public boolean isMouseOver(int mouseX, int mouseY, float x, float y) {
-        return false;
+        //check if the mouse is over the rectangle
+        return mouseX > x - _size.x / 2 && mouseX < x + _size.x / 2 && mouseY > y - _size.y / 2 && mouseY < y + _size.y / 2;
     }
 
     @Override
-    public void display(PGraphics graphics, float x, float y) {
-        graphics.rect(x, y, _size.x, _size.y);
+    public void display(PGraphics graphics) {
+        graphics.rect(-_size.x / 2, -_size.y / 2, _size.x, _size.y);
     }
 
     @Override
