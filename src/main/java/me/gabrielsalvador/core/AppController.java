@@ -44,6 +44,10 @@ public class AppController {
         queueModification(modification);
         return pObject;
     }
+    public PObject addPObjectImmiadiately(PObject pObject) {
+        _appState.addPObject(pObject);
+        return pObject;
+    }
 
 
 
@@ -106,7 +110,7 @@ public class AppController {
 
     public PObject createPObject() {
         PObject pObject = new PObject();
-        addPObject(pObject);
+        addPObjectImmiadiately(pObject);
         return pObject;
     }
 

@@ -11,6 +11,11 @@ public class RoutingComponent extends Component{
 
     }
 
+    @Override
+    public String getName() {
+        return "Routing";
+    }
+
     public enum RouterType{
         ENDPOINT,
         CONNECTION

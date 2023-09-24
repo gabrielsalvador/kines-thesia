@@ -143,7 +143,7 @@ public class PObject implements Serializable {
         String setter() default "";
 
         @Retention(RetentionPolicy.RUNTIME)
-        public @interface SetterFor {
+        @interface SetterFor {
             String value();
         }
     }
