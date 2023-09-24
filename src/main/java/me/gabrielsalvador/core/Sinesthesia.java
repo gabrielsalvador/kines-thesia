@@ -10,6 +10,8 @@ import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.InspectorController;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
+import me.gabrielsalvador.pobject.components.body.HologramBody;
 import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.SequencerController;
 import me.gabrielsalvador.tools.ToolboxController;
@@ -71,21 +73,9 @@ public class Sinesthesia extends PApplet {
             e.printStackTrace();
         }
 
-        loadAppState();
-//        PObject pObject = new PlayableNote();
-//        PhysicsBodyComponent bodyComponent = new PhysicsBodyComponent(pObject,new Vec2(0,0));
-//        pObject.addComponent(BodyComponent.class, bodyComponent);
-//        AppController.getInstance().addPObject(pObject);
-//
-//        PObject pObject2 = new PlayableNote();
-//        PhysicsBodyComponent bodyComponent2 = new PhysicsBodyComponent(pObject2,new Vec2(5,5));
-//        pObject2.addComponent(BodyComponent.class, bodyComponent2);
-//        AppController.getInstance().addPObject(pObject2);
+//        loadAppState();
 
-//        PObject pObject3 = new PlayableNote();
-//        PhysicsBodyComponent bodyComponent3 = new PhysicsBodyComponent(pObject3,new Vec2(100,100));
-//        pObject3.addComponent(BodyComponent.class, bodyComponent3);
-//        AppController.getInstance().addPObject(pObject3);
+        AppController.getInstance().addPObject(new PObject().addComponent(BodyComponent.class, new HologramBody( new PObject())));
 
     }
 

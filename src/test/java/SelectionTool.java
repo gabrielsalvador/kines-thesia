@@ -40,15 +40,14 @@ public class SelectionTool {
     }
 
     @Test
-    public void selectObject() throws InterruptedException {
+    public void selectsHologramBody() throws InterruptedException {
         latch.await();
         Assertions.assertEquals(1, appState.getPObjects().size());
 
         mc.updateHoveredObject(0,0);
         PObject hovering = mc.getHoveringObject();
         Assertions.assertEquals(obj, hovering);
-
-
-
     }
+
+
 }
