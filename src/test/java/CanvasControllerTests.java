@@ -1,18 +1,12 @@
 import controlP5.ControlP5;
-import controlP5.ControlWindow;
 import controlP5.ControlWindowPointer;
-import controlP5.Pointer;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import org.jbox2d.common.Vec2;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-
 import org.junit.jupiter.api.Test;
-import processing.core.PApplet;
-import processing.core.PVector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -44,7 +38,6 @@ public class CanvasControllerTests {
         obj = AppController.getInstance().createPObject();
         BodyComponent objBody = obj.getBodyComponent();
         objBody.setPixelPosition(new Vec2(50,50));
-
 
 
     }
