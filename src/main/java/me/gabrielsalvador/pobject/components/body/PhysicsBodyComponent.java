@@ -44,7 +44,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         return _body.getPosition();
     }
 
-    @Override
+
     public BodyComponent setPosition(Vec2 position) {
         _body.setTransform(position, _body.getAngle());
         _position = position;

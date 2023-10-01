@@ -5,6 +5,8 @@ import controlP5.Pointer;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
+import org.jbox2d.common.Vec2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -13,6 +15,7 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 
@@ -39,6 +42,8 @@ public class CanvasControllerTests {
 
         canvasController = new CanvasController(mockCp5, "CanvasController");
         obj = AppController.getInstance().createPObject();
+        BodyComponent objBody = obj.getBodyComponent();
+        objBody.setPixelPosition(new Vec2(50,50));
 
 
 
@@ -48,7 +53,11 @@ public class CanvasControllerTests {
     public void shouldSelectPObject() {
 
         simulateMove(5,5);
-        assertEquals(canvasController.getCurrentlyHovering(),obj);
+        assertNull(canvasController.getCurrentlyHovering());
+
+        simulateMove(50,50);
+        assertEquals(obj,canvasController.getCurrentlyHovering());
+
     }
 
 

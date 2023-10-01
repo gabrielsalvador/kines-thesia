@@ -20,10 +20,10 @@ public abstract class BodyComponent extends Component {
         Vec2 position = getPosition();
         return PhysicsManager.getInstance().coordWorldToPixels(position.x, position.y);
     }
-    public BodyComponent setPosition(Vec2 position){
-        _position = position;
-        return this;
-    }
+//    public BodyComponent setPosition(Vec2 position){
+//        _position = position;
+//        return this;
+//    }
 
     public AbstractShape getShape(){
         return _shape;

@@ -14,9 +14,10 @@ public class RectanglePShape extends PShape{
 
 
     @Override
-    public boolean isMouseOver(int mouseX, int mouseY, float x, float y) {
-        //check if the mouse is over the rectangle
-        return mouseX > x - _size.x / 2 && mouseX < x + _size.x / 2 && mouseY > y - _size.y / 2 && mouseY < y + _size.y / 2;
+    public boolean isMouseOver(int mouseX, int mouseY, float centerX, float centerY) {
+        Boolean betweenX = mouseX > centerX - _size.x / 2 && mouseX < centerX + _size.x / 2;
+        Boolean betweenY = mouseY > centerY - _size.y / 2 && mouseY < centerY + _size.y / 2;
+        return betweenX && betweenY;
     }
 
     @Override

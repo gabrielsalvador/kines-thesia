@@ -46,11 +46,8 @@ public class HologramBody extends BodyComponent implements Serializable {
         return pixels;
     }
 
-    @Override
-    public BodyComponent setPosition(Vec2 position) {
-        _position = position;
-        return this;
-    }
+
+
     public BodyComponent setPixelPosition(Vec2 position) {
         _position = PhysicsManager.getInstance().coordPixelsToWorld(position.x, position.y);
         return this;
