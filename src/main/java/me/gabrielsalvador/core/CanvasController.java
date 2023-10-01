@@ -158,5 +158,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
         return yOff;
     }
 
-
+    public PObject getCurrentlyHovering() {
+        return _currentlyHovering;
+    }
 }
