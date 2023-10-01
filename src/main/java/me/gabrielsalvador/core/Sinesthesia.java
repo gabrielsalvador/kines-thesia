@@ -17,6 +17,7 @@ import me.gabrielsalvador.pobject.components.body.HologramBody;
 import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.SequencerController;
 import me.gabrielsalvador.tools.ToolboxController;
+import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PFont;
 
@@ -94,9 +95,11 @@ public class Sinesthesia extends PApplet {
 
 
     public void draw() {
+        CanvasController canvas = (CanvasController) _cp5.getController("MainCanvas");
+        int[] mousePosition = canvas.getMousePosition();
         background(255);
         StringBuilder debugText = new StringBuilder("FPS: " + frameRate + " \n ");
-        debugText.append("Mouse: ").append(mouseX).append(", ").append(mouseY).append(" \n ");
+        debugText.append("Mouse: ").append(mousePosition[0]).append(", ").append(mousePosition[1]).append(" \n ");
         debugText.append("PObjects: ").append(AppState.getInstance().getPObjects().size()).append(" \n ");
         for (int i = 0; i < AppState.getInstance().getPObjects().size(); i++) {
             PObject pObject = AppState.getInstance().getPObjects().get(i);

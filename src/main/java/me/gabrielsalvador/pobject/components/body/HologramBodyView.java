@@ -3,6 +3,7 @@ package me.gabrielsalvador.pobject.components.body;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.views.View;
+import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
 public class HologramBodyView implements View<Component> {
@@ -27,7 +28,9 @@ public class HologramBodyView implements View<Component> {
         } else {
             graphics.stroke(0);
         }
-        graphics.translate(_model.getPixelPosition().x, _model.getPixelPosition().y);
+        Vec2 pixelPosition = _model.getPixelPosition();
+        graphics.translate(pixelPosition.x, pixelPosition.y);
+
         _model.getShape().display(graphics);
         graphics.popMatrix();
         graphics.popStyle();

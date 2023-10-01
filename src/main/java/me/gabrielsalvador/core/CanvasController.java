@@ -39,6 +39,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
         isActive = inside();
         setUserInteraction(isActive);
         // x and y are relative to the canvas
+        updateHoveredObject();
         _toolManager.getCurrentTool().onPressed(_currentlyHovering);
 
         Textfield t = (Textfield) cp5.get("CommandTextfield");
@@ -82,7 +83,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
     @Override
     public void onMove() {
-        updateHoveredObject();
+        // updateHoveredObject();
     }
 
     @Override

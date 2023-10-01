@@ -77,10 +77,9 @@ public class HologramBody extends BodyComponent implements Serializable {
 
     @Override
     public void display(PGraphics graphics) {
-        graphics.pushMatrix();
-        graphics.translate(getPixelPosition().x, getPixelPosition().y);
+
         getView().display(graphics, this);
-        graphics.popMatrix();
+
 
     }
 
