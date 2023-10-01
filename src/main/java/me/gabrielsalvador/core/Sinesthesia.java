@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import controlP5.ControlFont;
 import controlP5.ControlP5;
+import controlP5.Textarea;
+import controlP5.Textfield;
 import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.InspectorController;
@@ -29,6 +31,8 @@ public class Sinesthesia extends PApplet {
         _instance = this;
 
     }
+
+    Textarea debugInfo;
 
     public static synchronized Sinesthesia getInstance() {
         if (_instance == null) {
@@ -75,13 +79,32 @@ public class Sinesthesia extends PApplet {
 
 //        loadAppState();
 
-        AppController.getInstance().addPObject(new PObject().addComponent(BodyComponent.class, new HologramBody( new PObject())));
 
+        PObject p = AppController.getInstance().addPObject(new PObject().addComponent(BodyComponent.class, new HologramBody( new PObject())));
+        p.getBodyComponent().setPixelPosition(50,50);
+
+
+        debugInfo = getCP5().addTextarea("debugInfo")
+                .setPosition(700,600)
+                .setSize(400, 200)
+                .setColor(color(255, 0, 0))
+                .setFont(createFont("arial", 20));
     }
+
+
 
     public void draw() {
         background(255);
+        StringBuilder debugText = new StringBuilder("FPS: " + frameRate + " \n ");
+        debugText.append("Mouse: ").append(mouseX).append(", ").append(mouseY).append(" \n ");
+        debugText.append("PObjects: ").append(AppState.getInstance().getPObjects().size()).append(" \n ");
+        for (int i = 0; i < AppState.getInstance().getPObjects().size(); i++) {
+            PObject pObject = AppState.getInstance().getPObjects().get(i);
+            debugText.append("  ").append(i).append(": ").append(pObject.getBodyComponent().getPixelPosition().x).append(", ").append(pObject.getBodyComponent().getPixelPosition().y).append("  \t selected=").append(pObject.getIsSelected()).append(" \n ");
+        }
 
+
+        debugInfo.setText(debugText.toString());
     }
 
     public ControlP5 getCP5() {
