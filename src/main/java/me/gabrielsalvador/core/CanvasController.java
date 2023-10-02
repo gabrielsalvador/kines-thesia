@@ -40,7 +40,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
         setUserInteraction(isActive);
         // x and y are relative to the canvas
         updateHoveredObject();
-        _toolManager.getCurrentTool().onPressed(_currentlyHovering);
+        _toolManager.getCurrentTool().onPressed(_currentlyHovering, getMousePosition());
 
         Textfield t = (Textfield) cp5.get("CommandTextfield");
         if (t != null) {

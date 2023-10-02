@@ -29,7 +29,7 @@ public class BoxTool extends Tool{
     }
 
     @Override
-    public void onPressed(PObject pObject) {
+    public void onPressed(PObject pObject,int[] mousePosition) {
         _initialPosition = new Vec2(getCanvas().getMousePosition()[0], getCanvas().getMousePosition()[1]);
 
     }

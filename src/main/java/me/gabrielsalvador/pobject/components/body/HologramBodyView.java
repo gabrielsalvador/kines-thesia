@@ -8,10 +8,10 @@ import processing.core.PGraphics;
 
 public class HologramBodyView implements View<Component> {
     private final HologramBody _model;
-    private final PObject _owner;
+
     public HologramBodyView(HologramBody hologramBody) {
         _model = hologramBody;
-        _owner = _model.getOwner();
+
     }
 
     @Override
@@ -21,6 +21,7 @@ public class HologramBodyView implements View<Component> {
 
     @Override
     public void display(PGraphics graphics,Component model) {
+        PObject _owner = _model.getOwner();
         graphics.pushStyle();
         graphics.pushMatrix();
         if(_owner.getIsSelected()) {

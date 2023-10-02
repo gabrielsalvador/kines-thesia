@@ -33,7 +33,7 @@ public abstract class Tool implements Serializable {
 
     public abstract void onClick(PObject pObject);
 
-    public abstract void onPressed(PObject pObject);
+    public abstract void onPressed(PObject pObject,int[] mousePosition);
     public abstract void onRelease(PObject pObject) ;
 
     public abstract void onDrag(PObject pObject);

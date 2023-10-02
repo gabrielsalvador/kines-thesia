@@ -49,7 +49,7 @@ public class CommandTool extends Tool {
     }
 
     @Override
-    public void onPressed(PObject pObject) {
+    public void onPressed(PObject pObject,int[] mousePosition) {
 
     }
 

@@ -10,12 +10,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Set;
-
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
-import me.gabrielsalvador.pobject.views.View;
 import processing.core.PGraphics;
 
 public class PObject implements Serializable {
@@ -88,7 +86,14 @@ public class PObject implements Serializable {
     }
 
     public <T extends Component> PObject addComponent(Class<T> _class, T instance) {
+        //this needs to be 1:1 map
+        //if there is already a component of this type, it will be replaced
+        if(_components.containsKey(_class)){
+            _components.remove(_class);
+        }
         _components.put(_class, instance);
+
+
         return this;
     }
 

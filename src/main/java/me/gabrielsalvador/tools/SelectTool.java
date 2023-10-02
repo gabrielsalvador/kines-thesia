@@ -34,9 +34,12 @@ public class SelectTool extends Tool {
     }
 
     @Override
-    public void onPressed(PObject pObject) {
+    public void onPressed(PObject pObject, int[] mousePosition) {
         if (pObject != null){
             pObject.setIsSelected(true);
+        }
+        else{
+            clearSelection();
         }
     }
 

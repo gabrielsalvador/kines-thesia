@@ -81,7 +81,7 @@ public class Sinesthesia extends PApplet {
 //        loadAppState();
 
 
-        PObject p = AppController.getInstance().addPObject(new PObject().addComponent(BodyComponent.class, new HologramBody( new PObject())));
+        PObject p = AppController.getInstance().addPObject(new PObject());
         p.getBodyComponent().setPixelPosition(50,50);
 
 
@@ -103,7 +103,8 @@ public class Sinesthesia extends PApplet {
         debugText.append("PObjects: ").append(AppState.getInstance().getPObjects().size()).append(" \n ");
         for (int i = 0; i < AppState.getInstance().getPObjects().size(); i++) {
             PObject pObject = AppState.getInstance().getPObjects().get(i);
-            debugText.append("  ").append(i).append(": ").append(pObject.getBodyComponent().getPixelPosition().x).append(", ").append(pObject.getBodyComponent().getPixelPosition().y).append("  \t selected=").append(pObject.getIsSelected()).append(" \n ");
+            debugText.append(pObject.toString()).append("  ").append(i).append(": ").append(pObject.getBodyComponent().getPixelPosition().x).append(", ").append(pObject.getBodyComponent().getPixelPosition().y).append("  \t selected=").append(pObject.getIsSelected()).append(" \n ");
+
         }
 
 
