@@ -25,7 +25,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     @InspectableProperty(displayName = "Mass")
     private float _mass = 1;
-    
+
     public PhysicsBodyComponent(PObject owner){
         super(owner);
         if(_bodyData == null){
