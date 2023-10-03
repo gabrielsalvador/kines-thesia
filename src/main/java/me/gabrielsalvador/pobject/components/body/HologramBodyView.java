@@ -21,14 +21,10 @@ public class HologramBodyView implements View<Component> {
 
     @Override
     public void display(PGraphics graphics,Component model) {
-        PObject _owner = _model.getOwner();
+        
         graphics.pushStyle();
         graphics.pushMatrix();
-        if(_owner.getIsSelected()) {
-            graphics.stroke(255, 0, 0);
-        } else {
-            graphics.stroke(0);
-        }
+
         Vec2 pixelPosition = _model.getPixelPosition();
         graphics.translate(pixelPosition.x, pixelPosition.y);
 

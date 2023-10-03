@@ -109,6 +109,8 @@ public class InspectorController extends Group implements PropertyChangeListener
                     .setGroup(this)
                     .setValue((Boolean) property.getValue());
 
+            toggle.getCaptionLabel().hide();
+
             setupCheckboxCallback(toggle, property);
 
             return new Controller[]{toggle};

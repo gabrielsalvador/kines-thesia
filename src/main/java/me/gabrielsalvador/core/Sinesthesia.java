@@ -14,6 +14,7 @@ import me.gabrielsalvador.pobject.InspectorController;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
+import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.SequencerController;
 import me.gabrielsalvador.tools.ToolboxController;
@@ -83,6 +84,9 @@ public class Sinesthesia extends PApplet {
 
         PObject p = AppController.getInstance().addPObject(new PObject());
         p.getBodyComponent().setPixelPosition(50,50);
+
+        PObject p2 = AppController.getInstance().addPObject(new PObject());
+        p2.addComponent(BodyComponent.class, new PhysicsBodyComponent(p2));
 
 
         debugInfo = getCP5().addTextarea("debugInfo")

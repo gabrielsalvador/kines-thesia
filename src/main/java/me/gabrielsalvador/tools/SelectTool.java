@@ -36,11 +36,12 @@ public class SelectTool extends Tool {
     @Override
     public void onPressed(PObject pObject, int[] mousePosition) {
         if (pObject != null){
-            pObject.setIsSelected(true);
+            select(pObject);
         }
         else{
             clearSelection();
         }
+
     }
 
     private CanvasController getCanvas() {
@@ -80,5 +81,16 @@ public class SelectTool extends Tool {
         AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
     }
 
+
+    private void select(PObject pObject) {
+        if (pObject.getIsSelected()) {
+            pObject.setIsSelected(false);
+            selectedObjects.remove(pObject);
+        } else {
+            pObject.setIsSelected(true);
+            selectedObjects.add(pObject);
+        }
+        AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
+    }
 
 }

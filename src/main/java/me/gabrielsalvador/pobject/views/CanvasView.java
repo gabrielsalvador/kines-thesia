@@ -42,7 +42,14 @@ public class CanvasView implements ControllerView<CanvasController> {
         /*draw pobjects*/
         graphics.translate(controller.getXOff(), controller.getYOff());
         for (PObject pObject : pObjects) {
+            graphics.pushStyle();
+            if(pObject.getIsSelected()) {
+                graphics.stroke(255, 0, 0);
+            } else {
+                graphics.stroke(255);
+            }
             pObject.display(graphics);
+            graphics.popStyle();
         }
 
 
