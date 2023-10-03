@@ -6,13 +6,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import controlP5.ControlFont;
 import controlP5.ControlP5;
+import controlP5.Textarea;
+import controlP5.Textfield;
 import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.InspectorController;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
+import me.gabrielsalvador.pobject.components.body.HologramBody;
+import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.SequencerController;
 import me.gabrielsalvador.tools.ToolboxController;
+import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PFont;
 
@@ -28,6 +34,8 @@ public class Sinesthesia extends PApplet {
 
     }
 
+    Textarea debugInfo;
+
     public static synchronized Sinesthesia getInstance() {
         if (_instance == null) {
             _instance = new Sinesthesia();
@@ -42,7 +50,7 @@ public class Sinesthesia extends PApplet {
     }
 
     public void settings() {
-        size(1280,820,P3D);
+        size(1280,820);
         registerMethod("dispose", this);
     }
 
@@ -71,27 +79,40 @@ public class Sinesthesia extends PApplet {
             e.printStackTrace();
         }
 
-        loadAppState();
-//        PObject pObject = new PlayableNote();
-//        PhysicsBodyComponent bodyComponent = new PhysicsBodyComponent(pObject,new Vec2(0,0));
-//        pObject.addComponent(BodyComponent.class, bodyComponent);
-//        AppController.getInstance().addPObject(pObject);
-//
-//        PObject pObject2 = new PlayableNote();
-//        PhysicsBodyComponent bodyComponent2 = new PhysicsBodyComponent(pObject2,new Vec2(5,5));
-//        pObject2.addComponent(BodyComponent.class, bodyComponent2);
-//        AppController.getInstance().addPObject(pObject2);
+//        loadAppState();
 
-//        PObject pObject3 = new PlayableNote();
-//        PhysicsBodyComponent bodyComponent3 = new PhysicsBodyComponent(pObject3,new Vec2(100,100));
-//        pObject3.addComponent(BodyComponent.class, bodyComponent3);
-//        AppController.getInstance().addPObject(pObject3);
 
+        PObject p = AppController.getInstance().addPObject(new PObject());
+        p.getBodyComponent().setPixelPosition(50,50);
+
+        PObject p2 = AppController.getInstance().addPObject(new PObject());
+        p2.addComponent(BodyComponent.class, new PhysicsBodyComponent(p2));
+
+
+        debugInfo = getCP5().addTextarea("debugInfo")
+                .setPosition(700,600)
+                .setSize(400, 200)
+                .setColor(color(255, 0, 0))
+                .setFont(createFont("arial", 20));
     }
 
-    public void draw() {
-        background(255);
 
+
+    public void draw() {
+        CanvasController canvas = (CanvasController) _cp5.getController("MainCanvas");
+        int[] mousePosition = canvas.getMousePosition();
+        background(255);
+        StringBuilder debugText = new StringBuilder("FPS: " + frameRate + " \n ");
+        debugText.append("Mouse: ").append(mousePosition[0]).append(", ").append(mousePosition[1]).append(" \n ");
+        debugText.append("PObjects: ").append(AppState.getInstance().getPObjects().size()).append(" \n ");
+        for (int i = 0; i < AppState.getInstance().getPObjects().size(); i++) {
+            PObject pObject = AppState.getInstance().getPObjects().get(i);
+            debugText.append(pObject.toString()).append("  ").append(i).append(": ").append(pObject.getBodyComponent().getPixelPosition().x).append(", ").append(pObject.getBodyComponent().getPixelPosition().y).append("  \t selected=").append(pObject.getIsSelected()).append(" \n ");
+
+        }
+
+
+        debugInfo.setText(debugText.toString());
     }
 
     public ControlP5 getCP5() {

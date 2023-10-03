@@ -5,6 +5,9 @@ import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty.SetterFor;
 import me.gabrielsalvador.pobject.PObjectProperty;
+import me.gabrielsalvador.pobject.views.View;
+import processing.core.PGraphics;
+
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,7 +21,16 @@ public abstract class  Component implements Serializable {
 
     transient private  ArrayList<PObjectProperty> cachedProperties = new ArrayList<>();
     protected PObject _owner;
+    transient protected View<Component> _view;
 
+    public Component setView(View<Component> view) {
+        _view = view;
+        return this;
+    }
+
+    public View<Component> getView() {
+        return _view;
+    }
 
     public Component(PObject owner) {
         _owner = owner;
@@ -28,11 +40,8 @@ public abstract class  Component implements Serializable {
         // Implementation here
     }
 
-    public abstract void display() ;
-    public String getName() {
-        // Implementation here
-        return "";
-    }
+    public abstract void display(PGraphics graphics) ;
+    public abstract String getName();
 
 
 

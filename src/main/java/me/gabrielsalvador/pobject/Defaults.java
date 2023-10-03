@@ -32,25 +32,5 @@ public class Defaults {
         }
     }
 
-    public static Object getDefaultProperty(Class<? extends PObject> clazz, String name) {
 
-        //get class specific defaults
-        if (clazz.equals(PKeyboard.class)){
-            if(name.equals("position")){
-                return new float[]{0,0};
-            }
-            if (name.equals("size")){
-                return new float[]{50,15};
-            }
-        }
-        //get defaults for all classes
-        if(name.equals("position")){
-            return new float[]{0,0};
-        }
-        if (name.equals("size")){
-            return new float[]{10,10};
-        }
-
-        return null;
-    }
 }

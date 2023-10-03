@@ -5,6 +5,9 @@ import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
 import me.gabrielsalvador.pobject.components.body.shape.RectanglePShape;
 import org.jbox2d.common.Vec2;
+import processing.core.PGraphics;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -24,7 +27,11 @@ public class HologramBody extends BodyComponent implements Serializable {
     public HologramBody(PObject owner) {
         super(owner);
         _position = new Vec2(0,0);
-        _shape = new RectanglePShape(new Vec2(0,0));
+        _shape = new RectanglePShape(new Vec2(10,10));
+        initialize();
+    }
+    public void initialize(){
+        setView(new HologramBodyView(this));
     }
 
 
@@ -39,11 +46,8 @@ public class HologramBody extends BodyComponent implements Serializable {
         return pixels;
     }
 
-    @Override
-    public BodyComponent setPosition(Vec2 position) {
-        _position = position;
-        return this;
-    }
+
+
     public BodyComponent setPixelPosition(Vec2 position) {
         _position = PhysicsManager.getInstance().coordPixelsToWorld(position.x, position.y);
         return this;
@@ -72,7 +76,10 @@ public class HologramBody extends BodyComponent implements Serializable {
     }
 
     @Override
-    public void display() {
+    public void display(PGraphics graphics) {
+
+        getView().display(graphics, this);
+
 
     }
 
@@ -96,5 +103,10 @@ public class HologramBody extends BodyComponent implements Serializable {
         _children.add(child);
     }
 
+    @Serial
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        initialize();
+    }
 
 }

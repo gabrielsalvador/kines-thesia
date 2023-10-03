@@ -2,8 +2,6 @@ package me.gabrielsalvador.sequencing;
 
 import controlP5.*;
 import me.gabrielsalvador.core.AppState;
-import me.gabrielsalvador.pobject.PKeyboard;
-import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.routing.Inlet;
 import processing.core.PApplet;
 

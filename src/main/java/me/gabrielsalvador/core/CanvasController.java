@@ -3,13 +3,13 @@ package me.gabrielsalvador.core;
 import controlP5.*;
 import controlP5.events.ReleasedOutsideListener;
 import me.gabrielsalvador.pobject.PhysicsManager;
+import me.gabrielsalvador.pobject.components.Component;
+import me.gabrielsalvador.pobject.views.View;
 import me.gabrielsalvador.tools.ToolManager;
 import me.gabrielsalvador.pobject.views.CanvasView;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import me.gabrielsalvador.pobject.PObject;
-
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 // Custom controller class that extends Controller
 public class CanvasController extends Controller<CanvasController> implements ReleasedOutsideListener {
@@ -23,10 +23,12 @@ public class CanvasController extends Controller<CanvasController> implements Re
     private final float _accumulator = 0.0f;
     /* rate at which physics simulation moves forward */
     private final float _timeStep = 1.0f / 60.0f;
+    private int xOff = 0;
+    private int yOff = 0;
 
     public CanvasController(ControlP5 cp5, String name) {
         super(cp5, name);
-        _myControllerView = new CanvasView();
+        _myControllerView = new CanvasView(this);
         _toolManager = ToolManager.getInstance();
         _physicsManager = PhysicsManager.getInstance();
     }
@@ -37,18 +39,17 @@ public class CanvasController extends Controller<CanvasController> implements Re
         isActive = inside();
         setUserInteraction(isActive);
         // x and y are relative to the canvas
-        _toolManager.getCurrentTool().onPressed(_currentlyHovering);
-    }
+        updateHoveredObject();
+        _toolManager.getCurrentTool().onPressed(_currentlyHovering, getMousePosition());
 
-    @Override
-    public void mousePressed() {
-        super.mousePressed();
         Textfield t = (Textfield) cp5.get("CommandTextfield");
         if (t != null) {
             t.hide();
             t.clear();
         }
     }
+
+
 
     @Override
     public void mouseReleasedOutside() {
@@ -60,16 +61,21 @@ public class CanvasController extends Controller<CanvasController> implements Re
         int x = mousePosition[0];
         int y = mousePosition[1];
         for (PObject pObject : AppState.getInstance().getPObjects()) {
-
-            boolean isHovered = pObject.getView().isMouseOver(x, y);
-            if (isHovered) {
-                pObject.setIsHovered(isHovered, x, y);
-                _currentlyHovering = pObject;
-                return;
+            for (Component component : pObject.getComponents().values()) {
+                View<Component> view = component.getView();
+                if (view == null) {
+                    continue;
+                }
+                boolean isHovered = view.isMouseOver(x, y);
+                if (isHovered) {
+                    pObject.setIsHovered(isHovered, x, y);
+                    _currentlyHovering = pObject;
+                    return;
+                }
             }
         }
         //if it reaches this point it means that no object is being hovered
-        if(_currentlyHovering != null){
+        if (_currentlyHovering != null) {
             _currentlyHovering.setIsHovered(false, x, y);
             _currentlyHovering = null;
         }
@@ -77,7 +83,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
     @Override
     public void onMove() {
-        updateHoveredObject();
+        // updateHoveredObject();
     }
 
     @Override
@@ -131,16 +137,29 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
         frameTime = Math.min(frameTime, maxFrameTime);  // Clamp frameTime to a maximum value
 
-        _physicsManager.step(frameTime/2, 8, 3);
+        _physicsManager.step(frameTime / 2, 8, 3);
 
         AppController.getInstance().applyModifications();
     }
 
 
+    public void setXOff(int xOff) {
+        this.xOff = xOff;
+    }
 
+    public void setYOff(int yOff) {
+        this.yOff = yOff;
+    }
 
+    public int getXOff() {
+        return xOff;
+    }
 
+    public int getYOff() {
+        return yOff;
+    }
 
-
-
+    public PObject getCurrentlyHovering() {
+        return _currentlyHovering;
+    }
 }

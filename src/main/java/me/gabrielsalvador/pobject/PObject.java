@@ -1,52 +1,51 @@
 package me.gabrielsalvador.pobject;
 
-
-import java.io.*;
+import java.io.Serializable;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.*;
-
-import me.gabrielsalvador.pobject.components.body.BodyComponent;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Set;
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.Component;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
-import me.gabrielsalvador.pobject.views.View;
+import processing.core.PGraphics;
 
-
-
-public abstract class PObject implements Serializable {
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.FIELD, ElementType.METHOD})
-    public @interface InspectableProperty {
-        String displayName() default "";
-        String setter() default "";  // Name of the setter method
-
-        @Retention(RetentionPolicy.RUNTIME)
-        public @interface SetterFor {
-            String value();
-        }
-    }
+public class PObject implements Serializable {
 
     private boolean _isSelected = false;
     private boolean _isHovered = false;
-    private final Set<PObject> _children = new HashSet<PObject>();
-    transient private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<String, PObjectProperty>();
-    private final LinkedHashMap<Class<? extends Component>,Component> _components = new LinkedHashMap<Class<? extends Component>,Component>();
-    transient protected View<PObject> _view;
+    private final Set<PObject> _children = new HashSet<>();
+    transient private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<>();
+    private final LinkedHashMap<Class<? extends Component>, Component> _components = new LinkedHashMap<>();
 
 
     public PObject() {
-        //default body for every PObject
-        addComponent(BodyComponent.class,new HologramBody(this));
+        // Default body for every PObject
+        addComponent(BodyComponent.class, new HologramBody(this));
     }
 
-    //use this method for things that need to be initialized after deserialization but don't forget the constructor also needs to call it
-    protected abstract void initialize();
+    // Use this method for things that need to be initialized after deserialization
+    protected void initialize() {
 
+    }
 
+    public void remove() {
+        for (PObject child : _children) {
+            child.remove();
+        }
+        _children.clear();
+        _properties.clear();
+        _components.clear();
+        AppController.getInstance().enqueueRemovePObject(this);
 
+    }
+    // Setters and Getters
     public PObject setIsSelected(boolean selectedState) {
         _isSelected = selectedState;
         return this;
@@ -57,21 +56,20 @@ public abstract class PObject implements Serializable {
     }
 
 
+    // Child Management
     public Set<PObject> addChild(PObject pObject) {
         _children.add(pObject);
         return _children;
     }
 
-
     public Set<PObject> getChildren() {
         return _children;
     }
 
-
+    // Property Management
     public PObjectProperty getProperty(String name) {
         return _properties.get(name);
     }
-
 
     public PObject addProperty(PObjectProperty property) {
         _properties.put(property.getName(), property);
@@ -82,76 +80,76 @@ public abstract class PObject implements Serializable {
         return _properties;
     }
 
-
+    // Component Management
     public <T extends Component> T getComponent(Class<? extends Component> componentClass) {
         return (T) _components.get(componentClass);
     }
 
-    public <T extends Component> PObject addComponent(Class<T> _class,T instance) {
-        _components.put(_class,instance);
+    public <T extends Component> PObject addComponent(Class<T> _class, T instance) {
+        //this needs to be 1:1 map
+        //if there is already a component of this type, it will be replaced
+        if(_components.containsKey(_class)){
+            _components.remove(_class);
+        }
+        _components.put(_class, instance);
+
+
         return this;
     }
 
 
-    public View<PObject> getView() {
-        return _view;
-    }
 
     public <T extends BodyComponent> T getBodyComponent() {
         return getComponent(BodyComponent.class);
     }
 
-    public PObject setView(View<PObject> view) {
-        _view = view;
-        return this;
+    public <T extends Component> HashMap<Class<? extends Component>, Component> getComponents() {
+        return _components;
     }
 
-    public PObject clone() {
-        try {
-            // Serialize the current object to a byte array
-            ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteStream);
-            objectOutputStream.writeObject(this);
+    // Event Handling
+    public void onPressed(int x, int y) {
 
-            // Deserialize the byte array to create a new instance (clone) of the object
-            ByteArrayInputStream byteInputStream = new ByteArrayInputStream(byteStream.toByteArray());
-            ObjectInputStream objectInputStream = new ObjectInputStream(byteInputStream);
-            return (PObject) objectInputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+    }
+
+    public void onEnter(int x, int y) {
+
+    }
+
+    public void onLeave(int x, int y) {
+
+    }
+
+    public void setIsHovered(boolean isHovered, int x, int y) {
+        if (_isHovered != isHovered) {
+            _isHovered = isHovered;
+            if (_isHovered) {
+                onEnter(x, y);
+            } else {
+                onLeave(x, y);
+            }
         }
-        return null;
     }
-
-    public void onPressed(int x, int y){
-
-    }
-
-    public abstract void onEnter(int x, int y);
-    public abstract void onLeave(int x, int y);
 
     public boolean getIsHovered() {
         return _isHovered;
     }
 
-    public void setIsHovered(boolean isHovered,int x, int y) {
-        // if not changed do nothing
-        // if changed : call onHover or onLeave
-        if(_isHovered != isHovered){
-            _isHovered = isHovered;
-            if(_isHovered){
-                onEnter(x,y);
-            }else{
-                onLeave(x,y);
-            }
+    public void display(PGraphics graphics) {
+        for (Component component : _components.values()) {
+            component.display(graphics);
         }
     }
 
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.FIELD, ElementType.METHOD})
+    public @interface InspectableProperty {
+        String displayName() default "";
+        String setter() default "";
 
-   //get components
-    public <T extends Component> HashMap<Class<? extends Component>,Component> getComponents() {
-        return _components;
+        @Retention(RetentionPolicy.RUNTIME)
+        @interface SetterFor {
+            String value();
+        }
     }
-
-    public abstract void remove();
 }

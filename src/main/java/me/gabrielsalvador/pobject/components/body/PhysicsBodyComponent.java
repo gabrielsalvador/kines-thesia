@@ -1,39 +1,46 @@
 package me.gabrielsalvador.pobject.components.body;
 
-import me.gabrielsalvador.audio.AudioManager;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsManager;
-import me.gabrielsalvador.pobject.components.MusicalNoteComponent;
 import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
 import me.gabrielsalvador.pobject.components.body.shape.JShape;
-import org.jbox2d.collision.shapes.ShapeType;
+import me.gabrielsalvador.pobject.views.PhysicsBodyView;
+import org.jbox2d.collision.shapes.MassData;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
 import java.io.*;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
+import processing.core.PGraphics;
 
 public class PhysicsBodyComponent extends BodyComponent implements Serializable {
 
     transient private Body _body;
     private JShape _shape;
     /* used to serialize body data and recreate the body on deserialization */
-    private BodyData _bodyData = new BodyData();
+    private BodyData _bodyData = null;
 
     @InspectableProperty(displayName = "Static")
     private boolean _isStatic = false;
 
+    @InspectableProperty(displayName = "Mass")
+    private float _mass = 1;
 
-
-    @InspectableProperty
-    private MusicalNoteComponent _onColision;
+    public PhysicsBodyComponent(PObject owner){
+        super(owner);
+        if(_bodyData == null){
+            _bodyData = BodyData.getDefaultBodyData();
+        }
+        createBody();
+        setView(new PhysicsBodyView(this));
+    }
 
 
     public PhysicsBodyComponent(PObject owner, Vec2 position) {
-        super(owner);
-        createBody();
+        this(owner);
         setPixelPosition(position);
     }
+
     public PhysicsBodyComponent(PObject owner,BodyData bodyData) {
         super(owner);
         _bodyData = bodyData;
@@ -47,7 +54,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         return _body.getPosition();
     }
 
-    @Override
+
     public BodyComponent setPosition(Vec2 position) {
         _body.setTransform(position, _body.getAngle());
         _position = position;
@@ -81,8 +88,8 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     }
 
     @Override
-    public void display() {
-
+    public void display(PGraphics graphics) {
+        _view.display(graphics, this);
     }
 
     @Override
@@ -104,12 +111,12 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     }
 
     public void onCollision(PhysicsBodyComponent other) {
-        if (_onColision != null) {
-            String sampleName = _onColision.getSampleName();
-            if (sampleName != null && !sampleName.isEmpty()) {
-                AudioManager.getInstance().play(sampleName);
-            }
-        }
+//        if (_onColision != null) {
+//            String sampleName = _onColision.getSampleName();
+//            if (sampleName != null && !sampleName.isEmpty()) {
+//                AudioManager.getInstance().play(sampleName);
+//            }
+//        }
     }
 
     private void updateBodyData() {
@@ -135,10 +142,11 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     }
 
     //we need to recreate the body on deserialization
+    //this function creates the body based on the data stored in the _bodyData variable
     private void createBody() {
         switch (_bodyData.shapeType) {
             case CIRCLE:
-                _body = PhysicsManager.getInstance().createCircle(new Vec2(_bodyData.x, _bodyData.y), 1);
+                _body = PhysicsManager.getInstance().createCircle(new Vec2(_bodyData.x, _bodyData.y), _bodyData.circleRadius);
                 break;
             case POLYGON:
                 _body = PhysicsManager.getInstance().createPolygon(_bodyData);
@@ -174,5 +182,14 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         } else {
             _body.setType(BodyType.DYNAMIC);
         }
+    }
+
+    @InspectableProperty.SetterFor("Mass")
+    public void setMass(float mass) {
+        _mass = mass;
+        MassData massData = new MassData();
+        _body.getMassData(massData);
+        massData.mass = mass;
+        _body.setMassData(massData);
     }
 }

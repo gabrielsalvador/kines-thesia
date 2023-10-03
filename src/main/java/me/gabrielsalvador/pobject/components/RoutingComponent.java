@@ -3,11 +3,17 @@ package me.gabrielsalvador.pobject.components;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
+import processing.core.PGraphics;
 
 public class RoutingComponent extends Component{
     @Override
-    public void display() {
+    public void display(PGraphics graphics) {
 
+    }
+
+    @Override
+    public String getName() {
+        return "Routing";
     }
 
     public enum RouterType{

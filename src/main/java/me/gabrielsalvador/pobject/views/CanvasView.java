@@ -14,39 +14,47 @@ import processing.core.PGraphics;
 public class CanvasView implements ControllerView<CanvasController> {
 
     private final ArrayList<PObject> pObjects;
+    private final CanvasController controller;
 
 
 
-    /* Objects that are not part of the physics simulation , they are display only as aid for some features*/
-    private final ArrayList<View> gizmos;
 
-    public CanvasView() {
+    public CanvasView(CanvasController controller) {
         pObjects = AppState.getInstance().getPObjects();
-        gizmos = AppController.getInstance().getGizmos();
+        this.controller = controller;
     }
 
 
     @Override
     public void display(PGraphics graphics, CanvasController controller) {
-      graphics.pushStyle();
-      graphics.strokeWeight(1);
-        
+        graphics.pushStyle();
+        graphics.strokeWeight(1);
 
-      if (controller.isActive()) {
-        graphics.stroke(127);
-      } else {
-        graphics.stroke(0);
-      }
-      graphics.rect(0,0,controller.getWidth(),controller.getHeight());
 
-      /*draw pobjects*/
-        for (PObject pObject : pObjects) {
-            View<?> view = pObject.getView();
-            if(view != null) view.display(graphics);
+        if (controller.isActive()) {
+            graphics.stroke(127);
+        } else {
+            graphics.stroke(0);
         }
-      graphics.popStyle();
+        graphics.rect(0, 0, controller.getWidth(), controller.getHeight());
 
-        gizmos.forEach(gizmo -> gizmo.display(graphics));
+        graphics.popStyle();
+        /*draw pobjects*/
+        graphics.translate(controller.getXOff(), controller.getYOff());
+        for (PObject pObject : pObjects) {
+            graphics.pushStyle();
+            if(pObject.getIsSelected()) {
+                graphics.stroke(255, 0, 0);
+            } else {
+                graphics.stroke(255);
+            }
+            pObject.display(graphics);
+            graphics.popStyle();
+        }
+
+
+
+
     }
 
 

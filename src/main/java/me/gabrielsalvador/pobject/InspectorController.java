@@ -9,15 +9,12 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class InspectorController extends Group implements PropertyChangeListener {
 
     private static final int IDENTATION = 10 ;
     private final int DEFAULT_HEIGHT = 30;
-    private PObject _object;
 
     public InspectorController(ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);
@@ -112,6 +109,8 @@ public class InspectorController extends Group implements PropertyChangeListener
                     .setGroup(this)
                     .setValue((Boolean) property.getValue());
 
+            toggle.getCaptionLabel().hide();
+
             setupCheckboxCallback(toggle, property);
 
             return new Controller[]{toggle};
@@ -125,12 +124,15 @@ public class InspectorController extends Group implements PropertyChangeListener
             setupNumberboxCallback(numberbox, property);
 
             return new Controller[]{numberbox};
-        } else if (type == Float.class) {
+        } else if (type == Float.class || type == float.class) {
             Numberbox numberbox = cp5.addNumberbox(property.getName())
                     .setPosition(0, 0)
                     .setSize(100, 20)
                     .setGroup(this)
                     .setValue((Float) property.getValue());
+
+            setupNumberboxCallback(numberbox, property);
+
             return new Controller[]{numberbox};
         } else if (type == String.class) {
             Textfield textfield = cp5.addTextfield(property.getName())

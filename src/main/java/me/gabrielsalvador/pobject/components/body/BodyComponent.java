@@ -20,10 +20,10 @@ public abstract class BodyComponent extends Component {
         Vec2 position = getPosition();
         return PhysicsManager.getInstance().coordWorldToPixels(position.x, position.y);
     }
-    public BodyComponent setPosition(Vec2 position){
-        _position = position;
-        return this;
-    }
+//    public BodyComponent setPosition(Vec2 position){
+//        _position = position;
+//        return this;
+//    }
 
     public AbstractShape getShape(){
         return _shape;
@@ -34,12 +34,18 @@ public abstract class BodyComponent extends Component {
     }
 
 
+
     public BodyComponent setPixelPosition(Vec2 vec2) {
         _position = PhysicsManager.getInstance().coordPixelsToWorld(vec2.x, vec2.y);
         return this;
+    }
+    public void setPixelPosition(int x, int y) {
+        setPixelPosition(new Vec2(x, y));
     }
 
 
 
    public abstract void moveByPixels(Vec2 amount);
+
+
 }
