@@ -5,6 +5,7 @@ import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
 import me.gabrielsalvador.pobject.components.body.shape.JShape;
 import me.gabrielsalvador.pobject.views.PhysicsBodyView;
+import org.jbox2d.collision.shapes.MassData;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
@@ -22,7 +23,9 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     @InspectableProperty(displayName = "Static")
     private boolean _isStatic = false;
 
-
+    @InspectableProperty(displayName = "Mass")
+    private float _mass = 1;
+    
     public PhysicsBodyComponent(PObject owner){
         super(owner);
         if(_bodyData == null){
@@ -179,5 +182,14 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         } else {
             _body.setType(BodyType.DYNAMIC);
         }
+    }
+
+    @InspectableProperty.SetterFor("Mass")
+    public void setMass(float mass) {
+        _mass = mass;
+        MassData massData = new MassData();
+        _body.getMassData(massData);
+        massData.mass = mass;
+        _body.setMassData(massData);
     }
 }

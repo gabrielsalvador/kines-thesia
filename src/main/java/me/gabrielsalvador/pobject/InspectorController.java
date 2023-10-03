@@ -124,12 +124,15 @@ public class InspectorController extends Group implements PropertyChangeListener
             setupNumberboxCallback(numberbox, property);
 
             return new Controller[]{numberbox};
-        } else if (type == Float.class) {
+        } else if (type == Float.class || type == float.class) {
             Numberbox numberbox = cp5.addNumberbox(property.getName())
                     .setPosition(0, 0)
                     .setSize(100, 20)
                     .setGroup(this)
                     .setValue((Float) property.getValue());
+
+            setupNumberboxCallback(numberbox, property);
+
             return new Controller[]{numberbox};
         } else if (type == String.class) {
             Textfield textfield = cp5.addTextfield(property.getName())
