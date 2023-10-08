@@ -8,9 +8,9 @@ import org.jbox2d.common.Vec2;
 
 public abstract class BodyComponent extends Component {
 
+    @PObject.InspectableProperty(displayName = "Position")
     protected Vec2 _position;
     private AbstractShape _shape;
-
 
     public BodyComponent(PObject owner){
         super(owner);
@@ -46,6 +46,12 @@ public abstract class BodyComponent extends Component {
 
 
    public abstract void moveByPixels(Vec2 amount);
+
+    @PObject.InspectableProperty.SetterFor("Position")
+    public BodyComponent setPosition(Vec2 position){
+        _position = position;
+        return this;
+    }
 
 
 }

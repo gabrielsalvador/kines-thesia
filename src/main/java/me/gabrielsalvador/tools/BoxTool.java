@@ -40,9 +40,8 @@ public class BoxTool extends Tool{
     }
 
     @Override
-    public void onDrag(PObject pObject) {
+    public void onDrag(PObject pObject, int[] mousePosition) {
         _finalPosition = new Vec2(getCanvas().getMousePosition()[0], getCanvas().getMousePosition()[1]);
-
     }
 
     @Override

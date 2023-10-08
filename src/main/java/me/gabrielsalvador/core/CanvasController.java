@@ -89,7 +89,8 @@ public class CanvasController extends Controller<CanvasController> implements Re
     @Override
     public void onDrag() {
         //the order of these two lines od code is important, if you update the hovered object first then if when you drag, you drag the mouse out of the object, the object will  stop being hovered mid drag
-        _toolManager.getCurrentTool().onDrag(_currentlyHovering);
+        int[] mousePosition = getMousePosition();
+        _toolManager.getCurrentTool().onDrag(_currentlyHovering,mousePosition);
         updateHoveredObject();
     }
 

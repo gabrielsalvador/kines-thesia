@@ -38,7 +38,7 @@ public class AddTool extends Tool {
 
 
     @Override
-    public void onDrag(PObject pObject) {
+    public void onDrag(PObject pObject, int[] mousePosition) {
 
     }
 

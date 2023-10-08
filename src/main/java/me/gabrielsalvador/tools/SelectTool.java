@@ -3,6 +3,7 @@ package me.gabrielsalvador.tools;
 import java.util.ArrayList;
 
 import controlP5.ControlP5;
+import me.gabrielsalvador.Config;
 import me.gabrielsalvador.core.*;
 import me.gabrielsalvador.pobject.PObject;
 import org.jbox2d.common.Vec2;
@@ -18,10 +19,13 @@ public class SelectTool extends Tool {
     private final Vec2 _selectionStart = null;
     private final Vec2 _selectionEnd = null;
     private final boolean _dragging = false;
-    private final Vec2 _initialDragPosition = null;
+    private Vec2 _initialDragPosition = null;
+    private boolean _isDragging = false;
 
     public SelectTool() {
         _cp5 = Sinesthesia.getInstance().getCP5();
+        _cursorIcon = Sinesthesia.getInstance().loadImage("icons/" + Config.SELECT_CURSOR_ARROW_ICON);
+        _cursorIcon.resize(32, 32);
     }
 
     @Override
@@ -35,14 +39,18 @@ public class SelectTool extends Tool {
 
     @Override
     public void onPressed(PObject pObject, int[] mousePosition) {
-        if (pObject != null){
-            select(pObject);
-        }
-        else{
+        clearSelection();
+        if (pObject != null) {
+            if (!selectedObjects.contains(pObject)) {
+                select(pObject);
+            }
+            _isDragging = selectedObjects.contains(pObject);
+            _initialDragPosition = _isDragging ? new Vec2(mousePosition[0], mousePosition[1]) : null;
+        } else {
             clearSelection();
         }
-
     }
+
 
     private CanvasController getCanvas() {
         if (_canvas == null) {
@@ -52,12 +60,24 @@ public class SelectTool extends Tool {
     }
 
     @Override
-    public void onDrag(PObject pObject) {
+    public void onDrag(PObject pObject, int[] mousePosition) {
+        if (_isDragging && _initialDragPosition != null) {
+            Vec2 currentDragPosition = new Vec2(mousePosition[0], mousePosition[1]);
+            Vec2 dragDelta = currentDragPosition.sub(_initialDragPosition);
 
+            for (PObject selectedObject : selectedObjects) {
+                Vec2 currentPosition = selectedObject.getBodyComponent().getPixelPosition();
+                selectedObject.getBodyComponent().setPixelPosition(currentPosition.add(dragDelta));
+            }
+
+            _initialDragPosition = currentDragPosition;
+        }
     }
 
-    @Override
+
     public void draw(PGraphics graphics) {
+        super.draw(graphics);
+
         // Draw the selection square if it exists
         if (_selectionStart != null && _selectionEnd != null) {
             graphics.pushStyle();
@@ -70,6 +90,8 @@ public class SelectTool extends Tool {
 
     @Override
     public void onRelease(PObject pObject) {
+        _isDragging = false;
+        _initialDragPosition = null;
 
     }
 

@@ -19,6 +19,7 @@ public interface Config {
     int THEME_COLOR_SELECTED = Color.rgbToInt(255,123,244);
     int THEME_COLOR_ROUTING_CONNECTION = Color.rgbToInt(95,207,249);
     float PHYSICS_NOTE_DEFAULT_SIZE = 3;
+    String SELECT_CURSOR_ARROW_ICON = "selectArrow.png";
 
 
     class Shortcuts {
