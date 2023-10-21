@@ -4,16 +4,20 @@ import java.util.ArrayList;
 
 import controlP5.ControlP5;
 import me.gabrielsalvador.Config;
+import me.gabrielsalvador.ResourceManager;
 import me.gabrielsalvador.core.*;
 import me.gabrielsalvador.pobject.PObject;
 import org.jbox2d.common.Vec2;
+import processing.core.PApplet;
 import processing.core.PGraphics;
+import processing.core.PImage;
 import processing.event.KeyEvent;
 import me.gabrielsalvador.utils.MathUtils;
 
 public class SelectTool extends Tool {
 
     private final ControlP5 _cp5;
+    private final PApplet _app = Sinesthesia.getInstance();
     private CanvasController _canvas;
     private final ArrayList<PObject> selectedObjects = new ArrayList<>();
     private final Vec2 _selectionStart = null;
@@ -22,10 +26,11 @@ public class SelectTool extends Tool {
     private Vec2 _initialDragPosition = null;
     private boolean _isDragging = false;
 
+
+
     public SelectTool() {
         _cp5 = Sinesthesia.getInstance().getCP5();
-        _cursorIcon = Sinesthesia.getInstance().loadImage("icons/" + Config.SELECT_CURSOR_ARROW_ICON);
-        _cursorIcon.resize(32, 32);
+        
     }
 
     @Override
@@ -72,6 +77,17 @@ public class SelectTool extends Tool {
 
             _initialDragPosition = currentDragPosition;
         }
+    }
+
+    @Override
+    public PImage getCursorIcon() {
+
+        if(_cp5.isShiftDown()){
+            return ResourceManager.getInstance().getIcon(Config.SELECT_CURSOR_ADD_ICON);
+        }else {
+            return ResourceManager.getInstance().getIcon(Config.SELECT_CURSOR_ARROW_ICON);
+        }
+
     }
 
 

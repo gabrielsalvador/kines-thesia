@@ -15,7 +15,7 @@ import java.io.Serializable;
 public abstract class Tool implements Serializable {
     private String _name;
     private String _description;
-    protected PImage _cursorIcon;
+
     private final PApplet _papplet = Sinesthesia.getInstance();
 
 
@@ -44,9 +44,12 @@ public abstract class Tool implements Serializable {
 
     public abstract void onDrag(PObject pObject, int[] mousePosition);
 
+    public abstract PImage getCursorIcon();
     public void draw(PGraphics graphics){
-        if(_cursorIcon != null){
-            _papplet.cursor(_cursorIcon, 0,0);
+
+        PImage cursorIcon = getCursorIcon();
+        if(cursorIcon != null){
+            _papplet.cursor(cursorIcon, 0,0);
         }
     }
 }

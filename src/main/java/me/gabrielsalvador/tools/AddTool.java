@@ -8,6 +8,7 @@ import processing.event.KeyEvent;
 public class AddTool extends Tool {
 
     public AddTool() {
+
         
     }
 
@@ -40,6 +41,11 @@ public class AddTool extends Tool {
     @Override
     public void onDrag(PObject pObject, int[] mousePosition) {
 
+    }
+
+    @Override
+    public PImage getCursorIcon() {
+        return null;
     }
 
     @Override

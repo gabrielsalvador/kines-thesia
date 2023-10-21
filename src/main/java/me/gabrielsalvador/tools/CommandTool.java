@@ -11,6 +11,7 @@ import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.pobject.*;
 import processing.core.PApplet;
 import processing.core.PGraphics;
+import processing.core.PImage;
 import processing.event.KeyEvent;
 
 @SkipProcessing
@@ -64,6 +65,11 @@ public class CommandTool extends Tool {
     @Override
     public void onDrag(PObject pObject,int[] mousePosition) {
 
+    }
+
+    @Override
+    public PImage getCursorIcon() {
+        return null;
     }
 
     @Override
