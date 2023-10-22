@@ -1,6 +1,8 @@
 package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PObjectPreset;
+import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.views.View;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -110,7 +112,16 @@ public class AppController {
 
     public PObject createPObject() {
         PObject pObject = new PObject();
-        addPObjectImmiadiately(pObject);
+        return pObject;
+    }
+    public PObject createPObject(PObjectPreset preset) {
+        PObject pObject = new PObject();
+        ArrayList<Class<? extends Component>> components =  preset.getComponentList();
+        for (Class<? extends Component> clazz : components) {
+            Component instance = Component.instantiate(clazz);
+
+            pObject.<Component>addComponent((Class<Component>) clazz, instance);
+        }
         return pObject;
     }
 

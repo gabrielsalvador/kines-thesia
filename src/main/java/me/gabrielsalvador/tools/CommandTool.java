@@ -103,8 +103,11 @@ public class CommandTool extends Tool {
                 if(args[1].equals("keyboard")){
 
                 }else if(args[1].equals("emitter")) {
+                    AppController app = AppController.getInstance();
+                    app.createPObject();
 
-                }else if(args[1].equals("block")) {
+                }
+                else if(args[1].equals("block")) {
 
                 }
                 else if (args[1].equals("esystem")){

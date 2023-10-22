@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,15 @@ public abstract class  Component implements Serializable {
     transient private  ArrayList<PObjectProperty> cachedProperties = new ArrayList<>();
     protected PObject _owner;
     transient protected View<Component> _view;
+
+    public static Component instantiate(Class<? extends Component> clazz) {
+        try {
+            return clazz.getDeclaredConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public Component setView(View<Component> view) {
         _view = view;
