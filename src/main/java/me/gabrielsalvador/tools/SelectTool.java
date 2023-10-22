@@ -3,13 +3,12 @@ package me.gabrielsalvador.tools;
 import java.util.ArrayList;
 import controlP5.ControlP5;
 import me.gabrielsalvador.Config;
-import me.gabrielsalvador.ResourceManager;
 import me.gabrielsalvador.core.*;
 import org.jbox2d.common.Vec2;
 import me.gabrielsalvador.pobject.PObject;
 import processing.core.PGraphics;
-import processing.core.PImage;
 import processing.event.KeyEvent;
+
 
 
 public class SelectTool extends Tool {
@@ -21,18 +20,27 @@ public class SelectTool extends Tool {
     private final Vec2 _selectionEnd = null;
     private Vec2 _initialDragPosition = null;
     private boolean _isDragging = false;
+    
+    {
+        getModes().add(new ToolMode("Normal").setIcon(Config.SELECT_CURSOR_ARROW_ICON));
+        getModes().add(new ToolMode("SelectMultiple").setIcon(Config.SELECT_CURSOR_ADD_ICON).setModifierKeys(KeyEvent.SHIFT));
 
+        setCurrentMode(getModes().get(0));
+    }
+    
+    
 
 
     public SelectTool() {
-        _cp5 = Sinesthesia.getInstance().getCP5();
+        _cp5 = Sinesthesia.getInstance().getCP5();   
         
     }
 
     @Override
     public void keyEvent(KeyEvent keyEvent) {
-
+       
     }
+    
 
     @Override
     public void onClick(PObject pObject) {
@@ -40,7 +48,10 @@ public class SelectTool extends Tool {
 
     @Override
     public void onPressed(PObject pObject, int[] mousePosition) {
-        clearSelection();
+        if(getCurrentMode().getName().equals("Normal")){
+            clearSelection();
+        }
+
         if (pObject != null) {
             if (!selectedObjects.contains(pObject)) {
                 select(pObject);
@@ -75,16 +86,7 @@ public class SelectTool extends Tool {
         }
     }
 
-    @Override
-    public PImage getCursorIcon() {
 
-        if(_cp5.isShiftDown()){
-            return ResourceManager.getInstance().getIcon(Config.SELECT_CURSOR_ADD_ICON);
-        }else {
-            return ResourceManager.getInstance().getIcon(Config.SELECT_CURSOR_ARROW_ICON);
-        }
-
-    }
 
 
     public void draw(PGraphics graphics) {
@@ -126,5 +128,8 @@ public class SelectTool extends Tool {
         }
         AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
     }
+
+
+
 
 }

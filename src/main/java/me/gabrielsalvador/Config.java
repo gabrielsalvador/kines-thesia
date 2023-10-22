@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface Config {
     String RESOURCES_PATH = "src/main/resources";
-    String ICON_FOLDER_PATH = RESOURCES_PATH + "/icons";
+    String ICON_FOLDER_PATH = RESOURCES_PATH + "/icons/";
     Map<Class<? extends Tool>, String> toolIconNames = Map.of(
             SelectTool.class, "selectTool.png",
             AddTool.class,"addTool.png");
