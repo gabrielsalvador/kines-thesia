@@ -27,7 +27,7 @@ target/
 *.DS_Store
 
 
- appState.ser
+appState.ser
 
 .cosine
 .idea/workspace.xml
