@@ -1,28 +1,24 @@
 package me.gabrielsalvador.tools;
 
 import java.util.ArrayList;
-
 import controlP5.ControlP5;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.ResourceManager;
 import me.gabrielsalvador.core.*;
-import me.gabrielsalvador.pobject.PObject;
 import org.jbox2d.common.Vec2;
-import processing.core.PApplet;
+import me.gabrielsalvador.pobject.PObject;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.event.KeyEvent;
-import me.gabrielsalvador.utils.MathUtils;
+
 
 public class SelectTool extends Tool {
 
     private final ControlP5 _cp5;
-    private final PApplet _app = Sinesthesia.getInstance();
     private CanvasController _canvas;
     private final ArrayList<PObject> selectedObjects = new ArrayList<>();
     private final Vec2 _selectionStart = null;
     private final Vec2 _selectionEnd = null;
-    private final boolean _dragging = false;
     private Vec2 _initialDragPosition = null;
     private boolean _isDragging = false;
 
