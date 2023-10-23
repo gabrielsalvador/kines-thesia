@@ -24,14 +24,7 @@ public abstract class  Component implements Serializable {
     protected PObject _owner;
     transient protected View<Component> _view;
 
-    public static Component instantiate(Class<? extends Component> clazz) {
-        try {
-            return clazz.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+
 
     public Component setView(View<Component> view) {
         _view = view;

@@ -8,6 +8,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 
@@ -17,7 +19,7 @@ public class AppController {
     private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
     private final ConcurrentLinkedQueue<Runnable> _modificationsQueue = new ConcurrentLinkedQueue<Runnable>();
-    private final InputManager _inputManager = InputManager.getInstance();
+
 
     private AppController() {
         _appState = AppState.getInstance();
@@ -116,12 +118,19 @@ public class AppController {
     }
     public PObject createPObject(PObjectPreset preset) {
         PObject pObject = new PObject();
-        ArrayList<Class<? extends Component>> components =  preset.getComponentList();
-        for (Class<? extends Component> clazz : components) {
-            Component instance = Component.instantiate(clazz);
+        Set<Map.Entry<Class<? extends Component>, Class<? extends Component>>> components = preset.getComponentList().entrySet();
 
-            pObject.<Component>addComponent((Class<Component>) clazz, instance);
+        for (Map.Entry<Class<? extends Component>, Class<? extends Component>> entry : components) {
+            Class<? extends Component> key = entry.getKey();
+            Class<? extends Component> value = entry.getValue();
+            try {
+                Component componentInstance = value.getDeclaredConstructor(PObject.class).newInstance(pObject);
+                pObject.addComponent((Class<Component>) key, componentInstance);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
         return pObject;
     }
 

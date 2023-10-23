@@ -25,6 +25,7 @@ import processing.core.PFont;
 public class Sinesthesia extends PApplet {
 
     private static Sinesthesia _instance;
+    private InputManager _inputManager;
     private ControlP5 _cp5;
     private Clock _clock;
 
@@ -58,6 +59,7 @@ public class Sinesthesia extends PApplet {
         background(0);
         _cp5 = new ControlP5(this);
         _clock = Clock.getInstance();
+        _inputManager = InputManager.getInstance();
 
         smooth();
         PFont myFont = createFont("fonts/CascadiaCode_VTT.ttf", 12, true);

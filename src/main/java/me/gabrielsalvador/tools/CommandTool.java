@@ -104,7 +104,9 @@ public class CommandTool extends Tool {
 
                 }else if(args[1].equals("emitter")) {
                     AppController app = AppController.getInstance();
-                    app.createPObject();
+                    PObject p = app.createPObject();
+                    app.addPObject(p);
+
 
                 }
                 else if(args[1].equals("block")) {
