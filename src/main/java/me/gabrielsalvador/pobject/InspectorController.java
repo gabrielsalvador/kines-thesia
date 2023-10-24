@@ -4,6 +4,7 @@ import controlP5.*;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.utils.Color;
+import org.jbox2d.common.Vec2;
 import processing.core.PVector;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -91,6 +92,7 @@ public class InspectorController extends Group implements PropertyChangeListener
             controllers[i].setWidth(container.getWidth()/2/controllers.length);
             controllers[i].setPosition(container.getWidth()/2 + (container.getWidth()/2/controllers.length) * (i), 0);
             controllers[i].setGroup(container);
+            controllers[i].getCaptionLabel().hide();
         }
 
         /* Add the group to the inspector */
@@ -102,6 +104,7 @@ public class InspectorController extends Group implements PropertyChangeListener
     }
 
     private Controller[] buildControllerForProperty(Group container, PObjectProperty property, Class<?> type) {
+        System.out.println("building controller for " + property.getName() + " of type " + type.getName());
         if (type == boolean.class) {
             Toggle toggle = cp5.addToggle(property.getName())
                     .setPosition(0, 0)
@@ -169,7 +172,27 @@ public class InspectorController extends Group implements PropertyChangeListener
             return controllers;
 
         }
-        else if(Component.class.isAssignableFrom(type)){
+        else if (type.equals(Vec2.class)){
+
+            Vec2 vector = (Vec2) property.getValue();
+            float[] values = new float[]{vector.x,vector.y};
+
+            Controller<Numberbox>[] controllers = new Controller[values.length];
+            for (int i = 0; i < values.length; i++) {
+                Numberbox numberbox = cp5.addNumberbox(property.getName() + i)
+                        .setPosition(0, 0)
+                        .setSize((container.getWidth()/2) / values.length, 20)
+                        .setValue(values[i]);
+                numberbox.getCaptionLabel().hide();
+
+                controllers[i] = numberbox;
+            }
+
+            setupVec2Callback(controllers,property);
+
+            return controllers;
+        }
+        else if(Component.class.isAssignableFrom(type)){ // if the property is a reference to a component
             ScrollableList list = cp5.addScrollableList(property.getName())
                     .setPosition(0, 0)
                     .setSize(100, 100)
@@ -193,7 +216,6 @@ public class InspectorController extends Group implements PropertyChangeListener
                     }
                 }
             }
-
 
 
             setupScrollableListCallback(list,property);
@@ -268,6 +290,22 @@ public class InspectorController extends Group implements PropertyChangeListener
                 }
             }
         });
+    }
+
+    private void setupVec2Callback(Controller<Numberbox>[] numberboxes,PObjectProperty property){
+        //this function will setup the callback on numberbox to update the vector property
+        for (int i = 0; i < numberboxes.length; i++) {
+            Controller<Numberbox> numberbox = numberboxes[i];
+            numberbox.addCallback(new CallbackListener() {
+                @Override
+                public void controlEvent(CallbackEvent callbackEvent) {
+                    if (callbackEvent.getAction() == ControlP5.ACTION_BROADCAST) {
+                        Vec2 vec2 = new Vec2(numberboxes[0].getValue(),numberboxes[1].getValue());
+                        property.setValue(vec2);
+                    }
+                }
+            });
+        }
     }
 
 }

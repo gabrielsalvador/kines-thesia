@@ -45,6 +45,7 @@ public class ToolMode {
     public PImage getCursorIcon() {
         return _cursorIcon;
     }
+
     public ToolMode setIcon(String path) {
         PApplet papplet = Sinesthesia.getInstance();
         _cursorIcon = papplet.loadImage(Config.ICON_FOLDER_PATH + path);

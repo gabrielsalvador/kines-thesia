@@ -14,6 +14,7 @@ public class PObjectProperty implements Serializable {
     private final Class<?> type;
 
     private Method setter;
+    private Method getter;
 
 
     public PObjectProperty(Component owner, String name, Class<?> type) {
@@ -29,8 +30,15 @@ public class PObjectProperty implements Serializable {
 
 
     public Object getValue() {
-
-        return _value;
+        Object value = null;
+        if(getter != null) {
+            try {
+                return getter.invoke(_owner);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return value;
     }
 
     public Class<?> getType() {
@@ -62,4 +70,8 @@ public class PObjectProperty implements Serializable {
         return this;
     }
 
+    public PObjectProperty setGetter(Method method) {
+        getter = method;
+        return this;
+    }
 }

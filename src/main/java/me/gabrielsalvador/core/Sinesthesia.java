@@ -81,14 +81,9 @@ public class Sinesthesia extends PApplet {
             e.printStackTrace();
         }
 
-//        loadAppState();
+        loadAppState();
 
 
-        PObject p = AppController.getInstance().addPObject(new PObject());
-        p.getBodyComponent().setPixelPosition(50,50);
-
-        PObject p2 = AppController.getInstance().addPObject(new PObject());
-        p2.addComponent(BodyComponent.class, new PhysicsBodyComponent(p2));
 
 
         debugInfo = getCP5().addTextarea("debugInfo")

@@ -39,7 +39,6 @@ public class PObject implements Serializable {
             child.remove();
         }
         _children.clear();
-        _properties.clear();
         _components.clear();
         AppController.getInstance().enqueueRemovePObject(this);
 

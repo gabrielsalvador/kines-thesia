@@ -10,8 +10,8 @@ public class ResourceManager {
     
     HashMap<String, PImage> icons = new HashMap<>();
     {
-        icons.put(Config.SELECT_CURSOR_ARROW_ICON, null);
-        icons.put(Config.SELECT_CURSOR_ADD_ICON, null);
+        icons.put(Config.SELECTTOOL_CURSOR_ARROW_ICON, null);
+        icons.put(Config.SELECTTOOL_CURSOR_ADD_ICON, null);
     }
     
     

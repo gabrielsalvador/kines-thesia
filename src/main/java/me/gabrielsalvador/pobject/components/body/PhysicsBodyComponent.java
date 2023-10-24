@@ -42,7 +42,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     }
 
     public PhysicsBodyComponent(PObject owner,BodyData bodyData) {
-        super(owner);
+        this(owner);
         _bodyData = bodyData;
         createBody();
     }
@@ -57,7 +57,6 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     public BodyComponent setPosition(Vec2 position) {
         _body.setTransform(position, _body.getAngle());
-        _position = position;
         return this;
     }
 
@@ -128,6 +127,10 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         _bodyData.angularVelocity = _body.getAngularVelocity();
         _bodyData.bodyType = _body.getType();
 
+    }
+
+    private BodyData getBodyData(){
+        return _bodyData;
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {

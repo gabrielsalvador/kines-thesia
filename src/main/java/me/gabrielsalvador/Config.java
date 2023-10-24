@@ -21,9 +21,9 @@ public interface Config {
     float PHYSICS_NOTE_DEFAULT_SIZE = 3;
 
 
-    String SELECT_CURSOR_ARROW_ICON = "selectNormal.png";
-    String SELECT_CURSOR_ADD_ICON = "selectAdd.png";
-
+    String SELECTTOOL_CURSOR_ARROW_ICON = "selectNormal.png";
+    String SELECTTOOL_CURSOR_ADD_ICON = "selectAdd.png";
+    String ADDTOOL_CURSOR_ICON = "addCursor.png";
 
     class Shortcuts {
         public static final char CLONE = 'c';

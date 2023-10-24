@@ -58,6 +58,12 @@ public class HologramBody extends BodyComponent implements Serializable {
 
     }
 
+    @Override
+    public BodyComponent setPosition(Vec2 position) {
+        _position = position;
+        return this;
+    }
+
 
     @Override
     public AbstractShape getShape() {

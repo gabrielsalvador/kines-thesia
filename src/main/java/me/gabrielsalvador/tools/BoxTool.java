@@ -1,10 +1,17 @@
 package me.gabrielsalvador.tools;
 
 import controlP5.ControlP5;
+import me.gabrielsalvador.Config;
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
+import me.gabrielsalvador.pobject.components.body.BodyData;
+import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
+import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.BodyType;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.event.KeyEvent;
@@ -14,6 +21,8 @@ public class BoxTool extends Tool{
     private Vec2 _finalPosition;
     private CanvasController _canvas;
     private final ControlP5 _cp5;
+
+
 
     public BoxTool() {
         _cp5 = Sinesthesia.getInstance().getCP5();
@@ -37,6 +46,28 @@ public class BoxTool extends Tool{
 
     @Override
     public void onRelease(PObject pObject) {
+        if(_initialPosition == null || _finalPosition == null){
+            return;
+        }
+
+        //add PObject to the canvas
+        PObject pObject1 = new PObject();
+        BodyData bodyData = new BodyData();
+        bodyData.shapeType = ShapeType.POLYGON;
+        bodyData.bodyType = BodyType.DYNAMIC;
+        bodyData.vertices = new Vec2[4];
+        bodyData.vertices[0] = new Vec2(0,0);
+        bodyData.vertices[1] = new Vec2(_finalPosition.x - _initialPosition.x,0);
+        bodyData.vertices[2] = new Vec2(_finalPosition.x - _initialPosition.x,_finalPosition.y - _initialPosition.y);
+        bodyData.vertices[3] = new Vec2(0,_finalPosition.y - _initialPosition.y);
+
+        PhysicsBodyComponent physicsBody = new PhysicsBodyComponent(pObject1,bodyData);
+        physicsBody.setPixelPosition(new Vec2(_initialPosition.x,_initialPosition.y));
+        pObject1.addComponent(BodyComponent.class,physicsBody);
+        AppController.getInstance().addPObject(pObject1);
+
+        _initialPosition = null;
+        _finalPosition = null;
 
     }
 

@@ -104,7 +104,7 @@ public class CommandTool extends Tool {
 
                 }else if(args[1].equals("emitter")) {
                     AppController app = AppController.getInstance();
-                    PObject p = app.createPObject();
+                    PObject p = app.createPObject(new PObjectPreset.EmitterPreset());
                     app.addPObject(p);
 
 
