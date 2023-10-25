@@ -5,7 +5,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -40,7 +39,9 @@ public class PObject implements Serializable {
             child.remove();
         }
         _children.clear();
-        _properties.clear();
+        for(Component component : _components.values()){
+            component.remove();
+        }
         _components.clear();
         AppController.getInstance().enqueueRemovePObject(this);
 

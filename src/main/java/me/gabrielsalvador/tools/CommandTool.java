@@ -11,6 +11,7 @@ import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.pobject.*;
 import processing.core.PApplet;
 import processing.core.PGraphics;
+import processing.core.PImage;
 import processing.event.KeyEvent;
 
 @SkipProcessing
@@ -62,8 +63,13 @@ public class CommandTool extends Tool {
 
 
     @Override
-    public void onDrag(PObject pObject) {
+    public void onDrag(PObject pObject,int[] mousePosition) {
 
+    }
+
+    @Override
+    public PImage getCursorIcon() {
+        return null;
     }
 
     @Override
@@ -97,8 +103,13 @@ public class CommandTool extends Tool {
                 if(args[1].equals("keyboard")){
 
                 }else if(args[1].equals("emitter")) {
+                    AppController app = AppController.getInstance();
+                    PObject p = app.createPObject(new PObjectPreset.EmitterPreset());
+                    app.addPObject(p);
 
-                }else if(args[1].equals("block")) {
+
+                }
+                else if(args[1].equals("block")) {
 
                 }
                 else if (args[1].equals("esystem")){

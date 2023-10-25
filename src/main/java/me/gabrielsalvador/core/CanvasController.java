@@ -20,7 +20,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
     /* time elapsed since last frame */
     private long _lastTime = System.nanoTime();
     /* time accumulated since last physics step */
-    private final float _accumulator = 0.0f;
+    private float _accumulator = 0.0f;
     /* rate at which physics simulation moves forward */
     private final float _timeStep = 1.0f / 60.0f;
     private int xOff = 0;
@@ -83,13 +83,14 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
     @Override
     public void onMove() {
-        // updateHoveredObject();
+         updateHoveredObject();
     }
 
     @Override
     public void onDrag() {
         //the order of these two lines od code is important, if you update the hovered object first then if when you drag, you drag the mouse out of the object, the object will  stop being hovered mid drag
-        _toolManager.getCurrentTool().onDrag(_currentlyHovering);
+        int[] mousePosition = getMousePosition();
+        _toolManager.getCurrentTool().onDrag(_currentlyHovering,mousePosition);
         updateHoveredObject();
     }
 
@@ -123,6 +124,8 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
     private final float maxFrameTime = 1.0f / 15.0f;  // Limit frameTime to 1/15th of a second
 
+
+
     @Override
     public void draw(PGraphics graphics) {
         graphics.pushMatrix();
@@ -137,7 +140,12 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
         frameTime = Math.min(frameTime, maxFrameTime);  // Clamp frameTime to a maximum value
 
-        _physicsManager.step(frameTime / 2, 8, 3);
+        _accumulator += frameTime;
+
+        while (_accumulator >= _timeStep) {
+            _physicsManager.step(_timeStep, 8, 3);  // Assuming you adjust the step function to accept a timestep
+            _accumulator -= _timeStep;
+        }
 
         AppController.getInstance().applyModifications();
     }

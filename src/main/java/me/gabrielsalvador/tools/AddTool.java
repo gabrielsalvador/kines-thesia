@@ -1,5 +1,6 @@
 package me.gabrielsalvador.tools;
 
+import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
 import processing.core.PGraphics;
 import processing.core.PImage;
@@ -7,7 +8,14 @@ import processing.event.KeyEvent;
 
 public class AddTool extends Tool {
 
+    {
+        getModes().add(new ToolMode("Normal").setIcon(Config.ADDTOOL_CURSOR_ICON));
+
+        setCurrentMode(getModes().get(0));
+    }
+
     public AddTool() {
+
         
     }
 
@@ -38,13 +46,15 @@ public class AddTool extends Tool {
 
 
     @Override
-    public void onDrag(PObject pObject) {
+    public void onDrag(PObject pObject, int[] mousePosition) {
 
     }
 
+
+
     @Override
     public void draw(PGraphics graphics) {
-
+        super.draw(graphics);
     }
 
 

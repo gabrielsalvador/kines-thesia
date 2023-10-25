@@ -58,6 +58,12 @@ public class HologramBody extends BodyComponent implements Serializable {
 
     }
 
+    @Override
+    public BodyComponent setPosition(Vec2 position) {
+        _position = position;
+        return this;
+    }
+
 
     @Override
     public AbstractShape getShape() {
@@ -107,6 +113,11 @@ public class HologramBody extends BodyComponent implements Serializable {
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
         in.defaultReadObject();
         initialize();
+    }
+
+    @Override
+    public void remove() {
+        // no cleanup needed
     }
 
 }

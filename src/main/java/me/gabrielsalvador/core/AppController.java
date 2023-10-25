@@ -1,11 +1,15 @@
 package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PObjectPreset;
+import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.views.View;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 
@@ -15,7 +19,7 @@ public class AppController {
     private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
     private final ConcurrentLinkedQueue<Runnable> _modificationsQueue = new ConcurrentLinkedQueue<Runnable>();
-    private final InputManager _inputManager = InputManager.getInstance();
+
 
     private AppController() {
         _appState = AppState.getInstance();
@@ -110,7 +114,23 @@ public class AppController {
 
     public PObject createPObject() {
         PObject pObject = new PObject();
-        addPObjectImmiadiately(pObject);
+        return pObject;
+    }
+    public PObject createPObject(PObjectPreset preset) {
+        PObject pObject = new PObject();
+        Set<Map.Entry<Class<? extends Component>, Class<? extends Component>>> components = preset.getComponentList().entrySet();
+
+        for (Map.Entry<Class<? extends Component>, Class<? extends Component>> entry : components) {
+            Class<? extends Component> key = entry.getKey();
+            Class<? extends Component> value = entry.getValue();
+            try {
+                Component componentInstance = value.getDeclaredConstructor(PObject.class).newInstance(pObject);
+                pObject.addComponent((Class<Component>) key, componentInstance);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         return pObject;
     }
 

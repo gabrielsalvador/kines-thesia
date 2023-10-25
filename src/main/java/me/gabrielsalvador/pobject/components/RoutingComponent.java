@@ -16,6 +16,11 @@ public class RoutingComponent extends Component{
         return "Routing";
     }
 
+    @Override
+    public void remove() {
+
+    }
+
     public enum RouterType{
         ENDPOINT,
         CONNECTION
