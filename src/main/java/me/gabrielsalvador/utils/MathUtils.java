@@ -2,6 +2,8 @@ package me.gabrielsalvador.utils;
 
 import org.jbox2d.common.Vec2;
 
+import static processing.core.PApplet.dist;
+
 public class MathUtils {
     public static float distance(float x1, float y1, float x2, float y2) {
         return (float) java.lang.Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
@@ -14,5 +16,27 @@ public class MathUtils {
         float lowerRightY = java.lang.Math.max(selectionStart.y, selectionEnd.y);
 
         return position.x >= upperLeftX && position.x <= lowerRightX && position.y >= upperLeftY && position.y <= lowerRightY;
+    }
+
+    public static boolean isPointOnLine(float x1, float y1, float x2, float y2, float px, float py) {
+        // get distance from the point to the two ends of the line
+        float d1 = dist(px,py, x1,y1);
+        float d2 = dist(px,py, x2,y2);
+
+        // get the length of the line
+        float lineLen = dist(x1,y1, x2,y2);
+
+        // since floats are so minutely accurate, add
+        // a little buffer zone that will give collision
+        float buffer = 0.1f;    // higher # = less accurate
+
+        // if the two distances are equal to the line's
+        // length, the point is on the line!
+        // note we use the buffer here to give a range,
+        // rather than one #
+        if (d1+d2 >= lineLen-buffer && d1+d2 <= lineLen+buffer) {
+            return true;
+        }
+        return false;
     }
 }

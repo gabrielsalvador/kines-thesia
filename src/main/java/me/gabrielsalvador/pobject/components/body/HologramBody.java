@@ -115,4 +115,9 @@ public class HologramBody extends BodyComponent implements Serializable {
         initialize();
     }
 
+    @Override
+    public void remove() {
+        // no cleanup needed
+    }
+
 }

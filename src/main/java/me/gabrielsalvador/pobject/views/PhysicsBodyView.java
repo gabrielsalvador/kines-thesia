@@ -12,6 +12,8 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import processing.core.PGraphics;
 
+import static me.gabrielsalvador.utils.MathUtils.isPointOnLine;
+
 public class PhysicsBodyView implements View<Component> {
     private final PhysicsBodyComponent model;
 
@@ -41,14 +43,16 @@ public class PhysicsBodyView implements View<Component> {
 
                 break;
             case POLYGON:
-
                 PolygonShape polygon = (PolygonShape) body.getFixtureList().getShape();
                 graphics.pushMatrix();
                 graphics.translate(physicsBodyComponent.getPixelPosition().x, physicsBodyComponent.getPixelPosition().y);
+
+                // Apply the rotation
+                graphics.rotate(body.getAngle());
+
                 for (int i = 0; i < polygon.m_vertices.length-1; i++) {
                     graphics.line(polygon.m_vertices[i].x, polygon.m_vertices[i].y, polygon.m_vertices[i+1].x, polygon.m_vertices[i+1].y);
                 }
-
                 graphics.line(polygon.m_vertices[polygon.m_vertices.length-1].x, polygon.m_vertices[polygon.m_vertices.length-1].y, polygon.m_vertices[0].x, polygon.m_vertices[0].y);
                 graphics.popMatrix();
 
@@ -73,8 +77,21 @@ public class PhysicsBodyView implements View<Component> {
             return (mouseX >= pixelPosition.x - radius && mouseX <= pixelPosition.x + radius) &&
                     (mouseY >= pixelPosition.y - radius && mouseY <= pixelPosition.y + radius);
         }
+        if (shape.getType() == ShapeType.POLYGON){
+            PolygonShape polygon = (PolygonShape) body.getFixtureList().getShape();
+            for (int i = 0; i < polygon.m_vertices.length-1; i++) {
+                if (isPointOnLine(polygon.m_vertices[i].x, polygon.m_vertices[i].y, polygon.m_vertices[i+1].x, polygon.m_vertices[i+1].y, mouseX, mouseY)) {
+                    return true;
+                }
+            }
+            if (isPointOnLine(polygon.m_vertices[polygon.m_vertices.length-1].x, polygon.m_vertices[polygon.m_vertices.length-1].y, polygon.m_vertices[0].x, polygon.m_vertices[0].y, mouseX, mouseY)) {
+                return true;
+            }
+        }
 
 
         return false;
     }
+
+
 }

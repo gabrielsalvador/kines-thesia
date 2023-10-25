@@ -22,6 +22,11 @@ public class BoxTool extends Tool{
     private CanvasController _canvas;
     private final ControlP5 _cp5;
 
+    {
+        getModes().add(new ToolMode("Normal").setIcon(Config.BOXTOOL_CURSOR_ICON));
+
+        setCurrentMode(getModes().get(0));
+    }
 
 
     public BoxTool() {
@@ -64,6 +69,7 @@ public class BoxTool extends Tool{
         PhysicsBodyComponent physicsBody = new PhysicsBodyComponent(pObject1,bodyData);
         physicsBody.setPixelPosition(new Vec2(_initialPosition.x,_initialPosition.y));
         pObject1.addComponent(BodyComponent.class,physicsBody);
+        System.out.println("Body created at: " + physicsBody.getPosition().x + " " + physicsBody.getPosition().y);
         AppController.getInstance().addPObject(pObject1);
 
         _initialPosition = null;
@@ -76,13 +82,10 @@ public class BoxTool extends Tool{
         _finalPosition = new Vec2(getCanvas().getMousePosition()[0], getCanvas().getMousePosition()[1]);
     }
 
-    @Override
-    public PImage getCursorIcon() {
-        return null;
-    }
 
     @Override
     public void draw(PGraphics graphics) {
+        super.draw(graphics);
         if(_initialPosition != null && _finalPosition != null){
             graphics.pushStyle();
             graphics.noFill();

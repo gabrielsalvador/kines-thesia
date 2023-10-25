@@ -20,32 +20,26 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     /* used to serialize body data and recreate the body on deserialization */
     private BodyData _bodyData = null;
 
-    @InspectableProperty(displayName = "Static")
+
     private boolean _isStatic = false;
 
     @InspectableProperty(displayName = "Mass")
     private float _mass = 1;
 
-    public PhysicsBodyComponent(PObject owner){
+    public PhysicsBodyComponent(PObject owner, BodyData _bodyData) {
         super(owner);
-        if(_bodyData == null){
-            _bodyData = BodyData.getDefaultBodyData();
-        }
+        this._bodyData = _bodyData;
         createBody();
         setView(new PhysicsBodyView(this));
     }
 
 
     public PhysicsBodyComponent(PObject owner, Vec2 position) {
-        this(owner);
+        this(owner,BodyData.getDefaultBodyData());
         setPixelPosition(position);
     }
 
-    public PhysicsBodyComponent(PObject owner,BodyData bodyData) {
-        this(owner);
-        _bodyData = bodyData;
-        createBody();
-    }
+
 
 
 
@@ -138,6 +132,11 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         out.defaultWriteObject();
     }
 
+    @Override
+    public void remove() {
+        PhysicsManager.getInstance().getWorld().destroyBody(_body);
+    }
+
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
@@ -175,6 +174,10 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         return _body.getAngle();
     }
 
+    @InspectableProperty(displayName = "Static")
+    public boolean getIsStatic() {
+        return _isStatic;
+    }
     @InspectableProperty.SetterFor("Static")
     public void setIsStatic(boolean isStatic) {
         System.out.println("setIsStatic");

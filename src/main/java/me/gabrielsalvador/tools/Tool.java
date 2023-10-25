@@ -54,14 +54,14 @@ public abstract class Tool implements Serializable {
     public void draw(PGraphics graphics){
 
         
-        switchMode();// running this in the draw loop is makes the modes set in a latch way, for now its ok but later lets handle this in KeyEvents
+        checkIfShouldSwitchMode();// running this in the draw loop is makes the modes set in a latch way, for now its ok but later lets handle this in KeyEvents
         PImage cursorIcon = getCursorIcon();
         if(cursorIcon != null){
             _papplet.cursor(cursorIcon, 0,0);
         }
     }
 
-    private void switchMode(){
+    private void checkIfShouldSwitchMode(){
         setCurrentMode(getModes().get(0));
         for(ToolMode mode : getModes()){
             if(mode.shouldSwitchMode(Sinesthesia.getInstance())){

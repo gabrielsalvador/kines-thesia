@@ -120,6 +120,6 @@ public abstract class  Component implements Serializable {
     }
 
 
-
+    public abstract void remove();
 }
 

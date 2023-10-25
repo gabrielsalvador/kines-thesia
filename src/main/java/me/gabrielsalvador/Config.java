@@ -24,6 +24,7 @@ public interface Config {
     String SELECTTOOL_CURSOR_ARROW_ICON = "selectNormal.png";
     String SELECTTOOL_CURSOR_ADD_ICON = "selectAdd.png";
     String ADDTOOL_CURSOR_ICON = "addCursor.png";
+    String BOXTOOL_CURSOR_ICON = "boxCursor.png";
 
     class Shortcuts {
         public static final char CLONE = 'c';
