@@ -39,4 +39,19 @@ public class MathUtils {
         }
         return false;
     }
+
+    public static  Vec2 rotatePoint(float cx, float cy, float angle, Vec2 p) {
+        float s = (float) Math.sin(angle);
+        float c = (float) Math.cos(angle);
+
+        // translate point back to origin:
+        p = p.sub(new Vec2(cx, cy));
+
+        // rotate point
+        float xnew = p.x * c - p.y * s;
+        float ynew = p.x * s + p.y * c;
+
+        // translate point back:
+        return new Vec2(xnew + cx, ynew + cy);
+    }
 }

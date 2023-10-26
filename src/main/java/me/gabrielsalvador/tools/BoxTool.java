@@ -6,6 +6,7 @@ import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.BodyData;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
@@ -60,11 +61,14 @@ public class BoxTool extends Tool{
         BodyData bodyData = new BodyData();
         bodyData.shapeType = ShapeType.POLYGON;
         bodyData.bodyType = BodyType.DYNAMIC;
-        bodyData.vertices = new Vec2[4];
-        bodyData.vertices[0] = new Vec2(0,0);
-        bodyData.vertices[1] = new Vec2(_finalPosition.x - _initialPosition.x,0);
-        bodyData.vertices[2] = new Vec2(_finalPosition.x - _initialPosition.x,_finalPosition.y - _initialPosition.y);
-        bodyData.vertices[3] = new Vec2(0,_finalPosition.y - _initialPosition.y);
+        bodyData.vertices = PhysicsManager.getInstance().coordPixelsToWorld(
+                new Vec2[]{
+                        new Vec2(0,0),
+                        new Vec2(_finalPosition.x - _initialPosition.x,0),
+                        new Vec2(_finalPosition.x - _initialPosition.x,_finalPosition.y - _initialPosition.y),
+                        new Vec2(0,_finalPosition.y - _initialPosition.y)
+                }
+        );
 
         PhysicsBodyComponent physicsBody = new PhysicsBodyComponent(pObject1,bodyData);
         physicsBody.setPixelPosition(new Vec2(_initialPosition.x,_initialPosition.y));

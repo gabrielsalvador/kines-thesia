@@ -18,7 +18,7 @@ public class BodyData implements Serializable {
     public Vec2[] vertices;
     public float circleRadius;
 
-    static BodyData getDefaultBodyData(){
+    public static BodyData getDefaultBodyData(){
         BodyData bodyData = new BodyData();
         bodyData.x = 0;
         bodyData.y = 0;
@@ -29,6 +29,7 @@ public class BodyData implements Serializable {
         bodyData.bodyType = BodyType.STATIC;
         bodyData.shapeType = ShapeType.CIRCLE;
         bodyData.circleRadius = 10;
+
         return bodyData;
     }
 

@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07637f48-dbbd-4f87-8a4b-b3589535c7c8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/appState.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/Sinesthesia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/CanvasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/core/CanvasController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/PhysicsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/components/body/BodyData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/components/body/BodyData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PhysicsBodyView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/views/PhysicsBodyView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/BoxTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/tools/BoxTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/utils/MathUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/gabrielsalvador/utils/MathUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/CanvasControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CanvasControllerTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +38,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2VGXm2jtaOuE4TClB0Sj7SrOEyC" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -43,22 +49,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="me.gabrielsalvador.pobject.components.body" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.KInesthesia">
     <configuration name="KInesthesia" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="me.gabrielsalvador.core.Sinesthesia" />
       <module name="sines-thesia" />
@@ -71,6 +77,43 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CanvasControllerTests.selectsBoxPhysicsBody" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sines-thesia" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CanvasControllerTests" />
+      <option name="METHOD_NAME" value="selectsBoxPhysicsBody" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CanvasControllerTests.selectsCircularPhysicsBody" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sines-thesia" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CanvasControllerTests" />
+      <option name="METHOD_NAME" value="selectsCircularPhysicsBody" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CanvasControllerTests.selectsHologramBody" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sines-thesia" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CanvasControllerTests" />
+      <option name="METHOD_NAME" value="selectsHologramBody" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CanvasControllerTests.selectsBoxPhysicsBody" />
+        <item itemvalue="JUnit.CanvasControllerTests.selectsCircularPhysicsBody" />
+        <item itemvalue="JUnit.CanvasControllerTests.selectsHologramBody" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -89,7 +132,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/me/gabrielsalvador/pobject/components/BodyComponent.java</url>
           <line>29</line>
-          <properties class="me.gabrielsalvador.pobject.components.BodyComponent" method="setPosition">
+          <properties class="me.gabrielsalvador.pobject.components.BodyComponent">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -100,16 +143,18 @@
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.routing.PSocket" memberName="_owner" />
-        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.views.PhysicsPObjectView" memberName="_model" />
-        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PhysicsManager" memberName="_world" />
-        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PObjectProperty" memberName="type" />
-        <PinnedItemInfo parentTag="controlP5.Group" memberName="absolutePosition" />
         <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PKeyboard" memberName="_components" />
         <PinnedItemInfo parentTag="org.jbox2d.dynamics.Fixture" memberName="m_body" />
         <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PKeyboard" memberName="_outlets" />
-        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PlayableNote" memberName="_components" />
         <PinnedItemInfo parentTag="java.util.LinkedHashMap$Entry" memberName="key" />
         <PinnedItemInfo parentTag="me.gabrielsalvador.core.AppState" memberName="_sequencerState" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.views.PhysicsPObjectView" memberName="_model" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PhysicsManager" memberName="_world" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.routing.RoutingConnection" memberName="_components" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PObjectProperty" memberName="type" />
+        <PinnedItemInfo parentTag="controlP5.Group" memberName="absolutePosition" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.pobject.PlayableNote" memberName="_components" />
+        <PinnedItemInfo parentTag="me.gabrielsalvador.core.AppState" memberName="_pObjects" />
       </pinned-members>
     </pin-to-top-manager>
   </component>

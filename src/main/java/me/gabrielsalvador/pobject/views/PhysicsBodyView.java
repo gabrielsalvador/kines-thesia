@@ -11,6 +11,7 @@ import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import processing.core.PGraphics;
+import me.gabrielsalvador.utils.MathUtils;
 
 import static me.gabrielsalvador.utils.MathUtils.isPointOnLine;
 
@@ -50,10 +51,14 @@ public class PhysicsBodyView implements View<Component> {
                 // Apply the rotation
                 graphics.rotate(body.getAngle());
 
+                PhysicsManager pm = PhysicsManager.getInstance();
                 for (int i = 0; i < polygon.m_vertices.length-1; i++) {
-                    graphics.line(polygon.m_vertices[i].x, polygon.m_vertices[i].y, polygon.m_vertices[i+1].x, polygon.m_vertices[i+1].y);
+
+                    graphics.line(pm.coordWorldToPixels(polygon.m_vertices[i].x, polygon.m_vertices[i].y).x, pm.coordWorldToPixels(polygon.m_vertices[i].x, polygon.m_vertices[i].y).y, pm.coordWorldToPixels(polygon.m_vertices[i+1].x, polygon.m_vertices[i+1].y).x, pm.coordWorldToPixels(polygon.m_vertices[i+1].x, polygon.m_vertices[i+1].y).y);
+
+
                 }
-                graphics.line(polygon.m_vertices[polygon.m_vertices.length-1].x, polygon.m_vertices[polygon.m_vertices.length-1].y, polygon.m_vertices[0].x, polygon.m_vertices[0].y);
+                graphics.line(pm.coordWorldToPixels(polygon.m_vertices[polygon.m_vertices.length-1].x, polygon.m_vertices[polygon.m_vertices.length-1].y).x, pm.coordWorldToPixels(polygon.m_vertices[polygon.m_vertices.length-1].x, polygon.m_vertices[polygon.m_vertices.length-1].y).y, pm.coordWorldToPixels(polygon.m_vertices[0].x, polygon.m_vertices[0].y).x, pm.coordWorldToPixels(polygon.m_vertices[0].x, polygon.m_vertices[0].y).y);
                 graphics.popMatrix();
 
 
@@ -67,31 +72,40 @@ public class PhysicsBodyView implements View<Component> {
 
     @Override
     public boolean isMouseOver(int mouseX, int mouseY) {
-
+        PhysicsManager pm = PhysicsManager.getInstance();
         Body body = model.getJBox2DBody();
         Shape shape = body.getFixtureList().getShape();
+        Vec2 bodyPixelPos = pm.coordWorldToPixels(body.getPosition().x, body.getPosition().y).add(model.getPixelPosition());
+
         if (shape.getType() == ShapeType.CIRCLE) {
-            Vec2 position = body.getPosition();
-            Vec2 pixelPosition = PhysicsManager.getInstance().coordWorldToPixels(position.x, position.y);
             float radius = shape.getRadius();
-            return (mouseX >= pixelPosition.x - radius && mouseX <= pixelPosition.x + radius) &&
-                    (mouseY >= pixelPosition.y - radius && mouseY <= pixelPosition.y + radius);
+            return (mouseX >= bodyPixelPos.x - radius && mouseX <= bodyPixelPos.x + radius) &&
+                    (mouseY >= bodyPixelPos.y - radius && mouseY <= bodyPixelPos.y + radius);
         }
-        if (shape.getType() == ShapeType.POLYGON){
-            PolygonShape polygon = (PolygonShape) body.getFixtureList().getShape();
-            for (int i = 0; i < polygon.m_vertices.length-1; i++) {
-                if (isPointOnLine(polygon.m_vertices[i].x, polygon.m_vertices[i].y, polygon.m_vertices[i+1].x, polygon.m_vertices[i+1].y, mouseX, mouseY)) {
-                    return true;
+
+        if (shape.getType() == ShapeType.POLYGON) {
+            PolygonShape polygon = (PolygonShape) shape;
+            boolean inside = false;
+            float angle = body.getAngle();
+
+            for (int i = 0, j = polygon.getVertexCount() - 1; i < polygon.getVertexCount(); j = i++) {
+                Vec2 vertexI = MathUtils.rotatePoint(0, 0, angle, polygon.m_vertices[i]);
+                Vec2 vertexJ = MathUtils.rotatePoint(0, 0, angle, polygon.m_vertices[j]);
+                Vec2 viPixelSpace = pm.coordWorldToPixels(vertexI.add(body.getPosition()).x, vertexI.add(body.getPosition()).y);
+                Vec2 vjPixelSpace = pm.coordWorldToPixels(vertexJ.add(body.getPosition()).x, vertexJ.add(body.getPosition()).y);
+
+                if (((viPixelSpace.y > mouseY) != (vjPixelSpace.y > mouseY)) &&
+                        (mouseX < (vjPixelSpace.x - viPixelSpace.x) * (mouseY - viPixelSpace.y) / (vjPixelSpace.y - viPixelSpace.y) + viPixelSpace.x)) {
+                    inside = !inside;
                 }
             }
-            if (isPointOnLine(polygon.m_vertices[polygon.m_vertices.length-1].x, polygon.m_vertices[polygon.m_vertices.length-1].y, polygon.m_vertices[0].x, polygon.m_vertices[0].y, mouseX, mouseY)) {
-                return true;
-            }
+            return inside;
         }
-
-
         return false;
     }
+
+
+
 
 
 }

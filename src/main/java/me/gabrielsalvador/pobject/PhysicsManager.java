@@ -92,12 +92,29 @@ public class PhysicsManager {
         if (yFlip == Y_FLIP_INDICATOR) pixelY = parent.height - pixelY;
         return new Vec2(pixelX, pixelY);
     }
+    public Vec2 coordWorldToPixels(Vec2 worldVertex) {
+        return coordWorldToPixels(worldVertex.x, worldVertex.y);
+    }
+    public Vec2[] coordWorldToPixels(Vec2[] worldVertices) {
+        Vec2[] pixelVertices = new Vec2[worldVertices.length];
+        for (int i = 0; i < worldVertices.length; i++) {
+            pixelVertices[i] = coordWorldToPixels(worldVertices[i].x, worldVertices[i].y);
+        }
+        return pixelVertices;
+    }
 
     public Vec2 coordPixelsToWorld(float pixelX, float pixelY) {
         float worldX = (pixelX - transX) / scaleFactor;
         float worldY = (pixelY - transY) / scaleFactor;
         if (yFlip == Y_FLIP_INDICATOR) worldY = (parent.height - pixelY - transY) / scaleFactor;
         return new Vec2(worldX, worldY);
+    }
+    public Vec2[] coordPixelsToWorld(Vec2[] pixelVertices) {
+        Vec2[] worldVertices = new Vec2[pixelVertices.length];
+        for (int i = 0; i < pixelVertices.length; i++) {
+            worldVertices[i] = coordPixelsToWorld(pixelVertices[i].x, pixelVertices[i].y);
+        }
+        return worldVertices;
     }
 
     public void step(float timeStep, int velocityIterations, int positionIterations) {
