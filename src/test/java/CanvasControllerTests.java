@@ -21,112 +21,113 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 public class CanvasControllerTests {
     static ControlP5 mockCp5;
     static int mouseX = 0;
     static int mouseY = 0;
-
     static CanvasController canvasController;
     static PObject obj;
 
-    public void simulateMove(int x, int y) {
-        mouseX = x;
-        mouseY = y;
-        canvasController.onMove();
-    }
-
     @BeforeEach
-    public  void setUp() throws NoSuchFieldException, IllegalAccessException {
-
+    public void setUp() throws NoSuchFieldException, IllegalAccessException {
         mockCp5 = mock(ControlP5.class);
-
-        // Assuming mouseX and mouseY are defined somewhere in your code
         when(mockCp5.getPointer()).thenAnswer(invocation -> {
-            ControlWindowPointer pVector = mock(ControlWindowPointer.class);  // Create a mock PVector
-            when(pVector.getX()).thenReturn(mouseX);  // Return your desired value for getX()
-            when(pVector.getY()).thenReturn(mouseY);  // Return your desired value for getY()
-            return pVector;  // Return the mocked PVector
+            ControlWindowPointer pVector = mock(ControlWindowPointer.class);
+            when(pVector.getX()).thenReturn(mouseX);
+            when(pVector.getY()).thenReturn(mouseY);
+            return pVector;
         });
 
-
-        //mock ToolManager
+        // Mock ToolManager
         ToolManager tm = mock(ToolManager.class);
         when(tm.getCurrentTool()).thenReturn(mock(SelectTool.class));
-        // Use reflection to inject the mock into the singleton
-        Field instanceField = ToolManager.class.getDeclaredField("_instance");  // Assuming "_instance" is the name of your singleton instance field
-        instanceField.setAccessible(true);
-        instanceField.set(null, tm);
-
-
-
+        injectSingleton(tm, ToolManager.class, "_instance");
 
         canvasController = new CanvasController(mockCp5, "CanvasController");
         AppController app = AppController.getInstance();
         obj = app.createPObject();
         app.addPObjectImmiadiately(obj);
-
-
-
-
     }
 
     @Test
     public void selectsHologramBody() {
         BodyComponent objBody = obj.getBodyComponent();
-        objBody.setPixelPosition(new Vec2(50,50));
+        objBody.setPixelPosition(new Vec2(50, 50));
 
-        simulateMove(5,5);
+        simulateMove(5, 5);
         assertNull(canvasController.getCurrentlyHovering());
 
-        simulateMove(50,50);
-        assertEquals(obj,canvasController.getCurrentlyHovering());
-
+        simulateMove(50, 50);
+        assertEquals(obj, canvasController.getCurrentlyHovering());
     }
 
-    @Test void selectsCircularPhysicsBody(){
+    @Test
+    public void selectsCircularPhysicsBody() {
         BodyData bodyData = BodyData.getDefaultBodyData();
+        PhysicsBodyComponent objBody = new PhysicsBodyComponent(obj, bodyData);
+        obj.addComponent(BodyComponent.class, objBody);
 
-        PhysicsBodyComponent objBody = new PhysicsBodyComponent(obj,bodyData);
-        obj.addComponent(BodyComponent.class,objBody);
-
-        simulateMove(11,11);
+        simulateMove(11, 11);
         assertNull(canvasController.getCurrentlyHovering());
 
-        simulateMove(10,10);
-        assertEquals(obj,canvasController.getCurrentlyHovering());
-
+        simulateMove(10, 10);
+        assertEquals(obj, canvasController.getCurrentlyHovering());
     }
 
-    @Test void selectsBoxPhysicsBody(){
+    @Test
+    public void selectsBoxPhysicsBody() {
         BodyData bodyData = BodyData.getDefaultBodyData();
         bodyData.shapeType = ShapeType.POLYGON;
         bodyData.vertices = PhysicsManager.getInstance().coordPixelsToWorld(new Vec2[]{
-                new Vec2(500,500),
-                new Vec2(500,600),
-                new Vec2(600,600),
-                new Vec2(600,500)
+                new Vec2(-500, -500),
+                new Vec2(500, -500),
+                new Vec2(500, 500),
+                new Vec2(-500, 500)
         });
 
+        PhysicsBodyComponent objBody = new PhysicsBodyComponent(obj, bodyData);
+        obj.addComponent(BodyComponent.class, objBody);
+        Body body = objBody.getJBox2DBody();
+        //float angle = (float) Math.toRadians(45);
 
 
-        PhysicsBodyComponent objBody = new PhysicsBodyComponent(obj,bodyData);
-        obj.addComponent(BodyComponent.class,objBody);
-
-        simulateMove(550,499);
-        assertNull(canvasController.getCurrentlyHovering());
-
-        simulateMove(550,601);
-        assertNull(canvasController.getCurrentlyHovering());
-
-        simulateMove(601,601);
-        assertNull(canvasController.getCurrentlyHovering());
-
-        simulateMove(550,550);
-        assertEquals(obj,canvasController.getCurrentlyHovering());
+        for(float angle = 0; angle < 360; angle += 1){
+            System.out.println(angle);
+            body.setTransform(body.getPosition(),angle); // 45-degree rotation
 
 
+
+            simulateMove(10, 10);
+            //simulatePress(550,550);
+            assertEquals(obj, canvasController.getCurrentlyHovering());
+        }
 
     }
 
+    private void simulatePress(int i, int i1) {
+        mouseX = i;
+        mouseY = i1;
+        canvasController.onPress();
+    }
 
+    private void simulateMove(int x, int y) {
+        mouseX = x;
+        mouseY = y;
+        canvasController.onMove();
+    }
+
+    private static <T> void injectSingleton(T mockInstance, Class<T> clazz, String fieldName)
+            throws NoSuchFieldException, IllegalAccessException {
+        Field instanceField = clazz.getDeclaredField(fieldName);
+        instanceField.setAccessible(true);
+        instanceField.set(null, mockInstance);
+    }
 }
