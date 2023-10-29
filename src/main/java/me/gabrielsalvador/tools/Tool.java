@@ -18,6 +18,11 @@ public abstract class Tool implements Serializable {
     private ArrayList<ToolMode> _modes = new ArrayList<>();
     private ToolMode _currentMode = null;
 
+    {
+        getModes().add(new ToolMode("Normal"));
+        setCurrentMode(getModes().get(0));
+    }
+
     public Tool() {
 
 

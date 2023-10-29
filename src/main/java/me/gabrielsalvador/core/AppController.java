@@ -126,9 +126,15 @@ public class AppController {
             try {
                 Component componentInstance = value.getDeclaredConstructor(PObject.class).newInstance(pObject);
                 pObject.addComponent((Class<Component>) key, componentInstance);
-            } catch (Exception e) {
+            }
+            catch (NoSuchMethodException e) {
+                System.out.println("Every component must have a constructor that takes a PObject (its owner) as argument");
                 e.printStackTrace();
             }
+            catch (Exception e ) {
+                e.printStackTrace();
+            }
+
         }
 
         return pObject;

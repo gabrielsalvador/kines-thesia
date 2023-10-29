@@ -9,6 +9,7 @@ import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.pobject.*;
+import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
@@ -104,7 +105,7 @@ public class CommandTool extends Tool {
 
                 }else if(args[1].equals("emitter")) {
                     AppController app = AppController.getInstance();
-                    PObject p = app.createPObject(new PObjectPreset.EmitterPreset());
+                    PObject p = app.createPObject(new PObjectPreset.EmitterPreset(new Vec2(x, y)));
                     app.addPObject(p);
 
 

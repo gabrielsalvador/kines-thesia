@@ -26,17 +26,16 @@ public class RoutingComponent extends Component{
         CONNECTION
     }
 
-    private final RouterType _routerType;
 
-    @InspectableProperty(displayName = "Delay")
+
+
     private  int _delay = 0;
 
     @InspectableProperty(displayName = "Subdivisions")
     private int _subdivisions = 0;
 
-    public RoutingComponent(PObject owner, RouterType routerType){
+    public RoutingComponent(PObject owner){
         super(owner);
-        _routerType = routerType;
     }
 
 
@@ -46,6 +45,10 @@ public class RoutingComponent extends Component{
         System.out.println("Subdivisions set to " + subdivisions);
     }
 
+    @InspectableProperty(displayName = "Delay")
+    public int getDelay(){
+        return _delay;
+    }
     @InspectableProperty.SetterFor("Delay")
     public void setDelay(int delay){
         _delay = delay;

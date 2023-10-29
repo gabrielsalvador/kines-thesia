@@ -1,8 +1,11 @@
 package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.pobject.components.Component;
+import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
+import org.jbox2d.common.Vec2;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,8 +24,12 @@ public interface PObjectPreset {
         private final Map<Class<? extends Component>, Class<? extends Component>> componentsMap = new HashMap<>();
 
 
-        public EmitterPreset() {
+        public EmitterPreset(Vec2 position) {
             componentsMap.put(BodyComponent.class, HologramBody.class);
+            componentsMap.put(RoutingComponent.class, RoutingComponent.class);
+        }
+        public EmitterPreset() {
+            this(new Vec2(0,0));
         }
 
         @Override
