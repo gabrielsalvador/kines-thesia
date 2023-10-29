@@ -33,7 +33,8 @@ public class PhysicsBodyView implements View<Component> {
             case CIRCLE:
                 Vec2 pixelPosition = pm.coordWorldToPixels(body.getPosition().x, body.getPosition().y);
                 graphics.ellipseMode(graphics.CENTER);
-                graphics.ellipse(pixelPosition.x, pixelPosition.y, shape.getRadius() * 2, shape.getRadius() * 2);
+                float radiusPixels = pm.scaleWorldToPixels(shape.getRadius());
+                graphics.ellipse(pixelPosition.x, pixelPosition.y, radiusPixels * 2, radiusPixels * 2);
                 break;
 
             case POLYGON:

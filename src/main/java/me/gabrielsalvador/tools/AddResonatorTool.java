@@ -2,6 +2,7 @@ package me.gabrielsalvador.tools;
 
 import controlP5.ControlP5;
 import me.gabrielsalvador.Config;
+import me.gabrielsalvador.common.DisplayName;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.core.Sinesthesia;
@@ -14,10 +15,12 @@ import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
 import processing.core.PGraphics;
-import processing.core.PImage;
 import processing.event.KeyEvent;
 
-public class BoxTool extends Tool{
+
+@DisplayName("Resonator")
+
+public class AddResonatorTool extends Tool{
     private Vec2 _initialPosition;
     private Vec2 _finalPosition;
     private CanvasController _canvas;
@@ -30,7 +33,7 @@ public class BoxTool extends Tool{
     }
 
 
-    public BoxTool() {
+    public AddResonatorTool() {
         _cp5 = Sinesthesia.getInstance().getCP5();
 
     }
@@ -105,5 +108,10 @@ public class BoxTool extends Tool{
             _canvas = (CanvasController) _cp5.get("MainCanvas");
         }
         return _canvas;
+    }
+
+    @Override
+    public String getName() {
+        return "Resonator";
     }
 }

@@ -86,6 +86,9 @@ public class PhysicsManager {
         return body;
     }
 
+    public float scaleWorldToPixels(float worldValue) {
+        return worldValue * scaleFactor;
+    }
     public Vec2 coordWorldToPixels(float worldX, float worldY) {
         float pixelX = worldX * scaleFactor + transX;
         float pixelY = worldY * scaleFactor + transY;

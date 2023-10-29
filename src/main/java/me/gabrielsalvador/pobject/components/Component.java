@@ -26,14 +26,20 @@ public abstract class  Component implements Serializable {
 
 
 
+
+
+
+    @InspectableProperty(displayName = "View")
+    public View<Component> getView() {
+        return _view;
+    }
+
+    @SetterFor("View")
     public Component setView(View<Component> view) {
         _view = view;
         return this;
     }
 
-    public View<Component> getView() {
-        return _view;
-    }
 
     public Component(PObject owner) {
         _owner = owner;

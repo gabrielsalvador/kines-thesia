@@ -1,6 +1,7 @@
 package me.gabrielsalvador.tools;
 
 import controlP5.*;
+import me.gabrielsalvador.common.DisplayName;
 import me.gabrielsalvador.common.SkipProcessing;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -27,7 +28,14 @@ class ToolboxController extends Group {
             }
             String uii = UUID.randomUUID().toString();
             Button b = new Button(cp5, uii);
-            b.getCaptionLabel().setText(tool.getSimpleName());
+
+            if (tool.isAnnotationPresent(DisplayName.class)) {
+                DisplayName displayName = tool.getAnnotation(DisplayName.class);
+                b.getCaptionLabel().setText(displayName.value());
+            } else {
+                b.getCaptionLabel().setText(tool.getSimpleName());
+            }
+
             b.addListener(new ControlListener() {
                 @Override
                 public void controlEvent(ControlEvent controlEvent) {
@@ -45,8 +53,11 @@ class ToolboxController extends Group {
                 }
             });
             b.setWidth(getWidth());
-            addChildHorizontally(b);
+            addChildVertically(b);
         }
+
+
+
     }
 
 

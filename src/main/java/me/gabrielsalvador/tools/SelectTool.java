@@ -3,6 +3,7 @@ package me.gabrielsalvador.tools;
 import java.util.ArrayList;
 import controlP5.ControlP5;
 import me.gabrielsalvador.Config;
+import me.gabrielsalvador.common.DisplayName;
 import me.gabrielsalvador.core.*;
 import org.jbox2d.common.Vec2;
 import me.gabrielsalvador.pobject.PObject;
@@ -11,6 +12,7 @@ import processing.event.KeyEvent;
 
 
 
+@DisplayName("Select")
 public class SelectTool extends Tool {
 
     private final ControlP5 _cp5;

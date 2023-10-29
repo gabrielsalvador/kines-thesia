@@ -1,11 +1,14 @@
 package me.gabrielsalvador.tools;
 
 import me.gabrielsalvador.Config;
+import me.gabrielsalvador.common.DisplayName;
+import me.gabrielsalvador.common.SkipProcessing;
 import me.gabrielsalvador.pobject.PObject;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.event.KeyEvent;
 
+@SkipProcessing
 public class AddTool extends Tool {
 
     {
