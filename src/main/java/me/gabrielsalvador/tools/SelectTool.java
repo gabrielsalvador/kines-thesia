@@ -24,7 +24,7 @@ public class SelectTool extends Tool {
     private boolean _isDragging = false;
     
     {
-        getModes().add(new ToolMode("Normal").setIcon(Config.SELECTTOOL_CURSOR_ARROW_ICON));
+        getModes().get(0).setIcon(Config.SELECTTOOL_CURSOR_ARROW_ICON);
         getModes().add(new ToolMode("SelectMultiple").setIcon(Config.SELECTTOOL_CURSOR_ADD_ICON).setModifierKeys(KeyEvent.SHIFT));
 
         setCurrentMode(getModes().get(0));
