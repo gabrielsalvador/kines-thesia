@@ -35,4 +35,7 @@ public class RectanglePShape extends PShape{
     }
 
 
+    public Vec2 getSize() {
+        return _size;
+    }
 }

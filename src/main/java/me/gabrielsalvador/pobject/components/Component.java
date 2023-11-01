@@ -11,6 +11,7 @@ import processing.core.PGraphics;
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -22,11 +23,8 @@ public abstract class  Component implements Serializable {
 
     transient private  ArrayList<PObjectProperty> cachedProperties = new ArrayList<>();
     protected PObject _owner;
+    protected Class<? extends View> _viewClass; //used to save the view class name on serialization and recreate the view on deserialization
     transient protected View<Component> _view;
-
-
-
-
 
 
     @InspectableProperty(displayName = "View")
@@ -37,6 +35,7 @@ public abstract class  Component implements Serializable {
     @SetterFor("View")
     public Component setView(View<Component> view) {
         _view = view;
+        _viewClass = view.getClass();
         return this;
     }
 
@@ -116,9 +115,20 @@ public abstract class  Component implements Serializable {
     }
 
     @Serial
-    private void readObject(java.io.ObjectInputStream in) throws ClassNotFoundException, IOException {
+    private void readObject(java.io.ObjectInputStream in) throws ClassNotFoundException, IOException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         in.defaultReadObject();
         cachedProperties = new ArrayList<>();
+        if(_viewClass != null){
+            //iterate over all constructors of the view class and try to find one that takes a Component as parameter
+            for (Constructor<?> ctor : _viewClass.getConstructors()) {
+                Class<?>[] paramTypes = ctor.getParameterTypes();
+                if (paramTypes.length == 1 && paramTypes[0].isAssignableFrom(this.getClass())) {
+                    setView((View<Component>) ctor.newInstance(this));
+                    break;
+                }
+            }
+
+        }
     }
 
     @Serial private void writeObject(java.io.ObjectOutputStream out) throws IOException {

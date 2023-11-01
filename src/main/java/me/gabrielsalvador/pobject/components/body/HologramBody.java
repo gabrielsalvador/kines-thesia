@@ -31,7 +31,7 @@ public class HologramBody extends BodyComponent implements Serializable {
         initialize();
     }
     public void initialize(){
-        setView(new HologramBodyView(this));
+
     }
 
 

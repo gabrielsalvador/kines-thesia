@@ -6,8 +6,10 @@ import me.gabrielsalvador.pobject.views.View;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
-public class HologramBodyView implements View<Component> {
-    private final HologramBody _model;
+import java.io.Serializable;
+
+public class HologramBodyView implements View<Component>  {
+    protected final HologramBody _model;
 
     public HologramBodyView(HologramBody hologramBody) {
         _model = hologramBody;

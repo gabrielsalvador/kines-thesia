@@ -116,29 +116,7 @@ public class AppController {
         PObject pObject = new PObject();
         return pObject;
     }
-    public PObject createPObject(PObjectPreset preset) {
-        PObject pObject = new PObject();
-        Set<Map.Entry<Class<? extends Component>, Class<? extends Component>>> components = preset.getComponentList().entrySet();
-
-        for (Map.Entry<Class<? extends Component>, Class<? extends Component>> entry : components) {
-            Class<? extends Component> key = entry.getKey();
-            Class<? extends Component> value = entry.getValue();
-            try {
-                Component componentInstance = value.getDeclaredConstructor(PObject.class).newInstance(pObject);
-                pObject.addComponent((Class<Component>) key, componentInstance);
-            }
-            catch (NoSuchMethodException e) {
-                System.out.println("Every component must have a constructor that takes a PObject (its owner) as argument");
-                e.printStackTrace();
-            }
-            catch (Exception e ) {
-                e.printStackTrace();
-            }
-
-        }
-
-        return pObject;
-    }
+   
 
     public void removePObjectImmiadiately(PObject pObject) {
 

@@ -29,8 +29,8 @@ public class AddPEmitter extends Tool{
 
         AppController app = AppController.getInstance();
         Vec2 mousePos = new Vec2(mousePosition[0], mousePosition[1]);
-        PObject obj = app.createPObject(new PObjectPreset.EmitterPreset(mousePos));
-        app.addPObject(obj);
+        PObject p = new PObjectPreset.EmitterPreset(mousePos).create()[0];
+        app.addPObject(p);
 
 
     }

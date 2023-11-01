@@ -226,9 +226,11 @@ public class InspectorController extends Group implements PropertyChangeListener
 
 
         Textlabel t = new Textlabel(cp5, "Property" + property.getName());
-        String typeName = type.getName().substring(0, Math.min(type.toString().length(), 10));
+        //get class name
+        String className = type.getName();
+        System.out.println("class name " + className);
 
-        t.setText(typeName + " Not Implmtld");
+        t.setText(className);
         return new Controller[]{t};
 
     }
