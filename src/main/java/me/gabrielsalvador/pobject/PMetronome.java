@@ -25,7 +25,7 @@ public class PMetronome extends PObject implements Device {
         HologramBody body = getBodyComponent();
         PMetronomeView view = new PMetronomeView(body);
         body.setView(view);
-        _blinkingLigth = ((PMetronomeView) view).getBlinkingLight();
+        _blinkingLigth = view.getBlinkingLight();
     }
 
 

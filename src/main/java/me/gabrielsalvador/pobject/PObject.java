@@ -90,9 +90,7 @@ public class PObject implements Serializable {
     public <T extends Component> PObject addComponent(Class<T> _class, T instance) {
         //this needs to be 1:1 map
         //if there is already a component of this type, it will be replaced
-        if(_components.containsKey(_class)){
-            _components.remove(_class);
-        }
+        _components.remove(_class);
         _components.put(_class, instance);
 
 

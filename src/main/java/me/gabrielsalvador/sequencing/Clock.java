@@ -1,7 +1,5 @@
 package me.gabrielsalvador.sequencing;
 
-import me.gabrielsalvador.pobject.PObject;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;

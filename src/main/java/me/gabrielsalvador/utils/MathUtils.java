@@ -34,10 +34,7 @@ public class MathUtils {
         // length, the point is on the line!
         // note we use the buffer here to give a range,
         // rather than one #
-        if (d1+d2 >= lineLen-buffer && d1+d2 <= lineLen+buffer) {
-            return true;
-        }
-        return false;
+        return d1 + d2 >= lineLen - buffer && d1 + d2 <= lineLen + buffer;
     }
 
     public static  Vec2 rotatePoint(float cx, float cy, float angle, Vec2 p) {

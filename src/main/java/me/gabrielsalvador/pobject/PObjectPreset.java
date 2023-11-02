@@ -15,7 +15,7 @@ public interface PObjectPreset {
 
 
 
-    public class EmitterPreset implements PObjectPreset {
+    class EmitterPreset implements PObjectPreset {
 
 
 

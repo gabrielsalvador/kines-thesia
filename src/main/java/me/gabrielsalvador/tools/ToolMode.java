@@ -8,7 +8,7 @@ import processing.event.KeyEvent;
 
 public class ToolMode {
     private PImage _cursorIcon;
-    private String _name;
+    private final String _name;
     private boolean requiresAlt = false; 
     private boolean requiresCtrl = false;
     private boolean requiresMeta = false;
@@ -33,13 +33,9 @@ public class ToolMode {
         if (requiresMeta && event.isMetaDown()) {
             return true;
         }
-        if (requiresShift && event.isShiftDown()) {
-            return true;
-        }
+        return requiresShift && event.isShiftDown();
 
-        return false;
-        
-        
+
     }
 
     public PImage getCursorIcon() {
