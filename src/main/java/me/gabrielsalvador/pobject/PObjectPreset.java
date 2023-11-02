@@ -1,16 +1,10 @@
 package me.gabrielsalvador.pobject;
 
-import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
-import me.gabrielsalvador.pobject.components.body.HologramBodyView;
 import me.gabrielsalvador.pobject.components.body.PEmitterView;
-import me.gabrielsalvador.pobject.views.PMetronome;
 import org.jbox2d.common.Vec2;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public interface PObjectPreset {
