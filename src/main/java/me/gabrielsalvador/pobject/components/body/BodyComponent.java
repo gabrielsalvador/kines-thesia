@@ -10,7 +10,6 @@ import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 public abstract class BodyComponent extends Component {
 
 
-
     private AbstractShape _shape;
 
     public BodyComponent(PObject owner){

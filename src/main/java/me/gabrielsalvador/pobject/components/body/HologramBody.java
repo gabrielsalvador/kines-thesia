@@ -19,7 +19,7 @@ public class HologramBody extends BodyComponent implements Serializable {
     private HologramBody _parent;
 
     public HologramBody(PObject owner,Vec2 position, Vec2 size){
-        super(owner);
+        this(owner);
         _position = position;
         _shape = new RectanglePShape( size);
     }
@@ -28,6 +28,7 @@ public class HologramBody extends BodyComponent implements Serializable {
         super(owner);
         _position = new Vec2(0,0);
         _shape = new RectanglePShape(new Vec2(10,10));
+        setView(new HologramBodyView(this));
         initialize();
     }
     public void initialize(){

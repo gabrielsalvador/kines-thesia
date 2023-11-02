@@ -6,6 +6,7 @@ import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
 import me.gabrielsalvador.pobject.components.body.HologramBodyView;
 import me.gabrielsalvador.pobject.components.body.PEmitterView;
+import me.gabrielsalvador.pobject.views.PMetronome;
 import org.jbox2d.common.Vec2;
 
 import java.util.HashMap;
@@ -35,18 +36,35 @@ public interface PObjectPreset {
 
         @Override
         public PObject[] create() {
+            //emitter obj
             PObject pObject = new PObject();
 
-            //body
+            //emitter body
             HologramBody bodyComponent = new HologramBody(pObject);
             bodyComponent.setPixelPosition(_position);
             bodyComponent.setView(new PEmitterView(bodyComponent));
             pObject.addComponent(BodyComponent.class, bodyComponent);
 
-            //routing
-            pObject.addComponent(RoutingComponent.class, new RoutingComponent(pObject));
+            //metronome obj
+            PObject metronome = new PMetronome();
 
-            return new PObject[]{pObject};
+            //metronome body
+            HologramBody metronomeBody = metronome.getBodyComponent();
+            metronomeBody.setPixelPosition(_position.add(new Vec2(0, -20)));
+            metronome.addComponent(BodyComponent.class, metronomeBody);
+
+
+            //routing
+            RoutingComponent routingComponent = new RoutingComponent(pObject);
+            pObject.addComponent(RoutingComponent.class, routingComponent);
+            RoutingComponent metronomeRoutingComponent = new RoutingComponent(metronome);
+            metronome.addComponent(RoutingComponent.class, metronomeRoutingComponent);
+
+
+            metronome.getRoutingComponent().setTarget(pObject);
+
+
+            return new PObject[]{pObject, metronome};
 
         }
 

@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.Set;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.Component;
+import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
 import processing.core.PGraphics;
@@ -140,6 +141,10 @@ public class PObject implements Serializable {
         for (Component component : _components.values()) {
             component.display(graphics);
         }
+    }
+
+    public RoutingComponent getRoutingComponent() {
+        return getComponent(RoutingComponent.class);
     }
 
     @Retention(RetentionPolicy.RUNTIME)
