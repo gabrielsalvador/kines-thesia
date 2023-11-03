@@ -11,6 +11,7 @@ import processing.core.PGraphics;
 public class RoutingComponent extends Component {
 
     private PObject _target;
+    private Runnable _pulseCallback;
 
     public RoutingComponent(PObject owner) {
         super(owner);
@@ -59,7 +60,7 @@ public class RoutingComponent extends Component {
 
     private int _delay = 0;
 
-    private int _subdivisions = 0;
+    private int _subdivisions = 1;
 
     @InspectableProperty(displayName = "Subdivisions")
     public int getSubdivisions() {
@@ -93,5 +94,19 @@ public class RoutingComponent extends Component {
     @InspectableProperty.SetterFor("Target")
     public void setTarget(PObject target) {
         _target = target;
+    }
+
+    public void setPulseCallback(Runnable callback) {
+        _pulseCallback = callback;
+    }
+
+    public void sendPulse() {
+        _target.getRoutingComponent().receivePulse();
+    }
+
+    private void receivePulse() {
+        if (_pulseCallback != null) {
+            _pulseCallback.run();
+        }
     }
 }

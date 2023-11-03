@@ -98,8 +98,9 @@ public class AppController {
 
 
 
-    public void queueModification(Runnable modification){
+    public Runnable queueModification(Runnable modification){
         _modificationsQueue.add(modification);
+        return modification;
     }
 
     public void applyModifications() {

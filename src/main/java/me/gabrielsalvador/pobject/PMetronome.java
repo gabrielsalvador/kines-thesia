@@ -34,8 +34,8 @@ public class PMetronome extends PObject implements Device {
 
         RoutingComponent rc = getRoutingComponent();
         if(rc == null) return;
-        System.out.println("Metronome tick");
         _blinkingLigth.blink();
+        getRoutingComponent().sendPulse();
 
     }
 
