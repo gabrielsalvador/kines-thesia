@@ -81,6 +81,8 @@ public class ToolManager  {
                 return 'a';
             case "CommandTool":
                 return 'n';
+            case "AddResonatorTool":
+                return 'r';
             default:
                 return '\0';
         }

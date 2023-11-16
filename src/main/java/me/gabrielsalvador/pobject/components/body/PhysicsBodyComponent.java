@@ -198,4 +198,8 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         massData.mass = mass;
         _body.setMassData(massData);
     }
+
+    public void setAngle(float angle) {
+        _body.setTransform(_body.getPosition(), angle);
+    }
 }

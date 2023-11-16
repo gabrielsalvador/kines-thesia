@@ -7,6 +7,7 @@ import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PObjectPreset;
 import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.BodyData;
@@ -20,11 +21,21 @@ import processing.event.KeyEvent;
 
 @DisplayName("Resonator")
 
-public class AddResonatorTool extends Tool{
+public class AddResonatorTool extends Tool {
     private Vec2 _initialPosition;
     private Vec2 _finalPosition;
     private CanvasController _canvas;
     private final ControlP5 _cp5;
+
+    /* counts how many resonators have been added, useful for things like making it play several notes*/
+    private int counter = 0;
+
+    {
+        getModes().get(0).setIcon(Config.BOXTOOL_CURSOR_ICON);
+        getModes().add(new ToolMode("SelectMultiple").setIcon(Config.BOXTOOL_CURSOR_ICON).setModifierKeys(KeyEvent.SHIFT));
+
+        setCurrentMode(getModes().get(0));
+    }
 
     {
         getModes().add(new ToolMode("Normal").setIcon(Config.BOXTOOL_CURSOR_ICON));
@@ -37,6 +48,7 @@ public class AddResonatorTool extends Tool{
         _cp5 = Sinesthesia.getInstance().getCP5();
 
     }
+
     @Override
     public void keyEvent(KeyEvent keyEvent) {
 
@@ -48,58 +60,54 @@ public class AddResonatorTool extends Tool{
     }
 
     @Override
-    public void onPressed(PObject pObject,int[] mousePosition) {
+    public void onPressed(PObject pObject, int[] mousePosition) {
         _initialPosition = new Vec2(getCanvas().getMousePosition()[0], getCanvas().getMousePosition()[1]);
 
     }
 
     @Override
     public void onRelease(PObject pObject) {
-        if(_initialPosition == null || _finalPosition == null){
+        if (_initialPosition == null || _finalPosition == null) {
             return;
         }
 
-        //add PObject to the canvas
-        PObject pObject1 = new PObject();
-        BodyData bodyData = new BodyData();
-        bodyData.shapeType = ShapeType.POLYGON;
-        bodyData.bodyType = BodyType.DYNAMIC;
-        bodyData.vertices = PhysicsManager.getInstance().coordPixelsToWorld(
-                new Vec2[]{
-                        new Vec2(0,0),
-                        new Vec2(_finalPosition.x - _initialPosition.x,0),
-                        new Vec2(_finalPosition.x - _initialPosition.x,_finalPosition.y - _initialPosition.y),
-                        new Vec2(0,_finalPosition.y - _initialPosition.y)
-                }
-        );
 
-        PhysicsBodyComponent physicsBody = new PhysicsBodyComponent(pObject1,bodyData);
-        physicsBody.setPixelPosition(new Vec2(_initialPosition.x,_initialPosition.y));
-        pObject1.addComponent(BodyComponent.class,physicsBody);
-        System.out.println("Body created at: " + physicsBody.getPosition().x + " " + physicsBody.getPosition().y);
-        AppController.getInstance().addPObject(pObject1);
+        int pitch = counter % 7;
+        PObjectPreset preset = new PObjectPreset.ResonatorPreset(_initialPosition,_finalPosition,pitch);
 
         _initialPosition = null;
         _finalPosition = null;
-
+        counter++;
     }
+
 
     @Override
     public void onDrag(PObject pObject, int[] mousePosition) {
-        _finalPosition = new Vec2(getCanvas().getMousePosition()[0], getCanvas().getMousePosition()[1]);
+
+        int[] mouse = getCanvas().getMousePosition();
+        _finalPosition = new Vec2(mouse[0], mouse[1]);
     }
 
 
     @Override
     public void draw(PGraphics graphics) {
         super.draw(graphics);
-        if(_initialPosition != null && _finalPosition != null){
+        if (_initialPosition != null && _finalPosition != null) {
+            int[] mouse = getCanvas().getMousePosition();
             graphics.pushStyle();
-            graphics.noFill();
             graphics.stroke(255);
-            graphics.rect(_initialPosition.x, _initialPosition.y, _finalPosition.x - _initialPosition.x, _finalPosition.y - _initialPosition.y);
+            graphics.strokeWeight(1);
+            graphics.line(_initialPosition.x, _initialPosition.y, _finalPosition.x, _finalPosition.y);
             graphics.popStyle();
+
         }
+//        if(_initialPosition != null && _finalPosition != null){
+//            graphics.pushStyle();
+//            graphics.noFill();
+//            graphics.stroke(255);
+//            graphics.rect(_initialPosition.x, _initialPosition.y, _finalPosition.x - _initialPosition.x, _finalPosition.y - _initialPosition.y);
+//            graphics.popStyle();
+//        }
 
     }
 

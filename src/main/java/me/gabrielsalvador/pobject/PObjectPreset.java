@@ -3,8 +3,10 @@ package me.gabrielsalvador.pobject;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.*;
+import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
+import processing.core.PVector;
 
 
 public interface PObjectPreset {
@@ -95,4 +97,50 @@ public interface PObjectPreset {
     }
 
 
+    public class ResonatorPreset implements PObjectPreset {
+
+        private Vec2 _initialPosition = null;
+        private Vec2 _finalPosition = null;
+        private int _relativePitch = 0;
+
+
+        /*
+        / relativePitch is the degree relative to the root note
+         */
+        public ResonatorPreset(Vec2 _initialPosition, Vec2 _finalPosition,int relativePitch) {
+
+        }
+
+        @Override
+        public PObject[] create() {
+            float width = _finalPosition.sub(_initialPosition).length(); // Y is the height of the bar (in pixels
+            float height = 20*((_relativePitch) % 8) +20; // X is the width of the bar
+
+            // Create a new PObject
+            PObject pObject1 = new PObject();
+            BodyData bodyData = new BodyData();
+            bodyData.shapeType = ShapeType.POLYGON;
+            bodyData.bodyType = BodyType.DYNAMIC;
+            bodyData.vertices = PhysicsManager.getInstance().coordPixelsToWorld(
+                    new Vec2[]{
+                            new Vec2(0, 0),
+                            new Vec2(width, 0),
+                            new Vec2(width, height),
+                            new Vec2(0, height)
+                    }
+            );
+
+            PhysicsBodyComponent physicsBody = new PhysicsBodyComponent(pObject1, bodyData);
+            physicsBody.setPixelPosition(new Vec2(_initialPosition.x, _initialPosition.y));
+
+            // Calculate the angle for rotation
+            float angle = (float) Math.atan2(_finalPosition.y - _initialPosition.y, _finalPosition.x - _initialPosition.x);
+            physicsBody.setAngle(angle);
+
+            pObject1.addComponent(BodyComponent.class, physicsBody);
+            
+
+            return new PObject[]{pObject1};
+        }
+    }
 }
