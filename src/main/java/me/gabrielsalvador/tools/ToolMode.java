@@ -9,6 +9,8 @@ import processing.event.KeyEvent;
 public class ToolMode {
     private PImage _cursorIcon;
     private final String _name;
+
+    /* Keys that must be pressed to switch to this mode */
     private boolean requiresAlt = false; 
     private boolean requiresCtrl = false;
     private boolean requiresMeta = false;
@@ -18,6 +20,12 @@ public class ToolMode {
         _name = name;
     }
 
+
+    /**
+     * Checks if there are keys being pressed that should make the tool switch to this mode
+     * @param applet
+     * @return
+     */
     public boolean shouldSwitchMode(PApplet applet) {
         KeyEvent event = applet.keyEvent;        
         if (event == null) {

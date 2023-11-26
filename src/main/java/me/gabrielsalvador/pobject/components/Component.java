@@ -6,6 +6,7 @@ import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty.SetterFor;
 import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.pobject.views.View;
+import org.jbox2d.dynamics.contacts.Contact;
 import processing.core.PGraphics;
 
 import java.io.IOException;
@@ -138,6 +139,7 @@ public abstract class  Component implements Serializable {
 
     public abstract void remove();
 
-    
+
+
 }
 

@@ -1,12 +1,12 @@
 package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.pobject.components.OnCollision;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.*;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
-import processing.core.PVector;
 
 
 public interface PObjectPreset {
@@ -55,12 +55,14 @@ public interface PObjectPreset {
             //
             metronome.getRoutingComponent().setTarget(pObject);
             pObject.getRoutingComponent().setPulseCallback(
-                    AppController.getInstance().queueModification(
-                            () -> {
-                                PObject p = new PObjectPreset.DropletPreset(pObject.getBodyComponent().getPosition()).create()[0];
-                                AppController.getInstance().addPObject(p);
-                            }
-                    )
+                    () -> {
+                        AppController.getInstance().queueModification(
+                                () -> {
+                                    PObject p = new PObjectPreset.DropletPreset(pObject.getBodyComponent().getPosition()).create()[0];
+                                    AppController.getInstance().addPObjectImmiadiately(p);
+                                }
+                        );
+                    }
             );
 
 
@@ -97,7 +99,7 @@ public interface PObjectPreset {
     }
 
 
-    public class ResonatorPreset implements PObjectPreset {
+    class ResonatorPreset implements PObjectPreset {
 
         private Vec2 _initialPosition = null;
         private Vec2 _finalPosition = null;
@@ -107,8 +109,10 @@ public interface PObjectPreset {
         /*
         / relativePitch is the degree relative to the root note
          */
-        public ResonatorPreset(Vec2 _initialPosition, Vec2 _finalPosition,int relativePitch) {
-
+        public ResonatorPreset(Vec2 _initialPosition, Vec2 _finalPosition, int relativePitch) {
+            this._initialPosition = _initialPosition;
+            this._finalPosition = _finalPosition;
+            this._relativePitch = relativePitch;
         }
 
         @Override
@@ -120,7 +124,7 @@ public interface PObjectPreset {
             PObject pObject1 = new PObject();
             BodyData bodyData = new BodyData();
             bodyData.shapeType = ShapeType.POLYGON;
-            bodyData.bodyType = BodyType.DYNAMIC;
+            bodyData.bodyType = BodyType.STATIC;
             bodyData.vertices = PhysicsManager.getInstance().coordPixelsToWorld(
                     new Vec2[]{
                             new Vec2(0, 0),
@@ -138,7 +142,10 @@ public interface PObjectPreset {
             physicsBody.setAngle(angle);
 
             pObject1.addComponent(BodyComponent.class, physicsBody);
-            
+            OnCollision onCollision = new OnCollision(pObject1);
+            onCollision.setInterval(_relativePitch);
+            pObject1.addComponent(OnCollision.class,onCollision);
+
 
             return new PObject[]{pObject1};
         }

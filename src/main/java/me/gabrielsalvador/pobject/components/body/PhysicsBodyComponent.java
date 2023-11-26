@@ -103,14 +103,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     }
 
-    public void onCollision(PhysicsBodyComponent other) {
-//        if (_onColision != null) {
-//            String sampleName = _onColision.getSampleName();
-//            if (sampleName != null && !sampleName.isEmpty()) {
-//                AudioManager.getInstance().play(sampleName);
-//            }
-//        }
-    }
+
 
     private void updateBodyData() {
         _bodyData.x = _body.getPosition().x;

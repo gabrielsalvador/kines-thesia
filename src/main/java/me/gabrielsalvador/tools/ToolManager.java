@@ -71,7 +71,7 @@ public class ToolManager  {
         }
     }
 
-    private char getShortcutForTool(Class<? extends Tool> toolClass) {
+    public  char getShortcutForTool(Class<? extends Tool> toolClass) {
         switch (toolClass.getSimpleName()) {
             case "SelectTool":
                 return 's';
@@ -83,6 +83,8 @@ public class ToolManager  {
                 return 'n';
             case "AddResonatorTool":
                 return 'r';
+            case "AddPEmitter":
+                return 'e';
             default:
                 return '\0';
         }

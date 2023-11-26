@@ -73,8 +73,19 @@ public class AddResonatorTool extends Tool {
 
 
         int pitch = counter % 7;
-        PObjectPreset preset = new PObjectPreset.ResonatorPreset(_initialPosition,_finalPosition,pitch);
 
+        // Create snapshots of the current state inside the lambda
+        Vec2 initialPositionSnapshot = new Vec2(_initialPosition.x, _initialPosition.y);  // Assuming a constructor or clone method
+        Vec2 finalPositionSnapshot = new Vec2(_finalPosition.x, _finalPosition.y);
+        
+        AppController.getInstance().queueModification( () -> {
+        
+            PObjectPreset preset = new PObjectPreset.ResonatorPreset(initialPositionSnapshot, finalPositionSnapshot, pitch);
+            PObject p = preset.create()[0];
+            AppController.getInstance().addPObjectImmiadiately(p);
+        });
+
+        
         _initialPosition = null;
         _finalPosition = null;
         counter++;

@@ -1,15 +1,15 @@
 package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PObjectPreset;
-import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.views.View;
+import me.gabrielsalvador.utils.Mode;
+import me.gabrielsalvador.utils.Scale;
+// import themidibus.MidiBus;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 
@@ -19,6 +19,15 @@ public class AppController {
     private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
     private final ConcurrentLinkedQueue<Runnable> _modificationsQueue = new ConcurrentLinkedQueue<Runnable>();
+    // private final MidiBus _midiBus;
+    private final Scale _globalScale = new Scale("C3",1, new Mode("Minor"));
+
+    {
+
+        // _midiBus = new MidiBus(this, 1, 2);
+        // List all available MidiDevices
+        // MidiBus.list();
+    }
 
 
     private AppController() {
@@ -131,5 +140,23 @@ public class AppController {
             _appState.getPObjects().remove(pObject);
         };
         queueModification(modification);
+    }
+
+    public void sendMidi(int midiNote,int velocity) {
+        //create a new thread to send the midi note
+        new Thread(() -> {
+            // _midiBus.sendNoteOn(1, midiNote, velocity);
+            // System.out.println("Sending midi note " + midiNote + " with velocity " + velocity);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            // _midiBus.sendNoteOff(1, midiNote, velocity);
+        }).start();
+    }
+
+    public Scale getGlobalScale() {
+        return _globalScale;
     }
 }

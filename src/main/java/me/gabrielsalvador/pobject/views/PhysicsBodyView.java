@@ -43,12 +43,15 @@ public class PhysicsBodyView implements View<Component> {
                 graphics.translate(this.model.getPixelPosition().x, this.model.getPixelPosition().y);
                 graphics.rotate(body.getAngle());
 
-                Vec2 start, end;
-                for (int i = 0, j = polygon.m_vertices.length - 1; i < polygon.m_vertices.length; j = i++) {
-                    start = pm.coordWorldToPixels(polygon.m_vertices[j].x, polygon.m_vertices[j].y);
-                    end = pm.coordWorldToPixels(polygon.m_vertices[i].x, polygon.m_vertices[i].y);
-                    graphics.line(start.x, start.y, end.x, end.y);
+                graphics.fill(255); // Example: white color
+
+                graphics.beginShape();
+                for (Vec2 vertex : polygon.m_vertices) {
+                    Vec2 pixelVertex = pm.coordWorldToPixels(vertex.x, vertex.y);
+                    graphics.vertex(pixelVertex.x, pixelVertex.y);
                 }
+                graphics.endShape(graphics.CLOSE);
+
                 graphics.popMatrix();
                 break;
 

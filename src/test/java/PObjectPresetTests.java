@@ -19,7 +19,7 @@ public class PObjectPresetTests {
 
     @Test
     public void testPObjectPreset() {
-        PObject obj = app.createPObject(pemitterPreset);
+        PObject obj = app.createPObject();
         app.addPObjectImmiadiately(obj);
         Assertions.assertNotNull(obj.getComponent(BodyComponent.class));
     }

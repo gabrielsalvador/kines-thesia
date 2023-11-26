@@ -12,7 +12,7 @@ public class Clock {
     private final List<Device> _devices = new ArrayList<>();
     private ScheduledExecutorService executorService;
     private TransportState _transportState = TransportState.STOPPED;
-    private int _tempo = 10;
+    private int _tempo = 3;
 
     private Clock() {
         this.executorService = Executors.newSingleThreadScheduledExecutor();

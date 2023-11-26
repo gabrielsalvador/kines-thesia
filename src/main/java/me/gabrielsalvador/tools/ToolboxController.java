@@ -21,17 +21,20 @@ class ToolboxController extends Group {
 
     public void didSetupLayout() {
         /*Gets all the tools available in the code and builds the ToolBox*/
-        Set<Class<? extends Tool>> tools = ToolManager.getInstance().getTools();
+        ToolManager toolManager = ToolManager.getInstance();
+        Set<Class<? extends Tool>> tools = toolManager.getTools();
         for (Class<? extends Tool> tool : tools) {
             if (tool.isAnnotationPresent(SkipProcessing.class)) {
                 continue;
             }
             String uii = UUID.randomUUID().toString();
-            Button b = new Button(cp5, uii);
+            char getShortcut = toolManager.getShortcutForTool(tool);
+            Button b = new Button(cp5, uii).setHeight(50).registerTooltip(getShortcut + "");
 
             if (tool.isAnnotationPresent(DisplayName.class)) {
                 DisplayName displayName = tool.getAnnotation(DisplayName.class);
-                b.getCaptionLabel().setText(displayName.value());
+                String displayText = displayName.value()+ "[" + toolManager.getShortcutForTool(tool) + "]";
+                b.getCaptionLabel().setText(displayText);
             } else {
                 b.getCaptionLabel().setText(tool.getSimpleName());
             }

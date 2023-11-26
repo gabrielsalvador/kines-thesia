@@ -3,6 +3,7 @@ package me.gabrielsalvador.pobject;
 
 
 import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.pobject.components.OnCollision;
 import me.gabrielsalvador.pobject.components.body.BodyData;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.sequencing.Clock;
@@ -95,9 +96,11 @@ public class PhysicsManager {
         if (yFlip == Y_FLIP_INDICATOR) pixelY = parent.height - pixelY;
         return new Vec2(pixelX, pixelY);
     }
+
     public Vec2 coordWorldToPixels(Vec2 worldVertex) {
         return coordWorldToPixels(worldVertex.x, worldVertex.y);
     }
+
     public Vec2[] coordWorldToPixels(Vec2[] worldVertices) {
         Vec2[] pixelVertices = new Vec2[worldVertices.length];
         for (int i = 0; i < worldVertices.length; i++) {
@@ -125,6 +128,7 @@ public class PhysicsManager {
         if (Clock.getInstance().getTransportState() == TransportState.PLAYING) {
             _world.step(timeStep, velocityIterations, positionIterations);
         }
+
     }
 
     public World getWorld() {
@@ -150,8 +154,19 @@ class myContactListener implements ContactListener{
             return;
         }
 
-        objA.onCollision(objB);
-        objB.onCollision(objA);
+        PObject pObjectA = objA.getOwner();
+        OnCollision onCollisionA = pObjectA.getComponent(OnCollision.class);
+        if(onCollisionA != null){
+            onCollisionA.onCollision(contact);
+        }
+
+        PObject pObjectB = objB.getOwner();
+        OnCollision onCollisionB = pObjectB.getComponent(OnCollision.class);
+        if(onCollisionB != null){
+            onCollisionB.onCollision(contact);
+        }
+
+
 
 
     }
