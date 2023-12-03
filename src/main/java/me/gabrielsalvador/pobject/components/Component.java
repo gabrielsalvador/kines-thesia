@@ -1,6 +1,8 @@
 package me.gabrielsalvador.pobject.components;
 
 
+import controlP5.ControlGroup;
+import controlP5.ControllerGroup;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty.SetterFor;
@@ -28,12 +30,12 @@ public abstract class  Component implements Serializable {
     transient protected View<Component> _view;
 
 
-    @InspectableProperty(displayName = "View")
+
     public View<Component> getView() {
         return _view;
     }
 
-    @SetterFor("View")
+
     public Component setView(View<Component> view) {
         _view = view;
         _viewClass = view.getClass();
@@ -63,6 +65,7 @@ public abstract class  Component implements Serializable {
         // Map to hold fieldName -> setterMethod
         Map<String, Method> setterMethods = new HashMap<>();
 
+
         Class<?> currentClass = this.getClass();
 
         // Collect methods and fields from this class and all superclasses
@@ -90,9 +93,14 @@ public abstract class  Component implements Serializable {
                         property.setSetter(setterMethods.get(displayName));
                     }
 
+
+
+
                     cachedProperties.add(property);
                 }
             }
+
+
 
             // Move to the superclass for the next iteration
             currentClass = currentClass.getSuperclass();

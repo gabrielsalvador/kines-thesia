@@ -45,31 +45,44 @@ public class InspectorController extends Group implements PropertyChangeListener
         /* Iterate over the components and build the controllers to change them*/
         for (Class<?> key : components.keySet()) {
             Component component = components.get(key);
-
-
             buildGroupsForComponent(component);
         }
 
     }
 
     private void buildGroupsForComponent(Component component) {
+        //title for the component
+        Group componentGroup = new Group(cp5, "ComponentGroup" + component.getName());
+        componentGroup.setWidth(getWidth());
+        componentGroup.setBackgroundColor(Color.random());
+        componentGroup.hideBar();
         Textlabel label = new Textlabel(cp5, "label" + component.getClass().getName());
-        label.setColorBackground(Color.rgbToInt(0, 244, 0));
-        label.setText("Component: " + component.getName());
-        addChildVertically(label);
+        label.setText("Component " + component.getName());
+        label.setGroup(componentGroup);
+        componentGroup.setSize(getWidth(), label.getHeight());
+
+        addChildVertically(componentGroup);
+
+
+        addChildVertically(new Spacer(cp5, "spacer" + component.getName()).setSize(getWidth(), 10)); //make is prettier
 
 
         ArrayList<PObjectProperty> properties = component.getProperties();
         for (PObjectProperty property : properties) {
              buildGroupForProperty(property, property.getType());
         }
+
+        addChildVertically(new Spacer(cp5, "spacer" + component.getName()).setSize(getWidth(), 30)); //make is prettier
     }
 
+
+
+    /* Build a Group for each property
+     * 50% of the width for the label
+     * 50% of the width for the controller
+     * */
+
     private void buildGroupForProperty(PObjectProperty property, Class<?> type) {
-        /* Build a Group for each property
-         * 50% of the width for the label
-         * 50% of the width for the controller
-         * */
 
         Group container = new Group(cp5, "PropertyGroup" + property.getName());
         container.setWidth(getWidth());
@@ -90,7 +103,7 @@ public class InspectorController extends Group implements PropertyChangeListener
         /* puts all controllers in place and adds a listener for then values change*/
         for(int i= 0; i < controllers.length; i++) {
             controllers[i].setWidth(container.getWidth()/2/controllers.length);
-            controllers[i].setPosition(container.getWidth()/2 + (container.getWidth()/2/controllers.length) * (i), 0);
+            controllers[i].setPosition((float) container.getWidth() /2 + ((float) container.getWidth() /2/controllers.length) * (i), 10);
             controllers[i].setGroup(container);
             controllers[i].getCaptionLabel().hide();
         }

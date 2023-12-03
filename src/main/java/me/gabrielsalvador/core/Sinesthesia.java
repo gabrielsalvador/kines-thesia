@@ -4,10 +4,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import controlP5.ControlFont;
-import controlP5.ControlP5;
-import controlP5.Textarea;
-import controlP5.Textfield;
+
+import controlP5.*;
 import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.InspectorController;
@@ -106,13 +104,8 @@ public class Sinesthesia extends PApplet {
         debugText.append("Mouse: ").append(mousePosition[0]).append(", ").append(mousePosition[1]).append(" \n ");
 
         World world = PhysicsManager.getInstance().getWorld();
-        int bodyCount = 0;
 
-        for (Body body = world.getBodyList(); body != null; body = body.getNext()) {
-            debugText.append("body: ").append(body.getType().toString()).append(" \n ");
-            bodyCount++;
-        }
-
+        int bodyCount = AppState.getInstance().getPObjects().size();
         debugText.append("PObjects: ").append(bodyCount).append(" \n ");
 
 

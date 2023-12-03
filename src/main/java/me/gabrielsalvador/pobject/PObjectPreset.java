@@ -55,7 +55,7 @@ public interface PObjectPreset {
             //
             metronome.getRoutingComponent().setTarget(pObject);
             pObject.getRoutingComponent().setPulseCallback(
-                    () -> {
+                    () -> { // wrap in a runnable so that the value of pObject is not lost
                         AppController.getInstance().queueModification(
                                 () -> {
                                     PObject p = new PObjectPreset.DropletPreset(pObject.getBodyComponent().getPosition()).create()[0];

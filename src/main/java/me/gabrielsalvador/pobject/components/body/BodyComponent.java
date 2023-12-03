@@ -1,13 +1,25 @@
 package me.gabrielsalvador.pobject.components.body;
 
+import me.gabrielsalvador.CodeEditor;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.Component;
+import me.gabrielsalvador.pobject.components.OnCollision;
 import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
 import org.jbox2d.common.Vec2;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 
 public abstract class BodyComponent extends Component {
+
+
+
+
+    @InspectableProperty(displayName = "Position")
+    public abstract Vec2 getPosition();
+    public Vec2 getPixelPosition(){
+        Vec2 position = getPosition();
+        return PhysicsManager.getInstance().coordWorldToPixels(position.x, position.y);
+    }
 
 
     private AbstractShape _shape;
@@ -16,16 +28,7 @@ public abstract class BodyComponent extends Component {
         super(owner);
     }
 
-    @InspectableProperty(displayName = "Position")
-    public abstract Vec2 getPosition();
-    public Vec2 getPixelPosition(){
-        Vec2 position = getPosition();
-        return PhysicsManager.getInstance().coordWorldToPixels(position.x, position.y);
-    }
-//    public BodyComponent setPosition(Vec2 position){
-//        _position = position;
-//        return this;
-//    }
+
 
     public AbstractShape getShape(){
         return _shape;
