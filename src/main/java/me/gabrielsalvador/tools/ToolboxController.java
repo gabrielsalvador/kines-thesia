@@ -31,10 +31,13 @@ class ToolboxController extends Group {
             char getShortcut = toolManager.getShortcutForTool(tool);
             Button b = new Button(cp5, uii).setHeight(50).registerTooltip(getShortcut + "");
 
+            //naming
             if (tool.isAnnotationPresent(DisplayName.class)) {
                 DisplayName displayName = tool.getAnnotation(DisplayName.class);
                 String displayText = displayName.value()+ "[" + toolManager.getShortcutForTool(tool) + "]";
                 b.getCaptionLabel().setText(displayText);
+                b.registerTooltip("use shortcuts! " + toolManager.getShortcutForTool(tool));
+
             } else {
                 b.getCaptionLabel().setText(tool.getSimpleName());
             }

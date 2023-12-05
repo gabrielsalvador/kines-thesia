@@ -21,7 +21,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     private BodyData _bodyData = null;
 
 
-    private boolean _isStatic = false;
+
 
     @InspectableProperty(displayName = "Mass")
     private float _mass = 1;
@@ -169,13 +169,12 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     @InspectableProperty(displayName = "Static")
     public boolean getIsStatic() {
-        return _isStatic;
+        return _body.getType() == BodyType.STATIC;
     }
     @InspectableProperty.SetterFor("Static")
     public void setIsStatic(boolean isStatic) {
-        System.out.println("setIsStatic");
 
-        _isStatic = isStatic;
+
         if (isStatic) {
             _body.setType(BodyType.STATIC);
         } else {

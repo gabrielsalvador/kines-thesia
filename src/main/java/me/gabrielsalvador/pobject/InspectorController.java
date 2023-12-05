@@ -123,7 +123,8 @@ public class InspectorController extends Group implements PropertyChangeListener
                     .setPosition(0, 0)
                     .setSize(20, 20)
                     .setGroup(this)
-                    .setValue((Boolean) property.getValue());
+                    .setValue((Boolean) property.getValue())
+                    .setMode(ControlP5.SWITCH);
 
             toggle.getCaptionLabel().hide();
 

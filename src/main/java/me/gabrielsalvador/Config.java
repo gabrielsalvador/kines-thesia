@@ -14,7 +14,7 @@ public interface Config {
             SelectTool.class, "selectTool.png",
             AddTool.class,"addTool.png");
 
-    String MAIN_SEQUENCER = "sequencer";
+    String MAIN_SEQUENCER_NAME = "sequencer";
 
     int THEME_COLOR_SELECTED = Color.rgbToInt(255,123,244);
     int THEME_COLOR_ROUTING_CONNECTION = Color.rgbToInt(95,207,249);
@@ -25,6 +25,7 @@ public interface Config {
     String SELECTTOOL_CURSOR_ADD_ICON = "selectAdd.png";
     String ADDTOOL_CURSOR_ICON = "addCursor.png";
     String BOXTOOL_CURSOR_ICON = "boxCursor.png";
+    String PIANO_ROLL_GROUP_NAME = "piano-roll";
 
     class Shortcuts {
         public static final char CLONE = 'c';
