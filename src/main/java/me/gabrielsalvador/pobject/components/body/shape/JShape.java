@@ -4,15 +4,21 @@ import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import org.jbox2d.collision.AABB;
+import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
-public class JShape extends AbstractShape {
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serial;
+
+public class JShape extends AbstractShape implements java.io.Serializable{
 
     private final PhysicsBodyComponent _owner;
-    private final Shape _shape;
+    private transient  Shape _shape;
 
     public JShape(Shape shape, PhysicsBodyComponent owner) {
         _owner = owner;
@@ -82,5 +88,49 @@ public class JShape extends AbstractShape {
         Vec2 lowerBound = aabb.lowerBound;
         Vec2 upperBound = aabb.upperBound;
         return new float[] {lowerBound.x, lowerBound.y, upperBound.x, upperBound.y};
+    }
+
+    @Serial
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        // Custom serialization logic for _shape
+        if (_shape instanceof org.jbox2d.collision.shapes.CircleShape) {
+            out.writeBoolean(true); // means its CircleShape
+            out.writeFloat(_shape.m_radius);
+
+        } else if (_shape instanceof org.jbox2d.collision.shapes.PolygonShape) {
+            out.writeBoolean(false); //  PolygonShape
+            org.jbox2d.collision.shapes.PolygonShape polygon = (PolygonShape) _shape;
+            out.writeInt(polygon.m_count);
+            for (int i = 0; i < polygon.m_count; i++) {
+                Vec2 vertex = polygon.m_vertices[i];
+                out.writeFloat(vertex.x);
+                out.writeFloat(vertex.y);
+            }
+
+        }
+
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        // Custom deserialization logic for _shape
+        boolean isCircle = in.readBoolean();
+        if (isCircle) {
+            float radius = in.readFloat();
+            _shape = new org.jbox2d.collision.shapes.CircleShape();
+            (_shape).m_radius = radius;
+        } else {
+
+            int count = in.readInt();
+            Vec2[] vertices = new Vec2[count];
+            for (int i = 0; i < count; i++) {
+                vertices[i] = new Vec2(in.readFloat(), in.readFloat());
+            }
+            org.jbox2d.collision.shapes.PolygonShape polygon = new org.jbox2d.collision.shapes.PolygonShape();
+            polygon.set(vertices, count);
+            _shape = polygon;
+        }
+        
     }
 }

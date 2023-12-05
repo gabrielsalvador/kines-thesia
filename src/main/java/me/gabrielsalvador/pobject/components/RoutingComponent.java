@@ -2,6 +2,7 @@ package me.gabrielsalvador.pobject.components;
 
 
 import me.gabrielsalvador.common.DisplayName;
+import me.gabrielsalvador.common.SerializableRunnable;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
@@ -11,7 +12,7 @@ import processing.core.PGraphics;
 public class RoutingComponent extends Component {
 
     private PObject _target;
-    private Runnable _pulseCallback;
+    private SerializableRunnable _pulseCallback;
 
     public RoutingComponent(PObject owner) {
         super(owner);
@@ -96,7 +97,7 @@ public class RoutingComponent extends Component {
         _target = target;
     }
 
-    public void setPulseCallback(Runnable callback) {
+    public void setPulseCallback(SerializableRunnable callback) {
         _pulseCallback = callback;
     }
 

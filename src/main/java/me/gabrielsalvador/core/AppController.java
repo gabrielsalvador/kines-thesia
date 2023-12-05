@@ -1,7 +1,9 @@
 package me.gabrielsalvador.core;
 
+import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.views.View;
+import me.gabrielsalvador.sequencing.SequencerController;
 import me.gabrielsalvador.utils.Mode;
 import me.gabrielsalvador.utils.Scale;
  import themidibus.MidiBus;
@@ -163,5 +165,7 @@ public class AppController {
     }
 
 
-
+    public SequencerController getSequencerController() {
+        return (SequencerController) Sinesthesia.getInstance().getCP5().getController(Config.MAIN_SEQUENCER_NAME);
+    }
 }

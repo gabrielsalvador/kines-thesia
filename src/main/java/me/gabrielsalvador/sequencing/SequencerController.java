@@ -23,7 +23,7 @@ public class SequencerController extends Controller<SequencerController> impleme
     public SequencerController(ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);
         setView(new SequencerView(this));
-        Clock.getInstance().addDevice(this);
+
         _sequencerState = AppState.getInstance().getSequencerState();
 
     }

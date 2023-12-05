@@ -1,5 +1,7 @@
 package me.gabrielsalvador.pobject;
 
+import me.gabrielsalvador.core.AppState;
+import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
@@ -13,10 +15,9 @@ import java.io.Serial;
 
 public class PMetronome extends PObject implements Device {
 
-    private BlinkingLigth _blinkingLigth;
+    private transient BlinkingLigth _blinkingLigth;
     public PMetronome() {
         super();
-        Clock.getInstance().addDevice(this);
         initialize();
     }
 
@@ -40,7 +41,8 @@ public class PMetronome extends PObject implements Device {
     }
 
     @Serial
-    public void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+    private void readObject(java.io.ObjectInputStream in)
+            throws java.io.IOException, ClassNotFoundException {
         in.defaultReadObject();
         initialize();
     }

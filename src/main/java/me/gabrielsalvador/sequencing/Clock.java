@@ -1,5 +1,8 @@
 package me.gabrielsalvador.sequencing;
 
+import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.core.AppState;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -9,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 public class Clock {
 
     private static Clock _instance;
-    private final List<Device> _devices = new ArrayList<>();
     private ScheduledExecutorService executorService;
     private TransportState _transportState = TransportState.STOPPED;
     private int _tempo = 3;
@@ -17,6 +19,9 @@ public class Clock {
     private Clock() {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
         startTickExecutor();
+        AppController.getInstance().addPropertyChangeListener("tempo", evt -> {
+            setTempo((int) evt.getNewValue());
+        });
     }
 
     public synchronized static Clock getInstance() {
@@ -36,12 +41,22 @@ public class Clock {
             executorService = Executors.newSingleThreadScheduledExecutor();
             executorService.scheduleAtFixedRate(() -> {
                 try {
-                    for (Device d : _devices) {
+                    for (Object d : AppState.getInstance().getPObjects()) {
+                        if (!(d instanceof Device)) {
+                            continue;
+                        }
                         if (Thread.currentThread().isInterrupted()) {
                             return;
                         }
-                        d.clockTick();
+                        ((Device)d).clockTick();
                     }
+                    SequencerController sequencerController = AppController.getInstance().getSequencerController();
+                    //TODO:instead of sending clock tick to all devices, and then sending clock tick to sequencer, create a list of devices that need to receive clock tick
+                    if (sequencerController != null) {
+                        sequencerController.clockTick();
+                    }
+
+
                 } catch (Exception e) {
                     System.err.println("Exception caught inside the task.");
                     e.printStackTrace();
@@ -55,9 +70,7 @@ public class Clock {
         return 60000 / (_tempo * 16);
     }
 
-    public void addDevice(Device device) {
-        _devices.add(device);
-    }
+
 
     private void restartTickExecutor() {
         pause();
