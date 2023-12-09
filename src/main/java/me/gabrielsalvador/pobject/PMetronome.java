@@ -18,6 +18,8 @@ public class PMetronome extends PObject implements Device {
     private transient BlinkingLigth _blinkingLigth;
     public PMetronome() {
         super();
+
+
         initialize();
     }
 
