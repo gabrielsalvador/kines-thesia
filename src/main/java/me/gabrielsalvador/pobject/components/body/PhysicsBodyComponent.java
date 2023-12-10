@@ -9,18 +9,18 @@ import org.jbox2d.collision.shapes.MassData;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
+
 import java.io.*;
+
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import processing.core.PGraphics;
 
 public class PhysicsBodyComponent extends BodyComponent implements Serializable {
 
     transient private Body _body;
-    private JShape _shape;
+
     /* used to serialize body data and recreate the body on deserialization */
     private BodyData _bodyData = null;
-
-
 
 
     @InspectableProperty(displayName = "Mass")
@@ -35,12 +35,9 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
 
     public PhysicsBodyComponent(PObject owner, Vec2 position) {
-        this(owner,BodyData.getDefaultBodyData());
+        this(owner, BodyData.getDefaultBodyData());
         setPixelPosition(position);
     }
-
-
-
 
 
     @Override
@@ -54,7 +51,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         return this;
     }
 
-  //function to set the position of the body in pixels
+    //function to set the position of the body in pixels
     public BodyComponent setPixelPosition(Vec2 position) {
         Vec2 worldCoords = PhysicsManager.getInstance().coordPixelsToWorld(position.x, position.y);
         _bodyData.x = worldCoords.x;
@@ -90,7 +87,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         return "PhysicsBody";
     }
 
-    public Body getJBox2DBody(){
+    public Body getJBox2DBody() {
         return _body;
     }
 
@@ -104,7 +101,6 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     }
 
 
-
     private void updateBodyData() {
         _bodyData.x = _body.getPosition().x;
         _bodyData.y = _body.getPosition().y;
@@ -116,7 +112,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     }
 
-    private BodyData getBodyData(){
+    private BodyData getBodyData() {
         return _bodyData;
     }
 
@@ -147,7 +143,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
                 _body = PhysicsManager.getInstance().createPolygon(_bodyData);
                 break;
         }
-        _shape = new JShape(_body.getFixtureList().getShape(),this);
+        _shape = new JShape(_body.getFixtureList().getShape(), this);
         _body.setTransform(new Vec2(_bodyData.x, _bodyData.y), _bodyData.angle);
         _body.setLinearVelocity(new Vec2(_bodyData.linearVelocityX, _bodyData.linearVelocityY));
         _body.setAngularVelocity(_bodyData.angularVelocity);
@@ -171,6 +167,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
     public boolean getIsStatic() {
         return _body.getType() == BodyType.STATIC;
     }
+
     @InspectableProperty.SetterFor("Static")
     public void setIsStatic(boolean isStatic) {
 
@@ -193,5 +190,21 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     public void setAngle(float angle) {
         _body.setTransform(_body.getPosition(), angle);
+    }
+
+
+    @Override
+    public Vec2 getPixelCenter() {
+        Vec2 center = _shape.getPixelCenter();
+        //rotate center
+        float angle = getAngle();
+        float cos = (float) Math.cos(angle);
+        float sin = (float) Math.sin(angle);
+        float x = center.x * cos - center.y * sin;
+        float y = center.x * sin + center.y * cos;
+        center.x = x;
+        center.y = y;
+        return getPixelPosition().add(center);
+
     }
 }

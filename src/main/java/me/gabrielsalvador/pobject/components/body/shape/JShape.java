@@ -15,10 +15,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serial;
 
-public class JShape extends AbstractShape implements java.io.Serializable{
+public class JShape extends AbstractShape implements java.io.Serializable {
 
     private final PhysicsBodyComponent _owner;
-    private transient  Shape _shape;
+    private transient Shape _shape;
 
     public JShape(Shape shape, PhysicsBodyComponent owner) {
         _owner = owner;
@@ -83,11 +83,50 @@ public class JShape extends AbstractShape implements java.io.Serializable{
     @Override
     public float[] getBoundaries() {
         AABB aabb = new AABB();
-        Transform transform = new Transform(); // assuming an identity transform
+        Transform transform = new Transform();
         _shape.computeAABB(aabb, transform, 0);
         Vec2 lowerBound = aabb.lowerBound;
         Vec2 upperBound = aabb.upperBound;
-        return new float[] {lowerBound.x, lowerBound.y, upperBound.x, upperBound.y};
+        return new float[]{lowerBound.x, lowerBound.y, upperBound.x, upperBound.y};
+    }
+
+    @Override
+    public Vec2 getCenter() {
+        if (_shape instanceof PolygonShape) {
+            PolygonShape polygon = (PolygonShape) _shape;
+            Vec2 centroid = new Vec2(0, 0);
+            float area = 0.0f;
+            Vec2 refPoint = new Vec2(0, 0);
+            float inv3 = 1.0f / 3.0f;
+
+            for (int i = 0; i < polygon.m_count; ++i) {
+                Vec2 p1 = refPoint;
+                Vec2 p2 = polygon.m_vertices[i];
+                Vec2 p3 = i + 1 < polygon.m_count ? polygon.m_vertices[i + 1] : polygon.m_vertices[0];
+
+                Vec2 e1 = p2.sub(p1);
+                Vec2 e2 = p3.sub(p1);
+
+                float D = Vec2.cross(e1, e2);
+                float triangleArea = 0.5f * D;
+                area += triangleArea;
+
+                // Area weighted centroid
+                centroid.x += triangleArea * inv3 * (p1.x + p2.x + p3.x);
+                centroid.y += triangleArea * inv3 * (p1.y + p2.y + p3.y);
+            }
+
+            centroid.x *= 1.0f / area;
+            centroid.y *= 1.0f / area;
+            return centroid;
+        }
+        // Handle other shapes (CircleShape, EdgeShape, ChainShape, etc.)
+        return new Vec2(0, 0);
+    }
+
+    public Vec2 getPixelCenter() {
+        Vec2 center = getCenter();
+        return PhysicsManager.getInstance().coordWorldToPixels(center.x, center.y);
     }
 
     @Serial
@@ -131,6 +170,6 @@ public class JShape extends AbstractShape implements java.io.Serializable{
             polygon.set(vertices, count);
             _shape = polygon;
         }
-        
+
     }
 }

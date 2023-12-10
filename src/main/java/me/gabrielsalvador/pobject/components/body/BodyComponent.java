@@ -1,13 +1,12 @@
 package me.gabrielsalvador.pobject.components.body;
 
-import me.gabrielsalvador.CodeEditor;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.Component;
-import me.gabrielsalvador.pobject.components.OnCollision;
 import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
 import org.jbox2d.common.Vec2;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
+import processing.core.PVector;
 
 public abstract class BodyComponent extends Component {
 
@@ -22,7 +21,7 @@ public abstract class BodyComponent extends Component {
     }
 
 
-    private AbstractShape _shape;
+    protected AbstractShape _shape;
 
     public BodyComponent(PObject owner){
         super(owner);
@@ -54,4 +53,13 @@ public abstract class BodyComponent extends Component {
     public abstract BodyComponent setPosition(Vec2 position);
 
 
+    public Vec2 getPixelCenter() {
+
+        return getPixelPosition().add(_shape.getPixelCenter());
+
+
+
+
+
+    }
 }
