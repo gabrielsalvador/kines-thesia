@@ -9,11 +9,15 @@ import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.pobject.*;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
+import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.event.KeyEvent;
+
+import java.util.ArrayList;
 
 @SkipProcessing
 public class CommandTool extends Tool {
@@ -51,10 +55,9 @@ public class CommandTool extends Tool {
     }
 
     @Override
-    public void onPressed(PObject pObject,int[] mousePosition) {
+    public void onPressed(PObject pObject, int[] mousePosition) {
 
     }
-
 
 
     @Override
@@ -64,7 +67,7 @@ public class CommandTool extends Tool {
 
 
     @Override
-    public void onDrag(PObject pObject,int[] mousePosition) {
+    public void onDrag(PObject pObject, int[] mousePosition) {
 
     }
 
@@ -84,7 +87,6 @@ public class CommandTool extends Tool {
     }
 
 
-
     class EnterCommand implements TextfieldCommand {
 
         @Override
@@ -101,28 +103,41 @@ public class CommandTool extends Tool {
                 String[] args = command.split(" ");
                 int x = canvas.getPointer().x();
                 int y = canvas.getPointer().y();
-                if(args[1].equals("keyboard")){
+                if (args[1].equals("keyboard")) {
 
-                }else if(args[1].equals("emitter")) {
+                } else if (args[1].equals("emitter")) {
                     AppController app = AppController.getInstance();
                     PObject p = new PObjectPreset.EmitterPreset(new Vec2(x, y)).create()[0];
                     app.addPObject(p);
 
 
-                }
-                else if(args[1].equals("block")) {
+                } else if (args[1].equals("block")) {
+
+                } else if (args[1].equals("esystem")) {
+
+                } else {
 
                 }
-                else if (args[1].equals("esystem")){
-
-                }
-
-                else {
-
-                }
-            }else if(split[0].equals("clear")) {
+            } else if (split[0].equals("clear")) {
                 AppController.getInstance().queueModification(() -> {
                     AppState.getInstance().clearObjects();
+                });
+            } else if (split[0].equals("clearmoving")) {
+                AppController.getInstance().queueModification(() -> {
+
+                    ArrayList<PObject> _pObjects = AppState.getInstance().getPObjects();
+
+                    for (int i = _pObjects.size() - 1; i >= 0; i--) {
+                        //if bodycomponent shape is a sphere
+                        BodyComponent body = _pObjects.get(i).getComponent(BodyComponent.class);
+                        if (body instanceof PhysicsBodyComponent physicsBody) {
+                            if (physicsBody.getJBox2DBody().getLinearVelocity().length() > 0) {
+                                _pObjects.get(i).remove();
+                                _pObjects.remove(i);
+                            }
+                        }
+                    }
+
                 });
             }
 
