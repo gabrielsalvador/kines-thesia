@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public abstract class Tool implements Serializable {
+    public static final int MODE_NORMAL = 0;
     private String _name;
     private String _description;
 
@@ -79,6 +80,7 @@ public abstract class Tool implements Serializable {
     public ArrayList<ToolMode> getModes() {
         return _modes;
     }
+
     public Tool setCurrentMode(ToolMode mode){
         _currentMode = mode;
         return this;

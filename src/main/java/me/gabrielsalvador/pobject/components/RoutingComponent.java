@@ -6,6 +6,7 @@ import me.gabrielsalvador.common.SerializableRunnable;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
+import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
@@ -23,18 +24,16 @@ public class RoutingComponent extends Component {
         if (_target == null) return;
         BodyComponent body = getOwner().getBodyComponent();
 
-        float startX = body.getPixelPosition().x;
-        float startY = body.getPixelPosition().y;
-        float endX = _target.getBodyComponent().getPixelPosition().x;
-        float endY = _target.getBodyComponent().getPixelPosition().y;
+        Vec2 start = body.getPixelCenter();
+        Vec2 end = _target.getBodyComponent().getPixelCenter();
 
         for (int i = 0; i < _subdivisions; i++) {
             float t = i / (float) (_subdivisions);
             float nextT = (i + 1) / (float) (_subdivisions);
-            float x = PApplet.lerp(startX, endX, t);
-            float y = PApplet.lerp(startY, endY, t);
-            float nextX = PApplet.lerp(startX, endX, nextT);
-            float nextY = PApplet.lerp(startY, endY, nextT);
+            float x = PApplet.lerp(start.x, end.x, t);
+            float y = PApplet.lerp(start.y, end.y, t);
+            float nextX = PApplet.lerp(start.x, end.x, nextT);
+            float nextY = PApplet.lerp(start.y, end.y, nextT);
 
             // Draw line segments
             graphics.line(x, y, nextX, nextY);

@@ -1,5 +1,6 @@
 package me.gabrielsalvador.pobject.components.body.shape;
 
+import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.utils.Vector;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
@@ -22,7 +23,8 @@ public class RectanglePShape extends PShape{
 
     @Override
     public void display(PGraphics graphics) {
-        graphics.rect(-_size.x / 2, -_size.y / 2, _size.x, _size.y);
+
+        graphics.rect(-_size.x / 2, -_size.y / 2,_size.x, _size.y);
     }
 
     @Override
@@ -32,6 +34,17 @@ public class RectanglePShape extends PShape{
         boundaries[0] = _size.x;
         boundaries[1] = _size.y;
         return boundaries;
+    }
+
+    @Override
+    public Vec2 getCenter() {
+        // the rectangle is drawn form -size/2 to size/2
+        return new Vec2(0,0);
+    }
+
+    @Override
+    public Vec2 getPixelCenter() {
+        return getCenter();
     }
 
 

@@ -9,18 +9,24 @@ import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
+import processing.core.PVector;
 import processing.event.KeyEvent;
 
 @DisplayName("Routing")
 public class RoutingTool extends Tool{
 
+    private static final int DOING_ROUTING = 1;
     private PObject _firstObject;
 
+
+
+
     {
-        getModes().add(new ToolMode("Normal"));
         getModes().add(new ToolMode("DoingRouting"));
-        setCurrentMode(getModes().get(0));
+        setCurrentMode(getModes().get(MODE_NORMAL));
     }
+
+
     @Override
     public void keyEvent(KeyEvent keyEvent) {
 
@@ -32,9 +38,19 @@ public class RoutingTool extends Tool{
 
     @Override
     public void onPressed(PObject pObject, int[] mousePosition) {
-        _firstObject = pObject;
-        setCurrentMode(getModes().get(2));
-        System.out.println(getCurrentMode().getName());
+
+        if(getCurrentMode().getName().equals("DoingRouting")){
+            if(_firstObject == null || pObject == null) return;
+
+            AppController.getInstance().createRouting(pObject, _firstObject);
+            setCurrentMode(getModes().get(MODE_NORMAL));
+
+        }else if (getCurrentMode().getName().equals("Normal")){
+            _firstObject = pObject;
+            setCurrentMode(getModes().get(DOING_ROUTING));
+        }
+
+
     }
 
     @Override
@@ -49,14 +65,17 @@ public class RoutingTool extends Tool{
 
     @Override
     public void draw(PGraphics graphics) {
+
+
         if(getCurrentMode().getName().equals("DoingRouting")){
+            if (_firstObject == null) return;
             PApplet papplet = Sinesthesia.getInstance();
-            int[] mousePos = new int[]{papplet.mouseX, papplet.mouseY};
+            int[] mousePos = AppController.getInstance().getCanvas().getMousePosition();
             graphics.stroke(255,0,0);
             graphics.strokeWeight(2);
             BodyComponent body = _firstObject.getComponent(BodyComponent.class);
-            graphics.line(body.getPixelPosition().x, body.getPixelPosition().y, mousePos[0], mousePos[1]);
-
+            Vec2 center = body.getPixelCenter();
+            graphics.line(center.x, center.y, mousePos[0], mousePos[1]);
         }
     }
 

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class HologramBody extends BodyComponent implements Serializable {
 
-    private AbstractShape _shape;
+
     private Vec2 _position;
     private final ArrayList<HologramBody> _children = new ArrayList<>();
     private HologramBody _parent;

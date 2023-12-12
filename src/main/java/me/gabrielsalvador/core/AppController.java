@@ -2,6 +2,7 @@ package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.views.View;
 import me.gabrielsalvador.sequencing.SequencerController;
 import me.gabrielsalvador.utils.Mode;
@@ -167,5 +168,15 @@ public class AppController {
 
     public SequencerController getSequencerController() {
         return (SequencerController) Sinesthesia.getInstance().getCP5().getController(Config.MAIN_SEQUENCER_NAME);
+    }
+
+    public void createRouting(PObject pObject, PObject firstObject) {
+        RoutingComponent RCA = new RoutingComponent(pObject);
+        RCA.setTarget(firstObject);
+        pObject.addComponent(RoutingComponent.class, RCA);
+
+        RoutingComponent RCB = new RoutingComponent(firstObject);
+        RCB.setTarget(pObject);
+        firstObject.addComponent(RoutingComponent.class, RCB);
     }
 }
