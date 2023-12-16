@@ -39,9 +39,13 @@ public class CanvasController extends Controller<CanvasController> implements Re
         isActive = inside();
         setUserInteraction(isActive);
         // x and y are relative to the canvas
+
+        //dispatch the event to the tool
         updateHoveredObject();
         _toolManager.getCurrentTool().onPressed(_currentlyHovering, getMousePosition());
 
+
+        //hide the command textfield
         Textfield t = (Textfield) cp5.get("CommandTextfield");
         if (t != null) {
             t.hide();

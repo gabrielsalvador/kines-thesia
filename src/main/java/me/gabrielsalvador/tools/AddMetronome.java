@@ -1,11 +1,13 @@
 package me.gabrielsalvador.tools;
 
 import me.gabrielsalvador.common.DisplayName;
+import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.pobject.PMetronome;
 import me.gabrielsalvador.pobject.PObject;
 import processing.event.KeyEvent;
 
 @DisplayName("Metronome")
-public class AddMetronome extends Tool{
+public class AddMetronome extends Tool {
 
     @Override
     public void keyEvent(KeyEvent keyEvent) {
@@ -19,6 +21,15 @@ public class AddMetronome extends Tool{
 
     @Override
     public void onPressed(PObject pObject, int[] mousePosition) {
+
+        AppController.getInstance().queueModification(new Runnable() {
+            @Override
+            public void run() {
+                PMetronome metronome = new PMetronome();
+                metronome.getBodyComponent().setPixelPosition(mousePosition[0], mousePosition[1]);
+                AppController.getInstance().addPObject(metronome);
+            }
+        });
 
     }
 
