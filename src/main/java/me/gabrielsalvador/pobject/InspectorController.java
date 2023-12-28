@@ -6,6 +6,8 @@ import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.utils.Color;
 import org.jbox2d.common.Vec2;
 import processing.core.PVector;
+import themidibus.MidiBus;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -30,8 +32,9 @@ public class InspectorController extends Group implements PropertyChangeListener
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        this.clear();
-        if (evt.getNewValue() == null) return;
+        this.clear(); // clear the controllers in the inspector
+        if (evt.getNewValue() == null || ((ArrayList<?>) evt.getNewValue()).isEmpty())
+            buildGeneralSettings();
         if (!evt.getPropertyName().equals("selectedObjects")) return;
         if (!(evt.getNewValue() instanceof ArrayList selectedObjects)) return;
         if (selectedObjects.size() == 0) return;
@@ -246,6 +249,51 @@ public class InspectorController extends Group implements PropertyChangeListener
 
         t.setText(className);
         return new Controller[]{t};
+
+    }
+
+    private void buildGeneralSettings() {
+        Group generalSettingsGroup = new Group(cp5,"GeneralSettingsGroup");
+        generalSettingsGroup.setWidth(getWidth());
+        generalSettingsGroup.setBackgroundColor(Color.random());
+        generalSettingsGroup.hideBar();
+        Textlabel label = new Textlabel(cp5,"labelGeneralSettings");
+        label.setText("MIDI Output");
+        generalSettingsGroup.addChildVertically(label);
+        addChildVertically(generalSettingsGroup);
+
+        String[] midiInterfaces = MidiBus.availableInputs();
+        DropdownList midiInputList = cp5.addDropdownList("MidiInputList")
+                .setPosition(0,0)
+                .setSize(100,100)
+                .setGroup(this)
+                .setBarHeight(20)
+                .setItemHeight(20)
+                .setType(ScrollableList.DROPDOWN)
+                .setBackgroundColor(255)
+                .close()
+                .setItems(midiInterfaces)
+                .setWidth(getWidth())
+                ;
+
+        generalSettingsGroup.addChildVertically(midiInputList);
+        Button midiReset = cp5.addButton("MidiReset")
+                .addCallback(new CallbackListener() {
+                    @Override
+                    public void controlEvent(CallbackEvent callbackEvent) {
+                        if(callbackEvent.getAction() == ControlP5.ACTION_BROADCAST){
+                            MidiBus midiBus = AppController.getInstance().get_midiBus();
+                            midiBus.clearInputs();
+                            midiBus.clearOutputs();
+                            midiBus.addInput(midiInputList.getItem((int) midiInputList.getValue()).get("name").toString());
+                            midiBus.addOutput(midiInputList.getItem((int) midiInputList.getValue()).get("name").toString());
+                        }
+                    }
+                })
+                ;
+        generalSettingsGroup.addChildVertically(midiReset);
+
+
 
     }
 

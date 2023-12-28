@@ -24,7 +24,7 @@ public class AppController {
     private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
     private final ConcurrentLinkedQueue<Runnable> _modificationsQueue = new ConcurrentLinkedQueue<Runnable>();
-     private final MidiBus _midiBus;
+    private final MidiBus _midiBus;
     private final Scale _globalScale = new Scale("C3",1, new Mode("Minor"));
 
     {
@@ -178,5 +178,9 @@ public class AppController {
         RoutingComponent RCB = new RoutingComponent(firstObject);
         RCB.setTarget(pObject);
         firstObject.addComponent(RoutingComponent.class, RCB);
+    }
+
+    public MidiBus get_midiBus() {
+        return _midiBus;
     }
 }
