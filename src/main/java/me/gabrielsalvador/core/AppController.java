@@ -7,8 +7,7 @@ import me.gabrielsalvador.pobject.views.View;
 import me.gabrielsalvador.sequencing.SequencerController;
 import me.gabrielsalvador.utils.Mode;
 import me.gabrielsalvador.utils.Scale;
- import themidibus.MidiBus;
-
+import themidibus.MidiBus;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -68,10 +67,10 @@ public class AppController {
     }
 
 
-
     public ArrayList<View> getGizmos() {
         return _appState.getGizmos();
     }
+
     public void addGizmo(View gizmo) {
         ArrayList<View> gizmos = _appState.getGizmos();
         gizmos.add(gizmo);
@@ -79,19 +78,20 @@ public class AppController {
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         _propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
-        _propertyChangeSupport.addPropertyChangeListener("selectedObjects", new PropertyChangeListener(){
-                @Override
-                public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                    if(evt.getNewValue() != null) {
-                        ArrayList<PObject> selectedObjects = (ArrayList<PObject>) evt.getNewValue();
-                        for (PObject pObject : AppState.getInstance().getPObjects()) {
-                            pObject.setIsSelected(selectedObjects.contains(pObject));
-                        }
-                    }
-                }
-            }
-        );
     }
+//        _propertyChangeSupport.addPropertyChangeListener("selectedObjects", new PropertyChangeListener(){
+//                @Override
+//                public void propertyChange(java.beans.PropertyChangeEvent evt) {
+//                    if(evt.getNewValue() != null) {
+//                        ArrayList<PObject> selectedObjects = (ArrayList<PObject>) evt.getNewValue();
+//                        for (PObject pObject : AppState.getInstance().getPObjects()) {
+//                            pObject.setIsSelected(selectedObjects.contains(pObject));
+//                        }
+//                    }
+//                }
+//            }
+//        );
+//    }
 
     public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
         _propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
