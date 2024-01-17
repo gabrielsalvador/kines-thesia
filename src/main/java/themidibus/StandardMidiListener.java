@@ -40,5 +40,5 @@ public interface StandardMidiListener extends MidiListener {
 	 * @param message the MidiMessage received
 	 * @param timeStamp the timestamp of the midiMessage
 	*/
-	public void midiMessage(MidiMessage message, long timeStamp);
+    void midiMessage(MidiMessage message, long timeStamp);
 }

@@ -36,5 +36,5 @@ public interface RawMidiListener extends MidiListener {
 	 * 
 	 * @param data the data bytes that make up the MIDI message
 	*/
-	public void rawMidiMessage(byte[] data);
+    void rawMidiMessage(byte[] data);
 }

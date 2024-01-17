@@ -92,8 +92,7 @@ public class JShape extends AbstractShape implements java.io.Serializable {
 
     @Override
     public Vec2 getCenter() {
-        if (_shape instanceof PolygonShape) {
-            PolygonShape polygon = (PolygonShape) _shape;
+        if (_shape instanceof PolygonShape polygon) {
             Vec2 centroid = new Vec2(0, 0);
             float area = 0.0f;
             Vec2 refPoint = new Vec2(0, 0);
@@ -137,9 +136,8 @@ public class JShape extends AbstractShape implements java.io.Serializable {
             out.writeBoolean(true); // means its CircleShape
             out.writeFloat(_shape.m_radius);
 
-        } else if (_shape instanceof org.jbox2d.collision.shapes.PolygonShape) {
+        } else if (_shape instanceof PolygonShape polygon) {
             out.writeBoolean(false); //  PolygonShape
-            org.jbox2d.collision.shapes.PolygonShape polygon = (PolygonShape) _shape;
             out.writeInt(polygon.m_count);
             for (int i = 0; i < polygon.m_count; i++) {
                 Vec2 vertex = polygon.m_vertices[i];
