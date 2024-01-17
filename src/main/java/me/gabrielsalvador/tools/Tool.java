@@ -13,9 +13,7 @@ public abstract class Tool implements Serializable {
     public static final int MODE_NORMAL = 0;
     private String _name;
     private String _description;
-
     private final PApplet _papplet = Sinesthesia.getInstance();
-
     private final ArrayList<ToolMode> _modes = new ArrayList<>();
     private ToolMode _currentMode = null;
 

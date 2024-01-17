@@ -40,20 +40,20 @@ public interface ObjectMidiListener extends MidiListener {
 	 * 
 	 * @param note the note object associated with this event
 	*/
-	public void noteOn(Note note);
+    void noteOn(Note note);
 	
 	/**
 	 * Objects notifying this ObjectMidiListener of a new NoteOff events call this method.
 	 * 
 	 * @param note the note object associated with this event
 	*/
-	public void noteOff(Note note);
+    void noteOff(Note note);
 	
 	/**
 	 * Objects notifying this ObjectMidiListener of a new ControllerChange events call this method.
 	 * 
 	 * @param change the ControlChange object associated with this event
 	*/
-	public void controllerChange(ControlChange change);
+    void controllerChange(ControlChange change);
 	
 }

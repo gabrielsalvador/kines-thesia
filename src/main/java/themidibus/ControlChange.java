@@ -154,9 +154,7 @@ public class ControlChange {
 		if (other.value != this.value) return false;
 
 		if (other.timestamp != this.timestamp) return false;
-		if (other.bus_name != this.bus_name) return false;
-
-		return true;
-	}
+        return other.bus_name == this.bus_name;
+    }
 
 }

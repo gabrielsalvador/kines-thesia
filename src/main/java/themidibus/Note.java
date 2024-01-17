@@ -246,9 +246,7 @@ public class Note {
 		if (other.ticks != this.ticks) return false;
 
 		if (other.timestamp != this.timestamp) return false;
-		if (other.bus_name != this.bus_name) return false;
-
-		return true;
-	}
+        return other.bus_name == this.bus_name;
+    }
 
 }

@@ -707,17 +707,17 @@ public class MidiBus {
 	 * @see #sendControllerChange(ControlChange change)
 	*/
 	public void sendMessage(byte[] data) {
-		if ((int)((byte)data[0] & 0xFF) == MetaMessage.META) {
+		if ((data[0] & 0xFF) == MetaMessage.META) {
 				MetaMessage message = new MetaMessage();
 				try {
 					byte[] payload = new byte[data.length-2];
 					System.arraycopy(data, 2, payload, 0, data.length-2);
-					message.setMessage((int)((byte)data[1] & 0xFF), payload, data.length-2);
+					message.setMessage(data[1] & 0xFF, payload, data.length-2);
 					sendMessage(message);
 				} catch(InvalidMidiDataException e) {
 					System.err.println("\nThe MidiBus Warning: Message not sent, invalid MIDI data");
 				}
-			} else if ((int)((byte)data[0] & 0xFF) == SysexMessage.SYSTEM_EXCLUSIVE || (int)((byte)data[0] & 0xFF) == SysexMessage.SPECIAL_SYSTEM_EXCLUSIVE) {
+			} else if ((data[0] & 0xFF) == SysexMessage.SYSTEM_EXCLUSIVE || (data[0] & 0xFF) == SysexMessage.SPECIAL_SYSTEM_EXCLUSIVE) {
 				SysexMessage message = new SysexMessage();
 				try {
 					message.setMessage(data, data.length);
@@ -728,9 +728,9 @@ public class MidiBus {
 			} else {
 				ShortMessage message = new ShortMessage();
 				try {
-					if (data.length > 2) message.setMessage((int)((byte)data[0] & 0xFF), (int)((byte)data[1] & 0xFF), (int)((byte)data[2] & 0xFF));
-					else if (data.length > 1) message.setMessage((int)((byte)data[0] & 0xFF), (int)((byte)data[1] & 0xFF), 0);
-					else message.setMessage((int)((byte)data[0] & 0xFF));
+					if (data.length > 2) message.setMessage(data[0] & 0xFF, data[1] & 0xFF, data[2] & 0xFF);
+					else if (data.length > 1) message.setMessage(data[0] & 0xFF, data[1] & 0xFF, 0);
+					else message.setMessage(data[0] & 0xFF);
 					sendMessage(message);
 				} catch(InvalidMidiDataException e) {
 					System.err.println("\nThe MidiBus Warning: Message not sent, invalid MIDI data");
@@ -1030,12 +1030,12 @@ public class MidiBus {
 			/* -- SimpleMidiListener -- */
 			
 			if (listener instanceof SimpleMidiListener) {
-				if ((int)((byte)data[0] & 0xF0) == ShortMessage.NOTE_ON) {
-					((SimpleMidiListener)listener).noteOn((int)(data[0] & 0x0F),(int)(data[1] & 0xFF),(int)(data[2] & 0xFF));
-				} else if ((int)((byte)data[0] & 0xF0) == ShortMessage.NOTE_OFF) {
-					((SimpleMidiListener)listener).noteOff((int)(data[0] & 0x0F),(int)(data[1] & 0xFF),(int)(data[2] & 0xFF));
-				} else if ((int)((byte)data[0] & 0xF0) == ShortMessage.CONTROL_CHANGE) {
-					((SimpleMidiListener)listener).controllerChange((int)(data[0] & 0x0F),(int)(data[1] & 0xFF),(int)(data[2] & 0xFF));
+				if ((data[0] & 0xF0) == ShortMessage.NOTE_ON) {
+					((SimpleMidiListener)listener).noteOn(data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF);
+				} else if ((data[0] & 0xF0) == ShortMessage.NOTE_OFF) {
+					((SimpleMidiListener)listener).noteOff(data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF);
+				} else if ((data[0] & 0xF0) == ShortMessage.CONTROL_CHANGE) {
+					((SimpleMidiListener)listener).controllerChange(data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF);
 				}
 			}
 		
@@ -1046,12 +1046,12 @@ public class MidiBus {
 			/* -- ObjectMidiListener -- */
 
 			if (listener instanceof ObjectMidiListener) {
-				if ((int)((byte)data[0] & 0xF0) == ShortMessage.NOTE_ON) {
-					((ObjectMidiListener)listener).noteOn(new Note((int)(data[0] & 0x0F),(int)(data[1] & 0xFF),(int)(data[2] & 0xFF)));
-				} else if ((int)((byte)data[0] & 0xF0) == ShortMessage.NOTE_OFF) {
-					((ObjectMidiListener)listener).noteOff(new Note((int)(data[0] & 0x0F),(int)(data[1] & 0xFF),(int)(data[2] & 0xFF)));
-				} else if ((int)((byte)data[0] & 0xF0) == ShortMessage.CONTROL_CHANGE) {
-					((ObjectMidiListener)listener).controllerChange(new ControlChange((int)(data[0] & 0x0F),(int)(data[1] & 0xFF),(int)(data[2] & 0xFF)));
+				if ((data[0] & 0xF0) == ShortMessage.NOTE_ON) {
+					((ObjectMidiListener)listener).noteOn(new Note(data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF));
+				} else if ((data[0] & 0xF0) == ShortMessage.NOTE_OFF) {
+					((ObjectMidiListener)listener).noteOff(new Note(data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF));
+				} else if ((data[0] & 0xF0) == ShortMessage.CONTROL_CHANGE) {
+					((ObjectMidiListener)listener).controllerChange(new ControlChange(data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF));
 				}
 			}
 
@@ -1068,10 +1068,10 @@ public class MidiBus {
 
 		byte[] data = message.getMessage();
 
-		if ((int)((byte)data[0] & 0xF0) == ShortMessage.NOTE_ON) {
+		if ((data[0] & 0xF0) == ShortMessage.NOTE_ON) {
 			if (method_note_on != null) {
 				try {
-					method_note_on.invoke(parent, new Object[] { (int)(data[0] & 0x0F), (int)(data[1] & 0xFF), (int)(data[2] & 0xFF) });
+					method_note_on.invoke(parent, data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF);
 				} catch(Exception e) {
 					System.err.println("\nThe MidiBus Warning: Disabling noteOn(int channel, int pitch, int velocity) because an unkown exception was thrown and caught");
 					e.printStackTrace();
@@ -1081,7 +1081,7 @@ public class MidiBus {
 			}
 			if (method_note_on_with_bus_name != null) {
 				try {
-					method_note_on_with_bus_name.invoke(parent, new Object[] { (int)(data[0] & 0x0F), (int)(data[1] & 0xFF), (int)(data[2] & 0xFF), timeStamp, bus_name });
+					method_note_on_with_bus_name.invoke(parent, data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF, timeStamp, bus_name);
 				} catch(Exception e) {
 					System.err.println("\nThe MidiBus Warning: Disabling noteOn(int channel, int pitch, int velocity, String bus_name) with bus_name because an unkown exception was thrown and caught");
 					e.printStackTrace();
@@ -1090,17 +1090,17 @@ public class MidiBus {
 			}
 			if (method_note_on_wcla != null) {
 				try {
-					method_note_on_wcla.invoke(parent, new Note((int)(data[0] & 0x0F), (int)(data[1] & 0xFF), (int)(data[2] & 0xFF), timeStamp, bus_name));
+					method_note_on_wcla.invoke(parent, new Note(data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF, timeStamp, bus_name));
 				} catch(Exception e) {
 					System.err.println("\nThe MidiBus Warning: Disabling noteOn(Note note) because an unkown exception was thrown and caught");
 					e.printStackTrace();
 					method_note_on_wcla = null;
 				}
 			}
-		} else if ((int)((byte)data[0] & 0xF0) == ShortMessage.NOTE_OFF) {
+		} else if ((data[0] & 0xF0) == ShortMessage.NOTE_OFF) {
 			if (method_note_off != null) {
 				try {
-					method_note_off.invoke(parent, new Object[] { (int)(data[0] & 0x0F), (int)(data[1] & 0xFF), (int)(data[2] & 0xFF) });
+					method_note_off.invoke(parent, data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF);
 				} catch(Exception e) {
 					System.err.println("\nThe MidiBus Warning: Disabling noteOff(int channel, int pitch, int velocity) because an unkown exception was thrown and caught");
 					e.printStackTrace();
@@ -1109,7 +1109,7 @@ public class MidiBus {
 			}
 			if (method_note_off_with_bus_name != null) {
 				try {
-					method_note_off_with_bus_name.invoke(parent, new Object[] { (int)(data[0] & 0x0F), (int)(data[1] & 0xFF), (int)(data[2] & 0xFF), timeStamp, bus_name });
+					method_note_off_with_bus_name.invoke(parent, data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF, timeStamp, bus_name);
 				} catch(Exception e) {
 					System.err.println("\nThe MidiBus Warning: Disabling noteOff(int channel, int pitch, int velocity, String bus_name) with bus_name because an unkown exception was thrown and caught");
 					e.printStackTrace();
@@ -1118,17 +1118,17 @@ public class MidiBus {
 			}
 			if (method_note_off_wcla != null) {
 				try {
-					method_note_off_wcla.invoke(parent, new Note((int)(data[0] & 0x0F), (int)(data[1] & 0xFF), (int)(data[2] & 0xFF), timeStamp, bus_name));
+					method_note_off_wcla.invoke(parent, new Note(data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF, timeStamp, bus_name));
 				} catch(Exception e) {
 					System.err.println("\nThe MidiBus Warning: Disabling noteOff(Note note) because an unkown exception was thrown and caught");
 					e.printStackTrace();
 					method_note_off_wcla = null;
 				}
 			}
-		} else if ((int)((byte)data[0] & 0xF0) == ShortMessage.CONTROL_CHANGE) {
+		} else if ((data[0] & 0xF0) == ShortMessage.CONTROL_CHANGE) {
 			if (method_controller_change != null) {
 				try {
-					method_controller_change.invoke(parent, new Object[] { (int)(data[0] & 0x0F), (int)(data[1] & 0xFF), (int)(data[2] & 0xFF) });
+					method_controller_change.invoke(parent, data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF);
 				} catch(Exception e) {
 					System.err.println("\nThe MidiBus Warning: Disabling controllerChange(int channel, int number, int value) because an unkown exception was thrown and caught");
 					e.printStackTrace();
@@ -1137,7 +1137,7 @@ public class MidiBus {
 			}
 			if (method_controller_change_with_bus_name != null) {
 				try {
-					method_controller_change_with_bus_name.invoke(parent, new Object[] { (int)(data[0] & 0x0F), (int)(data[1] & 0xFF), (int)(data[2] & 0xFF), timeStamp, bus_name });
+					method_controller_change_with_bus_name.invoke(parent, data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF, timeStamp, bus_name);
 				} catch(Exception e) {
 					System.err.println("\nThe MidiBus Warning: Disabling controllerChange(int channel, int number, int value, String bus_name) with bus_name because an unkown exception was thrown and caught");
 					e.printStackTrace();
@@ -1146,7 +1146,7 @@ public class MidiBus {
 			}
 			if (method_controller_change_wcla != null) {
 				try {
-					method_controller_change_wcla.invoke(parent, new ControlChange((int)(data[0] & 0x0F), (int)(data[1] & 0xFF), (int)(data[2] & 0xFF), timeStamp, bus_name));
+					method_controller_change_wcla.invoke(parent, new ControlChange(data[0] & 0x0F, data[1] & 0xFF, data[2] & 0xFF, timeStamp, bus_name));
 				} catch(Exception e) {
 					System.err.println("\nThe MidiBus Warning: Disabling noteOff(Note note) because an unkown exception was thrown and caught");
 					e.printStackTrace();
@@ -1166,7 +1166,7 @@ public class MidiBus {
 		}
 		if (method_raw_midi_with_bus_name != null) {
 			try {
-				method_raw_midi_with_bus_name.invoke(parent, new Object[] { data, timeStamp, bus_name });
+				method_raw_midi_with_bus_name.invoke(parent, data, timeStamp, bus_name);
 			} catch(Exception e) {
 				System.err.println("\nThe MidiBus Warning: Disabling rawMidi(byte[] data, String bus_name) with bus_name because an unkown exception was thrown and caught");
 				e.printStackTrace();
@@ -1176,7 +1176,7 @@ public class MidiBus {
 		
 		if (method_midi_message != null) {
 			try {
-				method_midi_message.invoke(parent, new Object[] { message });
+				method_midi_message.invoke(parent, message);
 			} catch(Exception e) {
 				System.err.println("\nThe MidiBus Warning: Disabling midiMessage(MidiMessage message) because an unkown exception was thrown and caught");
 				e.printStackTrace();
@@ -1185,7 +1185,7 @@ public class MidiBus {
 		}
 		if (method_midi_message_with_bus_name != null) {
 			try {
-				method_midi_message_with_bus_name.invoke(parent, new Object[] { message, timeStamp, bus_name });
+				method_midi_message_with_bus_name.invoke(parent, message, timeStamp, bus_name);
 			} catch(Exception e) {
 				System.err.println("\nThe MidiBus Warning: Disabling midiMessage(MidiMessage message, String bus_name) with bus_name because an unkown exception was thrown and caught");
 				e.printStackTrace();
@@ -1230,79 +1230,79 @@ public class MidiBus {
 			}
 
 			try {
-				method_note_on = parent.getClass().getMethod("noteOn", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE });
+				method_note_on = parent.getClass().getMethod("noteOn", Integer.TYPE, Integer.TYPE, Integer.TYPE);
 			} catch(Exception e) {
 				// no such method, or an error.. which is fine, just ignore
 			}
 			
 			try {
-				method_note_off = parent.getClass().getMethod("noteOff", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE });
+				method_note_off = parent.getClass().getMethod("noteOff", Integer.TYPE, Integer.TYPE, Integer.TYPE);
 			} catch(Exception e) {
 				// no such method, or an error.. which is fine, just ignore
 			}
 			
 			try {
-				method_controller_change = parent.getClass().getMethod("controllerChange", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE });
+				method_controller_change = parent.getClass().getMethod("controllerChange", Integer.TYPE, Integer.TYPE, Integer.TYPE);
 			} catch(Exception e) {
 				// no such method, or an error.. which is fine, just ignore
 			}
 			
 			try {
-				method_raw_midi = parent.getClass().getMethod("rawMidi", new Class[] { byte[].class });
+				method_raw_midi = parent.getClass().getMethod("rawMidi", byte[].class);
 			} catch(Exception e) {
 				// no such method, or an error.. which is fine, just ignore
 			}
 			
 			try {
-				method_midi_message = parent.getClass().getMethod("midiMessage", new Class[] { MidiMessage.class });
+				method_midi_message = parent.getClass().getMethod("midiMessage", MidiMessage.class);
 			} catch(Exception e) {
 				// no such method, or an error.. which is fine, just ignore
 			}
 			
 			try {
-				method_note_on_with_bus_name = parent.getClass().getMethod("noteOn", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE, Long.TYPE, String.class });
+				method_note_on_with_bus_name = parent.getClass().getMethod("noteOn", Integer.TYPE, Integer.TYPE, Integer.TYPE, Long.TYPE, String.class);
 			} catch(Exception e) {
 				// no such method, or an error.. which is fine, just ignore
 			}
 			
 			try {
-				method_note_off_with_bus_name = parent.getClass().getMethod("noteOff", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE, Long.TYPE, String.class });
+				method_note_off_with_bus_name = parent.getClass().getMethod("noteOff", Integer.TYPE, Integer.TYPE, Integer.TYPE, Long.TYPE, String.class);
 			} catch(Exception e) {
 				// no such method, or an error.. which is fine, just ignore
 			}
 
 			try {
-				method_controller_change_with_bus_name = parent.getClass().getMethod("controllerChange", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE, Long.TYPE, String.class });
+				method_controller_change_with_bus_name = parent.getClass().getMethod("controllerChange", Integer.TYPE, Integer.TYPE, Integer.TYPE, Long.TYPE, String.class);
 			} catch(Exception e) {
 				// no such method, or an error.. which is fine, just ignore
 			}
 			
 			try {
-				method_raw_midi_with_bus_name = parent.getClass().getMethod("rawMidi", new Class[] { byte[].class, Long.TYPE, String.class });
+				method_raw_midi_with_bus_name = parent.getClass().getMethod("rawMidi", byte[].class, Long.TYPE, String.class);
 			} catch(Exception e) {
 				// no such method, or an error.. which is fine, just ignore
 			}
 			
 			try {
-				method_midi_message_with_bus_name = parent.getClass().getMethod("midiMessage", new Class[] { MidiMessage.class, Long.TYPE, String.class });
+				method_midi_message_with_bus_name = parent.getClass().getMethod("midiMessage", MidiMessage.class, Long.TYPE, String.class);
 			} catch(Exception e) {
 				// no such method, or an error.. which is fine, just ignore
 			}
 
 			try {
-				method_note_on_wcla = parent.getClass().getMethod("noteOn", new Class[] { Note.class});
+				method_note_on_wcla = parent.getClass().getMethod("noteOn", Note.class);
 			} catch(Exception e) {
 				// no such method, or an error.. which is fine, just ignore
 			}
 			
 			try {
-				method_note_off_wcla = parent.getClass().getMethod("noteOff", new Class[] { Note.class });
+				method_note_off_wcla = parent.getClass().getMethod("noteOff", Note.class);
 			} catch(Exception e) {
 				// no such method, or an error.. which is fine, just ignore
 			}
 
 			try {
-				method_controller_change_wcla = parent.getClass().getMethod("controllerChange", new Class[] { ControlChange.class });
+				method_controller_change_wcla = parent.getClass().getMethod("controllerChange", ControlChange.class);
 			} catch(Exception e) {
 				// no such method, or an error.. which is fine, just ignore
 			}
@@ -1430,14 +1430,12 @@ public class MidiBus {
 	 * @return if this object is the same as the obj argument; false otherwise.
 	 */
 	public boolean equals(Object obj) {
-		if (obj instanceof MidiBus) {
-			MidiBus midibus = (MidiBus)obj;
+		if (obj instanceof MidiBus midibus) {
 			if (!this.getBusName().equals(midibus.getBusName())) return false;
 			if (!this.input_devices.equals(midibus.input_devices)) return false;
 			if (!this.output_devices.equals(midibus.output_devices)) return false;
-			if (!this.listeners.equals(midibus.listeners)) return false;
-			return true;
-		}
+            return this.listeners.equals(midibus.listeners);
+        }
 		return false;
 	}
 	
@@ -1755,8 +1753,7 @@ public class MidiBus {
 		}
 		
 		public boolean equals(Object container) {
-			if (container instanceof InputDeviceContainer && ((InputDeviceContainer)container).info.getName().equals(this.info.getName())) return true;
-			else return false;
+            return container instanceof InputDeviceContainer && ((InputDeviceContainer) container).info.getName().equals(this.info.getName());
 		}
 		
 		public int hashCode() {
@@ -1776,8 +1773,7 @@ public class MidiBus {
 		}
 		
 		public boolean equals(Object container) {
-			if (container instanceof OutputDeviceContainer && ((OutputDeviceContainer)container).info.getName().equals(this.info.getName())) return true;
-			else return false;
+            return container instanceof OutputDeviceContainer && ((OutputDeviceContainer) container).info.getName().equals(this.info.getName());
 		}
 		
 		public int hashCode() {

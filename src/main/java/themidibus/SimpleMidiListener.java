@@ -40,7 +40,7 @@ public interface SimpleMidiListener extends MidiListener {
 	 * @param pitch the pitch associated with the NoteOn
 	 * @param velocity the velocity associated with the NoteOn
 	*/
-	public void noteOn(int channel, int pitch, int velocity);
+    void noteOn(int channel, int pitch, int velocity);
 	
 	/**
 	 * Objects notifying this SimpleMidiListener of a new NoteOff MIDI message call this method.
@@ -49,7 +49,7 @@ public interface SimpleMidiListener extends MidiListener {
 	 * @param pitch the pitch associated with the NoteOff
 	 * @param velocity the velocity associated with the NoteOff
 	*/
-	public void noteOff(int channel, int pitch, int velocity);
+    void noteOff(int channel, int pitch, int velocity);
 	
 	/**
 	 * Objects notifying this SimpleMidiListener of a new ControllerChange MIDI message call this method.
@@ -58,6 +58,6 @@ public interface SimpleMidiListener extends MidiListener {
 	 * @param number the controller number associated with the ContollerChange
 	 * @param value the controller value associated with the ContollerChange
 	*/
-	public void controllerChange(int channel, int number, int value);
+    void controllerChange(int channel, int number, int value);
 	
 }
