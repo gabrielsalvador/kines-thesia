@@ -3,6 +3,7 @@ package me.gabrielsalvador.tools;
 import java.util.ArrayList;
 import controlP5.ControlP5;
 import me.gabrielsalvador.Config;
+import me.gabrielsalvador.PGroup;
 import me.gabrielsalvador.common.DisplayName;
 import me.gabrielsalvador.core.*;
 import org.jbox2d.common.Vec2;
@@ -29,9 +30,6 @@ public class SelectTool extends Tool {
 
         setCurrentMode(getModes().get(0));
     }
-    
-    
-
 
     public SelectTool() {
         _cp5 = Sinesthesia.getInstance().getCP5();   
@@ -41,15 +39,14 @@ public class SelectTool extends Tool {
     @Override
     public void keyEvent(KeyEvent keyEvent) {
         if (keyEvent.getAction() == KeyEvent.PRESS) {
-          //if backspace is pressed, delete selected objects
+            //if backspace is pressed, delete selected objects
             if (keyEvent.getKeyCode() == 8) {
                 System.out.println("backspace pressed");
                 for (PObject p : selectedObjects) {
-                AppController.getInstance().queueModification(p::remove);
+                    AppController.getInstance().queueModification(p::remove);
                 }
             }
         }
-       
     }
     
 
@@ -58,7 +55,11 @@ public class SelectTool extends Tool {
     }
 
     @Override
-    public void onPressed(PObject pObject, int[] mousePosition) {
+    public boolean onPressed(PObject pObject, int[] mousePosition) {
+        if (super.onPressed(pObject, mousePosition)) {
+            return true;
+        }
+
         if(getCurrentMode().getName().equals("Normal")){
             clearSelection();
         }
@@ -72,6 +73,8 @@ public class SelectTool extends Tool {
         } else {
             clearSelection();
         }
+
+        return false;
     }
 
 
@@ -84,6 +87,7 @@ public class SelectTool extends Tool {
 
     @Override
     public void onDrag(PObject pObject, int[] mousePosition) {
+        super.onDrag(pObject, mousePosition);
         if (_isDragging && _initialDragPosition != null) {
             Vec2 currentDragPosition = new Vec2(mousePosition[0], mousePosition[1]);
             Vec2 dragDelta = currentDragPosition.sub(_initialDragPosition);
@@ -92,11 +96,9 @@ public class SelectTool extends Tool {
                 Vec2 currentPosition = selectedObject.getBodyComponent().getPixelPosition();
                 selectedObject.getBodyComponent().setPixelPosition(currentPosition.add(dragDelta));
             }
-
             _initialDragPosition = currentDragPosition;
         }
     }
-
 
 
 
@@ -113,12 +115,14 @@ public class SelectTool extends Tool {
         }
     }
 
+
     @Override
     public void onRelease(PObject pObject) {
+        super.onRelease(pObject);
         _isDragging = false;
         _initialDragPosition = null;
-
     }
+
 
     private void clearSelection() {
         for (PObject p : selectedObjects) {
@@ -138,7 +142,13 @@ public class SelectTool extends Tool {
             selectedObjects.add(pObject);
         }
         AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
+
+        _gizmos.clear();
+        if(!selectedObjects.isEmpty())
+            _gizmos.add(new FreetransformGizmo(new PGroup(selectedObjects)));
+
     }
+
 
 
 

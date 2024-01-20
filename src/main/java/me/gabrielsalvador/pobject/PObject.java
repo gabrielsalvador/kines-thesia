@@ -18,7 +18,7 @@ import processing.core.PGraphics;
 
 public class PObject implements Serializable {
 
-    private boolean _isSelected = false;
+    transient private boolean _isSelected = false;
     private boolean _isHovered = false;
     private final Set<PObject> _children = new HashSet<>();
     transient private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<>();

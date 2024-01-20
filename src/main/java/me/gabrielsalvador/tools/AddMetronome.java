@@ -20,7 +20,7 @@ public class AddMetronome extends Tool {
     }
 
     @Override
-    public void onPressed(PObject pObject, int[] mousePosition) {
+    public boolean onPressed(PObject pObject, int[] mousePosition) {
 
         AppController.getInstance().queueModification(new Runnable() {
             @Override
@@ -31,6 +31,7 @@ public class AddMetronome extends Tool {
             }
         });
 
+        return false;
     }
 
     @Override

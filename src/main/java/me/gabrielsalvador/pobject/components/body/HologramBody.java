@@ -65,6 +65,34 @@ public class HologramBody extends BodyComponent implements Serializable {
         return this;
     }
 
+    @Override
+    public void setTransform(Vec2 position, float angle) {
+        _position = position;
+    }
+
+
+    @Override
+    public void setAngle(float angle) {
+        // cannot rotate hologram
+    }
+
+    @Override
+    public void rotateBodyAroundPivot(Vec2 pivot, float angle) {
+        // cannot rotate hologram
+    }
+
+
+
+    @Override
+    public void setPixelTransform(Vec2 bufferedMousePosition, float rotatingAngle) {
+        // cannot rotate hologram
+    }
+
+    @Override
+    public float getAngle() {
+        return 0;
+    }
+
 
     @Override
     public AbstractShape getShape() {

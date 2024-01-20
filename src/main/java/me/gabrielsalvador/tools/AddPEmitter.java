@@ -24,8 +24,8 @@ public class AddPEmitter extends Tool{
     }
 
     @Override
-    public void onPressed(PObject pObject, int[] mousePosition) {
-        if (pObject != null ) return;
+    public boolean onPressed(PObject pObject, int[] mousePosition) {
+        if (pObject != null ) return true;
 
         AppController app = AppController.getInstance();
         Vec2 mousePos = new Vec2(mousePosition[0], mousePosition[1]);
@@ -34,7 +34,7 @@ public class AddPEmitter extends Tool{
             AppController.getInstance().addPObject(p);
         }
 
-
+        return false;
 
     }
 

@@ -39,7 +39,7 @@ public abstract class BodyComponent extends Component {
 
 
 
-    public abstract  BodyComponent setPixelPosition(Vec2 vec2);
+    public abstract BodyComponent setPixelPosition(Vec2 vec2);
 
     public void setPixelPosition(int x, int y) {
         setPixelPosition(new Vec2(x, y));
@@ -53,13 +53,19 @@ public abstract class BodyComponent extends Component {
     public abstract BodyComponent setPosition(Vec2 position);
 
 
+    public abstract void setTransform(Vec2 position, float angle);
+
     public Vec2 getPixelCenter() {
 
         return getPixelPosition().add(_shape.getPixelCenter());
 
-
-
-
-
     }
+
+    public abstract void setAngle(float angle);
+    public abstract void rotateBodyAroundPivot(Vec2 pivot, float angle);
+
+    public abstract void setPixelTransform(Vec2 bufferedMousePosition, float rotatingAngle);
+
+
+    public abstract float getAngle() ;
 }

@@ -159,9 +159,7 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         _body.setTransform(getPosition(), _body.getAngle());
     }
 
-    public float getAngle() {
-        return _body.getAngle();
-    }
+
 
     @InspectableProperty(displayName = "Static")
     public boolean getIsStatic() {
@@ -188,10 +186,47 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         _body.setMassData(massData);
     }
 
+    @Override
+    public float getAngle() {
+        return _body.getAngle();
+    }
+
     public void setAngle(float angle) {
         _body.setTransform(_body.getPosition(), angle);
     }
 
+    @Override
+    public void rotateBodyAroundPivot( Vec2 pivot, float angle) {
+
+        float angleRadians = (float) Math.toRadians(angle);
+
+
+        Vec2 bodyPosition = _body.getPosition();
+        Vec2 translationToPivot = pivot.sub(bodyPosition);
+        _body.setTransform(bodyPosition.add(translationToPivot), _body.getAngle());
+
+
+        _body.setTransform(_body.getPosition(), angleRadians);
+
+
+        Vec2 translationBack = _body.getPosition().sub(translationToPivot);
+        _body.setTransform(translationBack, _body.getAngle());
+    }
+
+    public void rotateBy(float angle) {
+        _body.setTransform(_body.getPosition(), _body.getAngle() + angle);
+    }
+
+    @Override
+    public void setPixelTransform(Vec2 bufferedMousePosition, float rotatingAngle) {
+        Vec2 worldCoords = PhysicsManager.getInstance().coordPixelsToWorld(bufferedMousePosition.x, bufferedMousePosition.y);
+        _body.setTransform(worldCoords, rotatingAngle);
+    }
+
+    @Override
+    public void setTransform(Vec2 position, float angle) {
+        _body.setTransform(position, angle);
+    }
 
     @Override
     public Vec2 getPixelCenter() {
@@ -207,4 +242,5 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         return getPixelPosition().add(center);
 
     }
+
 }

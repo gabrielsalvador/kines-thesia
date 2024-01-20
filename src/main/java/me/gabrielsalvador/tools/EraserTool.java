@@ -15,9 +15,10 @@ public class EraserTool extends Tool{
     }
 
     @Override
-    public void onPressed(PObject pObject, int[] mousePosition) {
+    public boolean onPressed(PObject pObject, int[] mousePosition) {
         if(pObject != null)
             pObject.remove();
+        return false;
     }
 
     @Override

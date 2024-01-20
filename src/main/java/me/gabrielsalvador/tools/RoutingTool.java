@@ -37,10 +37,10 @@ public class RoutingTool extends Tool{
     }
 
     @Override
-    public void onPressed(PObject pObject, int[] mousePosition) {
+    public boolean onPressed(PObject pObject, int[] mousePosition) {
 
         if(getCurrentMode().getName().equals("DoingRouting")){
-            if(_firstObject == null || pObject == null) return;
+            if(_firstObject == null || pObject == null) return true;
 
             AppController.getInstance().createRouting(pObject, _firstObject);
             setCurrentMode(getModes().get(MODE_NORMAL));
@@ -50,6 +50,7 @@ public class RoutingTool extends Tool{
             setCurrentMode(getModes().get(DOING_ROUTING));
         }
 
+        return false;
 
     }
 

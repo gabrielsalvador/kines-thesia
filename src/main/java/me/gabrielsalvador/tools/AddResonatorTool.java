@@ -60,9 +60,9 @@ public class AddResonatorTool extends Tool {
     }
 
     @Override
-    public void onPressed(PObject pObject, int[] mousePosition) {
+    public boolean onPressed(PObject pObject, int[] mousePosition) {
         _initialPosition = new Vec2(getCanvas().getMousePosition()[0], getCanvas().getMousePosition()[1]);
-
+        return false;
     }
 
     @Override

@@ -51,4 +51,20 @@ public class MathUtils {
         // translate point back:
         return new Vec2(xnew + cx, ynew + cy);
     }
+
+    public static float calculateAngle(Vec2 v1, Vec2 v2) {
+        float dotProduct = Vec2.dot(v1, v2);
+        float magnitudeProduct = v1.length() * v2.length();
+        float angleInRadians = (float) Math.acos(dotProduct / magnitudeProduct);
+
+
+        float crossProduct = v1.x * v2.y - v1.y * v2.x;
+
+
+        if (crossProduct < 0) {
+            angleInRadians = -angleInRadians;
+        }
+
+        return (float) -Math.toDegrees(angleInRadians);
+    }
 }

@@ -17,8 +17,8 @@ public class AddTrigger extends Tool{
     }
 
     @Override
-    public void onPressed(PObject pObject, int[] mousePosition) {
-
+    public boolean onPressed(PObject pObject, int[] mousePosition) {
+        return false;
     }
 
     @Override

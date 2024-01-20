@@ -115,10 +115,15 @@ public interface PObjectPreset {
             this._relativePitch = relativePitch;
         }
 
+
         @Override
         public PObject[] create() {
-            float width = _finalPosition.sub(_initialPosition).length(); // Y is the height of the bar (in pixels
-            float height = 20*((_relativePitch) % 8) +20; // X is the width of the bar
+            float width = _finalPosition.sub(_initialPosition).length(); // Width of the bar
+            float height = 20 * ((_relativePitch) % 8) + 20; // Height of the bar
+
+            // Center offset
+            float halfWidth = width / 2;
+            float halfHeight = height / 2;
 
             // Create a new PObject
             PObject pObject1 = new PObject();
@@ -127,15 +132,15 @@ public interface PObjectPreset {
             bodyData.bodyType = BodyType.STATIC;
             bodyData.vertices = PhysicsManager.getInstance().coordPixelsToWorld(
                     new Vec2[]{
-                            new Vec2(0, 0),
-                            new Vec2(width, 0),
-                            new Vec2(width, height),
-                            new Vec2(0, height)
+                            new Vec2(-halfWidth, -halfHeight),
+                            new Vec2(halfWidth, -halfHeight),
+                            new Vec2(halfWidth, halfHeight),
+                            new Vec2(-halfWidth, halfHeight)
                     }
             );
 
             PhysicsBodyComponent physicsBody = new PhysicsBodyComponent(pObject1, bodyData);
-            physicsBody.setPixelPosition(new Vec2(_initialPosition.x, _initialPosition.y));
+            physicsBody.setPixelPosition(new Vec2(_initialPosition.x + halfWidth, _initialPosition.y + halfHeight));
 
             // Calculate the angle for rotation
             float angle = (float) Math.atan2(_finalPosition.y - _initialPosition.y, _finalPosition.x - _initialPosition.x);
@@ -144,10 +149,10 @@ public interface PObjectPreset {
             pObject1.addComponent(BodyComponent.class, physicsBody);
             OnCollision onCollision = new OnCollision(pObject1);
             onCollision.setInterval(_relativePitch);
-            pObject1.addComponent(OnCollision.class,onCollision);
-
+            pObject1.addComponent(OnCollision.class, onCollision);
 
             return new PObject[]{pObject1};
         }
+
     }
 }
