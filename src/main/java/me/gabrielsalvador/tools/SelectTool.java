@@ -145,7 +145,10 @@ public class SelectTool extends Tool {
 
         _gizmos.clear();
         if(!selectedObjects.isEmpty())
+
             _gizmos.add(new FreetransformGizmo(new PGroup(selectedObjects)));
+
+
 
     }
 

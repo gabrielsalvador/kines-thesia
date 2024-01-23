@@ -22,14 +22,22 @@ public abstract class Gizmo {
     public abstract void onPressed() ;
 
     public boolean isInside(int[] mousePosition) {
-        //hitbox is 10x10
-        return mousePosition[0] > getPosition().x && mousePosition[0] < getPosition().x + 10 &&
-                mousePosition[1] > getPosition().y && mousePosition[1] < getPosition().y + 10;
+        //hitcircle is 10x10
+        Vec2[] positions = getPositions();
+        for (Vec2 position : positions) {
+            //if is inside the circle
+            float distance = position.sub(new Vec2(mousePosition[0], mousePosition[1])).length();
+            if (distance < 10) {
+                return true;
+            }
+
+        }
+        return false;
     }
 
     public abstract void onDrag(PObject pObject, int[] mousePosition);
 
-    public abstract Vec2 getPosition();
+    public abstract Vec2[] getPositions();
 
 
     public void onRelease(PObject pObject) {
@@ -67,30 +75,36 @@ class FreetransformGizmo extends Gizmo {
 
         graphics.pushStyle();
         graphics.fill(255, 0, 0);
-        Vec2 _position = getPosition();
-        graphics.rect(_position.x, _position.y, 10, 10);
+        Vec2[] _position = getPositions();
+        graphics.ellipseMode(PApplet.CENTER);
+        graphics.fill(255, 255,255);
+        graphics.stroke(0);
+        for (Vec2 position : _position) {
+            graphics.ellipse(position.x, position.y, 10, 10);
+        }
         graphics.popStyle();
 
 
-        if( bufferedMousePosition != null && _initialDragPosition != null){
-            graphics.pushStyle();
-            graphics.stroke(255, 0, 0);
-            Vec2 center = _selectedObjects.getPixelCenter();
-            graphics.line(center.x, center.y, bufferedMousePosition.x, bufferedMousePosition.y);
-
-            //draw line from center to _initialDragPosition
-            graphics.stroke(0, 255, 0);
-            graphics.line(center.x, center.y, _initialDragPosition.x, _initialDragPosition.y);
-
-            graphics.noFill();
-            //distance between center and _initialDragPosition
-            graphics.stroke(0, 0, 255);
-            float distance = bufferedMousePosition.sub(center).length();
-            graphics.ellipseMode(PApplet.CENTER);
-            graphics.circle(center.x, center.y, distance * 2);
-
-           graphics.popStyle();
-        }
+        //draw visual aid for rotation
+//        if( bufferedMousePosition != null && _initialDragPosition != null){
+//            graphics.pushStyle();
+//            graphics.stroke(255, 0, 0);
+//            Vec2 center = _selectedObjects.getPixelCenter();
+//            graphics.line(center.x, center.y, bufferedMousePosition.x, bufferedMousePosition.y);
+//
+//            //draw line from center to _initialDragPosition
+//            graphics.stroke(0, 255, 0);
+//            graphics.line(center.x, center.y, _initialDragPosition.x, _initialDragPosition.y);
+//
+//            graphics.noFill();
+//            //distance between center and _initialDragPosition
+//            graphics.stroke(0, 0, 255);
+//            float distance = bufferedMousePosition.sub(center).length();
+//            graphics.ellipseMode(PApplet.CENTER);
+//            graphics.circle(center.x, center.y, distance * 2);
+//
+//           graphics.popStyle();
+//        }
 
 
 
@@ -127,7 +141,6 @@ class FreetransformGizmo extends Gizmo {
 
         //rotate selected objects
         for (PObject selectedObject : _selectedObjects.getItems()) {
-            //if rotation is NaN, set it to 0
             if(!Float.isNaN(rotatingAngle)){
 
                 selectedObject.getBodyComponent().rotateBodyAroundPivot(center, _initialAngle + rotatingAngle);
@@ -142,9 +155,9 @@ class FreetransformGizmo extends Gizmo {
 
 
     @Override
-    public Vec2 getPosition() {
+    public Vec2[] getPositions() {
         if (_selectedObjects.size() == 0) {
-            return new Vec2(0, 0);
+            return new Vec2[]{ new Vec2(0, 0) };
         }
 
         BodyComponent body = _selectedObjects.get(0).getBodyComponent();
@@ -152,13 +165,20 @@ class FreetransformGizmo extends Gizmo {
         float[] dimensions = body.getShape().getBoundaries();
         float rotation = body.getAngle();
 
+        Vec2[] vertices = new Vec2[4];
 
-        double rotatedX = position.x + dimensions[2] * 10 * Math.cos(rotation)
-                - dimensions[3] * 10 * Math.sin(rotation);
-        double rotatedY = position.y + dimensions[2] * 10 * Math.sin(rotation)
-                + dimensions[3] * 10 * Math.cos(rotation);
 
-        return new Vec2((float)rotatedX, (float)rotatedY);
+        for (int i = 0; i < 4; i++) {
+            double offsetX = (i % 2 == 0 ? dimensions[2] : -dimensions[2]) * 10;
+            double offsetY = (i < 2 ? dimensions[3] : -dimensions[3]) * 10;
+
+            double rotatedX = position.x + offsetX * Math.cos(rotation) - offsetY * Math.sin(rotation);
+            double rotatedY = position.y + offsetX * Math.sin(rotation) + offsetY * Math.cos(rotation);
+
+            vertices[i] = new Vec2((float)rotatedX, (float)rotatedY);
+        }
+
+        return vertices;
     }
 
 }
