@@ -84,6 +84,7 @@ public class PObject implements Serializable {
 
     // Component Management
     public <T extends Component> T getComponent(Class<? extends Component> componentClass) {
+        if(_components == null) return null;
         return (T) _components.get(componentClass);
     }
 

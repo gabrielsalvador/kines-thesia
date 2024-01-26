@@ -4,6 +4,8 @@ import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.OnCollision;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.*;
+import me.gabrielsalvador.pobject.components.musicalnote.MusicalNoteComponent;
+import me.gabrielsalvador.utils.Scale;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
@@ -119,7 +121,7 @@ public interface PObjectPreset {
         @Override
         public PObject[] create() {
             float width = _finalPosition.sub(_initialPosition).length(); // Width of the bar
-            float height = 20 * ((_relativePitch) % 8) + 20; // Height of the bar
+            float height = 20 ; // Height of the bar
 
             // Center offset
             float halfWidth = width / 2;
@@ -150,6 +152,12 @@ public interface PObjectPreset {
             OnCollision onCollision = new OnCollision(pObject1);
             onCollision.setInterval(_relativePitch);
             pObject1.addComponent(OnCollision.class, onCollision);
+
+            // add a musical note to the resonator
+
+            MusicalNoteComponent musicalNoteComponent = new MusicalNoteComponent(pObject1, _relativePitch);
+            pObject1.addComponent(MusicalNoteComponent.class, musicalNoteComponent);
+
 
             return new PObject[]{pObject1};
         }

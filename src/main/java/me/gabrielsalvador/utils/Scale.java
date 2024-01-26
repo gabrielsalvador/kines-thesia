@@ -2,54 +2,89 @@ package me.gabrielsalvador.utils;
 
 import java.util.Map;
 
+import me.gabrielsalvador.utils.MusicalNote;
+
 public class Scale {
 
-    private final int _root; //in midi pitch
+    private final MusicalNote _root; // Now using MusicalNote
     private final int[] _intervals;
     private final Mode _mode;
 
-
-
-    /* root = "C3", "C" ,
-    accidental = -1 for flat, 0 for natural, 1 for sharp */
-    public Scale(String root,int accidental, Mode mode){
-        _root = noteNameToPitch(root,accidental);
+    public Scale(String root, int accidental, Mode mode){
+        int pitch = noteNameToPitch(root, accidental);
+        _root = new MusicalNote(pitch);
         _mode = mode;
         _intervals = mode.getIntervals();
     }
 
-
-
-    //return midi pitch for a note expressed in Letter Notation
+    // Static method remains the same
     public static int noteNameToPitch(String noteName, int accidental) {
-        // Mapping from note symbols to their pitch offsets from C
-        Map<Character, Integer> noteOffsets = Map.of(
-                'C', 0,
-                'D', 2,
-                'E', 4,
-                'F', 5,
-                'G', 7,
-                'A', 9,
-                'B', 11
-        );
+        int pitch = 0;
+        switch(noteName){
+            case "C":
+                pitch = 0;
+                break;
+            case "C#":
+                pitch = 1;
+                break;
+            case "D":
+                pitch = 2;
+                break;
+            case "D#":
+                pitch = 3;
+                break;
+            case "E":
+                pitch = 4;
+                break;
+            case "F":
+                pitch = 5;
+                break;
+            case "F#":
+                pitch = 6;
+                break;
+            case "G":
+                pitch = 7;
+                break;
+            case "G#":
+                pitch = 8;
+                break;
+            case "A":
+                pitch = 9;
+                break;
+            case "A#":
+                pitch = 10;
+                break;
+            case "B":
+                pitch = 11;
+                break;
+        }
+        pitch += accidental;
+        return pitch;
 
-        char noteSymbol = noteName.charAt(0);
-        int octave = Integer.parseInt(noteName.substring(1));
-
-        int basePitch = 12 * (octave + 1) + noteOffsets.get(noteSymbol);
-
-        return basePitch + accidental;
     }
 
-    public int getPitchFromInterval(int interval){
-        int pitch = _root;
-        for(int i = 0; i < interval; i++){
+    public MusicalNote getNoteFromInterval(int interval) {
+        int pitch = _root.getPitch();
+        for (int i = 0; i < interval; i++) {
+            pitch += _intervals[i];
+        }
+        return new MusicalNote(pitch);
+    }
+
+    public MusicalNote getRoot() {
+        return _root;
+    }
+    private int getRootPitch() {
+        return _root.getPitch();
+    }
+
+    public int getPitchFromInterval(int interval) {
+        int pitch = getRootPitch();
+        for (int i = 0; i < interval; i++) {
             pitch += _intervals[i];
         }
         return pitch;
     }
-
 }
-
 
 
