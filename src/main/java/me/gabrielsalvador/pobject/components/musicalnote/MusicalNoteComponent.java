@@ -1,20 +1,42 @@
 package me.gabrielsalvador.pobject.components.musicalnote;
 
-import controlP5.*;
-import me.gabrielsalvador.core.Sinesthesia;
+
+import controlP5.ControlP5;
+import controlP5.Group;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.Component;
-import me.gabrielsalvador.pobject.views.componentui.MusicalNoteUI;
 import me.gabrielsalvador.utils.MusicalNote;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
 public class MusicalNoteComponent extends Component {
 
-    @PObject.InspectableProperty(displayName = "Note")
     MusicalNote musicalNote;
 
-    private  PObject owner;
+    @PObject.InspectableProperty(displayName = "Note")
+    public MusicalNote getMusicalNote() {
+        return musicalNote;
+    }
+
+    @PObject.InspectableProperty.SetterFor("Note")
+    public void setMusicalNote(MusicalNote musicalNote) {
+        this.musicalNote = musicalNote;
+    }
+
+
+    @PObject.InspectableProperty(displayName = "Relative Pitch")
+    public boolean getRelativePitch() {
+        return false;
+    }
+
+    @PObject.InspectableProperty.SetterFor("Relative Pitch")
+    public void setRelativePitch(boolean relativePitch) {
+
+    }
+
+
+    private PObject owner;
+
     public MusicalNoteComponent(PObject owner, int pitch) {
         super(owner);
         this.owner = owner;
@@ -38,14 +60,16 @@ public class MusicalNoteComponent extends Component {
 
     }
 
-    @Override
-    public MusicalNoteUI getUI(){
-        return new MusicalNoteUI(this);
+    public int getPitch() {
+        return musicalNote.getPitch();
     }
 
 
-    public int getPitch() {
-        return musicalNote.getPitch();
+    public static class MusicalNoteComponentUI extends Group {
+
+        public MusicalNoteComponentUI(ControlP5 theControlP5, String theName) {
+            super(theControlP5, theName);
+        }
     }
 }
 

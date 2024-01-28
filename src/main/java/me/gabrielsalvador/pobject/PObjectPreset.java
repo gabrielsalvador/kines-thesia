@@ -94,6 +94,8 @@ public interface PObjectPreset {
             bodyData.bodyType = BodyType.DYNAMIC;
             droplet.addComponent(BodyComponent.class, new PhysicsBodyComponent(droplet, bodyData));
             droplet.getBodyComponent().setPosition(_position);
+            ((PhysicsBodyComponent)droplet.getBodyComponent()).getJBox2DBody().applyLinearImpulse(new Vec2(0, 10f), _position);
+
             return new PObject[]{droplet};
         }
 

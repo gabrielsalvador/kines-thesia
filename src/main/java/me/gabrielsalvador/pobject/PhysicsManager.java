@@ -23,7 +23,7 @@ public class PhysicsManager {
     private static final int Y_FLIP_INDICATOR = -1;
     PApplet parent = Sinesthesia.getInstance();
     private static PhysicsManager _instance;
-    private final Vec2 _gravity = new Vec2(0,9.8f * 10);
+    private final Vec2 _gravity = new Vec2(0,0);
     private final World _world = new World(_gravity);
     private PhysicsManager(){
         _world.setContactListener(new myContactListener());

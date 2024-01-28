@@ -4,6 +4,7 @@ import controlP5.*;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.utils.Color;
+import me.gabrielsalvador.utils.MusicalNote;
 import org.jbox2d.common.Vec2;
 import processing.core.PVector;
 import themidibus.MidiBus;
@@ -209,35 +210,27 @@ public class InspectorController extends Group implements PropertyChangeListener
 
             return controllers;
         }
-        else if(Component.class.isAssignableFrom(type)){ // if the property is a reference to a component
-            ScrollableList list = cp5.addScrollableList(property.getName())
-                    .setPosition(0, 0)
-                    .setSize(100, 100)
+
+        else if(type.equals(MusicalNote.class)){
+
+            Keyboard keyboard = new Keyboard(cp5,"keyboard"+property.getName())
+                    .setPosition(50,50)
+                    .setSize(100,20)
                     .setGroup(this)
-                    .setBarHeight(20)
-                    .setItemHeight(20)
-                    .setType(ScrollableList.DROPDOWN)
-                    .setBackgroundColor(255)
-                    .close();
-
-            Component component = (Component) property.getOwner();
-            HashMap<Class<? extends Component>,Component> components = component.getOwner().getComponents();
-            for (Class<?> key : components.keySet()) {
-
-                int i = 0;
-                if(type.isAssignableFrom(key)) {
-                    list.addItem(components.get(key).getName(),components.get(key));
-                    //if its the current value, select it
-                    if(components.get(key) == property.getValue()){
-                        list.setValue(i);
-                    }
-                }
-            }
+                    .bringToFront()
+                    .setRange(36,48)
+                    .addCallback(callbackEvent -> {
+                        if(callbackEvent.getAction() == ControlP5.ACTION_BROADCAST){
+                            Keyboard keyboard1 = (Keyboard) callbackEvent.getController();
+                            MusicalNote note = new MusicalNote((int) keyboard1.getValue());
+                            property.setValue(note);
+                        }
+                    })
+                    ;
 
 
-            setupScrollableListCallback(list,property);
 
-            return new Controller[]{list};
+            return new Controller[]{keyboard};
         }
 
 
@@ -282,6 +275,7 @@ public class InspectorController extends Group implements PropertyChangeListener
                     @Override
                     public void controlEvent(CallbackEvent callbackEvent) {
                         if(callbackEvent.getAction() == ControlP5.ACTION_BROADCAST){
+                            System.out.println("midi reset");
                             MidiBus midiBus = AppController.getInstance().get_midiBus();
                             midiBus.clearInputs();
                             midiBus.clearOutputs();

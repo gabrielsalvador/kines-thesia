@@ -11,11 +11,12 @@ public class OnCollision extends Component{
     private int interval;
 
     @PObject.InspectableProperty(displayName = "Trigger Midi Note")
-    public void setInterval(int value){
-        interval = value ;
-    }
     private int getInterval(){
         return interval;
+    }
+    @PObject.InspectableProperty.SetterFor("Trigger Midi Note")
+    public void setInterval(int value){
+        interval = value ;
     }
 
 
