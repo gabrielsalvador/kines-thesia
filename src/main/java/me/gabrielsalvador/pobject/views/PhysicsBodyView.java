@@ -62,19 +62,19 @@ public class PhysicsBodyView implements View<Component> {
                 graphics.popMatrix();
 
                 //DEBUG - write vertices coordinates
-                graphics.pushMatrix();
-                graphics.translate(pixelPosition.x, pixelPosition.y);
-
-                graphics.fill(0);
-                for (int i = 0; i < 4 ; i++) {
-                    Vec2 vertex = PhysicsManager.getInstance().coordWorldToPixels(polygon.m_vertices[i].x, polygon.m_vertices[i].y);
-                    float angle = body.getAngle();
-                    float vertexX = vertex.x * (float) Math.cos(angle) - vertex.y * (float) Math.sin(angle);
-                    float vertexY = vertex.x * (float) Math.sin(angle) + vertex.y * (float) Math.cos(angle);
-                    graphics.textSize(12);
-                    graphics.text((int)vertexX + ", " + (int)vertexY, vertexX, vertexY);
-                }
-                graphics.popMatrix();
+//                graphics.pushMatrix();
+//                graphics.translate(pixelPosition.x, pixelPosition.y);
+//
+//                graphics.fill(0);
+//                for (int i = 0; i < 4 ; i++) {
+//                    Vec2 vertex = PhysicsManager.getInstance().coordWorldToPixels(polygon.m_vertices[i].x, polygon.m_vertices[i].y);
+//                    float angle = body.getAngle();
+//                    float vertexX = vertex.x * (float) Math.cos(angle) - vertex.y * (float) Math.sin(angle);
+//                    float vertexY = vertex.x * (float) Math.sin(angle) + vertex.y * (float) Math.cos(angle);
+//                    graphics.textSize(12);
+//                    graphics.text((int)vertexX + ", " + (int)vertexY, vertexX, vertexY);
+//                }
+//                graphics.popMatrix();
 
                 break;
 
