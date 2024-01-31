@@ -2,9 +2,9 @@ package me.gabrielsalvador.sequencing;
 
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
+import themidibus.Note;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -14,7 +14,7 @@ public class Clock {
     private static Clock _instance;
     private ScheduledExecutorService executorService;
     private TransportState _transportState = TransportState.STOPPED;
-    private int _tempo = 3;
+    private int _tempo = 120;
 
     private Clock() {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
@@ -36,11 +36,24 @@ public class Clock {
         restartTickExecutor();
     }
 
+    int i = 0;
     private void startTickExecutor() {
         if (executorService.isShutdown() || executorService.isTerminated()) {
             executorService = Executors.newSingleThreadScheduledExecutor();
             executorService.scheduleAtFixedRate(() -> {
                 try {
+
+                    ArrayList<Note> notes = AppController.getInstance().getNotesQueue();
+                    for (Note note : notes) {
+                        if (Thread.currentThread().isInterrupted()) {
+                            return;
+                        }
+                        AppController.getInstance().sendMidiImmediately(note.pitch(), note.velocity());
+                    }
+                    notes.clear();
+
+
+
                     for (Object d : AppState.getInstance().getPObjects()) {
                         if (!(d instanceof Device)) {
                             continue;
@@ -61,13 +74,15 @@ public class Clock {
                     System.err.println("Exception caught inside the task.");
                     e.printStackTrace();
                 }
+
             }, 0, getPeriod(), TimeUnit.MILLISECONDS);
             _transportState = TransportState.PLAYING;
         }
     }
 
     private int getPeriod() {
-        return 60000 / (_tempo * 16);
+        return (_tempo / 60) * 1000 / 16;//1/16th of a note
+
     }
 
 

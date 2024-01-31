@@ -1,6 +1,8 @@
 package me.gabrielsalvador.utils;
 
-public class MusicalNote {
+import java.io.Serializable;
+
+public class MusicalNote implements Serializable {
 
     private final int _root; //in midi pitch
 

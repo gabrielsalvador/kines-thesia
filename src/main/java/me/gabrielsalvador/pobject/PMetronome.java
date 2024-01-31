@@ -15,7 +15,12 @@ import java.io.Serial;
 
 public class PMetronome extends PObject implements Device {
 
+    private int _internalCounter = 0;
+    private int _intervalInSixteenthNotes = 16;
+
+
     private transient BlinkingLigth _blinkingLigth;
+
     public PMetronome() {
         super();
 
@@ -34,12 +39,12 @@ public class PMetronome extends PObject implements Device {
 
     @Override
     public void clockTick() {
-
-        RoutingComponent rc = getRoutingComponent();
-        if(rc == null) return;
-        _blinkingLigth.blink();
-        getRoutingComponent().sendPulse();
-
+        if (++_internalCounter % _intervalInSixteenthNotes == 0) {
+            RoutingComponent rc = getRoutingComponent();
+            if (rc == null) return;
+            _blinkingLigth.blink();
+            getRoutingComponent().sendPulse();
+        }
     }
 
     @Serial

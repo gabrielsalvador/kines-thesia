@@ -1,5 +1,6 @@
 package me.gabrielsalvador.core;
 
+
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
@@ -8,6 +9,8 @@ import me.gabrielsalvador.sequencing.SequencerController;
 import me.gabrielsalvador.utils.Mode;
 import me.gabrielsalvador.utils.Scale;
 import themidibus.MidiBus;
+import themidibus.Note;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class AppController {
     private final ConcurrentLinkedQueue<Runnable> _modificationsQueue = new ConcurrentLinkedQueue<Runnable>();
     private final MidiBus _midiBus;
     private final Scale _globalScale = new Scale("C3",1, new Mode("Minor"));
+    private ArrayList<Note> _notesQueue = new ArrayList<>();
 
     {
 
@@ -147,7 +151,12 @@ public class AppController {
         queueModification(modification);
     }
 
-    public void sendMidi(int midiNote,int velocity) {
+    public void addNoteToQueue(int channel, int pitch, int velocity) {
+        Note note = new Note(channel, pitch, velocity);
+        _notesQueue.add(note);
+    }
+    public void sendMidiImmediately(int midiNote, int velocity) {
+
         //create a new thread to send the midi note
         new Thread(() -> {
              _midiBus.sendNoteOn(1, midiNote, velocity);
@@ -159,6 +168,7 @@ public class AppController {
             }
              _midiBus.sendNoteOff(1, midiNote, velocity);
         }).start();
+
     }
 
     public Scale getGlobalScale() {
@@ -182,5 +192,9 @@ public class AppController {
 
     public MidiBus get_midiBus() {
         return _midiBus;
+    }
+
+    public ArrayList<Note> getNotesQueue() {
+        return _notesQueue;
     }
 }

@@ -46,12 +46,12 @@ public class OnCollision extends Component{
         theOtherBody.getJBox2DBody().applyLinearImpulse(contact.getFixtureB().getBody().getLinearVelocity(),theOtherBody.getJBox2DBody().getPosition());
 
 
-
-
+        int channel = 1;
         int pitch = AppController.getInstance().getGlobalScale().getPitchFromInterval(interval);
         int velocity = (int) contact.getFixtureB().getBody().getLinearVelocity().length() ;
         velocity = Math.min(velocity,127);
-        AppController.getInstance().sendMidi(pitch,velocity);
+        AppController.getInstance().addNoteToQueue(0,pitch,velocity);
+
     }
 
 
