@@ -4,22 +4,15 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.Key;
-
 import controlP5.*;
 import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.InspectorController;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsManager;
-import me.gabrielsalvador.pobject.components.body.BodyComponent;
-import me.gabrielsalvador.pobject.components.body.HologramBody;
-import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.SequencerController;
 import me.gabrielsalvador.tools.ToolboxController;
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -93,9 +86,6 @@ public class Sinesthesia extends PApplet {
                 .setSize(400, 200)
                 .setColor(color(255, 0, 0))
                 .setFont(createFont("arial", 20));
-
-
-
     }
 
 
