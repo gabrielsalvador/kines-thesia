@@ -16,6 +16,9 @@ public class SequencerController extends Controller<SequencerController> impleme
     protected int currentY = -1;
     protected int _myMode = MULTIPLES;
     private final SequencerState _sequencerState;
+    private int _internalBeatCounter = 0;
+    private final int _howManyTicksToAdvance = 8; // the clock sends 32 ticks per whole note, to make it 16th notes, we need to receive X ticks to advance
+
 
     /* PObject with inlets where he can send note events */
     private final ArrayList<Inlet> _connectedPObject = new ArrayList<Inlet>();
@@ -29,13 +32,19 @@ public class SequencerController extends Controller<SequencerController> impleme
     }
 
     @Override
-    public void clockTick() {
-        playhead = (playhead + 1) % DIVISION_TIME;
-        for (int pitch = 0; pitch < DIVISION_PITCH; pitch++) {
-            if (_sequencerState.getSteps()[playhead][pitch]) {
-                sendNoteEvent(playhead, pitch);
+    public void clockTick() { //gets called by the clock 32 times per beat
+
+        _internalBeatCounter = (_internalBeatCounter + 1) % _howManyTicksToAdvance;
+
+        if( _internalBeatCounter == 0){
+            playhead = (playhead + 1) % DIVISION_TIME;
+            for (int pitch = 0; pitch < DIVISION_PITCH; pitch++) {
+                if (_sequencerState.getSteps()[playhead][pitch]) {
+                    sendNoteEvent(playhead, pitch);
+                }
             }
         }
+
     }
     private void sendNoteEvent(int time, int pitch) {
         /* Send note event to all connected PObjects */

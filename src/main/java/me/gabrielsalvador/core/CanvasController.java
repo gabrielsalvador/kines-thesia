@@ -142,12 +142,12 @@ public class CanvasController extends Controller<CanvasController> implements Re
         float frameTime = (currentTime - _lastTime) / 1_000_000_000.0f;
         _lastTime = currentTime;
 
-        frameTime = Math.min(frameTime, maxFrameTime);  // Clamp frameTime to a maximum value
+        frameTime = Math.min(frameTime, maxFrameTime);
 
         _accumulator += frameTime;
 
         while (_accumulator >= _timeStep) {
-            _physicsManager.step(_timeStep, 8, 3);  // Assuming you adjust the step function to accept a timestep
+            _physicsManager.step(_timeStep, 8, 3);
             _accumulator -= _timeStep;
         }
 

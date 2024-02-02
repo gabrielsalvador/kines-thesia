@@ -3,8 +3,7 @@ package me.gabrielsalvador.sequencing;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Duration;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -14,7 +13,7 @@ public class Clock {
     private static Clock _instance;
     private ScheduledExecutorService executorService;
     private TransportState _transportState = TransportState.STOPPED;
-    private int _tempo = 3;
+    private int _tempo = 120;
 
     private Clock() {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
@@ -61,13 +60,16 @@ public class Clock {
                     System.err.println("Exception caught inside the task.");
                     e.printStackTrace();
                 }
-            }, 0, getPeriod(), TimeUnit.MILLISECONDS);
+
+            }, 0, getPeriodOfNthNotes(32), TimeUnit.NANOSECONDS);
             _transportState = TransportState.PLAYING;
         }
     }
 
-    private int getPeriod() {
-        return 60000 / (_tempo * 16);
+
+    //how much time in nanoseconds should pass before the next tick
+    private long getPeriodOfNthNotes(int divison) {
+        return (long) (1_000_000_000.0 / (_tempo / 60.0) / divison);
     }
 
 
@@ -98,5 +100,12 @@ public class Clock {
 
     public TransportState getTransportState() {
         return _transportState;
+    }
+
+    public void scheduleTask(Runnable task, long delay) {
+        if (executorService.isShutdown() || executorService.isTerminated()) {
+            executorService = Executors.newSingleThreadScheduledExecutor();
+        }
+        executorService.schedule(task, delay, TimeUnit.MILLISECONDS);
     }
 }

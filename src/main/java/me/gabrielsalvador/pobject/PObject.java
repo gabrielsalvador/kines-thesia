@@ -14,6 +14,7 @@ import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
+import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
 public class PObject implements Serializable {
@@ -137,6 +138,13 @@ public class PObject implements Serializable {
     }
 
     public void display(PGraphics graphics) {
+
+        //remove if out of view
+        Vec2 myPos =  getBodyComponent().getPixelPosition();
+        if(myPos.y < 0 || myPos.y > graphics.height || myPos.x < 0 || myPos.x > graphics.width){
+            AppController.getInstance().enqueueRemovePObject( this);
+        }
+
         for (Component component : _components.values()) {
             component.display(graphics);
         }

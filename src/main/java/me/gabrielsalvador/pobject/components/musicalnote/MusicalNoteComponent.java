@@ -36,7 +36,7 @@ public class MusicalNoteComponent extends Component {
     }
 
 
-    private PObject owner;
+    private final PObject owner;
 
     public MusicalNoteComponent(PObject owner, int pitch) {
         super(owner);
