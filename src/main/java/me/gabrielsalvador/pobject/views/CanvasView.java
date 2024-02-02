@@ -4,7 +4,6 @@ package me.gabrielsalvador.pobject.views;
 import java.util.ArrayList;
 
 import controlP5.ControllerView;
-import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.core.CanvasController;
@@ -15,9 +14,6 @@ public class CanvasView implements ControllerView<CanvasController> {
 
     private final ArrayList<PObject> pObjects;
     private final CanvasController controller;
-
-
-
 
     public CanvasView(CanvasController controller) {
         pObjects = AppState.getInstance().getPObjects();

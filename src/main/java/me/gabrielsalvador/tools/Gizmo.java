@@ -52,7 +52,7 @@ public abstract class Gizmo {
 class FreetransformGizmo extends Gizmo {
 
 
-    private PGroup _selectedObjects;
+    private final PGroup _selectedObjects;
     private Vec2 bufferedMousePosition = null;
     private float rotatingAngle = 0;
     private float _initialAngle = 0; //in degrees
@@ -61,7 +61,6 @@ class FreetransformGizmo extends Gizmo {
         _selectedObjects = selectedObjects;
 
         if(selectedObjects.size() == 0){
-            return;
         }
 
 

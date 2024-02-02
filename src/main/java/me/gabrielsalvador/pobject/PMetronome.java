@@ -1,14 +1,9 @@
 package me.gabrielsalvador.pobject;
 
-import me.gabrielsalvador.core.AppState;
-import me.gabrielsalvador.core.Sinesthesia;
-import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
 import me.gabrielsalvador.pobject.views.BlinkingLigth;
 import me.gabrielsalvador.pobject.views.PMetronomeView;
-import me.gabrielsalvador.pobject.views.View;
-import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.Device;
 
 import java.io.Serial;
