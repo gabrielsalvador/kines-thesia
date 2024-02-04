@@ -17,7 +17,7 @@ public class SequencerController extends Controller<SequencerController> impleme
     protected int _myMode = MULTIPLES;
     private final SequencerState _sequencerState;
     private int _internalBeatCounter = 0;
-    private final int _howManyTicksToAdvance = 8; // the clock sends 32 ticks per whole note, to make it 16th notes, we need to receive X ticks to advance
+    private final int _howManyTicksToAdvance = 8; // the clock sends 16 ticks per quarter note, to make it 16th notes, we need to receive X ticks to advance
 
 
     /* PObject with inlets where he can send note events */

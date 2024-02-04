@@ -2,6 +2,8 @@ package me.gabrielsalvador.sequencing;
 
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
+
+import java.time.Duration;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -12,6 +14,9 @@ public class Clock {
     private ScheduledExecutorService executorService;
     private TransportState _transportState = TransportState.STOPPED;
     private int _tempo = 120;
+
+    //the time when the last tick started
+    public long _lastTickTime ; //in nanoseconds
 
     private Clock() {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
@@ -37,6 +42,7 @@ public class Clock {
         if (executorService.isShutdown() || executorService.isTerminated()) {
             executorService = Executors.newSingleThreadScheduledExecutor();
             executorService.scheduleAtFixedRate(() -> {
+                _lastTickTime = System.nanoTime();
                 try {
                     for (Object d : AppState.getInstance().getPObjects()) {
                         if (!(d instanceof Device)) {
@@ -59,16 +65,14 @@ public class Clock {
                     e.printStackTrace();
                 }
 
+
             }, 0, getPeriodOfNthNotes(32), TimeUnit.NANOSECONDS);
             _transportState = TransportState.PLAYING;
         }
     }
 
 
-    //how much time in nanoseconds should pass before the next tick
-    private long getPeriodOfNthNotes(int divison) {
-        return (long) (1_000_000_000.0 / (_tempo / 60.0) / divison);
-    }
+
 
 
 
@@ -104,6 +108,22 @@ public class Clock {
         if (executorService.isShutdown() || executorService.isTerminated()) {
             executorService = Executors.newSingleThreadScheduledExecutor();
         }
-        executorService.schedule(task, delay, TimeUnit.MILLISECONDS);
+        executorService.schedule(task, delay, TimeUnit.NANOSECONDS);
     }
+
+
+    public long getPeriodOfNthNotes(int division) {
+        return (long) (1_000_000_000.0 / (_tempo / 60.0) / (division/4.f));
+    }
+
+
+    //how much time in nanoseconds should pass before the next tick
+
+    public long getTimeUntilNextTick() {
+        long period = getPeriodOfNthNotes(32);
+        long timeSinceLastTick = System.nanoTime() - _lastTickTime;
+        return period - timeSinceLastTick;
+
+    }
+
 }

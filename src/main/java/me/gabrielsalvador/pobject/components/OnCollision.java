@@ -1,6 +1,7 @@
 package me.gabrielsalvador.pobject.components;
 
 import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.midi.MidiManager;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import org.jbox2d.dynamics.contacts.Contact;
@@ -51,7 +52,7 @@ public class OnCollision extends Component{
         int pitch = AppController.getInstance().getGlobalScale().getPitchFromInterval(interval);
         int velocity = (int) contact.getFixtureB().getBody().getLinearVelocity().length() ;
         velocity = Math.min(velocity,127);
-        AppController.getInstance().sendMidi(pitch,velocity);
+        MidiManager.getInstance().scheduleNote(pitch,velocity);
     }
 
 

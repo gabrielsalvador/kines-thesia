@@ -17,6 +17,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.Contact;
 import processing.core.PApplet;
+import processing.core.PVector;
 
 
 public class PhysicsManager {

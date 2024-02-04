@@ -140,7 +140,7 @@ public class PObject implements Serializable {
     public void display(PGraphics graphics) {
 
         //remove if out of view
-        Vec2 myPos =  getBodyComponent().getPixelPosition();
+        Vec2 myPos = getBodyComponent().getPixelPosition();
         if(myPos.y < 0 || myPos.y > graphics.height || myPos.x < 0 || myPos.x > graphics.width){
             AppController.getInstance().enqueueRemovePObject( this);
         }

@@ -2,10 +2,12 @@ package me.gabrielsalvador.pobject;
 
 import controlP5.*;
 import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.midi.MidiManager;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.utils.Color;
 import me.gabrielsalvador.utils.MusicalNote;
 import org.jbox2d.common.Vec2;
+import processing.core.PApplet;
 import processing.core.PVector;
 import themidibus.MidiBus;
 
@@ -276,7 +278,7 @@ public class InspectorController extends Group implements PropertyChangeListener
                     public void controlEvent(CallbackEvent callbackEvent) {
                         if(callbackEvent.getAction() == ControlP5.ACTION_BROADCAST){
                             System.out.println("midi reset");
-                            MidiBus midiBus = AppController.getInstance().get_midiBus();
+                            MidiBus midiBus = MidiManager.getInstance().getMidiBus();
                             midiBus.clearInputs();
                             midiBus.clearOutputs();
                             midiBus.addInput(midiInputList.getItem((int) midiInputList.getValue()).get("name").toString());

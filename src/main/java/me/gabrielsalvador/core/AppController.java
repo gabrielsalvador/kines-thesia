@@ -23,15 +23,9 @@ public class AppController {
     private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
     private final ConcurrentLinkedQueue<Runnable> _modificationsQueue = new ConcurrentLinkedQueue<Runnable>();
-    private final MidiBus _midiBus;
     private final Scale _globalScale = new Scale("C3",1, new Mode("Minor"));
 
-    {
 
-         _midiBus = new MidiBus(this, 1, 2);
-//         List all available MidiDevices
-         MidiBus.list();
-    }
 
 
     private AppController() {
@@ -147,19 +141,6 @@ public class AppController {
         queueModification(modification);
     }
 
-    public void sendMidi(int midiNote,int velocity) {
-        //create a new thread to send the midi note
-        new Thread(() -> {
-             _midiBus.sendNoteOn(1, midiNote, velocity);
-            // System.out.println("Sending midi note " + midiNote + " with velocity " + velocity);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-             _midiBus.sendNoteOff(1, midiNote, velocity);
-        }).start();
-    }
 
     public Scale getGlobalScale() {
         return _globalScale;
@@ -180,7 +161,5 @@ public class AppController {
         firstObject.addComponent(RoutingComponent.class, RCB);
     }
 
-    public MidiBus get_midiBus() {
-        return _midiBus;
-    }
+
 }
