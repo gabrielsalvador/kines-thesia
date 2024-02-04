@@ -6,6 +6,8 @@ import me.gabrielsalvador.Config;
 import me.gabrielsalvador.PGroup;
 import me.gabrielsalvador.common.DisplayName;
 import me.gabrielsalvador.core.*;
+import me.gabrielsalvador.pobject.PMetronome;
+import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import org.jbox2d.common.Vec2;
 import me.gabrielsalvador.pobject.PObject;
 import processing.core.PGraphics;
@@ -42,6 +44,7 @@ public class SelectTool extends Tool {
             //if backspace is pressed, delete selected objects
             if (keyEvent.getKeyCode() == 8) {
                 System.out.println("backspace pressed");
+                _gizmos.clear();
                 for (PObject p : selectedObjects) {
                     AppController.getInstance().queueModification(p::remove);
                 }
@@ -144,10 +147,12 @@ public class SelectTool extends Tool {
         AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
 
         _gizmos.clear();
-        if(!selectedObjects.isEmpty())
+        if(!selectedObjects.isEmpty()) {
+            if((selectedObjects.get(0).getBodyComponent() instanceof PhysicsBodyComponent)){
+                _gizmos.add(new FreetransformGizmo(new PGroup(selectedObjects)));
+            }
 
-            _gizmos.add(new FreetransformGizmo(new PGroup(selectedObjects)));
-
+        }
 
 
     }
