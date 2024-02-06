@@ -1,7 +1,10 @@
 package me.gabrielsalvador.utils;
 
-public class Mode{
+import java.io.Serializable;
 
+public class Mode implements Serializable {
+
+    public static final Mode MAJOR = new Mode("Major");
     int[] intervals;
 
     /* index = 0 for major scale, 1 for minor scale 2 for dorian, 3 for phrygian, 4 for lydian, 5 for mixolydian, 6 for locrian */

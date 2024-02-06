@@ -1,12 +1,13 @@
 package me.gabrielsalvador.utils;
 
-import java.util.Map;
+import java.io.Serializable;
 
 import me.gabrielsalvador.utils.MusicalNote;
 
-public class Scale {
+public class Scale implements Serializable {
 
-    private final MusicalNote _root; // Now using MusicalNote
+    public static final Scale MAJOR = new Scale("C", 0, Mode.MAJOR);
+    private final MusicalNote _root;
     private final int[] _intervals;
     private final Mode _mode;
 
@@ -82,6 +83,14 @@ public class Scale {
         int pitch = getRootPitch();
         for (int i = 0; i < interval; i++) {
             pitch += _intervals[i];
+        }
+        return pitch;
+    }
+
+    public int degreeToPitch(int octave, int degree) {
+        int pitch = getRootPitch() + octave * 12;
+        for (int i = 1; i < degree; i++) {
+            pitch += _intervals[i - 1];
         }
         return pitch;
     }

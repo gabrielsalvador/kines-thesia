@@ -2,6 +2,9 @@ package me.gabrielsalvador.pobject.components;
 
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.midi.MidiManager;
+import me.gabrielsalvador.pobject.components.musicalnote.MusicalNoteComponent;
+import me.gabrielsalvador.utils.MusicalNote;
+import me.gabrielsalvador.utils.ScaleNote;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import org.jbox2d.dynamics.contacts.Contact;
@@ -9,15 +12,14 @@ import processing.core.PGraphics;
 
 public class OnCollision extends Component{
 
-    private int interval;
+    private ScaleNote scaleNote ;
 
     @PObject.InspectableProperty(displayName = "Trigger Midi Note")
-    private int getInterval(){
-        return interval;
-    }
+
     @PObject.InspectableProperty.SetterFor("Trigger Midi Note")
-    public void setInterval(int value){
-        interval = value ;
+    public void setNote(ScaleNote note){
+        scaleNote = note;
+
     }
 
 
@@ -48,8 +50,10 @@ public class OnCollision extends Component{
 
 
 
+        PhysicsBodyComponent me = (PhysicsBodyComponent) contact.getFixtureA().getBody().getUserData();
+        MusicalNoteComponent note = me.getOwner().getComponent(MusicalNoteComponent.class);
 
-        int pitch = AppController.getInstance().getGlobalScale().getPitchFromInterval(interval);
+        int pitch = note.getMusicalNote().getPitch();
         int velocity = (int) contact.getFixtureB().getBody().getLinearVelocity().length() ;
         velocity = Math.min(velocity,127);
         MidiManager.getInstance().scheduleNote(pitch,velocity);

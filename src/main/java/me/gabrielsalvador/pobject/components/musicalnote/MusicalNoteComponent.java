@@ -5,22 +5,22 @@ import controlP5.ControlP5;
 import controlP5.Group;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.Component;
-import me.gabrielsalvador.utils.MusicalNote;
+import me.gabrielsalvador.utils.ScaleNote;
 import org.jbox2d.common.Vec2;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 
 public class MusicalNoteComponent extends Component {
 
-    MusicalNote musicalNote;
+    ScaleNote musicalNote;
 
     @PObject.InspectableProperty(displayName = "Note")
-    public MusicalNote getMusicalNote() {
+    public ScaleNote getMusicalNote() {
         return musicalNote;
     }
 
     @PObject.InspectableProperty.SetterFor("Note")
-    public void setMusicalNote(MusicalNote musicalNote) {
+    public void setMusicalNote(ScaleNote musicalNote) {
         this.musicalNote = musicalNote;
     }
 
@@ -38,10 +38,10 @@ public class MusicalNoteComponent extends Component {
 
     private final PObject owner;
 
-    public MusicalNoteComponent(PObject owner, int pitch) {
+    public MusicalNoteComponent(PObject owner, ScaleNote note) {
         super(owner);
         this.owner = owner;
-        musicalNote = new MusicalNote(pitch);
+        musicalNote = note;
 
     }
 

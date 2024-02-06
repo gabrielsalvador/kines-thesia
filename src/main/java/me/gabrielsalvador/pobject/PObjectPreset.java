@@ -5,7 +5,7 @@ import me.gabrielsalvador.pobject.components.OnCollision;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.*;
 import me.gabrielsalvador.pobject.components.musicalnote.MusicalNoteComponent;
-import me.gabrielsalvador.utils.Scale;
+import me.gabrielsalvador.utils.ScaleNote;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
@@ -107,22 +107,24 @@ public interface PObjectPreset {
 
         private Vec2 _initialPosition = null;
         private Vec2 _finalPosition = null;
-        private int _relativePitch = 0;
+        private ScaleNote scaleNote;
+
 
 
         /*
         / relativePitch is the degree relative to the root note
          */
-        public ResonatorPreset(Vec2 _initialPosition, Vec2 _finalPosition, int relativePitch) {
+        public ResonatorPreset(Vec2 _initialPosition, Vec2 _finalPosition, ScaleNote scaleNote) {
             this._initialPosition = _initialPosition;
             this._finalPosition = _finalPosition;
-            this._relativePitch = relativePitch;
+            this.scaleNote = scaleNote;
+
         }
 
 
         @Override
         public PObject[] create() {
-            float width = _finalPosition.sub(_initialPosition).length(); // Width of the bar
+            float width = _finalPosition.clone().sub(_initialPosition).length(); // Width of the bar
             float height = 20 ; // Height of the bar
 
             // Center offset
@@ -144,7 +146,7 @@ public interface PObjectPreset {
             );
 
             PhysicsBodyComponent physicsBody = new PhysicsBodyComponent(pObject1, bodyData);
-            physicsBody.setPixelPosition(new Vec2(_initialPosition.x + halfWidth, _initialPosition.y + halfHeight));
+            physicsBody.setPixelPosition(_initialPosition.add(_finalPosition).mul(0.5f));
 
             // Calculate the angle for rotation
             float angle = (float) Math.atan2(_finalPosition.y - _initialPosition.y, _finalPosition.x - _initialPosition.x);
@@ -152,12 +154,12 @@ public interface PObjectPreset {
 
             pObject1.addComponent(BodyComponent.class, physicsBody);
             OnCollision onCollision = new OnCollision(pObject1);
-            onCollision.setInterval(_relativePitch);
+            onCollision.setNote(scaleNote);
             pObject1.addComponent(OnCollision.class, onCollision);
 
             // add a musical note to the resonator
 
-            MusicalNoteComponent musicalNoteComponent = new MusicalNoteComponent(pObject1, _relativePitch);
+            MusicalNoteComponent musicalNoteComponent = new MusicalNoteComponent(pObject1, scaleNote);
             pObject1.addComponent(MusicalNoteComponent.class, musicalNoteComponent);
 
 

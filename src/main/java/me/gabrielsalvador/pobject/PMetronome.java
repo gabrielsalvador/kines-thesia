@@ -10,7 +10,7 @@ import java.io.Serial;
 
 public class PMetronome extends PObject implements Device {
 
-    int _periodicityIn16thNotes = 16;
+    int _periodicityIn16thNotes = 4;
     int _internalBeatCounter = 0;
 
     private transient BlinkingLigth _blinkingLigth;

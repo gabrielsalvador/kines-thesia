@@ -66,7 +66,7 @@ public class Clock {
                 }
 
 
-            }, 0, getPeriodOfNthNotes(32), TimeUnit.NANOSECONDS);
+            }, 0, getPeriodOfNthNotes(16), TimeUnit.NANOSECONDS);
             _transportState = TransportState.PLAYING;
         }
     }

@@ -7,7 +7,6 @@ import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.utils.Color;
 import me.gabrielsalvador.utils.MusicalNote;
 import org.jbox2d.common.Vec2;
-import processing.core.PApplet;
 import processing.core.PVector;
 import themidibus.MidiBus;
 
