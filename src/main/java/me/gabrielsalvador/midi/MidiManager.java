@@ -13,9 +13,8 @@ public class MidiManager {
     private  MidiBus _midiBus;
     private static MidiManager _instance;
     private float _quantization = 1;  // 0 to 1
-    private MusicalNote _key = new MusicalNote("C1");
-    private Interval _chordRoot = Interval.UNISON; //interval until the root of the chord
-    private Scale _keyScale = Scale.MAJOR; //this in combination with the key will determine the notes that can be played
+    private Scale _key = Scale.HIRAJOSHI.setRoot(new MusicalNote("C3"));
+    private int _chord = 0;
 
 
     private MidiManager() {
@@ -72,25 +71,26 @@ public class MidiManager {
         return _midiBus;
     }
 
-    public MusicalNote getKey() {
+    public Scale getKey() {
         return _key;
     }
-    public void setKey(MusicalNote key) {
+
+    public void setKey(Scale key) {
         _key = key;
-    }
-    public void setChordRoot(Interval chordRoot) {
-        _chordRoot = chordRoot;
-    }
-    public Interval getChordRoot() {
-        return _chordRoot;
+
     }
 
-    public Scale getScale() {
-        return _keyScale;
-    }
 
     public void changeOutput(int value) {
         outputIndex = value;
         _midiBus = new MidiBus(this, inputIndex, outputIndex);
+    }
+
+    public int getChord() {
+        return _chord;
+    }
+
+    public void setChord(int chord) {
+        _chord = chord;
     }
 }

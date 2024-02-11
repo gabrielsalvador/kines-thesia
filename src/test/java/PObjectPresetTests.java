@@ -29,14 +29,14 @@ public class PObjectPresetTests {
 
     @Test
     public void resonatorTest() {
-        Interval interval = Interval.SECOND.octave(1);
-        PObjectPreset preset = new PObjectPreset.ResonatorPreset(new Vec2(0, 0), new Vec2(10, 10), interval);
+
+        PObjectPreset preset = new PObjectPreset.ResonatorPreset(new Vec2(0, 0), new Vec2(10, 10), 2);
         PObject[] objs = preset.create();
 
         PObject resonator = objs[0];
 
         MusicalNoteComponent mnc = resonator.getComponent(MusicalNoteComponent.class);
-        assertEquals(mnc.getInterval(), interval);
+        assertEquals(mnc.getInterval().interval, 2);
 
 
 

@@ -11,7 +11,7 @@ import java.io.Serial;
 public class PMetronome extends PObject implements Device {
 
 
-    int _periodicityIn16thNotes =8;
+    int _periodicityIn16thNotes = 16;
     @InspectableProperty(displayName = "Periodicity")
     public int getPeriodicityIn16thNotes() {
         return _periodicityIn16thNotes;

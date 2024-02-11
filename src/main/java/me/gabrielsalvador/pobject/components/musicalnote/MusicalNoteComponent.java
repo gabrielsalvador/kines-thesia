@@ -12,14 +12,14 @@ import processing.core.PGraphics;
 
 public class MusicalNoteComponent extends Component {
 
-    Interval interval;
+    private Interval interval;
 
-    @PObject.InspectableProperty(displayName = "Note")
+    @PObject.InspectableProperty(displayName = "Interval")
     public Interval getInterval() {
         return interval;
     }
 
-    @PObject.InspectableProperty.SetterFor("Note")
+    @PObject.InspectableProperty.SetterFor("Interval")
     public void setInterval(Interval interval) {
         this.interval = interval;
     }
@@ -38,10 +38,10 @@ public class MusicalNoteComponent extends Component {
 
     private final PObject owner;
 
-    public MusicalNoteComponent(PObject owner, Interval note) {
+    public MusicalNoteComponent(PObject owner, int note) {
         super(owner);
         this.owner = owner;
-        interval = note;
+        interval = new Interval(note);
 
     }
 
@@ -76,4 +76,6 @@ public class MusicalNoteComponent extends Component {
         }
     }
 }
+
+
 

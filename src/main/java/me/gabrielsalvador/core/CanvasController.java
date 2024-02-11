@@ -8,9 +8,6 @@ import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.views.View;
 import me.gabrielsalvador.tools.ToolManager;
 import me.gabrielsalvador.pobject.views.CanvasView;
-import me.gabrielsalvador.utils.Interval;
-import me.gabrielsalvador.utils.MusicalNote;
-import me.gabrielsalvador.utils.Scale;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import me.gabrielsalvador.pobject.PObject;
@@ -122,27 +119,18 @@ public class CanvasController extends Controller<CanvasController> implements Re
     public void keyEvent(KeyEvent theKeyEvent) {
 
         if (theKeyEvent.getAction() == KeyEvent.PRESS) {
-
-            Interval interval;
             if (theKeyEvent.getKey() == 112) { //p
-
-
-                MidiManager midiManager = MidiManager.getInstance();
-                Interval chordRoot = midiManager.getChordRoot().plus(Interval.SECOND);
-                midiManager.setChordRoot(chordRoot);
-
-
-            }
-            else if (theKeyEvent.getKey() == 111) { //o
-
-                MidiManager midiManager = MidiManager.getInstance();
-                Interval chordRoot = midiManager.getChordRoot().minus(Interval.SECOND);
-                midiManager.setChordRoot(chordRoot);
-                
-
+                MidiManager mm = MidiManager.getInstance();
+                int chord = mm.getChord();
+                mm.setChord(chord + 1);
+            } else if (theKeyEvent.getKey() == 111) { //o
+                MidiManager mm = MidiManager.getInstance();
+                int chord = mm.getChord();
+                mm.setChord(chord - 1);
             }
         }
     }
+
 
     public int[] getMousePosition() {
         int x = cp5.getPointer().getX() - (int) absolutePosition[0];

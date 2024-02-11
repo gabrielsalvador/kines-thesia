@@ -74,8 +74,8 @@ public class MathUtils {
             throw new IllegalArgumentException("Notes can only be from A to G and can have a # or b after it.");
         }
         return switch (noteName) {
-            case "A", "Bb" -> 10;
-            case "Cb", "B" -> 11;
+
+            case "Cb" -> 11;
             case "C" -> 12;
             case "C#", "Db" -> 13;
             case "D" -> 14;
@@ -85,6 +85,10 @@ public class MathUtils {
             case "F#", "Gb" -> 18;
             case "G" -> 19;
             case "G#", "Ab" -> 20;
+            case "A" -> 21;
+            case "A#", "Bb" -> 22;
+            case "B" -> 23;
+
 
             default -> throw new IllegalArgumentException("Notes can only be from A to G and can have a # or b after it.");
 

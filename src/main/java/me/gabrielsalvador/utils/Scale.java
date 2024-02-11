@@ -1,43 +1,53 @@
 package me.gabrielsalvador.utils;
 
-public enum Scale {
 
-    MAJOR, MINOR, PENTATONIC;
+public class Scale {
+    public static final Scale MAJOR = new Scale(new int[]{2, 2, 1, 2, 2, 2, 1});
+    public static final Scale MINOR = new Scale(new int[]{2, 1, 2, 2, 1, 2, 2});
+    public static final Scale HARMONIC_MINOR = new Scale(new int[]{2, 1, 2, 2, 1, 3, 1});
+    public static final Scale MELODIC_MINOR = new Scale(new int[]{2, 1, 2, 2, 2, 2, 1});
+    public static final Scale PENTATONIC = new Scale(new int[]{3, 2, 2, 3, 2});
+    public static final Scale BLUES = new Scale(new int[]{3, 2, 1, 1, 3, 2});
+    public static final Scale WHOLE_TONE = new Scale(new int[]{2, 2, 2, 2, 2, 2});
+    public static final Scale CHROMATIC = new Scale(new int[]{});
+    public static final Scale HIRAJOSHI = new Scale(new int[]{2, 1, 4, 1, 4});
 
 
-    Scale() {
+
+    private final int[] _intervals;
+    private MusicalNote _root;
+
+    public Scale(int[] intervals) {
+        this(intervals, new MusicalNote("C1"));
     }
 
+    public Scale(int[] intervals, MusicalNote root) {
+        _intervals = intervals;
+        _root = root;
+    }
 
+    public MusicalNote doInterval( int interval) {
 
-    public int getIntervalSemitones(Interval interval) {
-        if (this == MAJOR) {
-            switch (interval) {
-                case UNISON:
-                    return 0;
-                case SECOND:
-                    return 2;
-                case THIRD:
-                    return 4;
-                case FOURTH:
-                    return 5;
-                case FIFTH:
-                    return 7;
-                case SIXTH:
-                    return 9;
-                case SEVENTH:
-                    return 11;
-                case OCTAVE:
-                    return 12;
-            }
+        int pitch = _root.getPitch();
+
+        if (interval == 0) {
+            return new MusicalNote(pitch);
         }
-        return 0;
+
+        if (interval < 0) {
+            interval = _intervals.length + interval;
+        }
+
+        for (int i = 0; i < interval; i++) {
+            pitch += _intervals[i % _intervals.length];
+        }
+        return new MusicalNote(pitch);
+
+
     }
 
-    public MusicalNote getChordNote(MusicalNote root, Interval degree) {
-        int semitones = getIntervalSemitones(degree);
-        return root.applyInterval(degree, this);
-
+    public Scale setRoot(MusicalNote note) {
+        _root = note;
+        return this;
     }
-
 }

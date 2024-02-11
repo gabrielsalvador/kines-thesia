@@ -107,14 +107,14 @@ public interface PObjectPreset {
 
         private Vec2 _initialPosition = null;
         private Vec2 _finalPosition = null;
-        private Interval interval = null;
+        private int interval = 0;
 
 
 
         /*
         / relativePitch is the degree relative to the root note
          */
-        public ResonatorPreset(Vec2 _initialPosition, Vec2 _finalPosition, Interval interval) {
+        public ResonatorPreset(Vec2 _initialPosition, Vec2 _finalPosition, int interval) {
             this._initialPosition = _initialPosition;
             this._finalPosition = _finalPosition;
             this.interval = interval;
@@ -154,7 +154,7 @@ public interface PObjectPreset {
 
             pObject1.addComponent(BodyComponent.class, physicsBody);
             OnCollision onCollision = new OnCollision(pObject1);
-            onCollision.setNote(interval);
+
             pObject1.addComponent(OnCollision.class, onCollision);
 
             // add a musical note to the resonator

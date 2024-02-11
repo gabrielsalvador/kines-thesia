@@ -24,13 +24,7 @@ public class MusicalNote {
         _pitch = pitch;
     }
 
-    public MusicalNote applyInterval(Interval interval, Scale scale) {
 
-        int semitonesIncrement = interval.toSemitones(scale);
-        int pitch = getPitch() + semitonesIncrement;
-        return new MusicalNote(pitch);
-
-    }
 
     public int getPitch() {
         return _pitch;

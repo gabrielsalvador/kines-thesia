@@ -8,7 +8,6 @@ import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObjectPreset;
-import me.gabrielsalvador.utils.Interval;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
@@ -75,7 +74,7 @@ public class AddResonatorTool extends Tool {
 
         AppController.getInstance().queueModification(() -> {
 
-            PObjectPreset preset = new PObjectPreset.ResonatorPreset(initialPositionSnapshot, finalPositionSnapshot, Interval.fromScaleDegree(_howManyResonators % 7));
+            PObjectPreset preset = new PObjectPreset.ResonatorPreset(initialPositionSnapshot, finalPositionSnapshot, _howManyResonators % 7);
             System.out.println("Creating resonator with scale note " + _howManyResonators % 7);
             PObject p = preset.create()[0];
             AppController.getInstance().addPObjectImmiadiately(p);

@@ -1,4 +1,3 @@
-import me.gabrielsalvador.utils.Interval;
 import me.gabrielsalvador.utils.MusicalNote;
 import me.gabrielsalvador.utils.Scale;
 import org.junit.jupiter.api.Test;
@@ -10,38 +9,54 @@ public class MusicalNoteTests {
         MusicalNote note = new MusicalNote("C1");
         assert note.getPitch() == 24;
 
-        note = new MusicalNote("Cb");
-        assert note.getPitch() == 11;
+        String[] letters = {"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"};
 
-        note = new MusicalNote("C#3");
-        assert note.getPitch() == 49;
+        int pitch = 0;
+        for (int octave = -1; octave < 7; octave++) {
+            for (String letter : letters) {
+                MusicalNote n = new MusicalNote(letter + octave);
+                assert n.getPitch() == pitch;
+                pitch++;
+            }
+        }
 
-        note = new MusicalNote("D2");
-        assert note.getPitch() == 38;
 
-        note = new MusicalNote("D#2");
-        assert note.getPitch() == 39;
 
-        note = new MusicalNote("C-1");
-        assert note.getPitch() == 0;
+
     }
 
 
     @Test
-    public void test(){
-
-        Interval second = Interval.SECOND.octave(0);
-        int semitones = second.toSemitones(Scale.MAJOR);
-        assert semitones == 2;
+    public void testIntervalCreation(){
 
 
-        second = Interval.SECOND.octave(1);
-        semitones = second.toSemitones(Scale.MAJOR);
-        assert semitones == 14;
 
-        Interval seventh = Interval.SEVENTH.octave(-1);
-        semitones = seventh.toSemitones(Scale.MAJOR);
-        assert semitones == -1;
+        MusicalNote root = new MusicalNote("A");
+        assert root.getPitch() == 21;
+
+
+        Scale key = Scale.MAJOR.setRoot(root);
+        MusicalNote m = key.doInterval(0);
+        assert m.getPitch() == 21;
+
+        m = key.doInterval(1);
+        assert m.getPitch() == 23;
+
+        m = key.doInterval(2);
+        assert m.getPitch() == 25;
+        m = key.doInterval(3);
+        assert m.getPitch() == 26;
+
+
+
+
+
+        int[] chords = new int[]{0, 2, 4};
+
+        // IV of A0 is D - F# - A
+        assert key.doInterval(3 + chords[0]).getPitch() == 26;
+        assert key.doInterval(3 + chords[1]).getPitch() == 30;
+        assert key.doInterval(3 + chords[2]).getPitch() == 33;
 
 
 
@@ -49,6 +64,6 @@ public class MusicalNoteTests {
 
     @Test
     public void intervalTest() {
-        Interval second = Interval.SECOND.octave(1);
+
     }
 }
