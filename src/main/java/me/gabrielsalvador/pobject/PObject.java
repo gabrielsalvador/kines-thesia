@@ -32,9 +32,7 @@ public class PObject implements Serializable {
     }
 
     // Use this method for things that need to be initialized after deserialization
-    protected void initialize() {
-
-    }
+    protected void initialize() {}
 
     public void remove() {
         for (PObject child : _children) {

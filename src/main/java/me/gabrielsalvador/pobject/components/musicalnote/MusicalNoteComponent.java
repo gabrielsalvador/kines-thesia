@@ -5,23 +5,23 @@ import controlP5.ControlP5;
 import controlP5.Group;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.Component;
-import me.gabrielsalvador.utils.ScaleNote;
+import me.gabrielsalvador.utils.Interval;
 import org.jbox2d.common.Vec2;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 
 public class MusicalNoteComponent extends Component {
 
-    ScaleNote musicalNote;
+    Interval interval;
 
     @PObject.InspectableProperty(displayName = "Note")
-    public ScaleNote getMusicalNote() {
-        return musicalNote;
+    public Interval getInterval() {
+        return interval;
     }
 
     @PObject.InspectableProperty.SetterFor("Note")
-    public void setMusicalNote(ScaleNote musicalNote) {
-        this.musicalNote = musicalNote;
+    public void setInterval(Interval interval) {
+        this.interval = interval;
     }
 
 
@@ -38,16 +38,16 @@ public class MusicalNoteComponent extends Component {
 
     private final PObject owner;
 
-    public MusicalNoteComponent(PObject owner, ScaleNote note) {
+    public MusicalNoteComponent(PObject owner, Interval note) {
         super(owner);
         this.owner = owner;
-        musicalNote = note;
+        interval = note;
 
     }
 
     @Override
     public void display(PGraphics graphics) {
-        String noteName = musicalNote.getFullName();
+        String noteName = interval.getName();
         graphics.textSize(10);
         graphics.textAlign(PConstants.CENTER, PConstants.CENTER);
 
@@ -66,9 +66,7 @@ public class MusicalNoteComponent extends Component {
 
     }
 
-    public int getPitch() {
-        return musicalNote.getPitch();
-    }
+
 
 
     public static class MusicalNoteComponentUI extends Group {

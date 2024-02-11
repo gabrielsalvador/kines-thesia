@@ -1,99 +1,43 @@
 package me.gabrielsalvador.utils;
 
-import java.io.Serializable;
+public enum Scale {
 
-import me.gabrielsalvador.utils.MusicalNote;
+    MAJOR, MINOR, PENTATONIC;
 
-public class Scale implements Serializable {
 
-    public static final Scale MAJOR = new Scale("C", 0, Mode.MAJOR);
-    private final MusicalNote _root;
-    private final int[] _intervals;
-    private final Mode _mode;
-
-    public Scale(String root, int accidental, Mode mode){
-        int pitch = noteNameToPitch(root, accidental);
-        _root = new MusicalNote(pitch);
-        _mode = mode;
-        _intervals = mode.getIntervals();
+    Scale() {
     }
 
-    // Static method remains the same
-    public static int noteNameToPitch(String noteName, int accidental) {
-        int pitch = 0;
-        switch(noteName){
-            case "C":
-                pitch = 0;
-                break;
-            case "C#":
-                pitch = 1;
-                break;
-            case "D":
-                pitch = 2;
-                break;
-            case "D#":
-                pitch = 3;
-                break;
-            case "E":
-                pitch = 4;
-                break;
-            case "F":
-                pitch = 5;
-                break;
-            case "F#":
-                pitch = 6;
-                break;
-            case "G":
-                pitch = 7;
-                break;
-            case "G#":
-                pitch = 8;
-                break;
-            case "A":
-                pitch = 9;
-                break;
-            case "A#":
-                pitch = 10;
-                break;
-            case "B":
-                pitch = 11;
-                break;
+
+
+    public int getIntervalSemitones(Interval interval) {
+        if (this == MAJOR) {
+            switch (interval) {
+                case UNISON:
+                    return 0;
+                case SECOND:
+                    return 2;
+                case THIRD:
+                    return 4;
+                case FOURTH:
+                    return 5;
+                case FIFTH:
+                    return 7;
+                case SIXTH:
+                    return 9;
+                case SEVENTH:
+                    return 11;
+                case OCTAVE:
+                    return 12;
+            }
         }
-        pitch += accidental;
-        return pitch;
+        return 0;
+    }
+
+    public MusicalNote getChordNote(MusicalNote root, Interval degree) {
+        int semitones = getIntervalSemitones(degree);
+        return root.applyInterval(degree, this);
 
     }
 
-    public MusicalNote getNoteFromInterval(int interval) {
-        int pitch = _root.getPitch();
-        for (int i = 0; i < interval; i++) {
-            pitch += _intervals[i];
-        }
-        return new MusicalNote(pitch);
-    }
-
-    public MusicalNote getRoot() {
-        return _root;
-    }
-    private int getRootPitch() {
-        return _root.getPitch();
-    }
-
-    public int getPitchFromInterval(int interval) {
-        int pitch = getRootPitch();
-        for (int i = 0; i < interval; i++) {
-            pitch += _intervals[i];
-        }
-        return pitch;
-    }
-
-    public int degreeToPitch(int octave, int degree) {
-        int pitch = getRootPitch() + octave * 12;
-        for (int i = 1; i < degree; i++) {
-            pitch += _intervals[i - 1];
-        }
-        return pitch;
-    }
 }
-
-

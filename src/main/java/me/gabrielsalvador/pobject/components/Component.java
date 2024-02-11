@@ -1,21 +1,17 @@
 package me.gabrielsalvador.pobject.components;
 
 
-import controlP5.ControlGroup;
-import controlP5.ControllerGroup;
+
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty.SetterFor;
 import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.pobject.views.View;
-import org.jbox2d.dynamics.contacts.Contact;
 import processing.core.PGraphics;
-
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -93,14 +89,9 @@ public abstract class  Component implements Serializable {
                         property.setSetter(setterMethods.get(displayName));
                     }
 
-
-
-
                     cachedProperties.add(property);
                 }
             }
-
-
 
             // Move to the superclass for the next iteration
             currentClass = currentClass.getSuperclass();

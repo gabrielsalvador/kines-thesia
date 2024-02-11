@@ -10,13 +10,22 @@ import java.io.Serial;
 
 public class PMetronome extends PObject implements Device {
 
-    int _periodicityIn16thNotes = 4;
+
+    int _periodicityIn16thNotes =8;
+    @InspectableProperty(displayName = "Periodicity")
+    public int getPeriodicityIn16thNotes() {
+        return _periodicityIn16thNotes;
+    }
+    @InspectableProperty.SetterFor("Periodicity")
+    public void setPeriodicityIn16thNotes(int periodicityIn16thNotes) {
+        _periodicityIn16thNotes = periodicityIn16thNotes;
+    }
+
     int _internalBeatCounter = 0;
 
     private transient BlinkingLigth _blinkingLigth;
     public PMetronome() {
         super();
-
 
         initialize();
     }

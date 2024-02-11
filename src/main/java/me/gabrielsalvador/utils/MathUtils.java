@@ -67,4 +67,46 @@ public class MathUtils {
 
         return (float) -Math.toDegrees(angleInRadians);
     }
+
+    public static int noteLetterToPitch(String noteName){
+
+        if(!noteName.matches("([A-G])(#|b)?")){
+            throw new IllegalArgumentException("Notes can only be from A to G and can have a # or b after it.");
+        }
+        return switch (noteName) {
+            case "A", "Bb" -> 10;
+            case "Cb", "B" -> 11;
+            case "C" -> 12;
+            case "C#", "Db" -> 13;
+            case "D" -> 14;
+            case "D#", "Eb" -> 15;
+            case "E", "Fb" -> 16;
+            case "F", "E#" -> 17;
+            case "F#", "Gb" -> 18;
+            case "G" -> 19;
+            case "G#", "Ab" -> 20;
+
+            default -> throw new IllegalArgumentException("Notes can only be from A to G and can have a # or b after it.");
+
+        };
+    }
+
+    public static String pitchToNoteLetter(int pitch) {
+        int note = pitch % 12;
+        return switch (note) {
+            case 0 -> "C";
+            case 1 -> "C#";
+            case 2 -> "D";
+            case 3 -> "D#";
+            case 4 -> "E";
+            case 5 -> "F";
+            case 6 -> "F#";
+            case 7 -> "G";
+            case 8 -> "G#";
+            case 9 -> "A";
+            case 10 -> "A#";
+            case 11 -> "B";
+            default -> throw new IllegalArgumentException("Invalid pitch");
+        };
+    }
 }

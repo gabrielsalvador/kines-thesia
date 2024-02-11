@@ -1,56 +1,46 @@
 package me.gabrielsalvador.utils;
 
-import java.io.Serializable;
 
-public class MusicalNote implements Serializable {
+public class MusicalNote {
 
-    private final int _root; //in midi pitch
+    private int _pitch;
 
-    public MusicalNote (int root){
-        _root = root;
-    }
-
-    public String getFullName(){
-        return getName()+ getOctave();
-    }
-
-    public String getName(){
-        int note = _root % 12;
-        switch(note){
-            case 0:
-                return "C";
-            case 1:
-                return "C#";
-            case 2:
-                return "D";
-            case 3:
-                return "D#";
-            case 4:
-                return "E";
-            case 5:
-                return "F";
-            case 6:
-                return "F#";
-            case 7:
-                return "G";
-            case 8:
-                return "G#";
-            case 9:
-                return "A";
-            case 10:
-                return "A#";
-            case 11:
-                return "B";
+    public MusicalNote(String note) {
+        int octave = 0;
+        if (note.contains("-")) {
+            String[] parts = note.split("-");
+            note = parts[0];
+            octave = -Integer.parseInt(parts[1]);
+        } else if (Character.isDigit(note.charAt(note.length() - 1))) {
+            octave = Integer.parseInt(note.substring(note.length() - 1));
+            note = note.substring(0, note.length() - 1);
         }
-        return null;
+        int pitch = MathUtils.noteLetterToPitch(note);
+        _pitch = pitch + (octave * 12);
     }
 
-    public int getOctave(){
-        return _root / 12 - 1;
+
+    public MusicalNote(int pitch) {
+        _pitch = pitch;
     }
 
-    public int getPitch(){
-        return _root;
+    public MusicalNote applyInterval(Interval interval, Scale scale) {
+
+        int semitonesIncrement = interval.toSemitones(scale);
+        int pitch = getPitch() + semitonesIncrement;
+        return new MusicalNote(pitch);
+
     }
+
+    public int getPitch() {
+        return _pitch;
+    }
+
+
+    public String toString() {
+        return MathUtils.pitchToNoteLetter(_pitch) + (int) (double) ((_pitch / 12)-1);
+    }
+
 
 }
+

@@ -8,7 +8,7 @@ import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObjectPreset;
-import me.gabrielsalvador.utils.ScaleNote;
+import me.gabrielsalvador.utils.Interval;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
@@ -25,7 +25,7 @@ public class AddResonatorTool extends Tool {
 
 
     /* counts how many resonators have been added, useful for things like making it play several notes*/
-    private static int howManyResonators = 1;
+    private static int howManyResonators = 0;
 
     {
         getModes().get(0).setIcon(Config.BOXTOOL_CURSOR_ICON);
@@ -71,11 +71,12 @@ public class AddResonatorTool extends Tool {
         // Create snapshots of the current state inside the lambda
         Vec2 initialPositionSnapshot = new Vec2(_initialPosition.x, _initialPosition.y);
         Vec2 finalPositionSnapshot = new Vec2(_finalPosition.x, _finalPosition.y);
+        int _howManyResonators = AddResonatorTool.howManyResonators;
 
         AppController.getInstance().queueModification(() -> {
 
-            PObjectPreset preset = new PObjectPreset.ResonatorPreset(initialPositionSnapshot, finalPositionSnapshot, new ScaleNote(howManyResonators % 7));
-            System.out.println("Creating resonator with scale note " + howManyResonators % 7);
+            PObjectPreset preset = new PObjectPreset.ResonatorPreset(initialPositionSnapshot, finalPositionSnapshot, Interval.fromScaleDegree(_howManyResonators % 7));
+            System.out.println("Creating resonator with scale note " + _howManyResonators % 7);
             PObject p = preset.create()[0];
             AppController.getInstance().addPObjectImmiadiately(p);
         });

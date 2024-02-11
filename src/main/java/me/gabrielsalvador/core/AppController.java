@@ -5,9 +5,7 @@ import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.views.View;
 import me.gabrielsalvador.sequencing.SequencerController;
-import me.gabrielsalvador.utils.Mode;
-import me.gabrielsalvador.utils.Scale;
-import themidibus.MidiBus;
+import me.gabrielsalvador.utils.MusicalNote;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ public class AppController {
     private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
     private final ConcurrentLinkedQueue<Runnable> _modificationsQueue = new ConcurrentLinkedQueue<Runnable>();
-    private final Scale _globalScale = new Scale("C3",1, new Mode("Minor"));
+
 
 
 
@@ -142,14 +140,11 @@ public class AppController {
     }
 
 
-    public Scale getGlobalScale() {
-        return _globalScale;
-    }
-
-
     public SequencerController getSequencerController() {
         return (SequencerController) Sinesthesia.getInstance().getCP5().getController(Config.MAIN_SEQUENCER_NAME);
     }
+
+
 
     public void createRouting(PObject pObject, PObject firstObject) {
         RoutingComponent RCA = new RoutingComponent(pObject);

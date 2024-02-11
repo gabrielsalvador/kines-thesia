@@ -2,8 +2,6 @@ package me.gabrielsalvador.sequencing;
 
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
-
-import java.time.Duration;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -17,6 +15,7 @@ public class Clock {
 
     //the time when the last tick started
     public long _lastTickTime ; //in nanoseconds
+    private int _periodicityIn16thNotes = 16;
 
     private Clock() {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
@@ -66,7 +65,7 @@ public class Clock {
                 }
 
 
-            }, 0, getPeriodOfNthNotes(16), TimeUnit.NANOSECONDS);
+            }, 0, getPeriodOfNthNotes(_periodicityIn16thNotes), TimeUnit.NANOSECONDS);
             _transportState = TransportState.PLAYING;
         }
     }
@@ -120,7 +119,7 @@ public class Clock {
     //how much time in nanoseconds should pass before the next tick
 
     public long getTimeUntilNextTick() {
-        long period = getPeriodOfNthNotes(32);
+        long period = getPeriodOfNthNotes(_periodicityIn16thNotes);
         long timeSinceLastTick = System.nanoTime() - _lastTickTime;
         return period - timeSinceLastTick;
 

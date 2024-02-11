@@ -5,7 +5,7 @@ import me.gabrielsalvador.pobject.components.OnCollision;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.*;
 import me.gabrielsalvador.pobject.components.musicalnote.MusicalNoteComponent;
-import me.gabrielsalvador.utils.ScaleNote;
+import me.gabrielsalvador.utils.Interval;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
@@ -107,17 +107,17 @@ public interface PObjectPreset {
 
         private Vec2 _initialPosition = null;
         private Vec2 _finalPosition = null;
-        private ScaleNote scaleNote;
+        private Interval interval = null;
 
 
 
         /*
         / relativePitch is the degree relative to the root note
          */
-        public ResonatorPreset(Vec2 _initialPosition, Vec2 _finalPosition, ScaleNote scaleNote) {
+        public ResonatorPreset(Vec2 _initialPosition, Vec2 _finalPosition, Interval interval) {
             this._initialPosition = _initialPosition;
             this._finalPosition = _finalPosition;
-            this.scaleNote = scaleNote;
+            this.interval = interval;
 
         }
 
@@ -154,12 +154,12 @@ public interface PObjectPreset {
 
             pObject1.addComponent(BodyComponent.class, physicsBody);
             OnCollision onCollision = new OnCollision(pObject1);
-            onCollision.setNote(scaleNote);
+            onCollision.setNote(interval);
             pObject1.addComponent(OnCollision.class, onCollision);
 
             // add a musical note to the resonator
 
-            MusicalNoteComponent musicalNoteComponent = new MusicalNoteComponent(pObject1, scaleNote);
+            MusicalNoteComponent musicalNoteComponent = new MusicalNoteComponent(pObject1, interval);
             pObject1.addComponent(MusicalNoteComponent.class, musicalNoteComponent);
 
 

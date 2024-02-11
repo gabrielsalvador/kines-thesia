@@ -256,8 +256,8 @@ public class InspectorController extends Group implements PropertyChangeListener
         generalSettingsGroup.addChildVertically(label);
         addChildVertically(generalSettingsGroup);
 
-        String[] midiInterfaces = MidiBus.availableInputs();
-        DropdownList midiInputList = cp5.addDropdownList("MidiInputList")
+        String[] midiInterfaces = MidiBus.availableOutputs();
+        DropdownList midiInputList = cp5.addDropdownList("Midi Output List")
                 .setPosition(0,0)
                 .setSize(100,100)
                 .setGroup(this)
@@ -268,6 +268,17 @@ public class InspectorController extends Group implements PropertyChangeListener
                 .close()
                 .setItems(midiInterfaces)
                 .setWidth(getWidth())
+                .addCallback(new CallbackListener() {
+                    @Override
+                    public void controlEvent(CallbackEvent callbackEvent) {
+                        if(callbackEvent.getAction() == ControlP5.ACTION_BROADCAST){
+                            int value = (int) callbackEvent.getController().getValue();
+
+                            MidiManager.getInstance().changeOutput(value);
+                            System.out.println("midi output changed to " + value);
+                        }
+                    }
+                })
                 ;
 
         generalSettingsGroup.addChildVertically(midiInputList);

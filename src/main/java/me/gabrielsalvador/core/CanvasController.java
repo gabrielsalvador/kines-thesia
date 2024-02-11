@@ -2,11 +2,15 @@ package me.gabrielsalvador.core;
 
 import controlP5.*;
 import controlP5.events.ReleasedOutsideListener;
+import me.gabrielsalvador.midi.MidiManager;
 import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.views.View;
 import me.gabrielsalvador.tools.ToolManager;
 import me.gabrielsalvador.pobject.views.CanvasView;
+import me.gabrielsalvador.utils.Interval;
+import me.gabrielsalvador.utils.MusicalNote;
+import me.gabrielsalvador.utils.Scale;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import me.gabrielsalvador.pobject.PObject;
@@ -54,7 +58,6 @@ public class CanvasController extends Controller<CanvasController> implements Re
     }
 
 
-
     @Override
     public void mouseReleasedOutside() {
         isActive = false;
@@ -87,14 +90,14 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
     @Override
     public void onMove() {
-         updateHoveredObject();
+        updateHoveredObject();
     }
 
     @Override
     public void onDrag() {
         //the order of these two lines od code is important, if you update the hovered object first then if when you drag, you drag the mouse out of the object, the object will  stop being hovered mid drag
         int[] mousePosition = getMousePosition();
-        _toolManager.getCurrentTool().onDrag(_currentlyHovering,mousePosition);
+        _toolManager.getCurrentTool().onDrag(_currentlyHovering, mousePosition);
         updateHoveredObject();
     }
 
@@ -118,6 +121,27 @@ public class CanvasController extends Controller<CanvasController> implements Re
     @Override
     public void keyEvent(KeyEvent theKeyEvent) {
 
+        if (theKeyEvent.getAction() == KeyEvent.PRESS) {
+
+            Interval interval;
+            if (theKeyEvent.getKey() == 112) { //p
+
+
+                MidiManager midiManager = MidiManager.getInstance();
+                Interval chordRoot = midiManager.getChordRoot().plus(Interval.SECOND);
+                midiManager.setChordRoot(chordRoot);
+
+
+            }
+            else if (theKeyEvent.getKey() == 111) { //o
+
+                MidiManager midiManager = MidiManager.getInstance();
+                Interval chordRoot = midiManager.getChordRoot().minus(Interval.SECOND);
+                midiManager.setChordRoot(chordRoot);
+                
+
+            }
+        }
     }
 
     public int[] getMousePosition() {
@@ -127,7 +151,6 @@ public class CanvasController extends Controller<CanvasController> implements Re
     }
 
     private final float maxFrameTime = 1.0f / 15.0f;  // Limit frameTime to 1/15th of a second
-
 
 
     @Override
