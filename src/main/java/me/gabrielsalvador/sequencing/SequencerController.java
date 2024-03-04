@@ -32,7 +32,7 @@ public class SequencerController extends Controller<SequencerController> impleme
     }
 
     @Override
-    public void clockTick() { //gets called by the clock 32 times per beat
+    public void clockTick() { //gets called by the clock X times per beat
 
         _internalBeatCounter = (_internalBeatCounter + 1) % _howManyTicksToAdvance;
 

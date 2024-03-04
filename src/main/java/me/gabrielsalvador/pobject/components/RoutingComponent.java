@@ -1,7 +1,6 @@
 package me.gabrielsalvador.pobject.components;
 
 
-import me.gabrielsalvador.common.DisplayName;
 import me.gabrielsalvador.common.SerializableRunnable;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
@@ -42,8 +41,23 @@ public class RoutingComponent extends Component {
             graphics.fill(255, 0, 0);
             graphics.ellipseMode(PApplet.CENTER);
             if( i !=0 ) graphics.ellipse(x, y, 5, 5);
-
         }
+
+        // draw an arrow to indicate the direction of the pulse
+        Vec2 direction = end.sub(start);
+        direction.normalize();
+        direction.mulLocal(10);
+        Vec2 arrowEnd = end.sub(direction);
+        graphics.line(end.x, end.y, arrowEnd.x, arrowEnd.y);
+        graphics.pushMatrix();
+        graphics.translate(arrowEnd.x, arrowEnd.y);
+        double angle = Math.cos(direction.x);
+        graphics.rotate((float) angle);
+        graphics.fill(255, 0, 0);
+        graphics.triangle(0, 0, -5, -5, -5, 5);
+        graphics.popMatrix();
+
+
     }
 
 
@@ -101,6 +115,7 @@ public class RoutingComponent extends Component {
     }
 
     public void sendPulse() {
+        if (_target == null) return;
         _target.getRoutingComponent().receivePulse();
     }
 

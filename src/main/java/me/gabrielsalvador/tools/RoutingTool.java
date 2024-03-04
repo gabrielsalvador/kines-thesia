@@ -41,7 +41,7 @@ public class RoutingTool extends Tool{
         if(getCurrentMode().getName().equals("DoingRouting")){
             if(_firstObject == null || pObject == null) return true;
 
-            AppController.getInstance().createRouting(pObject, _firstObject);
+            AppController.getInstance().createRouting(_firstObject,pObject );
             setCurrentMode(getModes().get(MODE_NORMAL));
 
         }else if (getCurrentMode().getName().equals("Normal")){
@@ -68,14 +68,15 @@ public class RoutingTool extends Tool{
 
 
         if(getCurrentMode().getName().equals("DoingRouting")){
+            graphics.pushStyle();
             if (_firstObject == null) return;
-            PApplet papplet = Sinesthesia.getInstance();
             int[] mousePos = AppController.getInstance().getCanvas().getMousePosition();
             graphics.stroke(255,0,0);
             graphics.strokeWeight(2);
             BodyComponent body = _firstObject.getComponent(BodyComponent.class);
             Vec2 center = body.getPixelCenter();
             graphics.line(center.x, center.y, mousePos[0], mousePos[1]);
+            graphics.popStyle();
         }
     }
 

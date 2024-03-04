@@ -14,6 +14,8 @@ import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
+import me.gabrielsalvador.pobject.routing.Inlet;
+import me.gabrielsalvador.sequencing.SequencerController;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
@@ -24,6 +26,7 @@ public class PObject implements Serializable {
     private final Set<PObject> _children = new HashSet<>();
     transient private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<>();
     private final LinkedHashMap<Class<? extends Component>, Component> _components = new LinkedHashMap<>();
+    private final SequencerController _sequencerController = AppController.getInstance().getSequencerController();
 
 
     public PObject() {
@@ -43,6 +46,11 @@ public class PObject implements Serializable {
             component.remove();
         }
         _components.clear();
+
+        if(this instanceof Inlet){
+            _sequencerController.unregisterPObject( (Inlet) this);
+        }
+
         AppController.getInstance().enqueueRemovePObject(this);
 
     }

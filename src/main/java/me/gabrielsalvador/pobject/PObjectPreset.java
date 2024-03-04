@@ -167,4 +167,28 @@ public interface PObjectPreset {
         }
 
     }
+
+    public class KeyboardPreset implements PObjectPreset {
+
+        private Vec2 _position = null;
+
+        public KeyboardPreset(Vec2 position) {
+            _position = position;
+        }
+
+        @Override
+        public PObject[] create() {
+            PKeyboard pKeyboard = new PKeyboard();
+
+            RoutingComponent routingComponent = new RoutingComponent(pKeyboard);
+            pKeyboard.addComponent(RoutingComponent.class,routingComponent);
+
+            HologramBody body = new HologramBody(pKeyboard);
+            pKeyboard.addComponent(BodyComponent.class, body);
+
+            body.setView(new PKeyboardView(body));
+            body.setPixelPosition(_position);
+            return new PObject[]{pKeyboard};
+        }
+    }
 }

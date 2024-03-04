@@ -5,7 +5,8 @@ import processing.core.PGraphics;
 public class BlinkingLigth {
     private final int _size;
     private final int MAX_BRIGHTNESS = 255;
-    private int brigtness = 0;
+    private final int DEFAULT_SIZE = 10;
+    private int brightness = 0;
     private final int coolOffRate = 10;
 
     // Color values for the blinking light
@@ -13,6 +14,9 @@ public class BlinkingLigth {
     private final int originalG = 0;    // green component
     private final int originalB = 0;    // blue component
 
+    public BlinkingLigth() {
+        _size = DEFAULT_SIZE;
+    }
     public BlinkingLigth(int size) {
         _size = size;
     }

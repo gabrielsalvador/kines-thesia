@@ -104,6 +104,10 @@ public class CommandTool extends Tool {
                 int x = canvas.getPointer().x();
                 int y = canvas.getPointer().y();
                 if (args[1].equals("keyboard")) {
+                    AppController app = AppController.getInstance();
+                    PObject p = new PObjectPreset.KeyboardPreset(new Vec2(x, y)).create()[0];
+                    app.addPObject(p);
+
 
                 } else if (args[1].equals("emitter")) {
                     AppController app = AppController.getInstance();

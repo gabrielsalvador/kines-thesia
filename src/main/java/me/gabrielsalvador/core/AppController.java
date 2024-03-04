@@ -146,15 +146,12 @@ public class AppController {
 
 
 
-    public void createRouting(PObject pObject, PObject firstObject) {
-        RoutingComponent RCA = new RoutingComponent(pObject);
-        RCA.setTarget(firstObject);
-        pObject.addComponent(RoutingComponent.class, RCA);
-
-        RoutingComponent RCB = new RoutingComponent(firstObject);
-        RCB.setTarget(pObject);
-        firstObject.addComponent(RoutingComponent.class, RCB);
+    public void createRouting(PObject firstObject, PObject secondObject) {
+        RoutingComponent RCA = firstObject.getRoutingComponent();
+        if(RCA == null){
+            RCA = new RoutingComponent(secondObject);
+            firstObject.addComponent(RoutingComponent.class, RCA);
+        }
+        RCA.setTarget(secondObject);
     }
-
-
 }
