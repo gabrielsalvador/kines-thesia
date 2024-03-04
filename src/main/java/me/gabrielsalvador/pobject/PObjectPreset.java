@@ -5,7 +5,7 @@ import me.gabrielsalvador.pobject.components.OnCollision;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.*;
 import me.gabrielsalvador.pobject.components.musicalnote.MusicalNoteComponent;
-import me.gabrielsalvador.utils.Interval;
+import me.gabrielsalvador.pobject.views.PKeyboardView;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;

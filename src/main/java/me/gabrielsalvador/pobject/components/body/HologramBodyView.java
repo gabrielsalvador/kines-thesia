@@ -1,12 +1,10 @@
 package me.gabrielsalvador.pobject.components.body;
 
-import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.views.View;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
-import java.io.Serializable;
 
 public class HologramBodyView implements View<Component>  {
     protected final HologramBody _model;

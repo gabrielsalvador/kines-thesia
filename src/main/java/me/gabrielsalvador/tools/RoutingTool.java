@@ -20,7 +20,6 @@ public class RoutingTool extends Tool{
 
 
 
-
     {
         getModes().add(new ToolMode("DoingRouting"));
         setCurrentMode(getModes().get(MODE_NORMAL));

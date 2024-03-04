@@ -21,7 +21,7 @@ public class SequencerController extends Controller<SequencerController> impleme
 
 
     /* PObject with inlets where he can send note events */
-    private final ArrayList<Inlet> _connectedPObject = new ArrayList<Inlet>();
+    private final ArrayList<Inlet> _connectedPObjects = new ArrayList<Inlet>();
 
     public SequencerController(ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);
@@ -48,7 +48,7 @@ public class SequencerController extends Controller<SequencerController> impleme
     }
     private void sendNoteEvent(int time, int pitch) {
         /* Send note event to all connected PObjects */
-        for (Inlet inlet : _connectedPObject) {
+        for (Inlet inlet : _connectedPObjects) {
             inlet.receive("%d,%d".formatted(time,pitch));
         }
     }
@@ -109,10 +109,10 @@ public class SequencerController extends Controller<SequencerController> impleme
     }
 
     public void registerPObject(Inlet inlet){
-        _connectedPObject.add(inlet);
+        _connectedPObjects.add(inlet);
     }
     public void unregisterPObject(Inlet inlet){
-        _connectedPObject.remove(inlet);
+        _connectedPObjects.remove(inlet);
     }
 
     public int getDivisionTime() {

@@ -5,7 +5,6 @@ import me.gabrielsalvador.pobject.components.body.HologramBody;
 import me.gabrielsalvador.pobject.views.BlinkingLigth;
 import me.gabrielsalvador.pobject.views.PMetronomeView;
 import me.gabrielsalvador.sequencing.Device;
-
 import java.io.Serial;
 
 public class PMetronome extends PObject implements Device {

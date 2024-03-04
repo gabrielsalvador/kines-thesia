@@ -22,23 +22,23 @@ public class BlinkingLigth {
         graphics.colorMode(PGraphics.RGB);
 
         // Calculate current RGB values based on brightness
-        int currentR = (int) (originalR * (brigtness / (float)MAX_BRIGHTNESS));
-        int currentG = (int) (originalG * (brigtness / (float)MAX_BRIGHTNESS));
-        int currentB = (int) (originalB * (brigtness / (float)MAX_BRIGHTNESS));
+        int currentR = (int) (originalR * (brightness / (float)MAX_BRIGHTNESS));
+        int currentG = (int) (originalG * (brightness / (float)MAX_BRIGHTNESS));
+        int currentB = (int) (originalB * (brightness / (float)MAX_BRIGHTNESS));
 
         graphics.noStroke();
         graphics.fill(currentR, currentG, currentB);
         graphics.ellipse(0, 0, _size, _size);
 
-        if (brigtness > coolOffRate) {
-            brigtness -= coolOffRate;
+        if (brightness > coolOffRate) {
+            brightness -= coolOffRate;
         } else {
-            brigtness = 0;
+            brightness = 0;
         }
 
     }
 
     public void blink() {
-        brigtness = MAX_BRIGHTNESS;
+        brightness = MAX_BRIGHTNESS;
     }
 }
