@@ -98,9 +98,7 @@ public class AppController {
         AppState.getInstance().clearObjects();
     }
 
-    public void AddRouting() {
 
-    }
 
 
 
@@ -126,10 +124,7 @@ public class AppController {
    
 
     public void removePObjectImmiadiately(PObject pObject) {
-
             _appState.getPObjects().remove(pObject);
-
-
     }
 
     public void enqueueRemovePObject(PObject pObject) {

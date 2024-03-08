@@ -1,8 +1,6 @@
 package me.gabrielsalvador.pobject;
 
-import me.gabrielsalvador.common.SerializableRunnable;
 import me.gabrielsalvador.pobject.components.Component;
-
 import java.io.Serializable;
 import java.lang.reflect.Method;
 

@@ -51,6 +51,8 @@ public class OnCollision extends Component {
 
         int velocity = (int) contact.getFixtureB().getBody().getLinearVelocity().length();
         velocity = Math.min(velocity, 127);
+
+        int channel = MNC.getMidiChannel();
         MidiManager.getInstance().scheduleNote(note.getPitch(), velocity);
     }
 

@@ -69,12 +69,7 @@ public class MusicalNoteComponent extends Component {
 
 
 
-    public static class MusicalNoteComponentUI extends Group {
 
-        public MusicalNoteComponentUI(ControlP5 theControlP5, String theName) {
-            super(theControlP5, theName);
-        }
-    }
 }
 
 
