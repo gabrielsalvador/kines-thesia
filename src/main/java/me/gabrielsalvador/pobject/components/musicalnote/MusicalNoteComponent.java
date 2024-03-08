@@ -2,9 +2,11 @@ package me.gabrielsalvador.pobject.components.musicalnote;
 
 
 import controlP5.ControlP5;
-import controlP5.Group;
+import controlP5.DropdownList;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.pobject.components.Component;
+import me.gabrielsalvador.pobject.views.PropertyInspectorController;
 import me.gabrielsalvador.utils.Interval;
 import org.jbox2d.common.Vec2;
 import processing.core.PConstants;
@@ -25,15 +27,29 @@ public class MusicalNoteComponent extends Component {
     }
 
 
-    @PObject.InspectableProperty(displayName = "Relative Pitch")
-    public boolean getRelativePitch() {
-        return false;
+    private int midiChannel = 1;
+    @PObject.InspectableProperty(displayName = "Midi Channel")
+    public int getMidiChannel() {return midiChannel;}
+    @PObject.InspectableProperty.SetterFor("Midi Channel")
+    public void setMidiChannel(int midiChannel) {this.midiChannel = midiChannel;}
+
+    @SuppressWarnings("unused")
+    @PObject.InspectableProperty.ControllerFor("Midi Channel")
+    class MidiChannelUI extends DropdownList implements PropertyInspectorController {
+        public MidiChannelUI(ControlP5 theControlP5, String theName) {
+            super(theControlP5, theName);
+        }
+
+        @Override
+        public void setProperty(PObjectProperty property) {
+            for (int i = 1; i <= 16; i++) {
+                addItem("Channel " + i, i);
+            }
+            setValue(midiChannel);
+
+        }
     }
 
-    @PObject.InspectableProperty.SetterFor("Relative Pitch")
-    public void setRelativePitch(boolean relativePitch) {
-
-    }
 
 
     private final PObject owner;

@@ -2,6 +2,7 @@ package me.gabrielsalvador.pobject.components;
 
 
 
+import me.gabrielsalvador.pobject.InspectorController;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty.SetterFor;
@@ -59,7 +60,9 @@ public abstract class  Component implements Serializable {
         }
 
         // Map to hold fieldName -> setterMethod
-        Map<String, Method> setterMethods = new HashMap<>();
+        Map<String, Method> setterMethods = new HashMap<>(); //Q: how to make this a map of <String, <Method,Class>>? A: use a Pair class
+
+        Map<String,Class<? extends InspectorController>> controllerClasses = new HashMap<>();
 
 
         Class<?> currentClass = this.getClass();
@@ -75,9 +78,21 @@ public abstract class  Component implements Serializable {
                 }
             }
 
+
+            // Collect controller classes
+            for (Class<?> clazz : currentClass.getDeclaredClasses()) {
+                if (InspectorController.class.isAssignableFrom(clazz) && clazz.isAnnotationPresent(InspectableProperty.ControllerFor.class)) {
+                    InspectableProperty.ControllerFor controllerForAnnotation = clazz.getAnnotation(InspectableProperty.ControllerFor.class);
+                    controllerClasses.put(controllerForAnnotation.value(), (Class<? extends InspectorController>) clazz);
+
+                }
+
+            }
+
             // Check fields for the InspectableProperty annotation
             for (Method method : currentClass.getDeclaredMethods()) {
                 if (method.isAnnotationPresent(InspectableProperty.class)) {
+
                     InspectableProperty propertyAnnotation = method.getAnnotation(InspectableProperty.class);
                     String displayName = propertyAnnotation.displayName().isEmpty() ? method.getName() : propertyAnnotation.displayName();
 
@@ -87,6 +102,10 @@ public abstract class  Component implements Serializable {
                     // Link the setter method to the property using the SetterFor annotation value
                     if (setterMethods.containsKey(displayName)) {
                         property.setSetter(setterMethods.get(displayName));
+                    }
+
+                    if(controllerClasses.containsKey(displayName)){
+                        property.setController(controllerClasses.get(displayName));
                     }
 
                     cachedProperties.add(property);

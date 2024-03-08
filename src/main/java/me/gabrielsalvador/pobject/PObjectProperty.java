@@ -13,6 +13,7 @@ public class PObjectProperty implements Serializable {
 
     private Method setter;
     private Method getter;
+    private Class<? extends InspectorController> controllerClass;
 
 
     public PObjectProperty(Component owner, String name, Class<?> type) {
@@ -70,6 +71,11 @@ public class PObjectProperty implements Serializable {
 
     public PObjectProperty setGetter(Method method) {
         getter = method;
+        return this;
+    }
+
+    public PObjectProperty setController(Class<? extends InspectorController> controllerClass) {
+        this.controllerClass = controllerClass;
         return this;
     }
 }
