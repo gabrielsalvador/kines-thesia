@@ -15,7 +15,7 @@ public class Clock {
 
     //the time when the last tick started
     public long _lastTickTime ; //in nanoseconds
-    private int _periodicityIn16thNotes = 16;
+    private final int _periodIn16thNotes = 16; //how many 16th notes are sent per quarter note
 
     private Clock() {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
@@ -65,7 +65,7 @@ public class Clock {
                 }
 
 
-            }, 0, getPeriodOfNthNotes(_periodicityIn16thNotes), TimeUnit.NANOSECONDS);
+            }, 0, getPeriodOfNthNotes(_periodIn16thNotes), TimeUnit.NANOSECONDS);
             _transportState = TransportState.PLAYING;
         }
     }
@@ -119,7 +119,7 @@ public class Clock {
     //how much time in nanoseconds should pass before the next tick
 
     public long getTimeUntilNextTick() {
-        long period = getPeriodOfNthNotes(_periodicityIn16thNotes);
+        long period = getPeriodOfNthNotes(_periodIn16thNotes);
         long timeSinceLastTick = System.nanoTime() - _lastTickTime;
         return period - timeSinceLastTick;
 
