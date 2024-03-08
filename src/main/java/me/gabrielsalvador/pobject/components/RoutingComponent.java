@@ -114,14 +114,19 @@ public class RoutingComponent extends Component {
         _pulseCallback = callback;
     }
 
-    public void sendPulse() {
-        if (_target == null) return;
-        _target.getRoutingComponent().receivePulse();
+    public void sendPulse(Object message) {
+        if (_target == null ) return;
+        RoutingComponent rc = _target.getRoutingComponent();
+        if (rc == null)
+            throw new RuntimeException("We're trying to send a pulse to an object that doesn't have a routing component\n" +
+                "OBJ = " + _target.toString());
+
+        rc.receivePulse(message);
     }
 
-    private void receivePulse() {
+    private void receivePulse(Object message) {
         if (_pulseCallback != null) {
-            _pulseCallback.run();
+            _pulseCallback.run(message);
         }
     }
 }

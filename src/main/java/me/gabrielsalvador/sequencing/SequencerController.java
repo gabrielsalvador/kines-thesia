@@ -3,13 +3,14 @@ package me.gabrielsalvador.sequencing;
 import controlP5.*;
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.routing.Inlet;
+import me.gabrielsalvador.utils.MusicalNote;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
 
 public class SequencerController extends Controller<SequencerController> implements Device{
     public static final int DIVISION_TIME = 32 ;
-    public static final int DIVISION_PITCH = 12;
+    public static final int DIVISION_PITCH = 24;
     private int playhead = 0;
     protected boolean isPressed;
     protected int currentX = -1;
@@ -32,7 +33,7 @@ public class SequencerController extends Controller<SequencerController> impleme
     }
 
     @Override
-    public void clockTick() { //gets called by the clock X times per beat
+    public void clockTick() { //gets called by the clock X times per beat (see clock class)
 
         _internalBeatCounter = (_internalBeatCounter + 1) % _howManyTicksToAdvance;
 
@@ -49,7 +50,8 @@ public class SequencerController extends Controller<SequencerController> impleme
     private void sendNoteEvent(int time, int pitch) {
         /* Send note event to all connected PObjects */
         for (Inlet inlet : _connectedPObjects) {
-            inlet.receive("%d,%d".formatted(time,pitch));
+            MusicalNote note = new MusicalNote(pitch);
+            inlet.receive(note);
         }
     }
 

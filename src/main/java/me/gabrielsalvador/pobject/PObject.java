@@ -26,7 +26,7 @@ public class PObject implements Serializable {
     private final Set<PObject> _children = new HashSet<>();
     transient private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<>();
     private final LinkedHashMap<Class<? extends Component>, Component> _components = new LinkedHashMap<>();
-    private final SequencerController _sequencerController = AppController.getInstance().getSequencerController();
+
 
 
     public PObject() {
@@ -48,7 +48,7 @@ public class PObject implements Serializable {
         _components.clear();
 
         if(this instanceof Inlet){
-            _sequencerController.unregisterPObject( (Inlet) this);
+            AppController.getInstance().getSequencerController().unregisterPObject( (Inlet) this);
         }
 
         AppController.getInstance().enqueueRemovePObject(this);
@@ -143,7 +143,7 @@ public class PObject implements Serializable {
         return _isHovered;
     }
 
-    public void display(PGraphics graphics) {
+    public final void display(PGraphics graphics) {
 
         //remove if out of view
         Vec2 myPos = getBodyComponent().getPixelPosition();
@@ -168,6 +168,11 @@ public class PObject implements Serializable {
 
         @Retention(RetentionPolicy.RUNTIME)
         @interface SetterFor {
+            String value();
+        }
+
+        @Retention(RetentionPolicy.RUNTIME)
+        @interface ControllerFor{
             String value();
         }
     }

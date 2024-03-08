@@ -113,9 +113,10 @@ public class CommandTool extends Tool {
                     AppController app = AppController.getInstance();
                     PObject p = new PObjectPreset.EmitterPreset(new Vec2(x, y)).create()[0];
                     app.addPObject(p);
-
-
-                } else if (args[1].equals("block")) {
+                } else if (args[1].equals("message")) {
+                    AppController app = AppController.getInstance();
+                    PObject p = new PMessage();
+                    app.addPObject(p);
 
                 } else if (args[1].equals("esystem")) {
 
