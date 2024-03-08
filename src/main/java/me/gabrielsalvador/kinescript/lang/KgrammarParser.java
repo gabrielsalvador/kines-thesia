@@ -1,5 +1,5 @@
 // Generated from ./Kgrammar.g4 by ANTLR 4.13.1
-package me.gabrielsalvador.kinescript;
+package me.gabrielsalvador.kinescript.lang;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -17,7 +17,7 @@ public class KgrammarParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, ID=3, STRING=4, NUMBER=5;
+		T__0=1, ID=2, STRING=3, NUMBER=4, WS=5;
 	public static final int
 		RULE_commands = 0, RULE_command = 1, RULE_name = 2, RULE_args = 3, RULE_arg = 4;
 	private static String[] makeRuleNames() {
@@ -29,13 +29,13 @@ public class KgrammarParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "' '", "','"
+			null, "' '"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, "ID", "STRING", "NUMBER"
+			null, null, "ID", "STRING", "NUMBER", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -141,11 +141,8 @@ public class KgrammarParser extends Parser {
 		public NameContext name() {
 			return getRuleContext(NameContext.class,0);
 		}
-		public List<ArgsContext> args() {
-			return getRuleContexts(ArgsContext.class);
-		}
-		public ArgsContext args(int i) {
-			return getRuleContext(ArgsContext.class,i);
+		public ArgsContext args() {
+			return getRuleContext(ArgsContext.class,0);
 		}
 		public CommandContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -189,20 +186,8 @@ public class KgrammarParser extends Parser {
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==T__0 );
-			setState(21);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 56L) != 0)) {
-				{
-				{
-				setState(18);
-				args();
-				}
-				}
-				setState(23);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
+			setState(18);
+			args();
 			}
 		}
 		catch (RecognitionException re) {
@@ -244,7 +229,7 @@ public class KgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(24);
+			setState(20);
 			match(ID);
 			}
 		}
@@ -293,21 +278,21 @@ public class KgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(26);
+			setState(22);
 			arg();
-			setState(31);
+			setState(27);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__1) {
+			while (_la==T__0) {
 				{
 				{
-				setState(27);
-				match(T__1);
-				setState(28);
+				setState(23);
+				match(T__0);
+				setState(24);
 				arg();
 				}
 				}
-				setState(33);
+				setState(29);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -355,9 +340,9 @@ public class KgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(34);
+			setState(30);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 56L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 28L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -379,30 +364,27 @@ public class KgrammarParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u0005%\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001\u0005!\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0001"+
 		"\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0004\u0001\u000f\b\u0001\u000b"+
-		"\u0001\f\u0001\u0010\u0001\u0001\u0005\u0001\u0014\b\u0001\n\u0001\f\u0001"+
-		"\u0017\t\u0001\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003"+
-		"\u0005\u0003\u001e\b\u0003\n\u0003\f\u0003!\t\u0003\u0001\u0004\u0001"+
-		"\u0004\u0001\u0004\u0000\u0000\u0005\u0000\u0002\u0004\u0006\b\u0000\u0001"+
-		"\u0001\u0000\u0003\u0005\"\u0000\n\u0001\u0000\u0000\u0000\u0002\f\u0001"+
-		"\u0000\u0000\u0000\u0004\u0018\u0001\u0000\u0000\u0000\u0006\u001a\u0001"+
-		"\u0000\u0000\u0000\b\"\u0001\u0000\u0000\u0000\n\u000b\u0003\u0002\u0001"+
-		"\u0000\u000b\u0001\u0001\u0000\u0000\u0000\f\u000e\u0003\u0004\u0002\u0000"+
-		"\r\u000f\u0005\u0001\u0000\u0000\u000e\r\u0001\u0000\u0000\u0000\u000f"+
-		"\u0010\u0001\u0000\u0000\u0000\u0010\u000e\u0001\u0000\u0000\u0000\u0010"+
-		"\u0011\u0001\u0000\u0000\u0000\u0011\u0015\u0001\u0000\u0000\u0000\u0012"+
-		"\u0014\u0003\u0006\u0003\u0000\u0013\u0012\u0001\u0000\u0000\u0000\u0014"+
-		"\u0017\u0001\u0000\u0000\u0000\u0015\u0013\u0001\u0000\u0000\u0000\u0015"+
-		"\u0016\u0001\u0000\u0000\u0000\u0016\u0003\u0001\u0000\u0000\u0000\u0017"+
-		"\u0015\u0001\u0000\u0000\u0000\u0018\u0019\u0005\u0003\u0000\u0000\u0019"+
-		"\u0005\u0001\u0000\u0000\u0000\u001a\u001f\u0003\b\u0004\u0000\u001b\u001c"+
-		"\u0005\u0002\u0000\u0000\u001c\u001e\u0003\b\u0004\u0000\u001d\u001b\u0001"+
-		"\u0000\u0000\u0000\u001e!\u0001\u0000\u0000\u0000\u001f\u001d\u0001\u0000"+
-		"\u0000\u0000\u001f \u0001\u0000\u0000\u0000 \u0007\u0001\u0000\u0000\u0000"+
-		"!\u001f\u0001\u0000\u0000\u0000\"#\u0007\u0000\u0000\u0000#\t\u0001\u0000"+
-		"\u0000\u0000\u0003\u0010\u0015\u001f";
+		"\u0001\f\u0001\u0010\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001"+
+		"\u0003\u0001\u0003\u0001\u0003\u0005\u0003\u001a\b\u0003\n\u0003\f\u0003"+
+		"\u001d\t\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0000\u0000\u0005\u0000"+
+		"\u0002\u0004\u0006\b\u0000\u0001\u0001\u0000\u0002\u0004\u001d\u0000\n"+
+		"\u0001\u0000\u0000\u0000\u0002\f\u0001\u0000\u0000\u0000\u0004\u0014\u0001"+
+		"\u0000\u0000\u0000\u0006\u0016\u0001\u0000\u0000\u0000\b\u001e\u0001\u0000"+
+		"\u0000\u0000\n\u000b\u0003\u0002\u0001\u0000\u000b\u0001\u0001\u0000\u0000"+
+		"\u0000\f\u000e\u0003\u0004\u0002\u0000\r\u000f\u0005\u0001\u0000\u0000"+
+		"\u000e\r\u0001\u0000\u0000\u0000\u000f\u0010\u0001\u0000\u0000\u0000\u0010"+
+		"\u000e\u0001\u0000\u0000\u0000\u0010\u0011\u0001\u0000\u0000\u0000\u0011"+
+		"\u0012\u0001\u0000\u0000\u0000\u0012\u0013\u0003\u0006\u0003\u0000\u0013"+
+		"\u0003\u0001\u0000\u0000\u0000\u0014\u0015\u0005\u0002\u0000\u0000\u0015"+
+		"\u0005\u0001\u0000\u0000\u0000\u0016\u001b\u0003\b\u0004\u0000\u0017\u0018"+
+		"\u0005\u0001\u0000\u0000\u0018\u001a\u0003\b\u0004\u0000\u0019\u0017\u0001"+
+		"\u0000\u0000\u0000\u001a\u001d\u0001\u0000\u0000\u0000\u001b\u0019\u0001"+
+		"\u0000\u0000\u0000\u001b\u001c\u0001\u0000\u0000\u0000\u001c\u0007\u0001"+
+		"\u0000\u0000\u0000\u001d\u001b\u0001\u0000\u0000\u0000\u001e\u001f\u0007"+
+		"\u0000\u0000\u0000\u001f\t\u0001\u0000\u0000\u0000\u0002\u0010\u001b";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -1,5 +1,5 @@
 // Generated from ./Kgrammar.g4 by ANTLR 4.13.1
-package me.gabrielsalvador.kinescript;
+package me.gabrielsalvador.kinescript.lang;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;

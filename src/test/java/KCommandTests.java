@@ -1,9 +1,10 @@
 
-import me.gabrielsalvador.kinescript.KgrammarBaseListener;
-import me.gabrielsalvador.kinescript.KgrammarLexer;
-import me.gabrielsalvador.kinescript.KgrammarParser;
+import me.gabrielsalvador.kinescript.lang.KgrammarBaseListener;
+import me.gabrielsalvador.kinescript.lang.KgrammarLexer;
+import me.gabrielsalvador.kinescript.lang.KgrammarParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.atn.PredictionMode;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.api.Test;
 
@@ -26,19 +27,33 @@ public class KCommandTests {
         // Create a buffer of toKens pulled from the lexer
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-        // Create a parser that feeds off the toKen buffer
+        // Create a parser that feeds off the token buffer
         KgrammarParser parser = new KgrammarParser(tokens);
 
-        // Begin parsing at the 'commands' rule
-        KgrammarParser.CommandsContext tree = parser.commands();
+        // Set the prediction mode to SLL
+        parser.getInterpreter().setPredictionMode(PredictionMode.SLL);
 
-        // Create a generic parse tree walKer that can trigger callbacKs
-        ParseTreeWalker walKer = new ParseTreeWalker();
+        KgrammarParser.CommandsContext tree = null;
 
-        // Create a listener and connect it to the walKer
+        try {
+            // Try parsing in SLL mode
+            tree = parser.commands();
+        } catch (Exception e) {
+            // If the parser fails, reset it and try again in LL mode
+            tokens.reset(); // rewind input stream
+            parser.reset();
+            parser.getInterpreter().setPredictionMode(PredictionMode.LL);
+            tree = parser.commands();
+
+        }
+
+        // Create a generic parse tree walker that can trigger callbacks
+        ParseTreeWalker walker = new ParseTreeWalker();
+
+        // Create a listener and connect it to the walker
         KgrammarBaseListener listener = new KgrammarBaseListener();
 
-        walKer.walk(listener, tree);
+        walker.walk(listener, tree);
 
         //end time
         long endTime = System.nanoTime();
