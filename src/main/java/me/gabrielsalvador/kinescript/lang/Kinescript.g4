@@ -1,10 +1,11 @@
-grammar Kgrammar;
+grammar Kinescript;
 
 // Parser rules
 
-commands: (command) ;
+program: command ('\n' command)* WS* EOF;
 
-command: name ' '+ args ;
+command: name ' '+ args
+        | '(' command ')' ;
 
 name: ID ;
 
@@ -21,4 +22,4 @@ STRING: '"' .*? '"' ;
 
 NUMBER: [0-9]+ ;
 
-WS: [/s]+ -> skip ;
+WS: [/s\n]+ -> skip ;

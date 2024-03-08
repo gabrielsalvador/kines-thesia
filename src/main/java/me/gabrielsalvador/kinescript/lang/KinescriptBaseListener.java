@@ -1,4 +1,4 @@
-// Generated from ./Kgrammar.g4 by ANTLR 4.13.1
+// Generated from ./Kinescript.g4 by ANTLR 4.13.1
 package me.gabrielsalvador.kinescript.lang;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -6,72 +6,72 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link KgrammarListener},
+ * This class provides an empty implementation of {@link KinescriptListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
 @SuppressWarnings("CheckReturnValue")
-public class KgrammarBaseListener implements KgrammarListener {
+public class KinescriptBaseListener implements KinescriptListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCommands(KgrammarParser.CommandsContext ctx) { }
+	@Override public void enterProgram(KinescriptParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCommands(KgrammarParser.CommandsContext ctx) { }
+	@Override public void exitProgram(KinescriptParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCommand(KgrammarParser.CommandContext ctx) { }
+	@Override public void enterCommand(KinescriptParser.CommandContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCommand(KgrammarParser.CommandContext ctx) { }
+	@Override public void exitCommand(KinescriptParser.CommandContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterName(KgrammarParser.NameContext ctx) { }
+	@Override public void enterName(KinescriptParser.NameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitName(KgrammarParser.NameContext ctx) { }
+	@Override public void exitName(KinescriptParser.NameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArgs(KgrammarParser.ArgsContext ctx) { }
+	@Override public void enterArgs(KinescriptParser.ArgsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArgs(KgrammarParser.ArgsContext ctx) { }
+	@Override public void exitArgs(KinescriptParser.ArgsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArg(KgrammarParser.ArgContext ctx) { }
+	@Override public void enterArg(KinescriptParser.ArgContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArg(KgrammarParser.ArgContext ctx) { }
+	@Override public void exitArg(KinescriptParser.ArgContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

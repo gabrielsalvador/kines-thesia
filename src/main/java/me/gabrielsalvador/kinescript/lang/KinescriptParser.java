@@ -1,4 +1,4 @@
-// Generated from ./Kgrammar.g4 by ANTLR 4.13.1
+// Generated from ./Kinescript.g4 by ANTLR 4.13.1
 package me.gabrielsalvador.kinescript.lang;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -10,32 +10,32 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
-public class KgrammarParser extends Parser {
+public class KinescriptParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.13.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, ID=2, STRING=3, NUMBER=4, WS=5;
+		T__0=1, T__1=2, T__2=3, T__3=4, ID=5, STRING=6, NUMBER=7, WS=8;
 	public static final int
-		RULE_commands = 0, RULE_command = 1, RULE_name = 2, RULE_args = 3, RULE_arg = 4;
+		RULE_program = 0, RULE_command = 1, RULE_name = 2, RULE_args = 3, RULE_arg = 4;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"commands", "command", "name", "args", "arg"
+			"program", "command", "name", "args", "arg"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "' '"
+			null, "'\\n'", "' '", "'('", "')'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, "ID", "STRING", "NUMBER", "WS"
+			null, null, null, null, null, "ID", "STRING", "NUMBER", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -73,7 +73,7 @@ public class KgrammarParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Kgrammar.g4"; }
+	public String getGrammarFileName() { return "Kinescript.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -84,45 +84,84 @@ public class KgrammarParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	public KgrammarParser(TokenStream input) {
+	public KinescriptParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class CommandsContext extends ParserRuleContext {
-		public CommandContext command() {
-			return getRuleContext(CommandContext.class,0);
+	public static class ProgramContext extends ParserRuleContext {
+		public List<CommandContext> command() {
+			return getRuleContexts(CommandContext.class);
 		}
-		public CommandsContext(ParserRuleContext parent, int invokingState) {
+		public CommandContext command(int i) {
+			return getRuleContext(CommandContext.class,i);
+		}
+		public TerminalNode EOF() { return getToken(KinescriptParser.EOF, 0); }
+		public List<TerminalNode> WS() { return getTokens(KinescriptParser.WS); }
+		public TerminalNode WS(int i) {
+			return getToken(KinescriptParser.WS, i);
+		}
+		public ProgramContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_commands; }
+		@Override public int getRuleIndex() { return RULE_program; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof KgrammarListener ) ((KgrammarListener)listener).enterCommands(this);
+			if ( listener instanceof KinescriptListener ) ((KinescriptListener)listener).enterProgram(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof KgrammarListener ) ((KgrammarListener)listener).exitCommands(this);
+			if ( listener instanceof KinescriptListener ) ((KinescriptListener)listener).exitProgram(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof KgrammarVisitor ) return ((KgrammarVisitor<? extends T>)visitor).visitCommands(this);
+			if ( visitor instanceof KinescriptVisitor ) return ((KinescriptVisitor<? extends T>)visitor).visitProgram(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final CommandsContext commands() throws RecognitionException {
-		CommandsContext _localctx = new CommandsContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_commands);
+	public final ProgramContext program() throws RecognitionException {
+		ProgramContext _localctx = new ProgramContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_program);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			{
 			setState(10);
 			command();
+			setState(15);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==T__0) {
+				{
+				{
+				setState(11);
+				match(T__0);
+				setState(12);
+				command();
+				}
+				}
+				setState(17);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
 			}
+			setState(21);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==WS) {
+				{
+				{
+				setState(18);
+				match(WS);
+				}
+				}
+				setState(23);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(24);
+			match(EOF);
 			}
 		}
 		catch (RecognitionException re) {
@@ -144,21 +183,24 @@ public class KgrammarParser extends Parser {
 		public ArgsContext args() {
 			return getRuleContext(ArgsContext.class,0);
 		}
+		public CommandContext command() {
+			return getRuleContext(CommandContext.class,0);
+		}
 		public CommandContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_command; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof KgrammarListener ) ((KgrammarListener)listener).enterCommand(this);
+			if ( listener instanceof KinescriptListener ) ((KinescriptListener)listener).enterCommand(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof KgrammarListener ) ((KgrammarListener)listener).exitCommand(this);
+			if ( listener instanceof KinescriptListener ) ((KinescriptListener)listener).exitCommand(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof KgrammarVisitor ) return ((KgrammarVisitor<? extends T>)visitor).visitCommand(this);
+			if ( visitor instanceof KinescriptVisitor ) return ((KinescriptVisitor<? extends T>)visitor).visitCommand(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -168,26 +210,45 @@ public class KgrammarParser extends Parser {
 		enterRule(_localctx, 2, RULE_command);
 		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(12);
-			name();
-			setState(14); 
+			setState(38);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			do {
+			switch (_input.LA(1)) {
+			case ID:
+				enterOuterAlt(_localctx, 1);
 				{
-				{
-				setState(13);
-				match(T__0);
-				}
-				}
-				setState(16); 
+				setState(26);
+				name();
+				setState(28); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( _la==T__0 );
-			setState(18);
-			args();
+				do {
+					{
+					{
+					setState(27);
+					match(T__1);
+					}
+					}
+					setState(30); 
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				} while ( _la==T__1 );
+				setState(32);
+				args();
+				}
+				break;
+			case T__2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(34);
+				match(T__2);
+				setState(35);
+				command();
+				setState(36);
+				match(T__3);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -203,22 +264,22 @@ public class KgrammarParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class NameContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(KgrammarParser.ID, 0); }
+		public TerminalNode ID() { return getToken(KinescriptParser.ID, 0); }
 		public NameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_name; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof KgrammarListener ) ((KgrammarListener)listener).enterName(this);
+			if ( listener instanceof KinescriptListener ) ((KinescriptListener)listener).enterName(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof KgrammarListener ) ((KgrammarListener)listener).exitName(this);
+			if ( listener instanceof KinescriptListener ) ((KinescriptListener)listener).exitName(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof KgrammarVisitor ) return ((KgrammarVisitor<? extends T>)visitor).visitName(this);
+			if ( visitor instanceof KinescriptVisitor ) return ((KinescriptVisitor<? extends T>)visitor).visitName(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -229,7 +290,7 @@ public class KgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(20);
+			setState(40);
 			match(ID);
 			}
 		}
@@ -258,15 +319,15 @@ public class KgrammarParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_args; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof KgrammarListener ) ((KgrammarListener)listener).enterArgs(this);
+			if ( listener instanceof KinescriptListener ) ((KinescriptListener)listener).enterArgs(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof KgrammarListener ) ((KgrammarListener)listener).exitArgs(this);
+			if ( listener instanceof KinescriptListener ) ((KinescriptListener)listener).exitArgs(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof KgrammarVisitor ) return ((KgrammarVisitor<? extends T>)visitor).visitArgs(this);
+			if ( visitor instanceof KinescriptVisitor ) return ((KinescriptVisitor<? extends T>)visitor).visitArgs(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -278,21 +339,21 @@ public class KgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(22);
+			setState(42);
 			arg();
-			setState(27);
+			setState(47);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__0) {
+			while (_la==T__1) {
 				{
 				{
-				setState(23);
-				match(T__0);
-				setState(24);
+				setState(43);
+				match(T__1);
+				setState(44);
 				arg();
 				}
 				}
-				setState(29);
+				setState(49);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -311,24 +372,24 @@ public class KgrammarParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ArgContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(KgrammarParser.ID, 0); }
-		public TerminalNode STRING() { return getToken(KgrammarParser.STRING, 0); }
-		public TerminalNode NUMBER() { return getToken(KgrammarParser.NUMBER, 0); }
+		public TerminalNode ID() { return getToken(KinescriptParser.ID, 0); }
+		public TerminalNode STRING() { return getToken(KinescriptParser.STRING, 0); }
+		public TerminalNode NUMBER() { return getToken(KinescriptParser.NUMBER, 0); }
 		public ArgContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_arg; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof KgrammarListener ) ((KgrammarListener)listener).enterArg(this);
+			if ( listener instanceof KinescriptListener ) ((KinescriptListener)listener).enterArg(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof KgrammarListener ) ((KgrammarListener)listener).exitArg(this);
+			if ( listener instanceof KinescriptListener ) ((KinescriptListener)listener).exitArg(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof KgrammarVisitor ) return ((KgrammarVisitor<? extends T>)visitor).visitArg(this);
+			if ( visitor instanceof KinescriptVisitor ) return ((KinescriptVisitor<? extends T>)visitor).visitArg(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -340,9 +401,9 @@ public class KgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(30);
+			setState(50);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 28L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 224L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -364,27 +425,39 @@ public class KgrammarParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u0005!\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001\b5\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0001"+
-		"\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0004\u0001\u000f\b\u0001\u000b"+
-		"\u0001\f\u0001\u0010\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001"+
-		"\u0003\u0001\u0003\u0001\u0003\u0005\u0003\u001a\b\u0003\n\u0003\f\u0003"+
-		"\u001d\t\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0000\u0000\u0005\u0000"+
-		"\u0002\u0004\u0006\b\u0000\u0001\u0001\u0000\u0002\u0004\u001d\u0000\n"+
-		"\u0001\u0000\u0000\u0000\u0002\f\u0001\u0000\u0000\u0000\u0004\u0014\u0001"+
-		"\u0000\u0000\u0000\u0006\u0016\u0001\u0000\u0000\u0000\b\u001e\u0001\u0000"+
-		"\u0000\u0000\n\u000b\u0003\u0002\u0001\u0000\u000b\u0001\u0001\u0000\u0000"+
-		"\u0000\f\u000e\u0003\u0004\u0002\u0000\r\u000f\u0005\u0001\u0000\u0000"+
-		"\u000e\r\u0001\u0000\u0000\u0000\u000f\u0010\u0001\u0000\u0000\u0000\u0010"+
-		"\u000e\u0001\u0000\u0000\u0000\u0010\u0011\u0001\u0000\u0000\u0000\u0011"+
-		"\u0012\u0001\u0000\u0000\u0000\u0012\u0013\u0003\u0006\u0003\u0000\u0013"+
-		"\u0003\u0001\u0000\u0000\u0000\u0014\u0015\u0005\u0002\u0000\u0000\u0015"+
-		"\u0005\u0001\u0000\u0000\u0000\u0016\u001b\u0003\b\u0004\u0000\u0017\u0018"+
-		"\u0005\u0001\u0000\u0000\u0018\u001a\u0003\b\u0004\u0000\u0019\u0017\u0001"+
-		"\u0000\u0000\u0000\u001a\u001d\u0001\u0000\u0000\u0000\u001b\u0019\u0001"+
-		"\u0000\u0000\u0000\u001b\u001c\u0001\u0000\u0000\u0000\u001c\u0007\u0001"+
-		"\u0000\u0000\u0000\u001d\u001b\u0001\u0000\u0000\u0000\u001e\u001f\u0007"+
-		"\u0000\u0000\u0000\u001f\t\u0001\u0000\u0000\u0000\u0002\u0010\u001b";
+		"\u0000\u0001\u0000\u0001\u0000\u0005\u0000\u000e\b\u0000\n\u0000\f\u0000"+
+		"\u0011\t\u0000\u0001\u0000\u0005\u0000\u0014\b\u0000\n\u0000\f\u0000\u0017"+
+		"\t\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0004\u0001\u001d"+
+		"\b\u0001\u000b\u0001\f\u0001\u001e\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0003\u0001\'\b\u0001\u0001\u0002"+
+		"\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0005\u0003.\b\u0003"+
+		"\n\u0003\f\u00031\t\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0000\u0000"+
+		"\u0005\u0000\u0002\u0004\u0006\b\u0000\u0001\u0001\u0000\u0005\u00074"+
+		"\u0000\n\u0001\u0000\u0000\u0000\u0002&\u0001\u0000\u0000\u0000\u0004"+
+		"(\u0001\u0000\u0000\u0000\u0006*\u0001\u0000\u0000\u0000\b2\u0001\u0000"+
+		"\u0000\u0000\n\u000f\u0003\u0002\u0001\u0000\u000b\f\u0005\u0001\u0000"+
+		"\u0000\f\u000e\u0003\u0002\u0001\u0000\r\u000b\u0001\u0000\u0000\u0000"+
+		"\u000e\u0011\u0001\u0000\u0000\u0000\u000f\r\u0001\u0000\u0000\u0000\u000f"+
+		"\u0010\u0001\u0000\u0000\u0000\u0010\u0015\u0001\u0000\u0000\u0000\u0011"+
+		"\u000f\u0001\u0000\u0000\u0000\u0012\u0014\u0005\b\u0000\u0000\u0013\u0012"+
+		"\u0001\u0000\u0000\u0000\u0014\u0017\u0001\u0000\u0000\u0000\u0015\u0013"+
+		"\u0001\u0000\u0000\u0000\u0015\u0016\u0001\u0000\u0000\u0000\u0016\u0018"+
+		"\u0001\u0000\u0000\u0000\u0017\u0015\u0001\u0000\u0000\u0000\u0018\u0019"+
+		"\u0005\u0000\u0000\u0001\u0019\u0001\u0001\u0000\u0000\u0000\u001a\u001c"+
+		"\u0003\u0004\u0002\u0000\u001b\u001d\u0005\u0002\u0000\u0000\u001c\u001b"+
+		"\u0001\u0000\u0000\u0000\u001d\u001e\u0001\u0000\u0000\u0000\u001e\u001c"+
+		"\u0001\u0000\u0000\u0000\u001e\u001f\u0001\u0000\u0000\u0000\u001f \u0001"+
+		"\u0000\u0000\u0000 !\u0003\u0006\u0003\u0000!\'\u0001\u0000\u0000\u0000"+
+		"\"#\u0005\u0003\u0000\u0000#$\u0003\u0002\u0001\u0000$%\u0005\u0004\u0000"+
+		"\u0000%\'\u0001\u0000\u0000\u0000&\u001a\u0001\u0000\u0000\u0000&\"\u0001"+
+		"\u0000\u0000\u0000\'\u0003\u0001\u0000\u0000\u0000()\u0005\u0005\u0000"+
+		"\u0000)\u0005\u0001\u0000\u0000\u0000*/\u0003\b\u0004\u0000+,\u0005\u0002"+
+		"\u0000\u0000,.\u0003\b\u0004\u0000-+\u0001\u0000\u0000\u0000.1\u0001\u0000"+
+		"\u0000\u0000/-\u0001\u0000\u0000\u0000/0\u0001\u0000\u0000\u00000\u0007"+
+		"\u0001\u0000\u0000\u00001/\u0001\u0000\u0000\u000023\u0007\u0000\u0000"+
+		"\u00003\t\u0001\u0000\u0000\u0000\u0005\u000f\u0015\u001e&/";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
