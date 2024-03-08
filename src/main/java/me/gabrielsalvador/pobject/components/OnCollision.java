@@ -53,7 +53,7 @@ public class OnCollision extends Component {
         velocity = Math.min(velocity, 127);
 
         int channel = MNC.getMidiChannel();
-        MidiManager.getInstance().scheduleNote(note.getPitch(), velocity);
+        MidiManager.getInstance().scheduleNote(channel,note.getPitch(), velocity);
     }
 
 

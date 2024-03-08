@@ -15,6 +15,7 @@ public class MidiManager {
     private float _quantization = 1;  // 0 to 1
     private Scale _key = Scale.HIRAJOSHI.setRoot(new MusicalNote("C3"));
     private int _chord = 0;
+    private static final int NOTE_DURATION_MS = 100;
 
 
     private MidiManager() {
@@ -45,26 +46,25 @@ public class MidiManager {
     }
 
 
-    public void sendNote(int midiNote, int velocity) {
+    public void sendNote(int channel,int midiNote, int velocity) {
         //create a new thread to send the midi note
         new Thread(() -> {
-            _midiBus.sendNoteOn(1, midiNote, velocity);
-            // System.out.println("Sending midi note " + midiNote + " with velocity " + velocity);
+            _midiBus.sendNoteOn(channel, midiNote, velocity);
             try {
-                Thread.sleep(100);
+                Thread.sleep(NOTE_DURATION_MS);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            _midiBus.sendNoteOff(1, midiNote, velocity);
+            _midiBus.sendNoteOff(channel, midiNote, velocity);
         }).start();
     }
 
-    public void scheduleNote(int midiNote, int velocity) {
+    public void scheduleNote(int channel, int midiNote, int velocity) {
 
         long delayUntilNext16thNote = Clock.getInstance().getTimeUntilNextTick();
 
         // Schedule the note to be played at the next 16th note boundary
-        Clock.getInstance().scheduleTask(() -> sendNote(midiNote, velocity), (long) (delayUntilNext16thNote * _quantization));
+        Clock.getInstance().scheduleTask(() -> sendNote(channel,midiNote, velocity), (long) (delayUntilNext16thNote * _quantization));
     }
 
     public MidiBus getMidiBus() {
