@@ -13,6 +13,10 @@ public class RectanglePShape extends PShape{
         _size = size;
     }
 
+    public RectanglePShape(float width, float height) {
+        _size = new Vec2(width, height);
+    }
+
 
     @Override
     public boolean isMouseOver(int mouseX, int mouseY, float centerX, float centerY) {

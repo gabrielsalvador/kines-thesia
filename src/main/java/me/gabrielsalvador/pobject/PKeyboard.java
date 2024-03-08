@@ -47,7 +47,7 @@ public class PKeyboard extends PObject implements  Inlet{
     }
 
     @Override
-    public void receive(String message) {
+    public void receive(Object message) {
         //blink light
         HologramBodyView view = (HologramBodyView) getBodyComponent().getView();
         ((PKeyboardView ) view).getBlinkingLigth().blink();
@@ -55,9 +55,7 @@ public class PKeyboard extends PObject implements  Inlet{
         //send pulse to routing
         RoutingComponent rc = getRoutingComponent();
         if(rc == null) return;
-        rc.sendPulse();
-
-
+        rc.sendPulse(message);
 
     }
 
