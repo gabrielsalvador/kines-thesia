@@ -31,4 +31,6 @@ appState.ser
 
 .cosine
 
+# IntelliJ IDEA
 .idea/workspace.xml
+.idea/misc.xml
