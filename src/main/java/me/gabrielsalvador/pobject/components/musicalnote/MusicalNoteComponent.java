@@ -1,12 +1,9 @@
 package me.gabrielsalvador.pobject.components.musicalnote;
 
 
-import controlP5.ControlP5;
-import controlP5.DropdownList;
+import controlP5.*;
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.pobject.components.Component;
-import me.gabrielsalvador.pobject.views.PropertyInspectorController;
 import me.gabrielsalvador.utils.Interval;
 import org.jbox2d.common.Vec2;
 import processing.core.PConstants;
@@ -26,30 +23,52 @@ public class MusicalNoteComponent extends Component {
         this.interval = interval;
     }
 
+    @PObject.InspectableProperty.ControllerFor("Interval")
+    private Keyboard intervalController;
 
     private int midiChannel = 1;
-    @PObject.InspectableProperty(displayName = "Midi Channel")
-    public int getMidiChannel() {return midiChannel;}
-    @PObject.InspectableProperty.SetterFor("Midi Channel")
-    public void setMidiChannel(int midiChannel) {this.midiChannel = midiChannel;}
 
-    @SuppressWarnings("unused")
-    @PObject.InspectableProperty.ControllerFor("Midi Channel")
-    class MidiChannelUI extends DropdownList implements PropertyInspectorController {
-        public MidiChannelUI(ControlP5 theControlP5, String theName) {
-            super(theControlP5, theName);
-        }
-
-        @Override
-        public void setProperty(PObjectProperty property) {
-            for (int i = 1; i <= 16; i++) {
-                addItem("Channel " + i, i);
-            }
-            setValue(midiChannel);
-
-        }
+    @PObject.InspectableProperty(displayName = "Midi Channel", controllerClass = MidiChannelUI.class)
+    public int getMidiChannel() {
+        return midiChannel;
     }
 
+    @PObject.InspectableProperty.SetterFor("Midi Channel")
+    public void setMidiChannel(int midiChannel) {
+        this.midiChannel = midiChannel;
+    }
+
+
+    public class MidiChannelUI extends DropdownList  {
+        public MidiChannelUI(ControlP5 theControlP5, String theName) {
+            super(theControlP5, theName);
+
+            setBarHeight(20);
+            setItemHeight(20);
+
+            for (int i = 1; i <= 16; i++) {
+                addItem("Channel " + i, i);
+                close();
+            }
+
+            addCallback(new CallbackListener() {
+                @Override
+                public void controlEvent(CallbackEvent callbackEvent) {
+
+                    Controller me = callbackEvent.getController();
+                    me.bringToFront();
+
+                    if (callbackEvent.getAction() == ControlP5.ACTION_RELEASE) {
+                        setValue((int) callbackEvent.getController().getValue());
+                        setMidiChannel((int) callbackEvent.getController().getValue());
+                        System.out.println("Midi Channel: " + midiChannel);
+                    }
+                }
+            });
+        }
+
+
+    }
 
 
     private final PObject owner;
@@ -58,6 +77,7 @@ public class MusicalNoteComponent extends Component {
         super(owner);
         this.owner = owner;
         interval = new Interval(note);
+
 
     }
 
@@ -81,9 +101,6 @@ public class MusicalNoteComponent extends Component {
     public void remove() {
 
     }
-
-
-
 
 
 }

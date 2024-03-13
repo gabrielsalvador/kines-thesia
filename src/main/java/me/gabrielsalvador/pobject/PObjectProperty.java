@@ -1,22 +1,27 @@
 package me.gabrielsalvador.pobject;
 
-import me.gabrielsalvador.pobject.components.Component;
+import controlP5.ControlP5;
+import controlP5.ControllerInterface;
+import controlP5.Group;
+import me.gabrielsalvador.core.Sinesthesia;
+
+import javax.lang.model.type.NoType;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
 
 public class PObjectProperty implements Serializable {
-    private final Component _owner;
+    private final Object _owner;
     private final String name;
     private Object _value;
     private final Class<?> type;
 
     private Method setter;
     private Method getter;
-    private Class<? extends InspectorController> controllerClass;
+    private Class<?> controllerClass;
 
 
-    public PObjectProperty(Component owner, String name, Class<?> type) {
+    public PObjectProperty(Object owner, String name, Class<?> type) {
         this._owner = owner;
         this.name = name;
         this.type = type;
@@ -74,8 +79,33 @@ public class PObjectProperty implements Serializable {
         return this;
     }
 
-    public PObjectProperty setController(Class<? extends InspectorController> controllerClass) {
+    public PObjectProperty setControllerClass(Class<?> controllerClass) {
         this.controllerClass = controllerClass;
         return this;
     }
+
+    public Class<?> getControllerClass() {
+        return this.controllerClass;
+    }
+
+    public ControllerInterface instantiateController(ControlP5 cp5) {
+        if(controllerClass == NoType.class) {
+            return null;
+        }
+        try {
+            ControllerInterface controller = (ControllerInterface) controllerClass.getConstructor(this._owner.getClass(),ControlP5.class, String.class).newInstance(this._owner,cp5, name);
+
+            if (controller instanceof Group) {
+                //set some default styles for the group
+                ((Group) controller).hideBar();
+            }
+
+            return (ControllerInterface) controller;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

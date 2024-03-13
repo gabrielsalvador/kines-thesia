@@ -15,7 +15,6 @@ import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
 import me.gabrielsalvador.pobject.routing.Inlet;
-import me.gabrielsalvador.sequencing.SequencerController;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 

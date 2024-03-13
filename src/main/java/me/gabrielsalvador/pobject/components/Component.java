@@ -96,16 +96,15 @@ public abstract class  Component implements Serializable {
                     InspectableProperty propertyAnnotation = method.getAnnotation(InspectableProperty.class);
                     String displayName = propertyAnnotation.displayName().isEmpty() ? method.getName() : propertyAnnotation.displayName();
 
+                    Class<?> controllerClass = propertyAnnotation.controllerClass();
+
                     method.setAccessible(true);
                     PObjectProperty property = new PObjectProperty(this, displayName, method.getReturnType()).setGetter(method);
+                    property.setControllerClass(controllerClass);
 
                     // Link the setter method to the property using the SetterFor annotation value
                     if (setterMethods.containsKey(displayName)) {
                         property.setSetter(setterMethods.get(displayName));
-                    }
-
-                    if(controllerClasses.containsKey(displayName)){
-                        property.setController(controllerClasses.get(displayName));
                     }
 
                     cachedProperties.add(property);
