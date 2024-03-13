@@ -5,6 +5,8 @@ import java.beans.PropertyChangeSupport;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import org.reflections.Reflections;
 import processing.event.KeyEvent;
 
@@ -69,6 +71,9 @@ public class ToolManager  {
                 keyMappings.put(key, toolClass);
             }
         }
+
+        // Sort the tools by their class name
+        availableTools = availableTools.stream().sorted(Comparator.comparing(Class::getSimpleName)).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public  char getShortcutForTool(Class<? extends Tool> toolClass) {
