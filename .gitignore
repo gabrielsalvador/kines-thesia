@@ -34,3 +34,4 @@ appState.ser
 # IntelliJ IDEA
 .idea/workspace.xml
 .idea/misc.xml
+.idea/*
