@@ -18,6 +18,8 @@ import me.gabrielsalvador.pobject.routing.Inlet;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
+import javax.lang.model.type.NoType;
+
 public class PObject implements Serializable {
 
     transient private boolean _isSelected = false;
@@ -163,7 +165,7 @@ public class PObject implements Serializable {
     @Target({ElementType.FIELD, ElementType.METHOD})
     public @interface InspectableProperty {
         String displayName() default "";
-        String setter() default "";
+        Class<?> controllerClass() default NoType.class;
 
         @Retention(RetentionPolicy.RUNTIME)
         @interface SetterFor {
