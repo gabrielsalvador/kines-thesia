@@ -150,6 +150,7 @@ public class SelectTool extends Tool {
 
 
     private void clearSelection() {
+
         for (PObject p : AppState.getInstance().getPObjects()) {
             p.setIsSelected(false);
         }
