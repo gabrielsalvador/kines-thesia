@@ -21,8 +21,8 @@ public class SelectTool extends Tool {
     private final ControlP5 _cp5;
     private CanvasController _canvas;
     private final ArrayList<PObject> selectedObjects = new ArrayList<>();
-    private final Vec2 _selectionStart = null;
-    private final Vec2 _selectionEnd = null;
+    private Vec2 _selectionStart = null;
+    private Vec2 _selectionEnd = null;
     private Vec2 _initialDragPosition = null;
     private boolean _isDragging = false;
     
@@ -40,21 +40,22 @@ public class SelectTool extends Tool {
 
     @Override
     public void keyEvent(KeyEvent keyEvent) {
-        if (keyEvent.getAction() == KeyEvent.PRESS) {
-            //if backspace is pressed, delete selected objects
-            if (keyEvent.getKeyCode() == 8) {
-                System.out.println("backspace pressed");
-                _gizmos.clear();
-                for (PObject p : selectedObjects) {
-                    AppController.getInstance().queueModification(p::remove);
-                }
-            }
-        }
+//        if (keyEvent.getAction() == KeyEvent.PRESS) {
+//            //if backspace is pressed, delete selected objects
+//            if (keyEvent.getKeyCode() == 8) {
+//                System.out.println("backspace pressed");
+//                _gizmos.clear();
+//                for (PObject p : selectedObjects) {
+//                    AppController.getInstance().queueModification(p::remove);
+//                }
+//            }
+//        }
     }
     
 
     @Override
     public void onClick(PObject pObject) {
+
     }
 
     @Override
@@ -64,19 +65,21 @@ public class SelectTool extends Tool {
         }
 
         if(getCurrentMode().getName().equals("Normal")){
-            clearSelection();
-        }
 
-        if (pObject != null) {
-            if (!selectedObjects.contains(pObject)) {
-                select(pObject);
+            if(pObject == null){
+                clearSelection();
+                _selectionStart = new Vec2(mousePosition[0], mousePosition[1]);
+                _selectionEnd = new Vec2(mousePosition[0], mousePosition[1]);
             }
-            _isDragging = selectedObjects.contains(pObject);
-            _initialDragPosition = _isDragging ? new Vec2(mousePosition[0], mousePosition[1]) : null;
-        } else {
-            clearSelection();
+            else{
+                if (!selectedObjects.contains(pObject)) {
+                    clearSelection();
+                    select(pObject);
+                }
+                _isDragging = selectedObjects.contains(pObject);
+                _initialDragPosition = _isDragging ? new Vec2(mousePosition[0], mousePosition[1]) : null;
+            }
         }
-
         return false;
     }
 
@@ -91,15 +94,32 @@ public class SelectTool extends Tool {
     @Override
     public void onDrag(PObject pObject, int[] mousePosition) {
         super.onDrag(pObject, mousePosition);
+
+        //if dragging, move selected objects
         if (_isDragging && _initialDragPosition != null) {
             Vec2 currentDragPosition = new Vec2(mousePosition[0], mousePosition[1]);
             Vec2 dragDelta = currentDragPosition.sub(_initialDragPosition);
-
             for (PObject selectedObject : selectedObjects) {
                 Vec2 currentPosition = selectedObject.getBodyComponent().getPixelPosition();
                 selectedObject.getBodyComponent().setPixelPosition(currentPosition.add(dragDelta));
             }
             _initialDragPosition = currentDragPosition;
+        }
+        //if not dragging, draw selection square
+        else if(_selectionStart != null){
+            _selectionEnd = new Vec2(mousePosition[0], mousePosition[1]);
+
+            //check if any objects are within the selection square
+
+            Vec2 topLeft = new Vec2(Math.min(_selectionStart.x, _selectionEnd.x), Math.min(_selectionStart.y, _selectionEnd.y));
+            Vec2 bottomRight = new Vec2(Math.max(_selectionStart.x, _selectionEnd.x), Math.max(_selectionStart.y, _selectionEnd.y));
+            clearSelection();
+            for (PObject p : AppState.getInstance().getPObjects()) {
+                Vec2 position = p.getBodyComponent().getPixelPosition();
+                if (position.x > topLeft.x && position.x < bottomRight.x && position.y > topLeft.y && position.y < bottomRight.y) {
+                    select(p);
+                }
+            }
         }
     }
 
@@ -124,11 +144,13 @@ public class SelectTool extends Tool {
         super.onRelease(pObject);
         _isDragging = false;
         _initialDragPosition = null;
+        _selectionEnd = null;
+        _selectionStart = null;
     }
 
 
     private void clearSelection() {
-        for (PObject p : selectedObjects) {
+        for (PObject p : AppState.getInstance().getPObjects()) {
             p.setIsSelected(false);
         }
         selectedObjects.clear();
@@ -137,13 +159,16 @@ public class SelectTool extends Tool {
 
 
     private void select(PObject pObject) {
+
+
+
         if (pObject.getIsSelected()) {
-            pObject.setIsSelected(false);
-            selectedObjects.remove(pObject);
+            return;
         } else {
             pObject.setIsSelected(true);
             selectedObjects.add(pObject);
         }
+
         AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
 
         _gizmos.clear();
