@@ -2,22 +2,13 @@ package me.gabrielsalvador.pobject;
 
 import controlP5.*;
 import me.gabrielsalvador.core.AppController;
-import me.gabrielsalvador.midi.MidiManager;
 import me.gabrielsalvador.pobject.components.Component;
-import me.gabrielsalvador.utils.Color;
-import me.gabrielsalvador.utils.MusicalNote;
-import org.jbox2d.common.Vec2;
-import processing.core.PVector;
-import themidibus.MidiBus;
-
 import javax.lang.model.type.NoType;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 
 public class InspectorController extends Group implements PropertyChangeListener {
@@ -71,7 +62,7 @@ public class InspectorController extends Group implements PropertyChangeListener
         }
 
         for ( Class<?> controllerType : propertiesOfController.keySet()) {
-            //skip NoType
+
             if(controllerType == NoType.class) continue;
             ArrayList<PObjectProperty> properties = propertiesOfController.get(controllerType);
 

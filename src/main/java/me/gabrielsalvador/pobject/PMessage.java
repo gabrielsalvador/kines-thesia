@@ -5,6 +5,7 @@ import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
 import me.gabrielsalvador.pobject.components.body.shape.RectanglePShape;
+import me.gabrielsalvador.pobject.components.controllers.CommandController;
 import me.gabrielsalvador.utils.MusicalNote;
 import processing.core.PGraphics;
 import java.util.Arrays;
@@ -13,6 +14,18 @@ import java.util.Arrays;
 public class PMessage extends PObject {
 
     private String message = "empty";
+
+    @PObject.InspectableProperty(displayName = "message", controllerClass = CommandController.class)
+    public String getMessage() {
+        return message;
+    }
+
+    @PObject.InspectableProperty.SetterFor("message")
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+
 
     public PMessage() {
         super();
@@ -39,10 +52,7 @@ public class PMessage extends PObject {
 
     }
 
-    public String setMessage(String message) {
-        this.message = message;
-        return message;
-    }
+
 
 
     class PMessageBody extends HologramBody {

@@ -3,7 +3,7 @@ package me.gabrielsalvador.pobject;
 import controlP5.ControlP5;
 import controlP5.ControllerInterface;
 import controlP5.Group;
-import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.pobject.components.Component;
 
 import javax.lang.model.type.NoType;
 import java.io.Serializable;
@@ -90,10 +90,10 @@ public class PObjectProperty implements Serializable {
 
     public ControllerInterface instantiateController(ControlP5 cp5) {
         if(controllerClass == NoType.class) {
-            return null;
+            throw new RuntimeException("Trying to instantiate a controller for a property that doesn't have a controller class" + name);
         }
         try {
-            ControllerInterface controller = (ControllerInterface) controllerClass.getConstructor(this._owner.getClass(),ControlP5.class, String.class).newInstance(this._owner,cp5, name);
+            ControllerInterface controller = (ControllerInterface) controllerClass.getConstructor(Component.class,ControlP5.class, String.class).newInstance(this._owner,cp5, name);
 
             if (controller instanceof Group) {
                 //set some default styles for the group

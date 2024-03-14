@@ -5,6 +5,7 @@ import me.gabrielsalvador.common.SerializableRunnable;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
+import me.gabrielsalvador.pobject.components.controllers.CommandController;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;

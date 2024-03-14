@@ -23,12 +23,10 @@ public class MusicalNoteComponent extends Component {
         this.interval = interval;
     }
 
-    @PObject.InspectableProperty.ControllerFor("Interval")
-    private Keyboard intervalController;
 
     private int midiChannel = 1;
 
-    @PObject.InspectableProperty(displayName = "Midi Channel", controllerClass = MidiChannelUI.class)
+    @PObject.InspectableProperty(displayName = "Midi Channel")
     public int getMidiChannel() {
         return midiChannel;
     }
@@ -36,38 +34,6 @@ public class MusicalNoteComponent extends Component {
     @PObject.InspectableProperty.SetterFor("Midi Channel")
     public void setMidiChannel(int midiChannel) {
         this.midiChannel = midiChannel;
-    }
-
-
-    public class MidiChannelUI extends DropdownList  {
-        public MidiChannelUI(ControlP5 theControlP5, String theName) {
-            super(theControlP5, theName);
-
-            setBarHeight(20);
-            setItemHeight(20);
-
-            for (int i = 1; i <= 16; i++) {
-                addItem("Channel " + i, i);
-                close();
-            }
-
-            addCallback(new CallbackListener() {
-                @Override
-                public void controlEvent(CallbackEvent callbackEvent) {
-
-                    Controller me = callbackEvent.getController();
-                    me.bringToFront();
-
-                    if (callbackEvent.getAction() == ControlP5.ACTION_RELEASE) {
-                        setValue((int) callbackEvent.getController().getValue());
-                        setMidiChannel((int) callbackEvent.getController().getValue());
-                        System.out.println("Midi Channel: " + midiChannel);
-                    }
-                }
-            });
-        }
-
-
     }
 
 

@@ -79,15 +79,7 @@ public abstract class  Component implements Serializable {
             }
 
 
-            // Collect controller classes
-            for (Class<?> clazz : currentClass.getDeclaredClasses()) {
-                if (InspectorController.class.isAssignableFrom(clazz) && clazz.isAnnotationPresent(InspectableProperty.ControllerFor.class)) {
-                    InspectableProperty.ControllerFor controllerForAnnotation = clazz.getAnnotation(InspectableProperty.ControllerFor.class);
-                    controllerClasses.put(controllerForAnnotation.value(), (Class<? extends InspectorController>) clazz);
 
-                }
-
-            }
 
             // Check fields for the InspectableProperty annotation
             for (Method method : currentClass.getDeclaredMethods()) {

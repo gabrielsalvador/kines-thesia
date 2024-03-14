@@ -172,9 +172,6 @@ public class PObject implements Serializable {
             String value();
         }
 
-        @Retention(RetentionPolicy.RUNTIME)
-        @interface ControllerFor{
-            String value();
-        }
+
     }
 }
