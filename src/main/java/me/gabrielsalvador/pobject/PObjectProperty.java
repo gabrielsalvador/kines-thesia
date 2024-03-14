@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 public class PObjectProperty implements Serializable {
     private final Object _owner;
     private final String name;
+
     private Object _value;
     private final Class<?> type;
 
@@ -39,7 +40,7 @@ public class PObjectProperty implements Serializable {
             try {
                 return getter.invoke(_owner);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Error running getter for property " + name + "=" + _value);
             }
         }
         return value;
@@ -69,7 +70,7 @@ public class PObjectProperty implements Serializable {
         try {
             setter.invoke(_owner,value);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error running setter for property " + name + "=" + _value);
         }
         return this;
     }
@@ -79,6 +80,7 @@ public class PObjectProperty implements Serializable {
         return this;
     }
 
+    @SuppressWarnings("all")
     public PObjectProperty setControllerClass(Class<?> controllerClass) {
         this.controllerClass = controllerClass;
         return this;

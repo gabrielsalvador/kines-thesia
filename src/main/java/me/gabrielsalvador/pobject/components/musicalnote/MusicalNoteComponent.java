@@ -1,7 +1,7 @@
 package me.gabrielsalvador.pobject.components.musicalnote;
 
 
-import controlP5.*;
+
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.utils.Interval;

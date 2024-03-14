@@ -77,6 +77,14 @@ public class RoutingComponent extends Component {
 
     private int _subdivisions = 1;
 
+    @InspectableProperty(displayName = "onPulseCallback", controllerClass = CommandController.class)
+    public SerializableRunnable getPulseCallback() {
+        return _pulseCallback;
+    }
+
+
+
+
     @InspectableProperty(displayName = "Subdivisions")
     public int getSubdivisions() {
         return _subdivisions;
