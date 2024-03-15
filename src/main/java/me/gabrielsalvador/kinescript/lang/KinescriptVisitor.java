@@ -17,17 +17,41 @@ public interface KinescriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgram(KinescriptParser.ProgramContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link KinescriptParser#command}.
+	 * Visit a parse tree produced by {@link KinescriptParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCommand(KinescriptParser.CommandContext ctx);
+	T visitStatement(KinescriptParser.StatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link KinescriptParser#name}.
+	 * Visit a parse tree produced by {@link KinescriptParser#assignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitName(KinescriptParser.NameContext ctx);
+	T visitAssignment(KinescriptParser.AssignmentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KinescriptParser#definition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDefinition(KinescriptParser.DefinitionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpr(KinescriptParser.ExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KinescriptParser#invocation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInvocation(KinescriptParser.InvocationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KinescriptParser#for}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFor(KinescriptParser.ForContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link KinescriptParser#args}.
 	 * @param ctx the parse tree

@@ -10,23 +10,21 @@ assignment: ID '=' expr ;
 
 definition: ID '(' args? ')' '{' statement* '}' ;
 
+expr: ID | INT | STRING  | invocation  | '(' expr ')' ;
+
 invocation: ID '(' args? ')' ;
-
-
-expr: ID | STRING  | invocation  | '(' expr ')' ;
 
 for: 'for' '(' INT 'to' INT ')' '{' statement+ '}' ;
 
-args: arg (' ' arg)*;
+args: arg (',' arg)*;
 
 arg: ID | STRING | INT ;
-
 
 // Lexer rules
 
 ID: [a-zA-Z]+ ;
 
-STRING: '"' .*? '"' ;
+STRING: '"' .*? '"' | '\'' .*? '\'' ;
 
 INT: [0-9]+ ;
 

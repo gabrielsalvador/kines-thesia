@@ -1,68 +1,66 @@
 
-import me.gabrielsalvador.kinescript.lang.KgrammarBaseListener;
-import me.gabrielsalvador.kinescript.lang.KgrammarLexer;
-import me.gabrielsalvador.kinescript.lang.KgrammarParser;
+
+import me.gabrielsalvador.kinescript.ast.KFunction;
+import me.gabrielsalvador.kinescript.lang.Kinescript;
+import me.gabrielsalvador.kinescript.lang.KinescriptLexer;
+import me.gabrielsalvador.kinescript.lang.KinescriptParser;
+import me.gabrielsalvador.midi.MidiManager;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.atn.PredictionMode;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
+import java.util.HashMap;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class KCommandTests {
 
+    @BeforeAll
+    public static void setup() {
+        //init midi
+        MidiManager.getInstance();
+    }
 
     @Test
     public void test(){
+        String input = "main(a,c,d){\n" +
+                "a = 4\n" +
+                "midi(1,34,127)" +
+                "print(a)\n" +
+                "}";
 
-        String input = "midisend 1 64 127";
-
-        //start time so we can measure how long it taKes to parse
-        long startTime = System.nanoTime();
-
-        // Create a lexer that feeds off of the input
-        KgrammarLexer lexer = new KgrammarLexer(CharStreams.fromString(input));
-
-        // Create a buffer of toKens pulled from the lexer
+        KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-
-        // Create a parser that feeds off the token buffer
-        KgrammarParser parser = new KgrammarParser(tokens);
-
-        // Set the prediction mode to SLL
+        KinescriptParser parser = new KinescriptParser(tokens);
         parser.getInterpreter().setPredictionMode(PredictionMode.SLL);
+        KinescriptParser.ProgramContext tree = parser.program();
 
-        KgrammarParser.CommandsContext tree = null;
+        // Create an instance of Kinescript
+        Kinescript kinescript = new Kinescript();
 
-        try {
-            // Try parsing in SLL mode
-            tree = parser.commands();
-        } catch (Exception e) {
-            // If the parser fails, reset it and try again in LL mode
-            tokens.reset(); // rewind input stream
-            parser.reset();
-            parser.getInterpreter().setPredictionMode(PredictionMode.LL);
-            tree = parser.commands();
+        // Use the visitProgram method on the tree
+        KFunction function = (KFunction) kinescript.visitProgram(tree);
 
-        }
+        long start = System.nanoTime();
+        function.execute(new HashMap<>());
+        long end = System.nanoTime();
+        System.out.println("Execution time: " + Duration.ofNanos(end - start).toMillis() + "ms");
 
-        // Create a generic parse tree walker that can trigger callbacks
-        ParseTreeWalker walker = new ParseTreeWalker();
+        assertNotNull(function);
 
-        // Create a listener and connect it to the walker
-        KgrammarBaseListener listener = new KgrammarBaseListener();
+        KFunction innerFunction = (KFunction) function.getStatements().get(0);
+        assertEquals(  innerFunction.getStatements().size(), 3);
 
-        walker.walk(listener, tree);
+        //assert 4 is printed
+        //assertEquals( innerFunction.getStatements().get(1).execute(new HashMap<>()), 4);
 
-        //end time
-        long endTime = System.nanoTime();
-
-        //print the time it tooK to parse
-
-        Duration duration = Duration.ofNanos(endTime - startTime);
-        System.out.println("Time to parse: " + duration.toMillis() + "ms");
 
 
     }
+
+
 }

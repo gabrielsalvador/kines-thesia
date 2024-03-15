@@ -18,25 +18,65 @@ public interface KinescriptListener extends ParseTreeListener {
 	 */
 	void exitProgram(KinescriptParser.ProgramContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link KinescriptParser#command}.
+	 * Enter a parse tree produced by {@link KinescriptParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterCommand(KinescriptParser.CommandContext ctx);
+	void enterStatement(KinescriptParser.StatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link KinescriptParser#command}.
+	 * Exit a parse tree produced by {@link KinescriptParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitCommand(KinescriptParser.CommandContext ctx);
+	void exitStatement(KinescriptParser.StatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link KinescriptParser#name}.
+	 * Enter a parse tree produced by {@link KinescriptParser#assignment}.
 	 * @param ctx the parse tree
 	 */
-	void enterName(KinescriptParser.NameContext ctx);
+	void enterAssignment(KinescriptParser.AssignmentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link KinescriptParser#name}.
+	 * Exit a parse tree produced by {@link KinescriptParser#assignment}.
 	 * @param ctx the parse tree
 	 */
-	void exitName(KinescriptParser.NameContext ctx);
+	void exitAssignment(KinescriptParser.AssignmentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KinescriptParser#definition}.
+	 * @param ctx the parse tree
+	 */
+	void enterDefinition(KinescriptParser.DefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KinescriptParser#definition}.
+	 * @param ctx the parse tree
+	 */
+	void exitDefinition(KinescriptParser.DefinitionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpr(KinescriptParser.ExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpr(KinescriptParser.ExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KinescriptParser#invocation}.
+	 * @param ctx the parse tree
+	 */
+	void enterInvocation(KinescriptParser.InvocationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KinescriptParser#invocation}.
+	 * @param ctx the parse tree
+	 */
+	void exitInvocation(KinescriptParser.InvocationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KinescriptParser#for}.
+	 * @param ctx the parse tree
+	 */
+	void enterFor(KinescriptParser.ForContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KinescriptParser#for}.
+	 * @param ctx the parse tree
+	 */
+	void exitFor(KinescriptParser.ForContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link KinescriptParser#args}.
 	 * @param ctx the parse tree
