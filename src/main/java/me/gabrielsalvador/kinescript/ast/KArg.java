@@ -8,11 +8,11 @@ public class KArg {
 
     private Object value;
     private String reference;
-   private boolean type; // 0 for value , 1 for reference
+   private boolean isReference; // 0 for value , 1 for reference
 
 
     public KArg(boolean type, Object valueOrName) {
-        this.type = type;
+        this.isReference = type;
         if(!type) {
             this.value = valueOrName;
         } else {
@@ -22,7 +22,7 @@ public class KArg {
 
 
     public Object evaluate(Map<String, Object> scope) {
-        if(type) {
+        if(isReference) {
             return scope.get(reference);
         } else {
             return value;

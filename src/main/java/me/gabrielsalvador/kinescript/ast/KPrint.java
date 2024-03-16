@@ -4,14 +4,14 @@ import java.util.Map;
 
 public class KPrint implements KStatement{
 
-    private Object value;
+    private KArg argument;
 
     public KPrint(Object value) {
-        this.value = value;
+        this.argument = (KArg) value;
     }
     @Override
     public Object execute(Map<String, Object> parentScope) {
-        System.out.println(this.value);
-        return value;
+        System.out.println(this.argument.evaluate(parentScope));
+        return argument;
     }
 }

@@ -14,6 +14,17 @@ public class Kinescript implements KinescriptVisitor{
 
     private KFunction program;
 
+    public static KFunction compileFunction(String code) {
+        try {
+            KinescriptLexer lexer = new KinescriptLexer(new org.antlr.v4.runtime.ANTLRInputStream(code));
+            KinescriptParser parser = new KinescriptParser(new org.antlr.v4.runtime.CommonTokenStream(lexer));
+            Kinescript kinescript = new Kinescript();
+            return (KFunction) kinescript.visitProgram(parser.program());
+        }catch (Exception e){
+            throw new RuntimeException("Error compiling function: " + e.getMessage());
+        }
+    }
+
     @Override
     public Object visitProgram(KinescriptParser.ProgramContext ctx) {
 

@@ -14,7 +14,6 @@ public class PObjectProperty implements Serializable {
     private final Object _owner;
     private final String name;
 
-    private Object _value;
     private final Class<?> type;
 
     private Method setter;
@@ -40,7 +39,7 @@ public class PObjectProperty implements Serializable {
             try {
                 return getter.invoke(_owner);
             } catch (Exception e) {
-                System.out.println("Error running getter for property " + name + "=" + _value);
+                System.out.println("Error running getter for property " + name );
             }
         }
         return value;

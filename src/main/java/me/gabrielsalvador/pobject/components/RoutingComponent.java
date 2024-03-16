@@ -2,6 +2,7 @@ package me.gabrielsalvador.pobject.components;
 
 
 import me.gabrielsalvador.common.SerializableRunnable;
+import me.gabrielsalvador.kinescript.ast.KFunction;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
@@ -13,7 +14,7 @@ import processing.core.PGraphics;
 public class RoutingComponent extends Component {
 
     private PObject _target;
-    private SerializableRunnable _pulseCallback;
+
 
     public RoutingComponent(PObject owner) {
         super(owner);
@@ -77,9 +78,14 @@ public class RoutingComponent extends Component {
 
     private int _subdivisions = 1;
 
-    @InspectableProperty(displayName = "onPulseCallback", controllerClass = CommandController.class)
-    public SerializableRunnable getPulseCallback() {
+    private KFunction _pulseCallback;
+    @InspectableProperty(displayName = "onPulseReceived", controllerClass = CommandController.class)
+    public KFunction getPulseCallback() {
         return _pulseCallback;
+    }
+    @InspectableProperty.SetterFor("onPulseReceived")
+    public void setPulseCallback(KFunction callback) {
+        _pulseCallback = callback;
     }
 
 
@@ -119,9 +125,7 @@ public class RoutingComponent extends Component {
         _target = target;
     }
 
-    public void setPulseCallback(SerializableRunnable callback) {
-        _pulseCallback = callback;
-    }
+
 
     public void sendPulse(Object message) {
         if (_target == null ) return;
@@ -135,7 +139,7 @@ public class RoutingComponent extends Component {
 
     private void receivePulse(Object message) {
         if (_pulseCallback != null) {
-            _pulseCallback.run(message);
+            _pulseCallback.execute(null);
         }
     }
 }
