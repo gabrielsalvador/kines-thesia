@@ -2,12 +2,8 @@ package me.gabrielsalvador.pobject.components.controllers;
 
 import controlP5.*;
 import me.gabrielsalvador.core.Sinesthesia;
-import me.gabrielsalvador.pobject.PMessage;
-import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.Component;
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 

@@ -62,14 +62,13 @@ public class PObjectProperty implements Serializable {
 
     public PObjectProperty setValue(Object value) {
 
-        _value = value;
         if(setter == null) {
             return this;
         }
         try {
             setter.invoke(_owner,value);
         } catch (Exception e) {
-            System.out.println("Error running setter for property " + name + "=" + _value);
+            System.out.println("Error running setter for property " + name );
         }
         return this;
     }
@@ -94,7 +93,7 @@ public class PObjectProperty implements Serializable {
             throw new RuntimeException("Trying to instantiate a controller for a property that doesn't have a controller class" + name);
         }
         try {
-            ControllerInterface controller = (ControllerInterface) controllerClass.getConstructor(Component.class,ControlP5.class, String.class).newInstance(this._owner,cp5, name);
+            ControllerInterface controller = (ControllerInterface) controllerClass.getConstructor(this.getClass(),ControlP5.class, String.class).newInstance(this,cp5, name);
 
             if (controller instanceof Group) {
                 //set some default styles for the group

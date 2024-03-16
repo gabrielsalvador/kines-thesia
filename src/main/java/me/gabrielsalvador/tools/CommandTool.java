@@ -98,53 +98,6 @@ public class CommandTool extends Tool {
 
             Textfield tf = _textfield;
             String command = tf.getText();
-            String[] split = command.split(" ");
-            if (split[0].equals("add")) {
-                String[] args = command.split(" ");
-                int x = canvas.getPointer().x();
-                int y = canvas.getPointer().y();
-                if (args[1].equals("keyboard")) {
-                    AppController app = AppController.getInstance();
-                    PObject p = new PObjectPreset.KeyboardPreset(new Vec2(x, y)).create()[0];
-                    app.addPObject(p);
-
-
-                } else if (args[1].equals("emitter")) {
-                    AppController app = AppController.getInstance();
-                    PObject p = new PObjectPreset.EmitterPreset(new Vec2(x, y)).create()[0];
-                    app.addPObject(p);
-                } else if (args[1].equals("message")) {
-                    AppController app = AppController.getInstance();
-                    PObject p = new PMessage();
-                    app.addPObject(p);
-
-                } else if (args[1].equals("esystem")) {
-
-                } else {
-
-                }
-            } else if (split[0].equals("clear")) {
-                AppController.getInstance().queueModification(() -> {
-                    AppState.getInstance().clearObjects();
-                });
-            } else if (split[0].equals("clearmoving")) {
-                AppController.getInstance().queueModification(() -> {
-
-                    ArrayList<PObject> _pObjects = AppState.getInstance().getPObjects();
-
-                    for (int i = _pObjects.size() - 1; i >= 0; i--) {
-                        //if bodycomponent shape is a sphere
-                        BodyComponent body = _pObjects.get(i).getComponent(BodyComponent.class);
-                        if (body instanceof PhysicsBodyComponent physicsBody) {
-                            if (physicsBody.getJBox2DBody().getLinearVelocity().length() > 0) {
-                                _pObjects.get(i).remove();
-                                _pObjects.remove(i);
-                            }
-                        }
-                    }
-
-                });
-            }
 
             _textfield.clear();
             _textfield.hide();
