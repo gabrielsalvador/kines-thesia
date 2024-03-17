@@ -13,7 +13,7 @@ import processing.core.PGraphics;
 public class PKeyboardView extends HologramBodyView {
 
     private final HologramBody _body;
-    private BlinkingLigth _blinkingLigth;
+    private final BlinkingLigth _blinkingLigth;
 
     public PKeyboardView(Component model) {
         super( (HologramBody) model);
@@ -35,7 +35,7 @@ public class PKeyboardView extends HologramBodyView {
     public void display(PGraphics graphics,Component model) {
         Vec2 position = _body.getPixelPosition();
 
-        float[] size = (float[]) ((RectanglePShape)_body.getShape()).getBoundaries();
+        float[] size = _body.getShape().getBoundaries();
         float keyWidth = size[0] / 7;
         float keyHeight = size[1];
 

@@ -3,7 +3,7 @@ package me.gabrielsalvador.utils;
 
 public class MusicalNote {
 
-    private int _pitch;
+    private final int _pitch;
 
     public MusicalNote(String note) {
         int octave = 0;

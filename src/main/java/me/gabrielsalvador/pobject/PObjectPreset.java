@@ -159,7 +159,7 @@ public interface PObjectPreset {
 
     }
 
-    public class KeyboardPreset implements PObjectPreset {
+    class KeyboardPreset implements PObjectPreset {
 
         private Vec2 _position = null;
 

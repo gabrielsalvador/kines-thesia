@@ -8,11 +8,11 @@ import themidibus.MidiBus;
 public class MidiManager {
 
 
-    private int inputIndex = 1;
+    private final int inputIndex = 1;
     private int outputIndex = 2;
     private  MidiBus _midiBus;
     private static MidiManager _instance;
-    private float _quantization = 1;  // 0 to 1
+    private final float _quantization = 1;  // 0 to 1
     private Scale _key = Scale.HIRAJOSHI.setRoot(new MusicalNote("C3"));
     private int _chord = 0;
     private static final int NOTE_DURATION_MS = 100;

@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class KFor implements KStatement{
 
-    private int start;
-    private int end;
+    private final int start;
+    private final int end;
 
     List<KStatement> statements = new ArrayList<>();
 

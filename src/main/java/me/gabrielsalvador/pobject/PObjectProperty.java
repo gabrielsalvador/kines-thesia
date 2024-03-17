@@ -100,7 +100,7 @@ public class PObjectProperty implements Serializable {
                 ((Group) controller).hideBar();
             }
 
-            return (ControllerInterface) controller;
+            return controller;
         } catch (Exception e) {
             e.printStackTrace();
         }

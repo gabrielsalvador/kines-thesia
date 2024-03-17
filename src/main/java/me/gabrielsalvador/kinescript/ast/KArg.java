@@ -8,7 +8,7 @@ public class KArg {
 
     private Object value;
     private String reference;
-   private boolean isReference; // 0 for value , 1 for reference
+   private final boolean isReference; // 0 for value , 1 for reference
 
 
     public KArg(boolean type, Object valueOrName) {

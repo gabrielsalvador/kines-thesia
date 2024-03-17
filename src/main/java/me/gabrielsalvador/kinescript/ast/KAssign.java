@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class KAssign implements KStatement{
 
-    private String name;
-    private Object value;
+    private final String name;
+    private final Object value;
     public KAssign(String name, Object value) {
         this.name = name;
         this.value = value;

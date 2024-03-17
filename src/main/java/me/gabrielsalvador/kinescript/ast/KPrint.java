@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class KPrint implements KStatement{
 
-    private KArg argument;
+    private final KArg argument;
 
     public KPrint(Object value) {
         this.argument = (KArg) value;
