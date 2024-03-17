@@ -45,7 +45,7 @@ class ToolboxController extends Group {
             b.addListener(new ControlListener() {
                 @Override
                 public void controlEvent(ControlEvent controlEvent) {
-                    ToolManager.getInstance().pushTool(tool);
+                    ToolManager.getInstance().selectTool(tool);
                 }
             });
             b.setSwitch(true);

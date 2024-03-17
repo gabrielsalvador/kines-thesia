@@ -58,20 +58,6 @@ public class Sinesthesia extends PApplet {
         _cp5 = new ControlP5(this);
         _cp5.enableShortcuts();
 
-        _cp5.mapKeyFor(new ControlKey() {
-            @Override
-            public void keyEvent() {
-                ToolManager.getInstance().pushTool(SelectTool.class);
-            }
-        }, 'a');
-
-        _cp5.mapKeyFor(new ControlKey() {
-            @Override
-            public void keyEvent() {
-                ToolManager.getInstance().pushTool(CommandTool.class);
-            }
-        }, 'n');
-
 
 
 

@@ -7,19 +7,24 @@ import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import controlP5.ControlKey;
+import controlP5.ControlP5;
+import me.gabrielsalvador.core.Sinesthesia;
 import org.reflections.Reflections;
 import processing.event.KeyEvent;
 
 
 public class ToolManager  {
     private static ToolManager _instance;
+    private final Sinesthesia _app;
     private final Stack<Tool> _toolHistory = new Stack<>();
     protected Set<Class<? extends Tool>> availableTools = new HashSet<>();
-    protected Map<Character, Class<? extends Tool>> keyMappings = new HashMap<>();
+
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
 
 
     private ToolManager() {
+        _app = Sinesthesia.getInstance();
         loadToolClasses();
         _toolHistory.push(new SelectTool());
     }
@@ -37,7 +42,7 @@ public class ToolManager  {
     }
 
 
-    public void pushTool(Class<? extends Tool> toolClass) {
+    public void selectTool(Class<? extends Tool> toolClass) {
         Tool oldTool = _toolHistory.peek();
 
         try {
@@ -74,8 +79,16 @@ public class ToolManager  {
         for (Class<? extends Tool> toolClass : toolClasses) {
             if (!Modifier.isAbstract(toolClass.getModifiers())) { // Exclude abstract classes
                 availableTools.add(toolClass);
-//                char key = getShortcutForTool(toolClass);
-//                keyMappings.put(key, toolClass);
+                char key = getShortcutForTool(toolClass);
+
+                _app.getCP5().mapKeyFor(new ControlKey() {
+                    @Override
+                    public void keyEvent() {
+                        selectTool(toolClass);
+                    }
+                }, key);
+
+
             }
         }
 
@@ -85,32 +98,25 @@ public class ToolManager  {
 
     public  char getShortcutForTool(Class<? extends Tool> toolClass) {
         switch (toolClass.getSimpleName()) {
-//            case "SelectTool":
-//                return 's';
-//            case "MoveTool":
-//                return 'm';
-//            case "AddTool":
-//                return 'a';
-//            case "CommandTool":
-//                return 'n';
-//            case "AddResonatorTool":
-//                return 'r';
-//            case "AddPEmitter":
-//                return 'e';
+            case "SelectTool":
+                return 's';
+            case "MoveTool":
+                return 'm';
+            case "AddTool":
+                return 'a';
+            case "CommandTool":
+                return 'n';
+            case "AddResonatorTool":
+                return 'r';
+            case "AddPEmitter":
+                return 'e';
             default:
                 return '\0';
         }
 
     }
     public void keyEvent(KeyEvent event) {
-        char key = Character.toLowerCase(event.getKey());
 
-        //tool keyboard shortcuts
-        if (keyMappings.containsKey(key)) {
-            // Instantiate the tool class and set it as the current tool.
-            pushTool(keyMappings.get(key));
-
-        }
         //send KeyEvent to tool
         _toolHistory.peek().keyEvent(event);
 
