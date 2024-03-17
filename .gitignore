@@ -36,3 +36,8 @@ appState.ser
 .idea/misc.xml
 .idea/*
 .idea/
+
+
+
+# Lib
+lib/
