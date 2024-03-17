@@ -2,6 +2,7 @@ package me.gabrielsalvador.pobject.components.controllers;
 
 import controlP5.*;
 import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.pobject.components.Component;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ public class CommandController extends Group {
 
 
 
-    private final Component component;
+    private final PObjectProperty _property;
     List<ControllerInterface<?>> children = new ArrayList<>();
 
 

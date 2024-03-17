@@ -38,6 +38,7 @@ public class CommandTool extends Tool {
         _textfield.skipNextEvent();
         _textfield.getKeyMapping().put((int) PApplet.ENTER, new EnterCommand());
         _textfield.setPosition(x, y - 40);
+        _textfield.setActiveController();
         CanvasController canvas = (CanvasController) cp5.getController("MainCanvas");
         canvas.setUserInteraction(false);
 
@@ -101,6 +102,7 @@ public class CommandTool extends Tool {
 
             _textfield.clear();
             _textfield.hide();
+            cp5.getWindow().setControllerActive(null);
         }
     }
 }

@@ -67,8 +67,8 @@ public class ToolManager  {
         for (Class<? extends Tool> toolClass : toolClasses) {
             if (!Modifier.isAbstract(toolClass.getModifiers())) { // Exclude abstract classes
                 availableTools.add(toolClass);
-                char key = getShortcutForTool(toolClass);
-                keyMappings.put(key, toolClass);
+//                char key = getShortcutForTool(toolClass);
+//                keyMappings.put(key, toolClass);
             }
         }
 
@@ -78,18 +78,18 @@ public class ToolManager  {
 
     public  char getShortcutForTool(Class<? extends Tool> toolClass) {
         switch (toolClass.getSimpleName()) {
-            case "SelectTool":
-                return 's';
-            case "MoveTool":
-                return 'm';
-            case "AddTool":
-                return 'a';
-            case "CommandTool":
-                return 'n';
-            case "AddResonatorTool":
-                return 'r';
-            case "AddPEmitter":
-                return 'e';
+//            case "SelectTool":
+//                return 's';
+//            case "MoveTool":
+//                return 'm';
+//            case "AddTool":
+//                return 'a';
+//            case "CommandTool":
+//                return 'n';
+//            case "AddResonatorTool":
+//                return 'r';
+//            case "AddPEmitter":
+//                return 'e';
             default:
                 return '\0';
         }
