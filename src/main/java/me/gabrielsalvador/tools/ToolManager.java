@@ -39,12 +39,19 @@ public class ToolManager  {
 
     public void pushTool(Class<? extends Tool> toolClass) {
         Tool oldTool = _toolHistory.peek();
-        if(oldTool.getClass() == toolClass) return; // Don't push the same tool twice
 
         try {
             Tool newTool = toolClass.getDeclaredConstructor().newInstance();
 
-            _toolHistory.push(newTool);
+            if(oldTool.getClass() == toolClass) { // Don't repeat the same tool. instantiate a new one
+                //replace the tool
+                _toolHistory.pop();
+                _toolHistory.push(newTool);
+            }else{
+                _toolHistory.push(newTool);
+            }
+
+
 
             _propertyChangeSupport.firePropertyChange("currentTool", oldTool, newTool);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
