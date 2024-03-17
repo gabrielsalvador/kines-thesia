@@ -39,9 +39,9 @@ public class CommandController extends Group {
     }
 
 
-    public CommandController(Component MessageComponent, ControlP5 theControlP5, String theName) {
+    public CommandController(PObjectProperty property, ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);
-        component = MessageComponent;
+        _property = property;
 
         children.add(commandField);
         children.add(feedbackLabel);
