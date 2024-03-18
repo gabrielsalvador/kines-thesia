@@ -6,9 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import controlP5.ControlKey;
-import controlP5.ControlP5;
+import controlP5.MappableCommand;
 import me.gabrielsalvador.core.Sinesthesia;
 import org.reflections.Reflections;
 import processing.event.KeyEvent;
@@ -81,7 +79,7 @@ public class ToolManager  {
                 availableTools.add(toolClass);
                 char key = getShortcutForTool(toolClass);
 
-                _app.getCP5().mapKeyFor(new ControlKey() {
+                _app.getCP5().mapKeyFor(new MappableCommand() {
                     @Override
                     public void keyEvent() {
                         selectTool(toolClass);
