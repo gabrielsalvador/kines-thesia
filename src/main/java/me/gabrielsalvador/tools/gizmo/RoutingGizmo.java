@@ -1,6 +1,7 @@
-package me.gabrielsalvador.pobject;
+package me.gabrielsalvador.tools.gizmo;
 
 import me.gabrielsalvador.PGroup;
+import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.tools.gizmo.Gizmo;
 import org.jbox2d.common.Vec2;
 
