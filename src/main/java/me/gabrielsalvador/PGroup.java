@@ -31,6 +31,10 @@ public class PGroup {
         return _objects.toArray(new PObject[0]);
     }
 
+    public boolean isEmpty() {
+        return _objects.isEmpty();
+    }
+
 
 
     public Vec2 getPixelCenter() {

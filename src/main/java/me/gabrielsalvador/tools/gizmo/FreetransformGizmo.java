@@ -11,18 +11,13 @@ import processing.core.PGraphics;
 public class FreetransformGizmo extends Gizmo {
 
 
-    private final PGroup _selectedObjects;
-    private Vec2 bufferedMousePosition = null;
+
+
     private float rotatingAngle = 0;
     private float _initialAngle = 0; //in degrees
 
     public FreetransformGizmo(PGroup selectedObjects) {
-        _selectedObjects = selectedObjects;
-
-        if (selectedObjects.size() == 0) {
-        }
-
-
+        super(selectedObjects);
     }
 
     @Override
@@ -67,7 +62,7 @@ public class FreetransformGizmo extends Gizmo {
 
     @Override
     public void onPressed() {
-        float initialAngle = _selectedObjects.get(0).getBodyComponent().getAngle();
+        float initialAngle = selectedObjects.get(0).getBodyComponent().getAngle();
         System.out.println("FreetransformGizmo pressed" + initialAngle);
     }
 
@@ -75,7 +70,7 @@ public class FreetransformGizmo extends Gizmo {
     @Override
     public void onDragStart(PObject pObject, int[] mousePosition) {
         System.out.println("dragging started");
-        _initialAngle = _selectedObjects.get(0).getBodyComponent().getAngle() * 180 / (float) Math.PI;
+        _initialAngle = selectedObjects.get(0).getBodyComponent().getAngle() * 180 / (float) Math.PI;
         //convert to degrees
         _initialAngle = (_initialAngle) % 360;
     }
@@ -83,10 +78,10 @@ public class FreetransformGizmo extends Gizmo {
     @Override
     public void onDrag(PObject pObject, int[] mousePosition) {
 
-        bufferedMousePosition = new Vec2(mousePosition[0], mousePosition[1]);
+//        bufferedMousePosition = new Vec2(mousePosition[0], mousePosition[1]);
 
         //rotation angle between _initialDragPosition center and mousePosition
-        Vec2 center = _selectedObjects.getPixelCenter();
+        Vec2 center = selectedObjects.getPixelCenter();
         Vec2 mousePositionVec = new Vec2(mousePosition[0], mousePosition[1]);
         Vec2 initialDragPositionVec = new Vec2(_initialDragPosition.x, _initialDragPosition.y);
         Vec2 centerToMouse = mousePositionVec.sub(center);
@@ -94,7 +89,7 @@ public class FreetransformGizmo extends Gizmo {
         rotatingAngle = MathUtils.calculateAngle(centerToMouse, centerToInitialDragPosition); //this is in degrees
 
         //rotate selected objects
-        for (PObject selectedObject : _selectedObjects.getItems()) {
+        for (PObject selectedObject : selectedObjects.getItems()) {
             if (!Float.isNaN(rotatingAngle)) {
 
                 selectedObject.getBodyComponent().rotateBodyAroundPivot(center, _initialAngle + rotatingAngle);
@@ -107,11 +102,11 @@ public class FreetransformGizmo extends Gizmo {
 
     @Override
     public Vec2[] getPositions() {
-        if (_selectedObjects.size() == 0) {
+        if (selectedObjects.isEmpty()) {
             return new Vec2[]{new Vec2(0, 0)};
         }
 
-        BodyComponent body = _selectedObjects.get(0).getBodyComponent();
+        BodyComponent body = selectedObjects.get(0).getBodyComponent();
         Vec2 position = body.getPixelPosition();
         float[] dimensions = body.getShape().getBoundaries();
         float rotation = body.getAngle();

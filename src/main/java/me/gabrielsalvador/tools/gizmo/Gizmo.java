@@ -2,18 +2,22 @@ package me.gabrielsalvador.tools.gizmo;
 
 import me.gabrielsalvador.PGroup;
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.components.body.BodyComponent;
-import me.gabrielsalvador.utils.MathUtils;
 import org.jbox2d.common.Vec2;
-import processing.core.PApplet;
 import processing.core.PGraphics;
 
 public abstract class Gizmo {
 
+    protected PGroup selectedObjects;
     public boolean _isDragging = false;
     protected boolean _mouseIsDown = false;
     protected Vec2 _initialDragPosition;
 
+    public Gizmo(PGroup _group) {
+        if(_group.isEmpty()){
+            throw new RuntimeException("Cannot create a gizmo with an empty group");
+        }
+        selectedObjects = _group;
+    }
     public void draw(PGraphics graphics) {}
 
     public abstract void onPressed() ;

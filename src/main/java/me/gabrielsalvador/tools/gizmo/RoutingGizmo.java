@@ -2,14 +2,13 @@ package me.gabrielsalvador.tools.gizmo;
 
 import me.gabrielsalvador.PGroup;
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.tools.gizmo.Gizmo;
 import org.jbox2d.common.Vec2;
 
 public class RoutingGizmo extends Gizmo {
-    PGroup group;
+
     public RoutingGizmo(PGroup _group) {
-        super();
-        group = _group;
+        super(_group);
+
     }
 
     @Override
@@ -24,7 +23,7 @@ public class RoutingGizmo extends Gizmo {
 
     @Override
     public Vec2[] getPositions() {
-        PObject object = (PObject) group.get(0);
+        PObject object = (PObject) selectedObjects.get(0);
         if (object != null){
             Vec2 p = object.getBodyComponent().getPixelCenter();
             return new Vec2[]{p};
