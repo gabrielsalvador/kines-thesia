@@ -18,7 +18,7 @@ public abstract class Gizmo {
         }
         selectedObjects = _group;
     }
-    public void draw(PGraphics graphics) {}
+    public abstract void draw(PGraphics graphics) ;
 
     public abstract void onPressed() ;
 

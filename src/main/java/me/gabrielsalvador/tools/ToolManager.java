@@ -40,7 +40,7 @@ public class ToolManager  {
     }
 
 
-    public void selectTool(Class<? extends Tool> toolClass) {
+    public Tool selectTool(Class<? extends Tool> toolClass) {
         Tool oldTool = _toolHistory.peek();
 
         try {
@@ -54,12 +54,13 @@ public class ToolManager  {
                 _toolHistory.push(newTool);
             }
 
-
-
             _propertyChangeSupport.firePropertyChange("currentTool", oldTool, newTool);
+            return newTool;
+
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
         }
+        return null;
     }
     public void popTool() {
         if (_toolHistory.size() > 1) {

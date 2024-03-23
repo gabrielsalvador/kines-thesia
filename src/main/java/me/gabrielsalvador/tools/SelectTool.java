@@ -6,8 +6,10 @@ import me.gabrielsalvador.Config;
 import me.gabrielsalvador.PGroup;
 import me.gabrielsalvador.common.DisplayName;
 import me.gabrielsalvador.core.*;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.tools.gizmo.FreetransformGizmo;
+import me.gabrielsalvador.tools.gizmo.RoutingGizmo;
 import org.jbox2d.common.Vec2;
 import me.gabrielsalvador.pobject.PObject;
 import processing.core.PGraphics;
@@ -154,7 +156,9 @@ public class SelectTool extends Tool {
         for (PObject p : AppState.getInstance().getPObjects()) {
             p.setIsSelected(false);
         }
+        _gizmos.clear();
         selectedObjects.clear();
+
         AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
     }
 
@@ -174,9 +178,16 @@ public class SelectTool extends Tool {
 
         _gizmos.clear();
         if(!selectedObjects.isEmpty()) {
+            //TODO: use group instead of get(0)
+            PGroup selectedObjects = new PGroup(this.selectedObjects);
             if((selectedObjects.get(0).getBodyComponent() instanceof PhysicsBodyComponent)){
-                _gizmos.add(new FreetransformGizmo(new PGroup(selectedObjects)));
+                _gizmos.add(new FreetransformGizmo(selectedObjects));
             }
+
+            if(selectedObjects.get(0).getBodyComponent() instanceof BodyComponent){
+                _gizmos.add(new RoutingGizmo(selectedObjects));
+            }
+
 
         }
 

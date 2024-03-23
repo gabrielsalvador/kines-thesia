@@ -28,6 +28,10 @@ public class RoutingTool extends Tool{
 
     @Override
     public void keyEvent(KeyEvent keyEvent) {
+        //if ESC
+        if (keyEvent.getKey() == 27) {
+            setCurrentMode(getModes().get(MODE_NORMAL));
+        }
 
     }
 
@@ -37,6 +41,9 @@ public class RoutingTool extends Tool{
 
     @Override
     public boolean onPressed(PObject pObject, int[] mousePosition) {
+
+        if ( pObject == null) setCurrentMode(getModes().get(MODE_NORMAL));
+
 
         if(getCurrentMode().getName().equals("DoingRouting")){
             if(_firstObject == null || pObject == null) return true;
@@ -79,6 +86,8 @@ public class RoutingTool extends Tool{
             graphics.popStyle();
         }
     }
+
+
 
 
 

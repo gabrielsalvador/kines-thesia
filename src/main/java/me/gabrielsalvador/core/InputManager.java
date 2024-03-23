@@ -33,6 +33,12 @@ public class InputManager {
     }
 
     public void keyEvent( KeyEvent event ) {
+        //prevent ESC key from closing the app
+        if (event.getKey() == 27) {
+            Sinesthesia.getInstance().key = 0;
+
+        }
+
         if (event.getAction() == KeyEvent.PRESS) {
             if (_keyMappings.containsKey(event.getKey())) {
                 _keyMappings.get(event.getKey()).run();
