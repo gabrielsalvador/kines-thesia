@@ -1,69 +1,26 @@
-package me.gabrielsalvador.tools;
+package me.gabrielsalvador.tools.gizmo;
 
 import me.gabrielsalvador.PGroup;
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.utils.MathUtils;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
-import java.util.ArrayList;
-
-public abstract class Gizmo {
-
-    public boolean _isDragging = false;
-    protected boolean _mouseIsDown = false;
-    protected Vec2 _initialDragPosition;
-
-    public void draw(PGraphics graphics) {}
-
-    public abstract void onPressed() ;
-
-    public boolean isInside(int[] mousePosition) {
-        //hitcircle is 10x10
-        Vec2[] positions = getPositions();
-        for (Vec2 position : positions) {
-            //if is inside the circle
-            float distance = position.sub(new Vec2(mousePosition[0], mousePosition[1])).length();
-            if (distance < 10) {
-                return true;
-            }
-
-        }
-        return false;
-    }
-
-    public abstract void onDrag(PObject pObject, int[] mousePosition);
-
-    public abstract Vec2[] getPositions();
-
-
-    public void onRelease(PObject pObject) {
-        _mouseIsDown = false;
-        _isDragging = false;
-        System.out.println("gizmo released");
-    }
-
-    public abstract void onDragStart(PObject pObject, int[] mousePosition);
-}
-
-class FreetransformGizmo extends Gizmo {
+public class FreetransformGizmo extends Gizmo {
 
 
     private final PGroup _selectedObjects;
     private Vec2 bufferedMousePosition = null;
     private float rotatingAngle = 0;
     private float _initialAngle = 0; //in degrees
-    
+
     public FreetransformGizmo(PGroup selectedObjects) {
         _selectedObjects = selectedObjects;
 
-        if(selectedObjects.size() == 0){
+        if (selectedObjects.size() == 0) {
         }
-
-
 
 
     }
@@ -76,7 +33,7 @@ class FreetransformGizmo extends Gizmo {
         graphics.fill(255, 0, 0);
         Vec2[] _position = getPositions();
         graphics.ellipseMode(PApplet.CENTER);
-        graphics.fill(255, 255,255);
+        graphics.fill(255, 255, 255);
         graphics.stroke(0);
         for (Vec2 position : _position) {
             graphics.ellipse(position.x, position.y, 10, 10);
@@ -106,8 +63,6 @@ class FreetransformGizmo extends Gizmo {
 //        }
 
 
-
-
     }
 
     @Override
@@ -118,7 +73,7 @@ class FreetransformGizmo extends Gizmo {
 
 
     @Override
-    public void onDragStart(PObject pObject,int[] mousePosition) {
+    public void onDragStart(PObject pObject, int[] mousePosition) {
         System.out.println("dragging started");
         _initialAngle = _selectedObjects.get(0).getBodyComponent().getAngle() * 180 / (float) Math.PI;
         //convert to degrees
@@ -140,7 +95,7 @@ class FreetransformGizmo extends Gizmo {
 
         //rotate selected objects
         for (PObject selectedObject : _selectedObjects.getItems()) {
-            if(!Float.isNaN(rotatingAngle)){
+            if (!Float.isNaN(rotatingAngle)) {
 
                 selectedObject.getBodyComponent().rotateBodyAroundPivot(center, _initialAngle + rotatingAngle);
                 System.out.println(_initialAngle + " : " + rotatingAngle);
@@ -150,13 +105,10 @@ class FreetransformGizmo extends Gizmo {
     }
 
 
-
-
-
     @Override
     public Vec2[] getPositions() {
         if (_selectedObjects.size() == 0) {
-            return new Vec2[]{ new Vec2(0, 0) };
+            return new Vec2[]{new Vec2(0, 0)};
         }
 
         BodyComponent body = _selectedObjects.get(0).getBodyComponent();
@@ -174,7 +126,7 @@ class FreetransformGizmo extends Gizmo {
             double rotatedX = position.x + offsetX * Math.cos(rotation) - offsetY * Math.sin(rotation);
             double rotatedY = position.y + offsetX * Math.sin(rotation) + offsetY * Math.cos(rotation);
 
-            vertices[i] = new Vec2((float)rotatedX, (float)rotatedY);
+            vertices[i] = new Vec2((float) rotatedX, (float) rotatedY);
         }
 
         return vertices;

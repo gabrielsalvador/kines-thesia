@@ -2,6 +2,7 @@ package me.gabrielsalvador.tools;
 
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.tools.gizmo.Gizmo;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -49,9 +50,8 @@ public abstract class Tool implements Serializable {
 
         for (Gizmo gizmo : _gizmos) {
             if (gizmo.isInside(mousePosition)) {
-                gizmo._mouseIsDown = true;
-                gizmo._initialDragPosition = new Vec2(mousePosition[0], mousePosition[1]);
-                System.out.println("gizmo pressed");
+                gizmo.setMouseDown(true);
+                gizmo.setInitialDragPosition(new Vec2(mousePosition[0], mousePosition[1]));
                 gizmo.onPressed();
                 return true;
             }
@@ -63,9 +63,9 @@ public abstract class Tool implements Serializable {
     public void onRelease(PObject pObject) {
 
         for (Gizmo gizmo : _gizmos) {
-            if (gizmo._mouseIsDown) {
-                gizmo._mouseIsDown = false;
-                gizmo._initialDragPosition = null;
+            if (gizmo.getMouseIsDown() ){
+                gizmo.setMouseDown(false);
+                gizmo.setInitialDragPosition(null);
                 System.out.println("gizmo released");
                 gizmo.onRelease(pObject);
             }
@@ -75,7 +75,7 @@ public abstract class Tool implements Serializable {
     public void onDrag(PObject pObject, int[] mousePosition) {
 
         for (Gizmo gizmo : _gizmos) {
-            if (gizmo._mouseIsDown) {
+            if (gizmo.getMouseIsDown()) {
                 if(!gizmo._isDragging){
                     gizmo._isDragging = true;
                     gizmo.onDragStart(pObject, mousePosition);
