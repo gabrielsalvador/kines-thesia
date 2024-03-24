@@ -144,7 +144,7 @@ public class AppController {
     public void createRouting(PObject firstObject, PObject secondObject) {
         RoutingComponent RCA = firstObject.getRoutingComponent();
         if(RCA == null){
-            RCA = new RoutingComponent(secondObject);
+            RCA = new RoutingComponent(firstObject);
             firstObject.addComponent(RoutingComponent.class, RCA);
         }
         RCA.setTarget(secondObject);
