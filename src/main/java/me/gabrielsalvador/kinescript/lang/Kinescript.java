@@ -1,6 +1,7 @@
 package me.gabrielsalvador.kinescript.lang;
 
-import me.gabrielsalvador.kinescript.MidiBuiltin;
+import me.gabrielsalvador.kinescript.builtins.KRandom;
+import me.gabrielsalvador.kinescript.builtins.MidiBuiltin;
 import me.gabrielsalvador.kinescript.ast.*;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -9,22 +10,21 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Kinescript implements KinescriptVisitor{
 
     private KFunction program;
 
     public static KFunction compileFunction(String code) {
-        try {
+
             KinescriptLexer lexer = new KinescriptLexer(new org.antlr.v4.runtime.ANTLRInputStream(code));
             KinescriptParser parser = new KinescriptParser(new org.antlr.v4.runtime.CommonTokenStream(lexer));
             Kinescript kinescript = new Kinescript();
             KFunction func =  (KFunction) kinescript.visitProgram(parser.program());
             func.setSourceCode(code);
             return func;
-        }catch (Exception e){
-            throw new RuntimeException("Error compiling function: " + e.getMessage());
-        }
+
     }
 
     @Override
@@ -86,15 +86,16 @@ public class Kinescript implements KinescriptVisitor{
     @Override
     public Object visitExpr(KinescriptParser.ExprContext ctx) {
         if (ctx.STRING() != null) {
-            return ctx.STRING().getText();
+            return new KExpression(false, ctx.STRING().getText());
         }else if (ctx.INT() != null) {
-            return Integer.parseInt(ctx.INT().getText());
+            return new KExpression(false, Integer.parseInt(ctx.INT().getText()));
         }
         else if (ctx.ID() != null) {
             String name = ctx.ID().getText();
-            return program.getScope().get(name);
+            return new KExpression(true, name);
         } else if (ctx.invocation() != null) {
-            return visitInvocation(ctx.invocation());
+            String name = ctx.invocation().ID().getText();
+            return new KExpression(true, name);
         } else if (ctx.expr() != null) {
             return visitExpr(ctx.expr());
         }else {
@@ -120,6 +121,8 @@ public class Kinescript implements KinescriptVisitor{
             return new KPrint( args.get(0));
         }else if (name.equals("midi")) {
             return new MidiBuiltin( args );
+        }if (name.equals("random")) {
+            return new KRandom( );
         }
 
         KFunction function = (KFunction) program.getScope().get(name);
@@ -155,30 +158,21 @@ public class Kinescript implements KinescriptVisitor{
     @Override
     public Object visitArgs(KinescriptParser.ArgsContext ctx) {
         ArrayList args = new ArrayList();
-        for (KinescriptParser.ArgContext arg : ctx.arg()) {
-            args.add(visitArg(arg));
+        if(ctx != null && ctx.arg() != null){
+            for (KinescriptParser.ArgContext arg : ctx.arg()) {
+                args.add(visitArg(arg));
+            }
         }
         return args;
     }
 
     @Override
     public Object visitArg(KinescriptParser.ArgContext ctx) {
-        if (ctx.STRING() != null) {
-            String text = ctx.STRING().getText();
-            return new KArg(false, text);
 
-        } if (ctx.INT() != null) {
-            int value = Integer.parseInt(ctx.INT().getText());
-            return new KArg(false, value);
-        }
-        else if (ctx.ID() != null) {
-            String name = ctx.ID().getText();
-            return new KArg(true, name);
+        KExpression expr = (KExpression) visitExpr(ctx.expr());
 
-        }
-        else{
-            throw new RuntimeException("Unknown arg type");
-        }
+        return new KArg(expr);
+
     }
 
     @Override
@@ -198,6 +192,29 @@ public class Kinescript implements KinescriptVisitor{
 
     @Override
     public Object visitErrorNode(ErrorNode node) {
+        return null;
+    }
+
+    public static KStatement getFunction(Map<String, Object> scope, String name) {
+        if (scope.get(name) instanceof KFunction) {
+            return (KFunction) scope.get(name);
+        }
+        KStatement builtIn = getBuiltInFunction(name);
+        if (builtIn != null) {
+            return builtIn;
+        }else {
+            throw new RuntimeException("Function with name " + name + " does not exist");
+        }
+    }
+
+    public static KStatement getBuiltInFunction(String name) {
+        if (name.equals("print")) {
+            return new KPrint();
+        }else if (name.equals("midi")) {
+            return new KFunction(3, new ArrayList<>());
+        }else if (name.equals("random")) {
+            return new KRandom();
+        }
         return null;
     }
 }

@@ -6,6 +6,7 @@ import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.controllers.CodeEditor;
+import me.gabrielsalvador.utils.Stopwatch;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -127,6 +128,8 @@ public class RoutingComponent extends Component {
 
 
     public void sendPulse(Object message) {
+
+        Stopwatch.start();
         if (_target == null ) return;
         RoutingComponent rc = _target.getRoutingComponent();
         if (rc == null)
@@ -140,5 +143,7 @@ public class RoutingComponent extends Component {
         if (_pulseCallback != null) {
             _pulseCallback.execute(null);
         }
+
+        Stopwatch.stopAndPrint();
     }
 }

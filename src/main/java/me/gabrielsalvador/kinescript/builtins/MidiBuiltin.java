@@ -1,4 +1,4 @@
-package me.gabrielsalvador.kinescript;
+package me.gabrielsalvador.kinescript.builtins;
 
 import me.gabrielsalvador.kinescript.ast.KArg;
 import me.gabrielsalvador.kinescript.ast.KStatement;

@@ -1,5 +1,6 @@
 
 
+import me.gabrielsalvador.kinescript.ast.KExpression;
 import me.gabrielsalvador.kinescript.ast.KFunction;
 import me.gabrielsalvador.kinescript.lang.Kinescript;
 import me.gabrielsalvador.kinescript.lang.KinescriptLexer;
@@ -58,9 +59,27 @@ public class KCommandTests {
         //assert 4 is printed
         //assertEquals( innerFunction.getStatements().get(1).execute(new HashMap<>()), 4);
 
+    }
+
+
+    @Test
+    public void testExpr(){
+        String input = "random()";
+        KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        KinescriptParser parser = new KinescriptParser(tokens);
+        parser.getInterpreter().setPredictionMode(PredictionMode.SLL);
+        KinescriptParser.ExprContext tree = parser.expr();
+
+
+        Kinescript kinescript = new Kinescript();
+
+        KExpression expression = (KExpression) kinescript.visitExpr(tree);
+        int result = (int) expression.evaluate(new HashMap<>());
+
+        System.out.println(result);
 
 
     }
-
 
 }

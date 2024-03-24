@@ -18,7 +18,7 @@ for: 'for' '(' INT 'to' INT ')' '{' statement+ '}' ;
 
 args: arg (',' arg)*;
 
-arg: ID | STRING | INT ;
+arg: expr ;
 
 // Lexer rules
 

@@ -1,31 +1,13 @@
 package me.gabrielsalvador.kinescript.ast;
 
-import java.util.Map;
-
 public class KArg {
+    private final KExpression expression;
 
-    //either has a value or a reference to a variable
-
-    private Object value;
-    private String reference;
-   private final boolean isReference; // 0 for value , 1 for reference
-
-
-    public KArg(boolean type, Object valueOrName) {
-        this.isReference = type;
-        if(!type) {
-            this.value = valueOrName;
-        } else {
-            this.reference = (String) valueOrName;
-        }
+    public KArg(KExpression exp) {
+        this.expression = (KExpression) exp;
     }
 
-
-    public Object evaluate(Map<String, Object> scope) {
-        if(isReference) {
-            return scope.get(reference);
-        } else {
-            return value;
-        }
+    public Object evaluate(java.util.Map<String, Object> scope) {
+        return this.expression.evaluate(scope);
     }
 }
