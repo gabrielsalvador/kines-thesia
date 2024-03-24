@@ -1,12 +1,11 @@
 package me.gabrielsalvador.pobject.components;
 
 
-import me.gabrielsalvador.common.SerializableRunnable;
 import me.gabrielsalvador.kinescript.ast.KFunction;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
-import me.gabrielsalvador.pobject.components.controllers.CommandController;
+import me.gabrielsalvador.pobject.components.controllers.CodeEditor;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -79,7 +78,7 @@ public class RoutingComponent extends Component {
     private int _subdivisions = 1;
 
     private KFunction _pulseCallback;
-    @InspectableProperty(displayName = "onPulseReceived", controllerClass = CommandController.class)
+    @InspectableProperty(displayName = "onPulseReceived", controllerClass = CodeEditor.class)
     public KFunction getPulseCallback() {
         return _pulseCallback;
     }

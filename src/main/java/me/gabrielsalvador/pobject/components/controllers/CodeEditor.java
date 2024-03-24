@@ -3,12 +3,12 @@ package me.gabrielsalvador.pobject.components.controllers;
 import controlP5.*;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObjectProperty;
-import me.gabrielsalvador.pobject.components.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class CommandController extends Group {
+public class CodeEditor extends Group {
 
 
 
@@ -39,7 +39,7 @@ public class CommandController extends Group {
     }
 
 
-    public CommandController(PObjectProperty property, ControlP5 theControlP5, String theName) {
+    public CodeEditor(PObjectProperty property, ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);
         _property = property;
 
@@ -56,10 +56,15 @@ public class CommandController extends Group {
     }
 
 
-    public void layoutDidFinish() {
 
-        for (ControllerInterface child : children) {
-            child.setWidth(getWidth());
+
+    @Override
+    public Group setWidth(int theWidth) {
+        super.setWidth(theWidth);
+
+        for (ControllerInterface child : controllers.get()) {
+            child.setWidth(Math.round(theWidth));
         }
+        return this;
     }
 }

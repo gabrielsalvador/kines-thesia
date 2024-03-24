@@ -3,6 +3,8 @@ package me.gabrielsalvador.pobject;
 import controlP5.*;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.Component;
+import me.gabrielsalvador.pobject.components.controllers.CodeEditor;
+
 import javax.lang.model.type.NoType;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -67,6 +69,9 @@ public class InspectorController extends Group implements PropertyChangeListener
             ArrayList<PObjectProperty> properties = propertiesOfController.get(controllerType);
 
             ControllerInterface<?> controller = properties.get(0).instantiateController(cp5);
+            if(controller instanceof CodeEditor){
+                ((CodeEditor) controller).setWidth(getWidth());
+            }
             addChildVertically(controller);
 
         }
