@@ -19,7 +19,9 @@ public class Kinescript implements KinescriptVisitor{
             KinescriptLexer lexer = new KinescriptLexer(new org.antlr.v4.runtime.ANTLRInputStream(code));
             KinescriptParser parser = new KinescriptParser(new org.antlr.v4.runtime.CommonTokenStream(lexer));
             Kinescript kinescript = new Kinescript();
-            return (KFunction) kinescript.visitProgram(parser.program());
+            KFunction func =  (KFunction) kinescript.visitProgram(parser.program());
+            func.setSourceCode(code);
+            return func;
         }catch (Exception e){
             throw new RuntimeException("Error compiling function: " + e.getMessage());
         }

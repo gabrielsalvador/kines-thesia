@@ -2,9 +2,12 @@ package me.gabrielsalvador.pobject.components.controllers;
 
 import controlP5.*;
 import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.kinescript.ast.KFunction;
+import me.gabrielsalvador.kinescript.lang.Kinescript;
 import me.gabrielsalvador.pobject.PObjectProperty;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 
@@ -16,10 +19,10 @@ public class CodeEditor extends Group {
     List<ControllerInterface<?>> children = new ArrayList<>();
 
 
-    MultilineTextfield commandField = new MultilineTextfield(Sinesthesia.getInstance().getCP5(), "Enter command here");
+    MultilineTextfield codeTextbox = new MultilineTextfield(Sinesthesia.getInstance().getCP5(), "Enter command here");
     {
-        commandField.getCaptionLabel().hide();
-        commandField.addListenerFor(ControlP5Constants.ACTION_BROADCAST, event -> {
+        codeTextbox.getCaptionLabel().hide();
+        codeTextbox.addListenerFor(ControlP5Constants.ACTION_BROADCAST, event -> {
             compile();
         })
         .setAutoClear(false)
@@ -34,6 +37,20 @@ public class CodeEditor extends Group {
 
     public void compile() {
 
+      try {
+          KFunction function = Kinescript.compileFunction(codeTextbox.getText());
+          _property.setValue(function);
+          feedbackLabel.setText("Compiled successfully");
+      } catch (InputMismatchException e) {
+          feedbackLabel.setText("Error compiling function: " + e.getMessage());
+          e.printStackTrace();
+      }
+
+        catch (Exception e) {
+          feedbackLabel.setText("Error compiling function: " + e.getMessage());
+          e.printStackTrace();
+      }
+
 
 
     }
@@ -43,8 +60,17 @@ public class CodeEditor extends Group {
         super(theControlP5, theName);
         _property = property;
 
-        children.add(commandField);
+        //init code editor
+        KFunction function = (KFunction) _property.getValue();
+        if (function != null){
+            codeTextbox.setText(function.getSourceCode());
+        }
+        children.add(codeTextbox);
+
+        //init feedback label
         children.add(feedbackLabel);
+
+        //init compile button
         children.add(compileButton);
 
         children.forEach(child -> {

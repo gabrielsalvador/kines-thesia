@@ -9,8 +9,9 @@ public class KFunction implements KStatement{
 
 
     int parameterNumber;
-    Map<String, Object> scope = new HashMap<>();
-    List<KStatement> statements = new ArrayList<>();
+    private Map<String, Object> scope = new HashMap<>();
+    private List<KStatement> statements = new ArrayList<>();
+    private String sourceCode;
 
     public KFunction( int parameterNumber, List<KStatement> statements) {
 
@@ -40,5 +41,12 @@ public class KFunction implements KStatement{
 
     public List<KStatement> getStatements() {
         return new ArrayList<>(statements);
+    }
+
+    public String getSourceCode() {
+        return sourceCode;
+    }
+    public void setSourceCode(String sourceCode) {
+        this.sourceCode = sourceCode;
     }
 }
