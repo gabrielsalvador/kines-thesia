@@ -5,10 +5,8 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Set;
+import java.util.*;
+
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
@@ -25,7 +23,7 @@ public class PObject implements Serializable {
     transient private boolean _isSelected = false;
     private boolean _isHovered = false;
     private final Set<PObject> _children = new HashSet<>();
-    transient private final LinkedHashMap<String, PObjectProperty> _properties = new LinkedHashMap<>();
+    transient private ArrayList<PObjectProperty> _cachedProperties;
     private final LinkedHashMap<Class<? extends Component>, Component> _components = new LinkedHashMap<>();
 
 
@@ -76,18 +74,16 @@ public class PObject implements Serializable {
         return _children;
     }
 
-    // Property Management
-    public PObjectProperty getProperty(String name) {
-        return _properties.get(name);
-    }
 
-    public PObject addProperty(PObjectProperty property) {
-        _properties.put(property.getName(), property);
-        return this;
-    }
 
-    public HashMap<String, PObjectProperty> getProperties() {
-        return _properties;
+
+
+    public ArrayList<PObjectProperty> getProperties() {
+
+        if (_cachedProperties == null) {
+            _cachedProperties = PObjectProperty.getProperties(this);
+        }
+        return _cachedProperties;
     }
 
     // Component Management

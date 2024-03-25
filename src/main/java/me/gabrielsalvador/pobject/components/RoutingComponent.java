@@ -1,6 +1,7 @@
 package me.gabrielsalvador.pobject.components;
 
 
+import controlP5.DropdownList;
 import me.gabrielsalvador.kinescript.ast.KFunction;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
@@ -74,7 +75,15 @@ public class RoutingComponent extends Component {
     }
 
 
+    @InspectableProperty(displayName = "Delay",controllerClass = DropdownList.class)
     private int _delay = 0;
+    @InspectableProperty(displayName = "Delay")
+    public int getDelay() {
+        return _delay;
+    }
+
+
+
 
     private int _subdivisions = 1;
 
@@ -103,10 +112,7 @@ public class RoutingComponent extends Component {
         System.out.println("Subdivisions set to " + subdivisions);
     }
 
-    @InspectableProperty(displayName = "Delay")
-    public int getDelay() {
-        return _delay;
-    }
+
 
     @InspectableProperty.SetterFor("Delay")
     public void setDelay(int delay) {

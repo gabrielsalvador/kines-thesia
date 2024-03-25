@@ -1,5 +1,6 @@
 package me.gabrielsalvador.pobject;
 
+import controlP5.Slider;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
 import me.gabrielsalvador.pobject.views.BlinkingLigth;
@@ -11,7 +12,7 @@ public class PMetronome extends PObject implements Device {
 
 
     int _periodicityIn16thNotes = 16;
-    @InspectableProperty(displayName = "Periodicity")
+    @InspectableProperty(displayName = "Periodicity",controllerClass = Slider.class)
     public int getPeriodicityIn16thNotes() {
         return _periodicityIn16thNotes;
     }

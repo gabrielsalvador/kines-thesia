@@ -53,59 +53,16 @@ public abstract class  Component implements Serializable {
 
 
 
-    /* Goes through all the fields of the component and creates a PObjectProperty if they are market with the InspectableProperties anotation */
+
     public ArrayList<PObjectProperty> getProperties() {
         if (!cachedProperties.isEmpty()) {
             return cachedProperties;
         }
-
-        // Map to hold fieldName -> setterMethod
-        Map<String, Method> setterMethods = new HashMap<>(); //Q: how to make this a map of <String, <Method,Class>>? A: use a Pair class
-
-        Map<String,Class<? extends InspectorController>> controllerClasses = new HashMap<>();
-
-
-        Class<?> currentClass = this.getClass();
-
-        // Collect methods and fields from this class and all superclasses
-        while (currentClass != null) {
-
-            // Collect setter methods
-            for (Method method : currentClass.getDeclaredMethods()) {
-                if (method.isAnnotationPresent(SetterFor.class)) {
-                    SetterFor setterForAnnotation = method.getAnnotation(SetterFor.class);
-                    setterMethods.put(setterForAnnotation.value(), method);
-                }
-            }
-
-
-
-
-            // Check fields for the InspectableProperty annotation
-            for (Method method : currentClass.getDeclaredMethods()) {
-                if (method.isAnnotationPresent(InspectableProperty.class)) {
-
-                    InspectableProperty propertyAnnotation = method.getAnnotation(InspectableProperty.class);
-                    String displayName = propertyAnnotation.displayName().isEmpty() ? method.getName() : propertyAnnotation.displayName();
-
-                    Class<?> controllerClass = propertyAnnotation.controllerClass();
-
-                    method.setAccessible(true);
-                    PObjectProperty property = new PObjectProperty(this, displayName, method.getReturnType()).setGetter(method);
-                    property.setControllerClass(controllerClass);
-
-                    // Link the setter method to the property using the SetterFor annotation value
-                    if (setterMethods.containsKey(displayName)) {
-                        property.setSetter(setterMethods.get(displayName));
-                    }
-
-                    cachedProperties.add(property);
-                }
-            }
-
-            // Move to the superclass for the next iteration
-            currentClass = currentClass.getSuperclass();
+        else {
+            cachedProperties = PObjectProperty.getProperties(this);
         }
+
+
 
         return cachedProperties;
     }

@@ -48,9 +48,24 @@ public class InspectorController extends Group implements PropertyChangeListener
 
         //go through all the selected objects and separate the properties by controller
         for (PObject object : changedSelection) {
+
+            //for PObject properties
+            ArrayList<PObjectProperty> mainProperties = object.getProperties();
+            for (PObjectProperty property : mainProperties) {
+                if(propertiesOfController.containsKey(property.getControllerClass())){
+
+                    propertiesOfController.get(property.getControllerClass()).add(property);
+                }else{
+                    ArrayList<PObjectProperty> newProperties = new ArrayList<>();
+                    newProperties.add(property);
+                    propertiesOfController.put(property.getControllerClass(),newProperties);
+                }
+            }
+
+            // for Component properties
             for (Component component : object.getComponents().values()) {
-                ArrayList<PObjectProperty> properties = component.getProperties();
-                for (PObjectProperty property : properties) {
+                ArrayList<PObjectProperty> componentProperties = component.getProperties();
+                for (PObjectProperty property : componentProperties) {
                     if(propertiesOfController.containsKey(property.getControllerClass())){
 
                         propertiesOfController.get(property.getControllerClass()).add(property);
@@ -69,10 +84,13 @@ public class InspectorController extends Group implements PropertyChangeListener
             ArrayList<PObjectProperty> properties = propertiesOfController.get(controllerType);
 
             ControllerInterface<?> controller = properties.get(0).instantiateController(cp5);
-            if(controller instanceof CodeEditor){
-                ((CodeEditor) controller).setWidth(getWidth());
+
+            if (controller != null){
+                if(controller instanceof Group){
+                    ((Group) controller).setWidth(getWidth());
+                }
+                addChildVertically(controller);
             }
-            addChildVertically(controller);
 
         }
 
