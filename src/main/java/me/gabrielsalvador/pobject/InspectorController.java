@@ -4,6 +4,7 @@ import controlP5.*;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.components.controllers.CodeEditor;
+import me.gabrielsalvador.pobject.components.controllers.KKnob;
 
 import javax.lang.model.type.NoType;
 import java.beans.PropertyChangeEvent;
@@ -88,8 +89,12 @@ public class InspectorController extends Group implements PropertyChangeListener
             if (controller != null){
                 if(controller instanceof Group){
                     ((Group) controller).setWidth(getWidth());
+                    if (controller instanceof KKnob){
+                        ((KKnob) controller).setSize(30,30);
+                    }
                 }
                 addChildVertically(controller);
+                addChildVertically(new Spacer(cp5, "spacer" + controller.getName()).setSize(getWidth(), 10));
             }
 
         }
