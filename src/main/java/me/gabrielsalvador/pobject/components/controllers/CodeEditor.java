@@ -1,7 +1,7 @@
 package me.gabrielsalvador.pobject.components.controllers;
 
 import controlP5.*;
-import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.kinescript.ast.KFunction;
 import me.gabrielsalvador.kinescript.lang.Kinescript;
 import me.gabrielsalvador.pobject.PObjectProperty;
@@ -19,9 +19,9 @@ public class CodeEditor extends Group {
     private final PObjectProperty _property;
     List<ControllerInterface<?>> children = new ArrayList<>();
 
-    Textlabel titleLabel = new Textlabel(Sinesthesia.getInstance().getCP5(), "titleLabel");
+    Textlabel titleLabel = new Textlabel(App.getInstance().getCP5(), "titleLabel");
 
-    MultilineTextfield codeTextbox = new MultilineTextfield(Sinesthesia.getInstance().getCP5(), "Enter command here");
+    MultilineTextfield codeTextbox = new MultilineTextfield(App.getInstance().getCP5(), "Enter command here");
     {
         codeTextbox.getCaptionLabel().hide();
         codeTextbox.addListenerFor(ControlP5Constants.ACTION_BROADCAST, event -> {
@@ -31,8 +31,8 @@ public class CodeEditor extends Group {
         .setHeight(100)
         ;
     }
-    Textlabel feedbackLabel = new Textlabel(Sinesthesia.getInstance().getCP5(), "feedbackLabel");
-    Button compileButton = new Button(Sinesthesia.getInstance().getCP5(), "Compile").addListenerFor(ControlP5Constants.ACTION_CLICK, event -> {
+    Textlabel feedbackLabel = new Textlabel(App.getInstance().getCP5(), "feedbackLabel");
+    Button compileButton = new Button(App.getInstance().getCP5(), "Compile").addListenerFor(ControlP5Constants.ACTION_CLICK, event -> {
         compile();
     });
 

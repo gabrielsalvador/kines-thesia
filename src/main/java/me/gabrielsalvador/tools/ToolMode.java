@@ -1,7 +1,7 @@
 package me.gabrielsalvador.tools;
 
 import me.gabrielsalvador.Config;
-import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.core.App;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.event.KeyEvent;
@@ -51,7 +51,7 @@ public class ToolMode {
     }
 
     public ToolMode setIcon(String path) {
-        PApplet papplet = Sinesthesia.getInstance();
+        PApplet papplet = App.getInstance();
         _cursorIcon = papplet.loadImage(Config.ICON_FOLDER_PATH + path);
         return this;
     }

@@ -7,14 +7,14 @@ import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 import controlP5.MappableCommand;
-import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.core.App;
 import org.reflections.Reflections;
 import processing.event.KeyEvent;
 
 
 public class ToolManager  {
     private static ToolManager _instance;
-    private final Sinesthesia _app;
+    private final App _app;
     private final Stack<Tool> _toolHistory = new Stack<>();
     protected Set<Class<? extends Tool>> availableTools = new HashSet<>();
 
@@ -22,7 +22,7 @@ public class ToolManager  {
 
 
     private ToolManager() {
-        _app = Sinesthesia.getInstance();
+        _app = App.getInstance();
         loadToolClasses();
         _toolHistory.push(new SelectTool());
     }

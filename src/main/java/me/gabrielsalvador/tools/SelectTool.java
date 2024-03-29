@@ -36,7 +36,7 @@ public class SelectTool extends Tool {
     }
 
     public SelectTool() {
-        _cp5 = Sinesthesia.getInstance().getCP5();   
+        _cp5 = App.getInstance().getCP5();
         
     }
 

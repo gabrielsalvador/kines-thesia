@@ -5,7 +5,7 @@ import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.views.View;
 import me.gabrielsalvador.sequencing.SequencerController;
-import me.gabrielsalvador.utils.MusicalNote;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class AppController {
 
     public  CanvasController getCanvas(){
         if(_canvasController == null){
-            _canvasController = (CanvasController) Sinesthesia.getInstance().getCP5().getController("MainCanvas");
+            _canvasController = (CanvasController) App.getInstance().getCP5().getController("MainCanvas");
         }
         return _canvasController;
     }
@@ -136,7 +136,7 @@ public class AppController {
 
 
     public SequencerController getSequencerController() {
-        return (SequencerController) Sinesthesia.getInstance().getCP5().getController(Config.MAIN_SEQUENCER_NAME);
+        return (SequencerController) App.getInstance().getCP5().getController(Config.MAIN_SEQUENCER_NAME);
     }
 
 

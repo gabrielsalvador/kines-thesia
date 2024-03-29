@@ -26,7 +26,7 @@ public class InputManager {
     public static synchronized InputManager getInstance() {
         if (_instance == null) {
             _instance = new InputManager();
-            Sinesthesia.getInstance().registerMethod("keyEvent", _instance);
+            App.getInstance().registerMethod("keyEvent", _instance);
         }
 
         return _instance;
@@ -35,7 +35,7 @@ public class InputManager {
     public void keyEvent( KeyEvent event ) {
         //prevent ESC key from closing the app
         if (event.getKey() == 27) {
-            Sinesthesia.getInstance().key = 0;
+            App.getInstance().key = 0;
 
         }
 

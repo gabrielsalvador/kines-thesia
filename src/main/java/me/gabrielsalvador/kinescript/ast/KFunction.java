@@ -29,7 +29,7 @@ public class KFunction implements KStatement, Serializable {
     public Object execute(Map<String, Object> parentScope) {
 
         for (KStatement statement : statements) {
-            statement.execute(scope);
+            statement.execute(parentScope);
         }
 
         return null;
@@ -39,9 +39,7 @@ public class KFunction implements KStatement, Serializable {
         return scope;
     }
 
-    public int getParameterNumber() {
-        return parameterNumber;
-    }
+
 
     public List<KStatement> getStatements() {
         return new ArrayList<>(statements);

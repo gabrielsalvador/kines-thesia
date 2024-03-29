@@ -2,7 +2,7 @@ package me.gabrielsalvador;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.core.App;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -32,7 +32,7 @@ public class ResourceManager {
     }
 
     private void loadIcons(){
-        PApplet app = Sinesthesia.getInstance();
+        PApplet app = App.getInstance();
         for (Map.Entry<String, PImage> entry : icons.entrySet()) {
             try{
                 PImage img = app.loadImage(Config.ICON_FOLDER_PATH + "/" + entry.getKey());

@@ -4,7 +4,7 @@ import controlP5.ControlP5;
 import controlP5.Textfield;
 import controlP5.TextfieldCommand;
 import me.gabrielsalvador.common.SkipProcessing;
-import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.core.CanvasController;
 import me.gabrielsalvador.kinescript.ast.KFunction;
 import me.gabrielsalvador.kinescript.lang.Kinescript;
@@ -22,7 +22,7 @@ public class CommandTool extends Tool {
     private Textfield _textfield;
 
     public CommandTool() {
-        ControlP5 cp5 = Sinesthesia.getInstance().getCP5();
+        ControlP5 cp5 = App.getInstance().getCP5();
         int x = cp5.getPointer().getX();
         int y = cp5.getPointer().getY();
         _textfield = (Textfield) cp5.getController("CommandTextfield");
@@ -89,7 +89,7 @@ public class CommandTool extends Tool {
 
         @Override
         public void execute() {
-            ControlP5 cp5 = Sinesthesia.getInstance().getCP5();
+            ControlP5 cp5 = App.getInstance().getCP5();
 
             CanvasController canvas = (CanvasController) cp5.getController("MainCanvas");
             canvas.setUserInteraction(true);

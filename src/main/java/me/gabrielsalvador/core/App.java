@@ -12,22 +12,19 @@ import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.SequencerController;
-import me.gabrielsalvador.tools.CommandTool;
-import me.gabrielsalvador.tools.SelectTool;
-import me.gabrielsalvador.tools.ToolManager;
 import me.gabrielsalvador.tools.ToolboxController;
 import org.jbox2d.dynamics.World;
 import processing.core.PApplet;
 import processing.core.PFont;
 
-public class Sinesthesia extends PApplet {
+public class App extends PApplet {
 
-    private static Sinesthesia _instance;
+    private static App _instance;
     private InputManager _inputManager;
     private ControlP5 _cp5;
     private Clock _clock;
 
-    public Sinesthesia() {
+    public App() {
         super();
         _instance = this;
 
@@ -35,9 +32,9 @@ public class Sinesthesia extends PApplet {
 
     Textarea debugInfo;
 
-    public static synchronized Sinesthesia getInstance() {
+    public static synchronized App getInstance() {
         if (_instance == null) {
-            _instance = new Sinesthesia();
+            _instance = new App();
         }
 
         return _instance;
@@ -45,7 +42,7 @@ public class Sinesthesia extends PApplet {
 
     public static void main(String[] args) {
         System.setProperty("sun.java2d.uiScale.enabled", "true");
-        PApplet.main("me.gabrielsalvador.core.Sinesthesia");
+        PApplet.main("me.gabrielsalvador.core.App");
     }
 
     public void settings() {
@@ -80,9 +77,11 @@ public class Sinesthesia extends PApplet {
             String xmlContent = new String(Files.readAllBytes(xmlPath));
             builder.parseXML(xmlContent);
         } catch (Exception e) {
-
+            System.out.println("Error loading layout, check your mainLayout.xml file.");
             e.printStackTrace();
         }
+
+        Object playButton = _cp5.getController("playButton");
 
         loadAppState();
 

@@ -43,13 +43,13 @@ public interface PObjectPreset {
         @Override
         public PObject[] create() {
             //emitter obj
-            PObject pObject = new PObject();
+            PObject emitter = new PObject();
 
             //emitter body
-            HologramBody bodyComponent = new HologramBody(pObject);
-            bodyComponent.setPixelPosition(_position);
-            bodyComponent.setView(new PEmitterView(bodyComponent));
-            pObject.addComponent(BodyComponent.class, bodyComponent);
+            HologramBody emitterBody = new HologramBody(emitter);
+            emitterBody.setPixelPosition(_position);
+            emitterBody.setView(new PEmitterView(emitterBody));
+            emitter.addComponent(BodyComponent.class, emitterBody);
 
             //metronome obj
             PObject metronome = new PMetronome();
@@ -61,17 +61,17 @@ public interface PObjectPreset {
 
 
             //routing
-            RoutingComponent routingComponent = new RoutingComponent(pObject);
-            pObject.addComponent(RoutingComponent.class, routingComponent);
+            RoutingComponent emitterRouting = new RoutingComponent(emitter);
+            emitterRouting.setPulseCallback(
+                    Kinescript.compileFunction("add(\"droplet\", x, y)")
+            );
+            emitter.addComponent(RoutingComponent.class, emitterRouting);
             RoutingComponent metronomeRoutingComponent = new RoutingComponent(metronome);
             metronome.addComponent(RoutingComponent.class, metronomeRoutingComponent);
-            //
-            metronome.getRoutingComponent().setTarget(pObject);
 
+            metronome.getRoutingComponent().setTarget(emitter);
 
-
-
-            return new PObject[]{pObject, metronome};
+            return new PObject[]{emitter, metronome};
 
         }
 
@@ -156,6 +156,9 @@ public interface PObjectPreset {
 
             pObject1.addComponent(BodyComponent.class, physicsBody);
             OnCollision onCollision = new OnCollision(pObject1);
+            onCollision.setOnCollisionFunction(
+                    Kinescript.compileFunction("midi(channel,pitch, velocity)")
+            );
 
             pObject1.addComponent(OnCollision.class, onCollision);
 

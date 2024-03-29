@@ -1,6 +1,6 @@
 package me.gabrielsalvador.tools;
 
-import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.tools.gizmo.Gizmo;
 import org.jbox2d.common.Vec2;
@@ -15,7 +15,7 @@ public abstract class Tool implements Serializable {
     public static final int MODE_NORMAL = 0;
     private String _name;
     private String _description;
-    private final PApplet _papplet = Sinesthesia.getInstance();
+    private final PApplet _papplet = App.getInstance();
     private final ArrayList<ToolMode> _modes = new ArrayList<>();
     private ToolMode _currentMode = null;
     protected ArrayList<Gizmo> _gizmos = new ArrayList<Gizmo>();
@@ -112,7 +112,7 @@ public abstract class Tool implements Serializable {
     private void checkIfShouldSwitchMode() {
         setCurrentMode(getModes().get(0));
         for (ToolMode mode : getModes()) {
-            if (mode.shouldSwitchMode(Sinesthesia.getInstance())) {
+            if (mode.shouldSwitchMode(App.getInstance())) {
                 setCurrentMode(mode);
                 break;
             }

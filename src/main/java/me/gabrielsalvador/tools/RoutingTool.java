@@ -2,14 +2,10 @@ package me.gabrielsalvador.tools;
 
 import me.gabrielsalvador.common.DisplayName;
 import me.gabrielsalvador.core.AppController;
-import me.gabrielsalvador.core.CanvasController;
-import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import org.jbox2d.common.Vec2;
-import processing.core.PApplet;
 import processing.core.PGraphics;
-import processing.core.PVector;
 import processing.event.KeyEvent;
 
 @DisplayName("Routing")

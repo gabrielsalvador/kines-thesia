@@ -2,19 +2,14 @@ package me.gabrielsalvador.pobject;
 
 
 import me.gabrielsalvador.core.AppController;
-import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
 import me.gabrielsalvador.pobject.components.body.HologramBodyView;
 import me.gabrielsalvador.pobject.routing.*;
-import me.gabrielsalvador.pobject.views.BlinkingLigth;
 import me.gabrielsalvador.pobject.views.PKeyboardView;
-import me.gabrielsalvador.pobject.views.PMetronomeView;
-import me.gabrielsalvador.sequencing.Device;
 
 import java.io.Serial;
-import java.util.ArrayList;
 
 
 public class PKeyboard extends PObject implements  Inlet{

@@ -5,7 +5,7 @@ import me.gabrielsalvador.Config;
 import me.gabrielsalvador.common.DisplayName;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.CanvasController;
-import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObjectPreset;
 import org.jbox2d.common.Vec2;
@@ -41,7 +41,7 @@ public class AddResonatorTool extends Tool {
 
 
     public AddResonatorTool() {
-        _cp5 = Sinesthesia.getInstance().getCP5();
+        _cp5 = App.getInstance().getCP5();
 
     }
 

@@ -138,7 +138,7 @@ public class RoutingComponent extends Component {
 
     public void sendPulse(Object message) {
 
-        Stopwatch.start();
+
         if (_target == null ) return;
         RoutingComponent rc = _target.getRoutingComponent();
         if (rc == null)
@@ -156,9 +156,9 @@ public class RoutingComponent extends Component {
         scope.put("y", _owner.getBodyComponent().getPixelCenter().y);
 
         if (_pulseCallback != null) {
-            _pulseCallback.execute(null);
+            _pulseCallback.execute(scope);
         }
 
-        Stopwatch.stopAndPrint();
+
     }
 }

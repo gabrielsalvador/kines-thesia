@@ -2,7 +2,7 @@ package me.gabrielsalvador.pobject;
 
 
 
-import me.gabrielsalvador.core.Sinesthesia;
+import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.pobject.components.OnCollision;
 import me.gabrielsalvador.pobject.components.body.BodyData;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
@@ -17,12 +17,11 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.Contact;
 import processing.core.PApplet;
-import processing.core.PVector;
 
 
 public class PhysicsManager {
     private static final int Y_FLIP_INDICATOR = -1;
-    PApplet parent = Sinesthesia.getInstance();
+    PApplet parent = App.getInstance();
     private static PhysicsManager _instance;
     private final Vec2 _gravity = new Vec2(0, 20.0f);
     private final World _world = new World(_gravity);
