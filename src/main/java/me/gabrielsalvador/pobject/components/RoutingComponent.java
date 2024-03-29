@@ -12,6 +12,9 @@ import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RoutingComponent extends Component {
 
     private PObject _target;
@@ -146,6 +149,12 @@ public class RoutingComponent extends Component {
     }
 
     private void receivePulse(Object message) {
+
+        Map<String, Object> scope = new HashMap<>();
+        scope.put("message", message);
+        scope.put("x", _owner.getBodyComponent().getPixelCenter().x);
+        scope.put("y", _owner.getBodyComponent().getPixelCenter().y);
+
         if (_pulseCallback != null) {
             _pulseCallback.execute(null);
         }

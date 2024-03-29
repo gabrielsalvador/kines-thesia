@@ -1,5 +1,7 @@
 package me.gabrielsalvador.kinescript.ast;
 
+import me.gabrielsalvador.kinescript.lang.Kinescript;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;

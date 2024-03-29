@@ -1,6 +1,7 @@
 package me.gabrielsalvador.pobject;
 
-import me.gabrielsalvador.core.AppController;
+
+import me.gabrielsalvador.kinescript.lang.Kinescript;
 import me.gabrielsalvador.pobject.components.OnCollision;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.*;
@@ -12,6 +13,16 @@ import org.jbox2d.dynamics.BodyType;
 
 
 public interface PObjectPreset {
+
+    static PObjectPreset getPresetByName(String presetName) {
+        return switch (presetName) {
+            case "emitter" -> new EmitterPreset();
+            case "droplet" -> new DropletPreset(new Vec2(0, 0));
+            case "resonator" -> new ResonatorPreset(new Vec2(0, 0), new Vec2(0, 0), 0);
+            case "keyboard" -> new KeyboardPreset(new Vec2(0, 0));
+            default -> null;
+        };
+    }
 
     PObject[] create();
 

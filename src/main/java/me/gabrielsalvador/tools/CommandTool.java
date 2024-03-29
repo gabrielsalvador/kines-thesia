@@ -4,20 +4,17 @@ import controlP5.ControlP5;
 import controlP5.Textfield;
 import controlP5.TextfieldCommand;
 import me.gabrielsalvador.common.SkipProcessing;
-import me.gabrielsalvador.core.AppController;
-import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.core.Sinesthesia;
 import me.gabrielsalvador.core.CanvasController;
+import me.gabrielsalvador.kinescript.ast.KFunction;
+import me.gabrielsalvador.kinescript.lang.Kinescript;
 import me.gabrielsalvador.pobject.*;
-import me.gabrielsalvador.pobject.components.body.BodyComponent;
-import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
-import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.event.KeyEvent;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 @SkipProcessing
 public class CommandTool extends Tool {
@@ -99,6 +96,15 @@ public class CommandTool extends Tool {
 
             Textfield tf = _textfield;
             String command = tf.getText();
+
+            KFunction program = Kinescript.compileFunction(command);
+
+            try {
+                program.execute(new HashMap<>());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
             _textfield.clear();
             _textfield.hide();
