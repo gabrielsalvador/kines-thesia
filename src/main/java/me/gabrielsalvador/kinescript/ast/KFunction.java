@@ -10,14 +10,14 @@ import java.util.Map;
 public class KFunction implements KStatement, Serializable {
 
 
-    int parameterNumber;
+
     private transient Map<String, Object> scope = new HashMap<>();
     private transient List<KStatement> statements = new ArrayList<>();
     private String sourceCode;
 
     public KFunction( int parameterNumber, List<KStatement> statements) {
 
-        this.parameterNumber = parameterNumber;
+
         this.statements = statements;
 
     }
@@ -53,15 +53,13 @@ public class KFunction implements KStatement, Serializable {
     }
 
 
-    @Serial
-    public void writeObject(java.io.ObjectOutputStream out)
+    @Serial private void writeObject(java.io.ObjectOutputStream out)
             throws java.io.IOException {
-        out.writeChars(sourceCode);
+        out.writeUTF(sourceCode);
     }
 
-    @Serial
-    public void readObject(java.io.ObjectInputStream in)
-            throws java.io.IOException, ClassNotFoundException {
-        sourceCode = in.readLine();
+   @Serial private void readObject(java.io.ObjectInputStream in)  throws java.io.IOException, ClassNotFoundException {
+        sourceCode = in.readUTF();
+        statements = Kinescript.compileFunction(sourceCode).getStatements();
     }
 }

@@ -1,5 +1,7 @@
 package me.gabrielsalvador.kinescript.lang;
 
+import me.gabrielsalvador.kinescript.builtins.AddBuiltin;
+import me.gabrielsalvador.kinescript.builtins.ClearBuiltin;
 import me.gabrielsalvador.kinescript.builtins.KRandom;
 import me.gabrielsalvador.kinescript.builtins.MidiBuiltin;
 import me.gabrielsalvador.kinescript.ast.*;
@@ -86,7 +88,9 @@ public class Kinescript implements KinescriptVisitor{
     @Override
     public Object visitExpr(KinescriptParser.ExprContext ctx) {
         if (ctx.STRING() != null) {
-            return new KExpression(false, ctx.STRING().getText());
+            //get text without quotes
+            String text = ctx.STRING().getText();
+            return new KExpression(false, text.substring(1, text.length() - 1));
         }else if (ctx.INT() != null) {
             return new KExpression(false, Integer.parseInt(ctx.INT().getText()));
         }
@@ -121,8 +125,12 @@ public class Kinescript implements KinescriptVisitor{
             return new KPrint( args.get(0));
         }else if (name.equals("midi")) {
             return new MidiBuiltin( args );
-        }if (name.equals("random")) {
+        }else if (name.equals("random")) {
             return new KRandom( );
+        }else if (name.equals("clear")) {
+            return new ClearBuiltin( args );
+        }else if (name.equals("add")) {
+            return new AddBuiltin( args );
         }
 
         KFunction function = (KFunction) program.getScope().get(name);
@@ -132,9 +140,7 @@ public class Kinescript implements KinescriptVisitor{
 
 
 
-        if (args.size() != function.getParameterNumber() ){
-            throw new RuntimeException("Wrong number of arguments for function: " + name);
-        }
+
 
         return function.execute(program.getScope());
 
@@ -202,9 +208,8 @@ public class Kinescript implements KinescriptVisitor{
         KStatement builtIn = getBuiltInFunction(name);
         if (builtIn != null) {
             return builtIn;
-        }else {
-            throw new RuntimeException("Function with name " + name + " does not exist");
         }
+        return null;
     }
 
     public static KStatement getBuiltInFunction(String name) {
