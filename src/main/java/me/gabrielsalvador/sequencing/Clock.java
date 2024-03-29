@@ -1,5 +1,6 @@
 package me.gabrielsalvador.sequencing;
 
+import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
 import java.util.concurrent.Executors;
@@ -19,7 +20,7 @@ public class Clock {
 
     private Clock() {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
-        startTickExecutor();
+//        startTickExecutor();
         AppController.getInstance().addPropertyChangeListener("tempo", evt -> {
             setTempo((int) evt.getNewValue());
         });
@@ -40,34 +41,29 @@ public class Clock {
     private void startTickExecutor() {
         if (executorService.isShutdown() || executorService.isTerminated()) {
             executorService = Executors.newSingleThreadScheduledExecutor();
-            executorService.scheduleAtFixedRate(() -> {
-                _lastTickTime = System.nanoTime();
-                try {
-                    for (Object d : AppState.getInstance().getPObjects()) {
-                        if (!(d instanceof Device)) {
-                            continue;
-                        }
-                        if (Thread.currentThread().isInterrupted()) {
-                            return;
-                        }
-                        ((Device)d).clockTick();
-                    }
-                    SequencerController sequencerController = AppController.getInstance().getSequencerController();
-                    //TODO:instead of sending clock tick to all devices, and then sending clock tick to sequencer, create a list of devices that need to receive clock tick
-                    if (sequencerController != null) {
-                        sequencerController.clockTick();
-                    }
-
-
-                } catch (Exception e) {
-                    System.err.println("Exception caught inside the task.");
-                    e.printStackTrace();
-                }
-
-
-            }, 0, getPeriodOfNthNotes(_periodIn16thNotes), TimeUnit.NANOSECONDS);
-            _transportState = TransportState.PLAYING;
         }
+        executorService.scheduleAtFixedRate(() -> {
+            _lastTickTime = System.nanoTime();
+            try {
+                for (Object d : AppState.getInstance().getPObjects()) {
+                    if (!(d instanceof Device)) {
+                        continue;
+                    }
+                    if (Thread.currentThread().isInterrupted()) {
+                        return;
+                    }
+                    ((Device)d).clockTick();
+                }
+                SequencerController sequencerController = AppController.getInstance().getSequencerController();
+                if (sequencerController != null) {
+                    sequencerController.clockTick();
+                }
+            } catch (Exception e) {
+                System.err.println("Exception caught inside the task.");
+                e.printStackTrace();
+            }
+        }, 0, getPeriodOfNthNotes(_periodIn16thNotes), TimeUnit.NANOSECONDS);
+        _transportState = TransportState.PLAYING;
     }
 
 
@@ -81,18 +77,23 @@ public class Clock {
     }
 
     public void togglePlay() {
-        if (executorService.isShutdown() || executorService.isTerminated()) {
+        TransportState oldState = getTransportState();
+        if (oldState != TransportState.PLAYING) {
             play();
         } else {
             pause();
         }
+        AppController.getInstance().firePropertyChange("transport", oldState, getTransportState());
     }
 
     public void play() {
+
         startTickExecutor();
+
     }
 
     public void pause() {
+
         if (!executorService.isShutdown()) {
             executorService.shutdownNow();
             _transportState = TransportState.PAUSED;

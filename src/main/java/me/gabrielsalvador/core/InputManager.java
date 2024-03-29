@@ -3,6 +3,8 @@ package me.gabrielsalvador.core;
 
 import java.util.HashMap;
 
+import controlP5.ControlP5;
+import controlP5.MappableCommand;
 import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.tools.ToolManager;
 import processing.event.KeyEvent;
@@ -15,7 +17,7 @@ public class InputManager {
     private final HashMap<Character, Runnable> _keyMappings = new HashMap<>() {{
         put('W', () -> System.out.println("W key pressed: Moving up!"));
         put('A', () -> System.out.println("A key pressed: Moving left!"));
-        put(' ',() -> Clock.getInstance().togglePlay());
+
     }};
 
 
@@ -29,10 +31,16 @@ public class InputManager {
             App.getInstance().registerMethod("keyEvent", _instance);
         }
 
+        // setup key mappings
+        ControlP5 cp5 = App.getInstance().getCP5();
+        cp5.mapKeyFor( ()-> Clock.getInstance().togglePlay(), ' ');
+
+
+
         return _instance;
     }
 
-    public void keyEvent( KeyEvent event ) {
+    public void keyEvent(KeyEvent event) {
         //prevent ESC key from closing the app
         if (event.getKey() == 27) {
             App.getInstance().key = 0;
@@ -42,13 +50,12 @@ public class InputManager {
         if (event.getAction() == KeyEvent.PRESS) {
             if (_keyMappings.containsKey(event.getKey())) {
                 _keyMappings.get(event.getKey()).run();
-            }else {
-                    _toolManager.keyEvent(event);
+            } else {
+                _toolManager.keyEvent(event);
 
             }
         }
     }
 
- 
 
 }

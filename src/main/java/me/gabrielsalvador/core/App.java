@@ -13,6 +13,7 @@ import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.sequencing.Clock;
 import me.gabrielsalvador.sequencing.SequencerController;
 import me.gabrielsalvador.tools.ToolboxController;
+import me.gabrielsalvador.ui.TransportButton;
 import org.jbox2d.dynamics.World;
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -71,6 +72,7 @@ public class App extends PApplet {
         builder.addCustomClasses("Toolbox", ToolboxController.class);
         builder.addCustomClasses("Inspector", InspectorController.class);
         builder.addCustomClasses("Sequencer", SequencerController.class);
+        builder.addCustomClasses("TransportButton", TransportButton.class);
 
         try {
             Path xmlPath = Paths.get(Config.RESOURCES_PATH+"/mainLayout.xml");

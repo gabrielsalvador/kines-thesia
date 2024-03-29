@@ -1,7 +1,7 @@
 <Window>
     <Group y=0px x=0px hideBar x=0px y=0px height=100% width=100% background=rgb(30,30,30) orientation="vertical">
         <Group hideBar height=10% width=100% background=rgb(30,30,30) orientation="horizontal" padding=(10,0,10,0)>
-            <Button icon="play" height=100%></Button>
+            <TransportButton name="playButton"  height=100%></TransportButton>
              <Textfield text="120" fontSize=28px width=70px background=rgb(30,30,30) height=100%></Textfield>
              <Textlabel text="BPM" fontSize=28px width=50px height=100% background=rgb(30,30,30) ></Textlabel>
         </Group>

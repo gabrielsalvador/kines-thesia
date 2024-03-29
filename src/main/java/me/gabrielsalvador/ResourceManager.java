@@ -1,4 +1,5 @@
 package me.gabrielsalvador;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,21 +33,31 @@ public class ResourceManager {
     }
 
     private void loadIcons(){
-        PApplet app = App.getInstance();
-        for (Map.Entry<String, PImage> entry : icons.entrySet()) {
-            try{
-                PImage img = app.loadImage(Config.ICON_FOLDER_PATH + "/" + entry.getKey());
-                img.resize(32, 32);
-                entry.setValue(img);
-            }catch(Exception e){
-                System.out.println("Error loading icon: " + entry.getKey());
-            }
-        }
+//        PApplet app = App.getInstance();
+//        for (Map.Entry<String, PImage> entry : icons.entrySet()) {
+//            try{
+//                PImage img = app.loadImage(Config.ICON_FOLDER_PATH + "/" + entry.getKey());
+//                img.resize(32, 32);
+//                entry.setValue(img);
+//            }catch(Exception e){
+//                System.out.println("Error loading icon: " + entry.getKey());
+//            }
+//        }
     }
 
 
-    public PImage getIcon(String name) {
-        return  icons.get(name);
-        
+    public PImage[] loadIconStates(String name) {
+        ArrayList<PImage> icons = new ArrayList<>();
+        App app = App.getInstance();
+
+        for(String state : new String[]{"active", "hover", "normal"}){
+            PImage img = app.loadImage(Config.ICON_FOLDER_PATH + name + "-" + state + ".png");
+            if(img != null){
+                icons.add(img);
+            }
+        }
+
+        return icons.toArray(new PImage[0]);
+
     }
 }
