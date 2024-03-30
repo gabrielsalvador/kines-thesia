@@ -19,7 +19,7 @@ public class MidiBuiltin implements KStatement {
         int channel = (int) args.get(0).evaluate(parentScope);
         int pitch = (int) args.get(1).evaluate(parentScope);
         int velocity = (int) args.get(2).evaluate(parentScope);
-        MidiManager.getInstance().sendNote(channel, pitch, velocity);
+        MidiManager.getInstance().scheduleNote(channel, pitch, velocity, -1);
         return null;
     }
 }

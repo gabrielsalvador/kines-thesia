@@ -46,25 +46,22 @@ public class MidiManager {
     }
 
 
-    public void sendNote(int channel,int midiNote, int velocity) {
-        //create a new thread to send the midi note
-        new Thread(() -> {
-            _midiBus.sendNoteOn(channel, midiNote, velocity);
-            try {
-                Thread.sleep(NOTE_DURATION_MS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            _midiBus.sendNoteOff(channel, midiNote, velocity);
-        }).start();
-    }
 
-    public void scheduleNote(int channel, int midiNote, int velocity) {
+    public void scheduleNote(int channel, int midiNote, int velocity, long duration) {
+
+        if (duration == -1) {
+            duration = NOTE_DURATION_MS;
+        }
 
         long delayUntilNext16thNote = Clock.getInstance().getTimeUntilNextTick();
 
-        // Schedule the note to be played at the next 16th note boundary
-        Clock.getInstance().scheduleTask(() -> sendNote(channel,midiNote, velocity), (long) (delayUntilNext16thNote * _quantization));
+        //delay until next 16th note
+        long time = (long) (delayUntilNext16thNote * _quantization);
+        // Schedule note on
+        Clock.getInstance().scheduleTask(() -> _midiBus.sendNoteOn(channel, midiNote, velocity), time);
+        // Schedule note off
+        Clock.getInstance().scheduleTask(() -> _midiBus.sendNoteOff(channel, midiNote, velocity), time + duration*1000_000);
+
     }
 
     public MidiBus getMidiBus() {
