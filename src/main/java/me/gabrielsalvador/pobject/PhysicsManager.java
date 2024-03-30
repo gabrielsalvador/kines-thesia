@@ -3,6 +3,7 @@ package me.gabrielsalvador.pobject;
 
 
 import me.gabrielsalvador.core.App;
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.OnCollision;
 import me.gabrielsalvador.pobject.components.body.BodyData;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
@@ -18,6 +19,10 @@ import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.Contact;
 import processing.core.PApplet;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
+
 
 public class PhysicsManager {
     private static final int Y_FLIP_INDICATOR = -1;
@@ -25,15 +30,33 @@ public class PhysicsManager {
     private static PhysicsManager _instance;
     private final Vec2 _gravity = new Vec2(0, 20.0f);
     private final World _world = new World(_gravity);
-    private PhysicsManager(){
-        _world.setContactListener(new myContactListener());
-    }
+
+    private long _lastTime = System.nanoTime();
+    /* time accumulated since last physics step */
+    private float _accumulator = 0.0f;
+    /* rate at which physics simulation moves forward */
+    private final float maxFrameTime = 1.0f / 15.0f;  // Limit frameTime to 1/15th of a second
+    private final float _timeStep = 1.0f / 60.0f;
+    private final ReentrantLock lock = new ReentrantLock();
+
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private volatile boolean running = true;
 
     // Variables to keep track of translating between world and screen coordinates
     float transX = 0.0f;
     float transY = 0.0f;
     float scaleFactor = 10.0f;
     int yFlip;// = Y_FLIP_INDICATOR; //flip y coordinate
+
+    private PhysicsManager(){
+        _world.setContactListener(new myContactListener());
+        executor.submit(() -> {
+            while (running) {
+                _instance.worldLoop();
+            }
+        });
+
+    }
 
     public static PhysicsManager getInstance() {
         if (_instance == null) {
@@ -44,6 +67,30 @@ public class PhysicsManager {
         return _instance;
     }
 
+    public void worldLoop() {
+
+        long currentTime = System.nanoTime();
+        float frameTime = (currentTime - _lastTime) / 1_000_000_000.0f;
+        _lastTime = currentTime;
+
+        frameTime = Math.min(frameTime, maxFrameTime);
+
+        _accumulator += frameTime;
+
+        lock.lock();
+        try {
+            while (_accumulator >= _timeStep) {
+                step(_timeStep, 8, 3);
+                _accumulator -= _timeStep;
+            }
+        }
+        finally {
+            lock.unlock();
+        }
+
+
+        AppController.getInstance().applyModifications();
+    }
 
     public Body createCircle(Vec2 position, float radius) {
 
@@ -141,6 +188,9 @@ public class PhysicsManager {
     }
 
 
+    public ReentrantLock getLock() {
+        return lock;
+    }
 }
 
 class myContactListener implements ContactListener{

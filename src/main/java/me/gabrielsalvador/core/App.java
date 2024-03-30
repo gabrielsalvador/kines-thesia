@@ -107,7 +107,7 @@ public class App extends PApplet {
         StringBuilder debugText = new StringBuilder("FPS: " + frameRate + " \n ");
         debugText.append("Mouse: ").append(mousePosition[0]).append(", ").append(mousePosition[1]).append(" \n ");
 
-        World world = PhysicsManager.getInstance().getWorld();
+
 
         int bodyCount = AppState.getInstance().getPObjects().size();
         debugText.append("PObjects: ").append(bodyCount).append(" \n ");

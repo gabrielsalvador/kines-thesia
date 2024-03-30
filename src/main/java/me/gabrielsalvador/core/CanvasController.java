@@ -19,11 +19,6 @@ public class CanvasController extends Controller<CanvasController> implements Re
     private final ToolManager _toolManager;
     private final PhysicsManager _physicsManager;
     /* time elapsed since last frame */
-    private long _lastTime = System.nanoTime();
-    /* time accumulated since last physics step */
-    private float _accumulator = 0.0f;
-    /* rate at which physics simulation moves forward */
-    private final float _timeStep = 1.0f / 60.0f;
     private int xOff = 0;
     private int yOff = 0;
 
@@ -138,7 +133,6 @@ public class CanvasController extends Controller<CanvasController> implements Re
         return new int[]{x, y};
     }
 
-    private final float maxFrameTime = 1.0f / 15.0f;  // Limit frameTime to 1/15th of a second
 
 
     @Override
@@ -149,20 +143,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
         ToolManager.getInstance().getCurrentTool().draw(graphics);
         graphics.popMatrix();
 
-        long currentTime = System.nanoTime();
-        float frameTime = (currentTime - _lastTime) / 1_000_000_000.0f;
-        _lastTime = currentTime;
 
-        frameTime = Math.min(frameTime, maxFrameTime);
-
-        _accumulator += frameTime;
-
-        while (_accumulator >= _timeStep) {
-            _physicsManager.step(_timeStep, 8, 3);
-            _accumulator -= _timeStep;
-        }
-
-        AppController.getInstance().applyModifications();
     }
 
 
