@@ -1,6 +1,5 @@
 package me.gabrielsalvador.sequencing;
 
-import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;
 import java.util.concurrent.Executors;
@@ -13,7 +12,6 @@ public class Clock {
     private ScheduledExecutorService executorService;
     private TransportState _transportState = TransportState.STOPPED;
     private int _tempo = 120;
-
     //the time when the last tick started
     public long _lastTickTime ; //in nanoseconds
     private final int _periodIn16thNotes = 16; //how many 16th notes are sent per quarter note
@@ -35,7 +33,9 @@ public class Clock {
 
     public void setTempo(int tempo) {
         this._tempo = tempo;
-        restartTickExecutor();
+        //only restart the clock if it is already playing
+        if (_transportState == TransportState.PLAYING)
+            restartTickExecutor();
     }
 
     private void startTickExecutor() {
@@ -67,13 +67,10 @@ public class Clock {
     }
 
 
-
-
-
-
     private void restartTickExecutor() {
         pause();
         startTickExecutor();
+        AppController.getInstance().firePropertyChange("transport", null, getTransportState());
     }
 
     public void togglePlay() {
