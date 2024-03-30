@@ -4,6 +4,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
+
 import controlP5.*;
 import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
@@ -83,7 +85,6 @@ public class App extends PApplet {
             e.printStackTrace();
         }
 
-        Object playButton = _cp5.getController("playButton");
 
         loadAppState();
 
@@ -144,9 +145,20 @@ public class App extends PApplet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //terminate app
 
-        super.dispose();
+            // Wait for the clock to finish
+            _clock.shutdown();
+            try {
+                if (!_clock.awaitTermination(60, TimeUnit.SECONDS)) {
+                    System.err.println("Clock did not terminate in the given time.");
+                    _clock.forceShutdown();
+                }
+            } catch (InterruptedException e) {
+                System.err.println("Termination interrupted");
+                _clock.forceShutdown();
+            }
+
+            super.dispose();
 
     }
 

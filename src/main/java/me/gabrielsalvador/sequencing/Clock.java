@@ -126,4 +126,19 @@ public class Clock {
 
     }
 
+
+    public void shutdown() {
+        executorService.shutdown();
+        _transportState = TransportState.STOPPED;
+    }
+
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+        return executorService.awaitTermination(timeout, unit);
+    }
+
+    public void forceShutdown() {
+        executorService.shutdownNow();
+    }
+
+
 }

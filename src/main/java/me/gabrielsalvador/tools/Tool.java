@@ -20,6 +20,8 @@ public abstract class Tool implements Serializable {
     private ToolMode _currentMode = null;
     protected ArrayList<Gizmo> _gizmos = new ArrayList<Gizmo>();
 
+    private PImage _toolIcon;
+
     {
         getModes().add(new ToolMode("Normal"));
         setCurrentMode(getModes().get(0));
@@ -91,7 +93,12 @@ public abstract class Tool implements Serializable {
             return _currentMode.getCursorIcon();
         }
         return null;
-
+    }
+    public PImage getToolIcon() {
+       if (_toolIcon == null) {
+           _toolIcon = _papplet.loadImage("icons/" + getName() + ".svg");
+       }
+         return _toolIcon;
     }
 
     public void draw(PGraphics graphics) {

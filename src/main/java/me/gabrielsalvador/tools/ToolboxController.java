@@ -1,8 +1,12 @@
 package me.gabrielsalvador.tools;
 
 import controlP5.*;
+import me.gabrielsalvador.Config;
 import me.gabrielsalvador.common.DisplayName;
 import me.gabrielsalvador.common.SkipProcessing;
+import me.gabrielsalvador.core.App;
+import processing.core.PImage;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
@@ -10,6 +14,7 @@ import java.util.*;
 public
 class ToolboxController extends Group {
 
+    final private App app = App.getInstance();
     final private Map<Class<? extends Tool>, Button> _children = new HashMap<>();
 
     public ToolboxController(ControlP5 theControlP5, String theName) {
@@ -30,6 +35,10 @@ class ToolboxController extends Group {
             String uii = UUID.randomUUID().toString();
             char getShortcut = toolManager.getShortcutForTool(tool);
             Button b = new Button(cp5, uii).setHeight(50).registerTooltip(getShortcut + "");
+            //icon
+            PImage icon = app.loadImage(Config.ICON_FOLDER_PATH + "tools/" + tool.getSimpleName().toLowerCase() + ".png");
+            b.setImage(icon);
+            b.setSize(32,62);
 
             //naming
             if (tool.isAnnotationPresent(DisplayName.class)) {
