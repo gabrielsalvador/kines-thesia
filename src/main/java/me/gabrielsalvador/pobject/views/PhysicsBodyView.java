@@ -16,6 +16,7 @@ import static processing.core.PApplet.nf;
 public class PhysicsBodyView implements View<Component> {
     private final PhysicsBodyComponent model;
     private final PhysicsManager pm = PhysicsManager.getInstance();
+    private float _brightness = 0;
 
     public PhysicsBodyView(PhysicsBodyComponent model) {
         this.model = model;
@@ -46,7 +47,7 @@ public class PhysicsBodyView implements View<Component> {
                 graphics.translate(pixelPosition.x, pixelPosition.y);
                 graphics.rotate(body.getAngle());
 
-                graphics.fill(255); // Example: white color
+                graphics.fill(127 + _brightness); // Example: white color
 
                 graphics.beginShape();
 
@@ -80,6 +81,10 @@ public class PhysicsBodyView implements View<Component> {
 
             default:
                 break;
+        }
+
+        if (_brightness > 0) {
+            _brightness -= 20;
         }
     }
 
@@ -120,5 +125,10 @@ public class PhysicsBodyView implements View<Component> {
             }
         }
         return inside;
+    }
+
+
+    public void onBeginContact(PhysicsBodyComponent other) {
+        _brightness = 255;
     }
 }

@@ -243,4 +243,8 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
 
     }
 
+    public void onBeginContact(PhysicsBodyComponent other){
+        ((PhysicsBodyView) _view).onBeginContact(other);
+    }
+
 }

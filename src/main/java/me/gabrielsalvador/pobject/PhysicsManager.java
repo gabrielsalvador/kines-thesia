@@ -150,6 +150,9 @@ class myContactListener implements ContactListener{
 
         PhysicsBodyComponent objA = (PhysicsBodyComponent) contact.getFixtureA().getBody().getUserData();
         PhysicsBodyComponent objB = (PhysicsBodyComponent) contact.getFixtureB().getBody().getUserData();
+        objB.onBeginContact(objA);
+        objA.onBeginContact(objB);
+
         if(objA == null || objB == null){
             return;
         }
