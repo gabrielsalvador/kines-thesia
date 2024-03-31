@@ -2,6 +2,7 @@ package me.gabrielsalvador.pobject.views;
 
 
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import controlP5.ControllerView;
 import me.gabrielsalvador.core.AppState;
@@ -12,7 +13,7 @@ import processing.core.PGraphics;
 
 public class CanvasView implements ControllerView<CanvasController> {
 
-    private final ArrayList<PObject> pObjects;
+    private final ConcurrentLinkedQueue<PObject> pObjects;
     private final CanvasController controller;
 
     public CanvasView(CanvasController controller) {
@@ -37,6 +38,7 @@ public class CanvasView implements ControllerView<CanvasController> {
         graphics.popStyle();
         /*draw pobjects*/
         graphics.translate(controller.getXOff(), controller.getYOff());
+
         for (PObject pObject : pObjects) {
 
             graphics.pushStyle();

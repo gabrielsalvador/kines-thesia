@@ -35,7 +35,6 @@ public class PhysicsManager {
     /* time accumulated since last physics step */
     private float _accumulator = 0.0f;
     /* rate at which physics simulation moves forward */
-    private final float maxFrameTime = 1.0f / 15.0f;  // Limit frameTime to 1/15th of a second
     private final float _timeStep = 1.0f / 60.0f;
     private final ReentrantLock lock = new ReentrantLock();
 
@@ -73,7 +72,6 @@ public class PhysicsManager {
         float frameTime = (currentTime - _lastTime) / 1_000_000_000.0f;
         _lastTime = currentTime;
 
-        frameTime = Math.min(frameTime, maxFrameTime);
 
         _accumulator += frameTime;
 

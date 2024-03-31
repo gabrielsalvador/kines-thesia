@@ -2,6 +2,7 @@ package me.gabrielsalvador.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.sequencing.SequencerState;
@@ -13,7 +14,7 @@ public class AppState implements Serializable {
     private Tool _currentTool;
     private final SequencerState _sequencerState = new SequencerState();
     private final ArrayList<View> _gizmos = new ArrayList<View>();
-    private final ArrayList<PObject> _pObjects = new ArrayList<PObject>();
+    private final ConcurrentLinkedQueue<PObject> _pObjects = new ConcurrentLinkedQueue<PObject>();
 
     private AppState() {}
 
@@ -37,7 +38,7 @@ public class AppState implements Serializable {
     }
 
     
-    public ArrayList<PObject> getPObjects() {
+    public ConcurrentLinkedQueue<PObject> getPObjects() {
         return _pObjects;
     }
     public ArrayList<View> getGizmos() {  return _gizmos;}
@@ -48,10 +49,7 @@ public class AppState implements Serializable {
     }
 
     public void clearObjects() {
-        for (int i = _pObjects.size() - 1; i >= 0; i--) {
-            _pObjects.get(i).remove();
-            _pObjects.remove(i);
-        }
+//        _pObjects.clear();
     }
 
     public SequencerState getSequencerState() {
