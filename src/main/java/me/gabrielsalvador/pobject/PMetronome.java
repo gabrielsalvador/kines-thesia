@@ -1,12 +1,11 @@
 package me.gabrielsalvador.pobject;
 
-import controlP5.Slider;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
-import me.gabrielsalvador.pobject.components.controllers.KKnob;
+import me.gabrielsalvador.ui.KKnob;
 import me.gabrielsalvador.pobject.views.BlinkingLigth;
 import me.gabrielsalvador.pobject.views.PMetronomeView;
-import me.gabrielsalvador.sequencing.Device;
+import me.gabrielsalvador.timing.Device;
 import java.io.Serial;
 
 public class PMetronome extends PObject implements Device {

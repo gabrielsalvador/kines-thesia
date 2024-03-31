@@ -4,7 +4,7 @@ import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.views.View;
-import me.gabrielsalvador.sequencing.SequencerController;
+import me.gabrielsalvador.timing.SequencerController;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

@@ -2,10 +2,7 @@ package me.gabrielsalvador.pobject.components;
 
 
 
-import me.gabrielsalvador.pobject.InspectorController;
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PObject.InspectableProperty;
-import me.gabrielsalvador.pobject.PObject.InspectableProperty.SetterFor;
 import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.pobject.views.View;
 import processing.core.PGraphics;
@@ -14,10 +11,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public abstract class  Component implements Serializable {
 

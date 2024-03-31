@@ -2,13 +2,12 @@ package me.gabrielsalvador.pobject.components;
 
 import me.gabrielsalvador.kinescript.ast.KFunction;
 import me.gabrielsalvador.midi.MidiManager;
-import me.gabrielsalvador.pobject.components.controllers.CodeEditor;
+import me.gabrielsalvador.ui.CodeEditor;
 import me.gabrielsalvador.pobject.components.musicalnote.MusicalNoteComponent;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.utils.Interval;
 import me.gabrielsalvador.utils.MusicalNote;
-import me.gabrielsalvador.utils.Scale;
 import org.jbox2d.dynamics.contacts.Contact;
 import processing.core.PGraphics;
 

@@ -1,4 +1,4 @@
-package me.gabrielsalvador.sequencing;
+package me.gabrielsalvador.timing;
 
 import controlP5.*;
 import me.gabrielsalvador.core.AppState;

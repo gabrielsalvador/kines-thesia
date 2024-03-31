@@ -1,10 +1,10 @@
-package me.gabrielsalvador.pobject;
+package me.gabrielsalvador.ui;
 
 import controlP5.*;
 import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.pobject.components.Component;
-import me.gabrielsalvador.pobject.components.controllers.CodeEditor;
-import me.gabrielsalvador.pobject.components.controllers.KKnob;
 
 import javax.lang.model.type.NoType;
 import java.beans.PropertyChangeEvent;

@@ -1,4 +1,4 @@
-package me.gabrielsalvador.sequencing;
+package me.gabrielsalvador.timing;
 
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.core.AppState;

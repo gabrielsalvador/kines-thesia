@@ -1,10 +1,12 @@
-package me.gabrielsalvador.tools;
+package me.gabrielsalvador.ui;
 
 import controlP5.*;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.common.DisplayName;
 import me.gabrielsalvador.common.SkipProcessing;
 import me.gabrielsalvador.core.App;
+import me.gabrielsalvador.tools.Tool;
+import me.gabrielsalvador.tools.ToolManager;
 import processing.core.PImage;
 
 import java.beans.PropertyChangeEvent;

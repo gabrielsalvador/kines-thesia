@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.sequencing.SequencerState;
+import me.gabrielsalvador.timing.SequencerState;
 import me.gabrielsalvador.tools.Tool;
 import me.gabrielsalvador.pobject.views.View;
 

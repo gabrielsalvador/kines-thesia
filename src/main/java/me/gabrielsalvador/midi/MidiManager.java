@@ -1,6 +1,5 @@
 package me.gabrielsalvador.midi;
-import me.gabrielsalvador.sequencing.Clock;
-import me.gabrielsalvador.utils.Interval;
+import me.gabrielsalvador.timing.Clock;
 import me.gabrielsalvador.utils.MusicalNote;
 import me.gabrielsalvador.utils.Scale;
 import themidibus.MidiBus;

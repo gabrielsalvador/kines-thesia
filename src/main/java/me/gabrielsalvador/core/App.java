@@ -9,14 +9,12 @@ import java.util.concurrent.TimeUnit;
 import controlP5.*;
 import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
-import me.gabrielsalvador.pobject.InspectorController;
+import me.gabrielsalvador.ui.InspectorController;
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PhysicsManager;
-import me.gabrielsalvador.sequencing.Clock;
-import me.gabrielsalvador.sequencing.SequencerController;
-import me.gabrielsalvador.tools.ToolboxController;
+import me.gabrielsalvador.timing.Clock;
+import me.gabrielsalvador.timing.SequencerController;
+import me.gabrielsalvador.ui.ToolboxController;
 import me.gabrielsalvador.ui.TransportButton;
-import org.jbox2d.dynamics.World;
 import processing.core.PApplet;
 import processing.core.PFont;
 

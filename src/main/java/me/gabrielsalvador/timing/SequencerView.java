@@ -1,7 +1,6 @@
-package me.gabrielsalvador.sequencing;
+package me.gabrielsalvador.timing;
 
 import controlP5.ControllerView;
-import controlP5.Matrix;
 import processing.core.PGraphics;
 
 class SequencerView implements ControllerView<SequencerController> {

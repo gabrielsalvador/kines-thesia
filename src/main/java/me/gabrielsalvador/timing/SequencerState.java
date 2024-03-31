@@ -1,4 +1,4 @@
-package me.gabrielsalvador.sequencing;
+package me.gabrielsalvador.timing;
 
 import java.io.Serial;
 import java.io.Serializable;

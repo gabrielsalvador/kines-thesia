@@ -1,16 +1,11 @@
 package me.gabrielsalvador.ui;
 
 import controlP5.*;
-import me.gabrielsalvador.Config;
 import me.gabrielsalvador.ResourceManager;
-import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.core.AppController;
-import me.gabrielsalvador.sequencing.Clock;
-import me.gabrielsalvador.sequencing.TransportState;
-import processing.core.PImage;
+import me.gabrielsalvador.timing.Clock;
+import me.gabrielsalvador.timing.TransportState;
 
-import javax.sound.midi.ControllerEventListener;
-import javax.sound.midi.ShortMessage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 

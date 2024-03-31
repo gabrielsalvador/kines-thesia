@@ -4,8 +4,7 @@ package me.gabrielsalvador.core;
 import java.util.HashMap;
 
 import controlP5.ControlP5;
-import controlP5.MappableCommand;
-import me.gabrielsalvador.sequencing.Clock;
+import me.gabrielsalvador.timing.Clock;
 import me.gabrielsalvador.tools.ToolManager;
 import processing.event.KeyEvent;
 

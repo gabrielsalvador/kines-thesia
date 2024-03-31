@@ -1,8 +1,8 @@
-package me.gabrielsalvador.pobject.components.controllers;
+package me.gabrielsalvador.ui;
 
 import controlP5.*;
 import me.gabrielsalvador.pobject.PObjectProperty;
-import me.gabrielsalvador.sequencing.Clock;
+import me.gabrielsalvador.timing.Clock;
 
 public class KKnob extends Group  {
     Knob knob;
