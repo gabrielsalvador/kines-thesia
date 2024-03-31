@@ -28,6 +28,8 @@ target/
 
 
 appState.ser
+save1.ser
+*.ser
 
 .cosine
 
