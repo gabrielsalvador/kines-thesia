@@ -13,6 +13,7 @@ import org.jbox2d.dynamics.BodyType;
 import java.io.*;
 
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
+import org.jbox2d.dynamics.Fixture;
 import processing.core.PGraphics;
 
 public class PhysicsBodyComponent extends BodyComponent implements Serializable {
@@ -148,6 +149,11 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         _body.setLinearVelocity(new Vec2(_bodyData.linearVelocityX, _bodyData.linearVelocityY));
         _body.setAngularVelocity(_bodyData.angularVelocity);
         _body.setType(_bodyData.bodyType);
+        _body.setBullet(_bodyData.isBullet);
+        // set is sensor
+        for (Fixture fixture = _body.getFixtureList(); fixture != null; fixture = fixture.getNext()) {
+            fixture.setSensor(_bodyData.isSensor);
+        }
         _body.setUserData(this);
 
 

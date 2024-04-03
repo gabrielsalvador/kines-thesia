@@ -17,6 +17,8 @@ public class BodyData implements Serializable {
 
     public Vec2[] vertices;
     public float circleRadius;
+    public boolean isSensor;
+    public boolean isBullet;
 
     public static BodyData getDefaultBodyData(){
         BodyData bodyData = new BodyData();
@@ -29,6 +31,8 @@ public class BodyData implements Serializable {
         bodyData.bodyType = BodyType.STATIC;
         bodyData.shapeType = ShapeType.CIRCLE;
         bodyData.circleRadius = 10;
+        bodyData.isSensor = false;
+        bodyData.isBullet = false;
 
         return bodyData;
     }

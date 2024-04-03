@@ -9,6 +9,7 @@ import me.gabrielsalvador.pobject.components.musicalnote.MusicalNoteComponent;
 import me.gabrielsalvador.pobject.views.PKeyboardView;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
 
 
@@ -92,11 +93,14 @@ public interface PObjectPreset {
         public PObject[] create() {
             PObject droplet = new PObject();
             BodyData bodyData = BodyData.getDefaultBodyData();
+            bodyData.isBullet = true;
             bodyData.circleRadius = 0.2f;
             bodyData.bodyType = BodyType.DYNAMIC;
             droplet.addComponent(BodyComponent.class, new PhysicsBodyComponent(droplet, bodyData));
-            droplet.getBodyComponent().setPosition(_position);
-            ((PhysicsBodyComponent)droplet.getBodyComponent()).getJBox2DBody().applyLinearImpulse(new Vec2(0, 10f), _position);
+            PhysicsBodyComponent bodyComponent = (PhysicsBodyComponent) droplet.getBodyComponent();
+            bodyComponent.setPosition(_position);
+            bodyComponent.getJBox2DBody().setBullet(true);
+//            ((PhysicsBodyComponent)droplet.getBodyComponent()).getJBox2DBody().applyLinearImpulse(new Vec2(0, 10f), _position);
 
             return new PObject[]{droplet};
         }

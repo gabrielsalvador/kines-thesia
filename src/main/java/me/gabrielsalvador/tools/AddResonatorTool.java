@@ -17,14 +17,14 @@ import processing.event.KeyEvent;
 
 @DisplayName("Resonator")
 public class AddResonatorTool extends Tool {
-    private Vec2 _initialPosition;
-    private Vec2 _finalPosition;
-    private CanvasController _canvas;
-    private final ControlP5 _cp5;
+    protected Vec2 _initialPosition;
+    protected Vec2 _finalPosition;
+    protected CanvasController _canvas;
+    protected final ControlP5 _cp5;
 
 
     /* counts how many resonators have been added, useful for things like making it play several notes*/
-    private static int howManyResonators = 0;
+    protected static int howManyResonators = 0;
 
     {
         getModes().get(0).setIcon(Config.BOXTOOL_CURSOR_ICON);
