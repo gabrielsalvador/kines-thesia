@@ -12,6 +12,8 @@ import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import me.gabrielsalvador.pobject.PObject;
 
+import java.util.ArrayList;
+
 // Custom controller class that extends Controller
 public class CanvasController extends Controller<CanvasController> implements ReleasedOutsideListener {
 
@@ -21,17 +23,25 @@ public class CanvasController extends Controller<CanvasController> implements Re
     /* time elapsed since last frame */
     private long _lastTime = System.nanoTime();
     /* time accumulated since last physics step */
-    private float _accumulator = 0.0f;
+
     /* rate at which physics simulation moves forward */
     private final float _timeStep = 1.0f / 60.0f;
     private int xOff = 0;
     private int yOff = 0;
+
+    private Thread physicsThread;
+
+
 
     public CanvasController(ControlP5 cp5, String name) {
         super(cp5, name);
         _myControllerView = new CanvasView(this);
         _toolManager = ToolManager.getInstance();
         _physicsManager = PhysicsManager.getInstance();
+
+        // Start the physics thread
+        physicsThread = new Thread(this::runPhysics);
+        physicsThread.start();
     }
 
 
@@ -64,7 +74,8 @@ public class CanvasController extends Controller<CanvasController> implements Re
         int[] mousePosition = getMousePosition();
         int x = mousePosition[0];
         int y = mousePosition[1];
-        for (PObject pObject : AppState.getInstance().getPObjects()) {
+        ArrayList<PObject> snapshot = new ArrayList<>(AppState.getInstance().getPObjects());
+        for (PObject pObject : snapshot) {
             for (Component component : pObject.getComponents().values()) {
                 View<Component> view = component.getView();
                 if (view == null) {
@@ -141,28 +152,42 @@ public class CanvasController extends Controller<CanvasController> implements Re
     private final float maxFrameTime = 1.0f / 15.0f;  // Limit frameTime to 1/15th of a second
 
 
+    private void runPhysics() {
+        while (!Thread.currentThread().isInterrupted()) {
+            synchronized (PhysicsManager.getInstance().physicsThreadLock) {
+                try {
+
+                    _physicsManager.step(_timeStep, 8, 3);
+
+                    AppController.getInstance().applyModifications();
+
+                } catch (Exception e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+            try {
+                Thread.sleep((long) (_timeStep * 1000));
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
     @Override
     public void draw(PGraphics graphics) {
+        long currentTime = System.nanoTime();
+
+        _lastTime = currentTime;
+
         graphics.pushMatrix();
         graphics.translate(x(position), y(position));
         getView().display(graphics, this);
         ToolManager.getInstance().getCurrentTool().draw(graphics);
         graphics.popMatrix();
+    }
 
-        long currentTime = System.nanoTime();
-        float frameTime = (currentTime - _lastTime) / 1_000_000_000.0f;
-        _lastTime = currentTime;
-
-        frameTime = Math.min(frameTime, maxFrameTime);
-
-        _accumulator += frameTime;
-
-        while (_accumulator >= _timeStep) {
-            _physicsManager.step(_timeStep, 8, 3);
-            _accumulator -= _timeStep;
-        }
-
-        AppController.getInstance().applyModifications();
+    public void shutdown() {
+        physicsThread.interrupt();
     }
 
 

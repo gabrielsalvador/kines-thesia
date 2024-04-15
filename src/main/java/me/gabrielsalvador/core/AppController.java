@@ -5,7 +5,6 @@ import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.views.View;
 import me.gabrielsalvador.sequencing.SequencerController;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -103,7 +102,14 @@ public class AppController {
 
 
     public Runnable queueModification(Runnable modification){
+        int size = _modificationsQueue.size();
+        System.out.println("Modification Queue Size: " + size);
+
         _modificationsQueue.add(modification);
+        int newSize = _modificationsQueue.size();
+
+        System.out.println("Modification Queue Size: " + newSize);
+
         return modification;
     }
 
@@ -123,16 +129,7 @@ public class AppController {
     }
    
 
-    public void removePObjectImmiadiately(PObject pObject) {
-            _appState.getPObjects().remove(pObject);
-    }
 
-    public void enqueueRemovePObject(PObject pObject) {
-        Runnable modification = () -> {
-            _appState.getPObjects().remove(pObject);
-        };
-        queueModification(modification);
-    }
 
 
     public SequencerController getSequencerController() {
@@ -148,5 +145,9 @@ public class AppController {
             firstObject.addComponent(RoutingComponent.class, RCA);
         }
         RCA.setTarget(secondObject);
+    }
+
+    public ConcurrentLinkedQueue getModificationQueue() {
+        return _modificationsQueue;
     }
 }

@@ -5,6 +5,8 @@ import me.gabrielsalvador.core.AppState;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Clock {
 
@@ -45,7 +47,10 @@ public class Clock {
         executorService.scheduleAtFixedRate(() -> {
             _lastTickTime = System.nanoTime();
             try {
-                for (Object d : AppState.getInstance().getPObjects()) {
+                List<Object> pObjectsSnapshot = new ArrayList<>(AppState.getInstance().getPObjects());
+
+
+                for (Object d : pObjectsSnapshot) {
                     if (!(d instanceof Device)) {
                         continue;
                     }

@@ -2,6 +2,7 @@ package me.gabrielsalvador.pobject.views;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import controlP5.ControllerView;
 import me.gabrielsalvador.core.AppState;
@@ -37,8 +38,10 @@ public class CanvasView implements ControllerView<CanvasController> {
         graphics.popStyle();
         /*draw pobjects*/
         graphics.translate(controller.getXOff(), controller.getYOff());
-        for (PObject pObject : pObjects) {
 
+
+        List<PObject> snapshot = new ArrayList<>(pObjects);
+        for (PObject pObject : snapshot) {
             graphics.pushStyle();
             if(pObject.getIsSelected()) {
                 graphics.stroke(255, 0, 0);
@@ -48,8 +51,6 @@ public class CanvasView implements ControllerView<CanvasController> {
             pObject.display(graphics);
             graphics.popStyle();
         }
-
-
 
 
     }
