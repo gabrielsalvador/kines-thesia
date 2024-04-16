@@ -2,7 +2,7 @@ package me.gabrielsalvador.pobject.views;
 
 
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.List;
 
 import controlP5.ControllerView;
 import me.gabrielsalvador.core.AppState;
@@ -13,7 +13,7 @@ import processing.core.PGraphics;
 
 public class CanvasView implements ControllerView<CanvasController> {
 
-    private final ConcurrentLinkedQueue<PObject> pObjects;
+    private final ArrayList<PObject> pObjects;
     private final CanvasController controller;
 
     public CanvasView(CanvasController controller) {
@@ -39,8 +39,9 @@ public class CanvasView implements ControllerView<CanvasController> {
         /*draw pobjects*/
         graphics.translate(controller.getXOff(), controller.getYOff());
 
-        for (PObject pObject : pObjects) {
 
+        List<PObject> snapshot = new ArrayList<>(pObjects);
+        for (PObject pObject : snapshot) {
             graphics.pushStyle();
             if(pObject.getIsSelected()) {
                 graphics.stroke(255, 0, 0);
@@ -50,8 +51,6 @@ public class CanvasView implements ControllerView<CanvasController> {
             pObject.display(graphics);
             graphics.popStyle();
         }
-
-
 
 
     }

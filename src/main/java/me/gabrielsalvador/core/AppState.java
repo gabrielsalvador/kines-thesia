@@ -14,7 +14,7 @@ public class AppState implements Serializable {
     private Tool _currentTool;
     private final SequencerState _sequencerState = new SequencerState();
     private final ArrayList<View> _gizmos = new ArrayList<View>();
-    private final ConcurrentLinkedQueue<PObject> _pObjects = new ConcurrentLinkedQueue<PObject>();
+    private final ArrayList<PObject> _pObjects = new ArrayList<PObject>();
 
     private AppState() {}
 
@@ -38,7 +38,7 @@ public class AppState implements Serializable {
     }
 
     
-    public ConcurrentLinkedQueue<PObject> getPObjects() {
+    public ArrayList<PObject> getPObjects() {
         return _pObjects;
     }
     public ArrayList<View> getGizmos() {  return _gizmos;}

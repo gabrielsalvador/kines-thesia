@@ -26,6 +26,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class PhysicsManager {
     private static final int Y_FLIP_INDICATOR = -1;
+    int yFlip;// = Y_FLIP_INDICATOR; //flip y coordinate
     PApplet parent = App.getInstance();
     private static PhysicsManager _instance;
     private final Vec2 _gravity = new Vec2(0, 20.0f);
@@ -45,7 +46,8 @@ public class PhysicsManager {
     float transX = 0.0f;
     float transY = 0.0f;
     float scaleFactor = 10.0f;
-    int yFlip;// = Y_FLIP_INDICATOR; //flip y coordinate
+
+    public final Object physicsThreadLock = new Object();
 
     private PhysicsManager(){
         _world.setContactListener(new myContactListener());

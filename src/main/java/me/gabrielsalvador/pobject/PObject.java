@@ -50,7 +50,7 @@ public class PObject implements Serializable {
             AppController.getInstance().getSequencerController().unregisterPObject( (Inlet) this);
         }
 
-        AppController.getInstance().enqueueRemovePObject(this);
+
 
     }
     // Setters and Getters

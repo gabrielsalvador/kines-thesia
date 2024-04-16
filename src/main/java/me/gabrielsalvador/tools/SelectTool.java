@@ -6,6 +6,7 @@ import me.gabrielsalvador.Config;
 import me.gabrielsalvador.PGroup;
 import me.gabrielsalvador.common.DisplayName;
 import me.gabrielsalvador.core.*;
+import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.tools.gizmo.FreetransformGizmo;
@@ -97,16 +98,21 @@ public class SelectTool extends Tool {
     public void onDrag(PObject pObject, int[] mousePosition) {
         super.onDrag(pObject, mousePosition);
 
+
         //if dragging, move selected objects
         if (_isDragging && _initialDragPosition != null) {
             Vec2 currentDragPosition = new Vec2(mousePosition[0], mousePosition[1]);
             Vec2 dragDelta = currentDragPosition.sub(_initialDragPosition);
+
             for (PObject selectedObject : selectedObjects) {
                 Vec2 currentPosition = selectedObject.getBodyComponent().getPixelPosition();
-                selectedObject.getBodyComponent().setPixelPosition(currentPosition.add(dragDelta));
+                AppController.getInstance().queueModification(() -> {
+                    selectedObject.getBodyComponent().setPixelPosition(currentPosition.add(dragDelta));
+                });
             }
             _initialDragPosition = currentDragPosition;
         }
+
         //if not dragging, draw selection square
         else if(_selectionStart != null){
             _selectionEnd = new Vec2(mousePosition[0], mousePosition[1]);
@@ -116,10 +122,12 @@ public class SelectTool extends Tool {
             Vec2 topLeft = new Vec2(Math.min(_selectionStart.x, _selectionEnd.x), Math.min(_selectionStart.y, _selectionEnd.y));
             Vec2 bottomRight = new Vec2(Math.max(_selectionStart.x, _selectionEnd.x), Math.max(_selectionStart.y, _selectionEnd.y));
             clearSelection();
-            for (PObject p : AppState.getInstance().getPObjects()) {
-                Vec2 position = p.getBodyComponent().getPixelPosition();
-                if (position.x > topLeft.x && position.x < bottomRight.x && position.y > topLeft.y && position.y < bottomRight.y) {
-                    select(p);
+            synchronized (PhysicsManager.getInstance().physicsThreadLock){
+                for (PObject p : AppState.getInstance().getPObjects()) {
+                    Vec2 position = p.getBodyComponent().getPixelPosition();
+                    if (position.x > topLeft.x && position.x < bottomRight.x && position.y > topLeft.y && position.y < bottomRight.y) {
+                        select(p);
+                    }
                 }
             }
         }
