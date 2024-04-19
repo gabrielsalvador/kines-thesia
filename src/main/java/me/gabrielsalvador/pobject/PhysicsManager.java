@@ -18,7 +18,6 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.Contact;
 import processing.core.PApplet;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
@@ -39,7 +38,6 @@ public class PhysicsManager {
     private final float _timeStep = 1.0f / 60.0f;
     private final ReentrantLock lock = new ReentrantLock();
 
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private volatile boolean running = true;
 
     // Variables to keep track of translating between world and screen coordinates
@@ -51,11 +49,6 @@ public class PhysicsManager {
 
     private PhysicsManager(){
         _world.setContactListener(new myContactListener());
-        executor.submit(() -> {
-            while (running) {
-                _instance.worldLoop();
-            }
-        });
 
     }
 

@@ -102,14 +102,7 @@ public class AppController {
 
 
     public Runnable queueModification(Runnable modification){
-        int size = _modificationsQueue.size();
-        System.out.println("Modification Queue Size: " + size);
-
         _modificationsQueue.add(modification);
-        int newSize = _modificationsQueue.size();
-
-        System.out.println("Modification Queue Size: " + newSize);
-
         return modification;
     }
 

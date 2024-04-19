@@ -29,7 +29,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
     private int xOff = 0;
     private int yOff = 0;
 
-    private Thread physicsThread;
+    public Thread physicsThread;
 
 
 
@@ -41,6 +41,12 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
         // Start the physics thread
         physicsThread = new Thread(this::runPhysics);
+        physicsThread.setUncaughtExceptionHandler((t, e) -> {
+            System.out.println("An exception has been captured");
+            System.out.printf("Thread: %s\n", t.getId());
+            System.out.printf("Exception: %s: %s\n", e.getClass().getName(), e.getMessage());
+            e.printStackTrace(System.out);
+        });
         physicsThread.start();
     }
 
