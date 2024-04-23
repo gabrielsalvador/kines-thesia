@@ -52,7 +52,7 @@ public class PRubberbandPreset implements PObjectPreset{
         );
 
         PhysicsBodyComponent physicsBody = new PhysicsBodyComponent(pObject1, bodyData);
-//        physicsBody.setView(new PRubberbandView(physicsBody));
+        physicsBody.setView(new PRubberbandView(physicsBody));
         Body body = physicsBody.getJBox2DBody();
 //        body.setBullet(true);
 //        for (Fixture fixture = body.getFixtureList(); fixture != null; fixture = fixture.getNext()) {

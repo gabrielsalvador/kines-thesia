@@ -112,6 +112,7 @@ public class App extends PApplet {
 
 
 
+
         debugInfo.setText(debugText.toString());
     }
 

@@ -16,7 +16,7 @@ import static processing.core.PApplet.nf;
 public class PhysicsBodyView implements View<Component> {
     private final PhysicsBodyComponent model;
     private final PhysicsManager pm = PhysicsManager.getInstance();
-    private float _brightness = 0;
+    protected float _brightness = 0;
 
     public PhysicsBodyView(PhysicsBodyComponent model) {
         this.model = model;

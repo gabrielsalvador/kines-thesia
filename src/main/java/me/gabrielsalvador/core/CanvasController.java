@@ -162,18 +162,17 @@ public class CanvasController extends Controller<CanvasController> implements Re
         while (!Thread.currentThread().isInterrupted()) {
             synchronized (PhysicsManager.getInstance().physicsThreadLock) {
                 try {
-
                     _physicsManager.step(_timeStep, 8, 3);
-
                     AppController.getInstance().applyModifications();
-
                 } catch (Exception e) {
+                    e.printStackTrace();  // print the stack trace of the exception
                     Thread.currentThread().interrupt();
                 }
             }
             try {
                 Thread.sleep((long) (_timeStep * 1000));
             } catch (InterruptedException e) {
+                e.printStackTrace();  // print the stack trace of the exception
                 Thread.currentThread().interrupt();
             }
         }

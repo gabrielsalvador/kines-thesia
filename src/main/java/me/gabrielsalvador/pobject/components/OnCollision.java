@@ -54,7 +54,7 @@ public class OnCollision extends Component {
         //get the other body
         PhysicsBodyComponent theOtherBody = (PhysicsBodyComponent) contact.getFixtureB().getBody().getUserData();
         //add velocity to the body
-        theOtherBody.getJBox2DBody().applyLinearImpulse(contact.getFixtureB().getBody().getLinearVelocity(), theOtherBody.getJBox2DBody().getPosition());
+//        theOtherBody.getJBox2DBody().applyLinearImpulse(contact.getFixtureB().getBody().getLinearVelocity(), theOtherBody.getJBox2DBody().getPosition());
 
         PhysicsBodyComponent me = (PhysicsBodyComponent) contact.getFixtureA().getBody().getUserData();
         MusicalNoteComponent MNC = me.getOwner().getComponent(MusicalNoteComponent.class);
