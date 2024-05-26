@@ -9,21 +9,23 @@ import me.gabrielsalvador.pobject.components.Component;
 import javax.lang.model.type.NoType;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class InspectorController extends Group implements PropertyChangeListener {
 
-    private static final int IDENTATION = 10 ;
+    private static final int IDENTATION = 10;
     private final int DEFAULT_HEIGHT = 30;
 
     public InspectorController(ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);
         AppController.getInstance().addPropertyChangeListener("selectedObjects", this);
     }
- 
+
     @Override
     public void didSetupLayout() {
 
@@ -36,70 +38,57 @@ public class InspectorController extends Group implements PropertyChangeListener
 
         this.clear(); // clear the controllers in the inspector
 
-        ArrayList<PObject> changedSelection = evt.getNewValue() instanceof ArrayList ? (ArrayList<PObject>) evt.getNewValue() : new ArrayList<>();
+        ArrayList<PObject> selectedObjects = evt.getNewValue() instanceof ArrayList ? (ArrayList<PObject>) evt.getNewValue() : new ArrayList<>();
 
-        if (changedSelection == null || changedSelection.isEmpty() ){
+        if (selectedObjects == null || selectedObjects.isEmpty()) {
 //            buildGeneralSettings();
             return;
         }
 
+        Map<Class<?>, ArrayList<PObjectProperty>> aggregatedProperties = aggregatePropertiesByClass(selectedObjects);
+        aggregatedProperties.forEach(
+                (type, properties) -> {
+                    if (type != NoType.class) {
+                        try {
+                            PropertyEditor editor = (PropertyEditor) type.getConstructor(ControlP5.class, String.class, ArrayList.class).newInstance(cp5, type.getName(), properties);
 
-
-        Map<Class<?>,ArrayList<PObjectProperty>> propertiesOfController = new HashMap<>();
-
-        //go through all the selected objects and separate the properties by controller
-        for (PObject object : changedSelection) {
-
-            //for PObject properties
-            ArrayList<PObjectProperty> mainProperties = object.getProperties();
-            for (PObjectProperty property : mainProperties) {
-                if(propertiesOfController.containsKey(property.getControllerClass())){
-
-                    propertiesOfController.get(property.getControllerClass()).add(property);
-                }else{
-                    ArrayList<PObjectProperty> newProperties = new ArrayList<>();
-                    newProperties.add(property);
-                    propertiesOfController.put(property.getControllerClass(),newProperties);
-                }
-            }
-
-            // for Component properties
-            for (Component component : object.getComponents().values()) {
-                ArrayList<PObjectProperty> componentProperties = component.getProperties();
-                for (PObjectProperty property : componentProperties) {
-                    if(propertiesOfController.containsKey(property.getControllerClass())){
-
-                        propertiesOfController.get(property.getControllerClass()).add(property);
-                    }else{
-                        ArrayList<PObjectProperty> newProperties = new ArrayList<>();
-                        newProperties.add(property);
-                        propertiesOfController.put(property.getControllerClass(),newProperties);
+                            editor.resize(getWidth(), 100);
+                            editor.moveTo(this);
+                            addChildVertically(editor);
+                        } catch (NoSuchMethodException e) {
+                            throw new RuntimeException(e);
+                        } catch (InvocationTargetException e) {
+                            throw new RuntimeException(e);
+                        } catch (InstantiationException e) {
+                            throw new RuntimeException(e);
+                        } catch (IllegalAccessException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
+        );
+
+
+    }
+
+
+    //aggregates all properties by the class of their editor controller
+    public Map<Class<?>, ArrayList<PObjectProperty>> aggregatePropertiesByClass(ArrayList<PObject> selectedObjects) {
+        Map<Class<?>, ArrayList<PObjectProperty>> properties = new HashMap<>();
+
+        for (PObject object : selectedObjects) {
+            ArrayList<PObjectProperty> objectProperties = object.getProperties();
+            for (PObjectProperty property : objectProperties) {
+                Class<?> type = property.getControllerClass();
+                if (!properties.containsKey(type)) {
+                    properties.put((Class<? extends PropertyEditor>) type, new ArrayList<>());
+                }
+
+                properties.get(type).add(property);
             }
         }
 
-        for ( Class<?> controllerType : propertiesOfController.keySet()) {
-
-            if(controllerType == NoType.class) continue;
-            ArrayList<PObjectProperty> properties = propertiesOfController.get(controllerType);
-
-            ControllerInterface<?> controller = properties.get(0).instantiateController(cp5);
-
-            if (controller != null){
-                if(controller instanceof Group){
-                    ((Group) controller).setWidth(getWidth());
-                    if (controller instanceof KKnob){
-                        ((KKnob) controller).setSize(30,30);
-                    }
-                }
-                addChildVertically(controller);
-                addChildVertically(new Spacer(cp5, "spacer" + controller.getName()).setSize(getWidth(), 10));
-            }
-
-        }
-
-
+        return properties;
 
     }
 

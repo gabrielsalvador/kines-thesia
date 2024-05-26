@@ -2,6 +2,7 @@ package me.gabrielsalvador.core;
 
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.views.View;
 import me.gabrielsalvador.timing.SequencerController;
@@ -95,8 +96,8 @@ public class AppController {
 
     public void clearObjects() {
         AppState.getInstance().clearObjects();
+        PhysicsManager.getInstance().clearWorld();
     }
-
 
 
 

@@ -9,14 +9,14 @@ import me.gabrielsalvador.pobject.PObjectProperty;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
-
-public class CodeEditor extends Group {
 
 
 
-    private final PObjectProperty _property;
+public class CodeEditor extends PropertyEditor {
+
+
+
+//    private final ArrayList<PObjectProperty> _properties;
     List<ControllerInterface<?>> children = new ArrayList<>();
 
     Textlabel titleLabel = new Textlabel(App.getInstance().getCP5(), "titleLabel");
@@ -41,7 +41,7 @@ public class CodeEditor extends Group {
 
       try {
           KFunction function = Kinescript.compileFunction(codeTextbox.getText());
-          _property.setValue(function);
+//          _properties.forEach(p -> p.setValue(function));
           feedbackLabel.setText("Compiled successfully");
       } catch (InputMismatchException e) {
           feedbackLabel.setText("Error compiling function: " + e.getMessage());
@@ -58,44 +58,51 @@ public class CodeEditor extends Group {
     }
 
 
-    public CodeEditor(PObjectProperty property, ControlP5 theControlP5, String theName) {
-        super(theControlP5, theName);
-        _property = property;
+    public CodeEditor(ControlP5 theControlP5, String theName, ArrayList<Object> args) {
+        super(theControlP5, theName, args, null);
+
+        setPosition(0, 0);
+//        _properties = (ArrayList<PObjectProperty>) args.get(0);
+
 
         //init title label
-        titleLabel.setText(property.getName());
-        titleLabel.moveTo(this);
-        titleLabel.setPosition(0, 0);
-//        children.add(titleLabel);
+//        titleLabel.setText(property.getName());
+//        titleLabel.moveTo(this);
+//        titleLabel.setPosition(0, 0);
+        children.add(titleLabel);
 
 
-        //init code editor
-        KFunction function = (KFunction) _property.getValue();
-        if (function != null){
-            codeTextbox.setText(function.getSourceCode());
-        }
+//        //init code editor
+//        KFunction function = (KFunction) _property.getValue();
+//        if (function != null){
+//            codeTextbox.setText(function.getSourceCode());
+//        }
         children.add(codeTextbox);
-
-        //init feedback label
+//
+//        //init feedback label
         children.add(feedbackLabel);
-
-        //init compile button
+//
+//        //init compile button
         children.add(compileButton);
-
-        AtomicInteger heightSum = new AtomicInteger();
+//
+//        AtomicInteger heightSum = new AtomicInteger();
         children.forEach(child -> {
             addChildVertically(child);
             child.setWidth(getWidth());
-            heightSum.addAndGet(child.getHeight());
+//            heightSum.addAndGet(child.getHeight());
         });
-
-        //set height as total height of children
+//
+//        //set height as total height of children
         setHeight(150);
 
 
+//        _properties = properties;
     }
 
+    @Override
+    public void resize(int width, int height) {
 
+    }
 
 
     @Override

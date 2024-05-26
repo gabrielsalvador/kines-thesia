@@ -113,4 +113,17 @@ public class MathUtils {
             default -> throw new IllegalArgumentException("Invalid pitch");
         };
     }
+
+    public static boolean isPointOverLineSegment(int pointX, int pointY, float x1, float y1, float x2, float y2, float margin) {
+        float A = y2 - y1;
+        float B = x1 - x2;
+        float C = x2*y1 - x1*y2;
+
+        float distance = Math.abs(A*pointX + B*pointY + C) / (float)Math.sqrt(A*A + B*B);
+
+        boolean withinX = (pointX >= Math.min(x1, x2) - margin) && (pointX <= Math.max(x1, x2) + margin);
+        boolean withinY = (pointY >= Math.min(y1, y2) - margin) && (pointY <= Math.max(y1, y2) + margin);
+
+        return distance <= margin && withinX && withinY;
+    }
 }

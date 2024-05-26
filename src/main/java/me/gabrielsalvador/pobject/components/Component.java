@@ -55,9 +55,6 @@ public abstract class  Component implements Serializable {
         else {
             cachedProperties = PObjectProperty.getProperties(this);
         }
-
-
-
         return cachedProperties;
     }
 

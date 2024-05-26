@@ -92,24 +92,7 @@ public class PObjectProperty implements Serializable {
         return this.controllerClass;
     }
 
-    public ControllerInterface instantiateController(ControlP5 cp5) {
-        if(controllerClass == NoType.class) {
-            throw new RuntimeException("Trying to instantiate a controller for a property that doesn't have a controller class" + name);
-        }
-        try {
-            ControllerInterface controller = (ControllerInterface) controllerClass.getConstructor(this.getClass(),ControlP5.class, String.class).newInstance(this,cp5, name);
 
-            if (controller instanceof Group) {
-                //set some default styles for the group
-                ((Group) controller).hideBar();
-            }
-
-            return controller;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 
 

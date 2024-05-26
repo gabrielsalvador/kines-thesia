@@ -49,7 +49,7 @@ public class AppState implements Serializable {
     }
 
     public void clearObjects() {
-//        _pObjects.clear();
+        _pObjects.clear();
     }
 
     public SequencerState getSequencerState() {

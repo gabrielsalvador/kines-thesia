@@ -28,14 +28,16 @@ public class App extends PApplet {
     public App() {
         super();
         _instance = this;
-
     }
 
-    Textarea debugInfo;
+
+
+    MultilineTextfield debugInfo;
 
     public static synchronized App getInstance() {
         if (_instance == null) {
             _instance = new App();
+
         }
 
         return _instance;
@@ -89,11 +91,19 @@ public class App extends PApplet {
 
 
 
-        debugInfo = getCP5().addTextarea("debugInfo")
-                .setPosition(700,600)
-                .setSize(400, 200)
-                .setColor(color(255, 0, 0))
-                .setFont(createFont("arial", 20));
+        debugInfo = new MultilineTextfield(_cp5, "debugInfo");
+        debugInfo.setPosition(650,584)
+                .setSize(400, 200);
+
+
+
+        // Add a shutdown hook
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                dispose();
+            }
+        });
     }
 
 

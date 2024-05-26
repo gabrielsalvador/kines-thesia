@@ -30,6 +30,8 @@ public class PhysicsBodyView implements View<Component> {
     @Override
     public void display(PGraphics graphics, Component model) {
         Body body = this.model.getJBox2DBody();
+        if(body == null || body.getFixtureList() == null) return;
+
         Shape shape = body.getFixtureList().getShape();
 
         switch (shape.getType()) {
@@ -47,7 +49,7 @@ public class PhysicsBodyView implements View<Component> {
                 graphics.translate(pixelPosition.x, pixelPosition.y);
                 graphics.rotate(body.getAngle());
 
-                graphics.fill(127 + _brightness); // Example: white color
+                graphics.fill(255,255,255, _brightness); // Example: white color
 
                 graphics.beginShape();
 
@@ -91,6 +93,8 @@ public class PhysicsBodyView implements View<Component> {
     @Override
     public boolean isMouseOver(int mouseX, int mouseY) {
         Body body = this.model.getJBox2DBody();
+        if(body == null || body.getFixtureList() == null) return false;
+
         Shape shape = body.getFixtureList().getShape();
         Vec2 bodyPixelPos = pm.coordWorldToPixels(body.getPosition().x, body.getPosition().y).add(this.model.getPixelPosition());
 

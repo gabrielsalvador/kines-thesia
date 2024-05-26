@@ -4,7 +4,7 @@ package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.core.AppController;
-import me.gabrielsalvador.pobject.components.OnCollision;
+import me.gabrielsalvador.pobject.components.PlayNoteOnCollision;
 import me.gabrielsalvador.pobject.components.body.BodyData;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.timing.Clock;
@@ -18,8 +18,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.Contact;
 import processing.core.PApplet;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 import java.util.concurrent.locks.ReentrantLock;
 
 
@@ -56,7 +55,6 @@ public class PhysicsManager {
         if (_instance == null) {
             _instance = new PhysicsManager();
         }
-
 
         return _instance;
     }
@@ -174,6 +172,14 @@ public class PhysicsManager {
     public World getWorld() {
         return _world;
     }
+    public void clearWorld() {
+        Body body = _world.getBodyList();
+        while (body != null) {
+            Body nextBody = body.getNext();
+            _world.destroyBody(body);
+            body = nextBody;
+        }
+    }
 
 
     public float worldToPixelScale(float worldScale) {
@@ -201,13 +207,13 @@ class myContactListener implements ContactListener{
         }
 
         PObject pObjectA = objA.getOwner();
-        OnCollision onCollisionA = pObjectA.getComponent(OnCollision.class);
+        PlayNoteOnCollision onCollisionA = pObjectA.getComponent(PlayNoteOnCollision.class);
         if(onCollisionA != null){
             onCollisionA.onCollision(contact);
         }
 
         PObject pObjectB = objB.getOwner();
-        OnCollision onCollisionB = pObjectB.getComponent(OnCollision.class);
+        PlayNoteOnCollision onCollisionB = pObjectB.getComponent(PlayNoteOnCollision.class);
         if(onCollisionB != null){
             onCollisionB.onCollision(contact);
         }

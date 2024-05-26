@@ -1,7 +1,7 @@
 package me.gabrielsalvador.pobject;
 
 import me.gabrielsalvador.kinescript.lang.Kinescript;
-import me.gabrielsalvador.pobject.components.OnCollision;
+import me.gabrielsalvador.pobject.components.PlayNoteOnCollision;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.body.BodyData;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
@@ -11,7 +11,6 @@ import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
-import org.jbox2d.dynamics.Fixture;
 
 public class PRubberbandPreset implements PObjectPreset{
 
@@ -67,12 +66,10 @@ public class PRubberbandPreset implements PObjectPreset{
         physicsBody.setAngle(angle);
 
         pObject1.addComponent(BodyComponent.class, physicsBody);
-        OnCollision onCollision = new OnCollision(pObject1);
-        onCollision.setOnCollisionFunction(
-                Kinescript.compileFunction("midi(channel,pitch, velocity)")
-        );
+        PlayNoteOnCollision onCollision = new PlayNoteOnCollision(pObject1);
 
-        pObject1.addComponent(OnCollision.class, onCollision);
+
+        pObject1.addComponent(PlayNoteOnCollision.class, onCollision);
 
         // add a musical note to the resonator
 

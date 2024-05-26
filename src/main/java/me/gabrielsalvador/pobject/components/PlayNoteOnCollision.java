@@ -2,36 +2,45 @@ package me.gabrielsalvador.pobject.components;
 
 import me.gabrielsalvador.kinescript.ast.KFunction;
 import me.gabrielsalvador.midi.MidiManager;
-import me.gabrielsalvador.ui.CodeEditor;
 import me.gabrielsalvador.pobject.components.musicalnote.MusicalNoteComponent;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
+import me.gabrielsalvador.ui.CodeEditor;
+import me.gabrielsalvador.ui.DropdownEditor;
+import me.gabrielsalvador.ui.IntervalEditor;
+import me.gabrielsalvador.ui.MidiChannelEditor;
 import me.gabrielsalvador.utils.Interval;
 import me.gabrielsalvador.utils.MusicalNote;
 import org.jbox2d.dynamics.contacts.Contact;
 import processing.core.PGraphics;
 
+import java.nio.channels.Channel;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OnCollision extends Component {
+public class PlayNoteOnCollision extends Component {
 
+    int channel = 1;
 
-    public KFunction onCollisionFunction = null;
-    public Map<String, Object> scope = new HashMap<>();
-
-    @PObject.InspectableProperty(displayName = "On Collision Function", controllerClass = CodeEditor.class)
-    public KFunction getOnCollisionFunction() {
-        return onCollisionFunction;
+    @PObject.InspectableProperty(displayName = "Midi Channel", controllerClass = MidiChannelEditor.class)
+    public int getChannel() {
+        return channel;
     }
-    @PObject.InspectableProperty.SetterFor("On Collision Function")
-    public void setOnCollisionFunction(KFunction function) {
-        onCollisionFunction = function;
+    @PObject.InspectableProperty.SetterFor("Midi Channel")
+    public void setChannel(int channel) {
+        this.channel = channel;
     }
 
+//
+//    KFunction customCallback;
+//    @PObject.InspectableProperty(displayName = "Custom Callback",controllerClass = CodeEditor.class)
+//    public KFunction getCustomCallback(){
+//        return customCallback;
+//    }
+//    @PObject.InspectableProperty.SetterFor("Custom Callback")
 
 
-    public OnCollision(PObject owner) {
+    public PlayNoteOnCollision(PObject owner) {
         super(owner);
     }
 
@@ -42,7 +51,7 @@ public class OnCollision extends Component {
 
     @Override
     public String getName() {
-        return "OnCollision";
+        return "Play Note On Collision";
     }
 
     @Override
@@ -67,13 +76,9 @@ public class OnCollision extends Component {
         int velocity = (int) contact.getFixtureB().getBody().getLinearVelocity().length();
 //        velocity = Math.min(velocity, 127);
 //
-//        int channel = MNC.getMidiChannel();
-//        MidiManager.getInstance().scheduleNote(channel,note.getPitch(), velocity);
-        scope.put("pitch", note.getPitch());
-        scope.put("velocity", velocity);
-        scope.put("channel", MNC.getMidiChannel());
+        int channel = MNC.getMidiChannel();
+        MidiManager.getInstance().scheduleNote(channel,note.getPitch(), velocity,100);
 
-        if(onCollisionFunction != null) onCollisionFunction.execute(scope);
     }
 
 

@@ -80,8 +80,19 @@ public class PObject implements Serializable {
 
     public ArrayList<PObjectProperty> getProperties() {
 
-        if (_cachedProperties == null) {
-            _cachedProperties = PObjectProperty.getProperties(this);
+        if (_cachedProperties == null || _cachedProperties.isEmpty()) {
+            List ownProperties = PObjectProperty.getProperties(this);
+            List componentsProperties =  getComponents().values().stream()
+                    .map(Component::getProperties)
+                    .reduce(new ArrayList<PObjectProperty>(), (a, b) -> {
+                        a.addAll(b);
+                        return a;
+                    });
+
+            _cachedProperties = new ArrayList<>();
+            _cachedProperties.addAll(ownProperties);
+            _cachedProperties.addAll(componentsProperties);
+
         }
         return _cachedProperties;
     }

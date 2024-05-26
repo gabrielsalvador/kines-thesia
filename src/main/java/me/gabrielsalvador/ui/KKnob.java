@@ -4,11 +4,13 @@ import controlP5.*;
 import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.timing.Clock;
 
-public class KKnob extends Group  {
+import java.util.ArrayList;
+
+public class KKnob extends PropertyEditor  {
     Knob knob;
 
-    public KKnob(PObjectProperty property, ControlP5 theControlP5, String theName) {
-        super(theControlP5, theName);
+    public KKnob(ControlP5 theControlP5, String theName, ArrayList<PObjectProperty> properties) {
+        super(theControlP5, theName, null, null);
 
         knob = theControlP5.addKnob(theName)
                 .setRange(40, 400)
@@ -48,6 +50,9 @@ public class KKnob extends Group  {
     }
 
 
-
-
+    @Override
+    public void resize(int width, int height) {
+        setWidth(width);
+        setHeight(height);
+    }
 }
