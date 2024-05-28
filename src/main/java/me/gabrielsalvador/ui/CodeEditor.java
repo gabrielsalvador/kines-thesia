@@ -58,8 +58,8 @@ public class CodeEditor extends PropertyEditor {
     }
 
 
-    public CodeEditor(ControlP5 theControlP5, String theName, ArrayList<Object> args) {
-        super(theControlP5, theName, args, null);
+    public CodeEditor(ControlP5 theControlP5, String theName,ArrayList<PObjectProperty> properties) {
+        super(theControlP5, theName);
 
         setPosition(0, 0);
 //        _properties = (ArrayList<PObjectProperty>) args.get(0);

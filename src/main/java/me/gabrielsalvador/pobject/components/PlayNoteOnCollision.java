@@ -20,16 +20,7 @@ import java.util.Map;
 
 public class PlayNoteOnCollision extends Component {
 
-    int channel = 1;
 
-    @PObject.InspectableProperty(displayName = "Midi Channel", controllerClass = MidiChannelEditor.class)
-    public int getChannel() {
-        return channel;
-    }
-    @PObject.InspectableProperty.SetterFor("Midi Channel")
-    public void setChannel(int channel) {
-        this.channel = channel;
-    }
 
 //
 //    KFunction customCallback;

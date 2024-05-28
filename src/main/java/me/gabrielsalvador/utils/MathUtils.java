@@ -1,5 +1,6 @@
 package me.gabrielsalvador.utils;
 
+import me.gabrielsalvador.core.App;
 import org.jbox2d.common.Vec2;
 
 import static processing.core.PApplet.dist;

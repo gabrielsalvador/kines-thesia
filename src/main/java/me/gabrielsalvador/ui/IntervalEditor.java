@@ -22,7 +22,7 @@ public class IntervalEditor extends PropertyEditor  {
     int step = 12;
 
     public IntervalEditor(ControlP5 theControlP5, String theName, ArrayList<Object> _pProperties) throws Exception {
-        super(theControlP5, theName, null, null);
+        super(theControlP5, theName);
         pProperties = new ArrayList<>();
         for (Object obj : _pProperties) {
             pProperties.add((PObjectProperty) obj);
@@ -32,14 +32,14 @@ public class IntervalEditor extends PropertyEditor  {
         keyboard = new Keyboard(theControlP5, "keyboard");
         keyboard.setRange(20, 34);
         keyboard.moveTo(this);
-        keyboard.addListenerFor(ControlP5Constants.ACTION_CLICK, event -> keyboardPressed(event));
+        keyboard.addListenerFor(ControlP5Constants.ACTION_PRESS, event -> keyboardPressed(event));
         highlight();
 
         //up/down buttons
         upButton.setLabel("▲").moveTo(this);
-        upButton.addListenerFor(ControlP5Constants.ACTION_CLICK, event -> upPressed());
+        upButton.addListenerFor(ControlP5Constants.ACTION_PRESS, event -> upPressed());
         downButton.moveTo(this).setLabel("▼");
-        downButton.addListenerFor(ControlP5Constants.ACTION_CLICK, event -> downPressed());
+        downButton.addListenerFor(ControlP5Constants.ACTION_PRESS, event -> downPressed());
 
         //title
         title.moveTo(this);
@@ -102,6 +102,7 @@ public class IntervalEditor extends PropertyEditor  {
             rangeHigh = 127;
         }
         keyboard.setRange(rangeLow, rangeHigh);
+        highlight();
     }
 
     public void downPressed() {
@@ -113,6 +114,7 @@ public class IntervalEditor extends PropertyEditor  {
             rangeHigh = 14;
         }
         keyboard.setRange(rangeLow, rangeHigh);
+        highlight();
 
     }
 

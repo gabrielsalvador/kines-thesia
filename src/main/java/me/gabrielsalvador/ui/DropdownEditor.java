@@ -3,7 +3,6 @@ package me.gabrielsalvador.ui;
 import controlP5.ControlP5;
 import controlP5.DropdownList;
 import controlP5.Textlabel;
-import me.gabrielsalvador.pobject.PObjectProperty;
 
 import java.util.ArrayList;
 
@@ -15,25 +14,18 @@ public class DropdownEditor extends PropertyEditor {
 
     //1st prop is the label
     //2nd prop is an array of strings (options)
-    public DropdownEditor(ControlP5 theControlP5, String theName, ArrayList<Object> props) {
-        super(theControlP5, theName, props, (ArrayList<Object>) null);
+    public DropdownEditor(ControlP5 theControlP5, String theName) {
+        super(theControlP5, theName);
 
-        if(props.isEmpty()) {
-            throw new IllegalArgumentException("DropdownEditor requires a list of options");
-        }
 
         label = new Textlabel(theControlP5, "label");
         label.moveTo(this);
 
         dropdown = theControlP5.addDropdownList(theName + "dropdown").moveTo(this);
 
-        dropdown.addCallback( (event) -> {
-            bringToFront();
 
-            props.forEach((prop) -> {
-                ((PObjectProperty) prop).setValue( event.getController().getValue());
-            });
-        });
+
+
 
 
     }

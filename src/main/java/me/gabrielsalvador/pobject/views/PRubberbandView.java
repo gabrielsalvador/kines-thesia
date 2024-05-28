@@ -1,5 +1,7 @@
 package me.gabrielsalvador.pobject.views;
 
+import controlP5.ControlP5;
+import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.Component;
@@ -10,14 +12,14 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
+import processing.opengl.PGraphics2D;
 
 import static processing.core.PApplet.dist;
 
 public class PRubberbandView extends PhysicsBodyView {
 
     PhysicsBodyComponent _owner;
-
-
+    PGraphics graphics = App.getInstance().getGraphics();
 
     public PRubberbandView(BodyComponent owner) {
         super((PhysicsBodyComponent) owner);
@@ -75,10 +77,17 @@ public class PRubberbandView extends PhysicsBodyView {
         } else {
             _brightness = 0;
         }
+
+
     }
 
     @Override
     public boolean isMouseOver(int mouseX, int mouseY) {
+
+        //if is click
+        if (App.getInstance().getCP5().papplet.mousePressed) {
+            System.out.println("Mouse over rubberband");
+        }
 
         Shape shape = _owner.getJBox2DBody().getFixtureList().getShape();
         PolygonShape polygon = (PolygonShape) shape;
@@ -89,8 +98,20 @@ public class PRubberbandView extends PhysicsBodyView {
         Vec2 vertexB = polygon.m_vertices[2];
         Vec2 B = PhysicsManager.getInstance().coordWorldToPixels(vertexB.x, vertexB.y);
 
-        // Check if the mouse is over the line segment AB with a 10 pixel margin
-        return MathUtils.isPointOverLineSegment(mouseX, mouseY, A.x, A.y, B.x, B.y, 100);
+        Vec2 pixelPosition = _owner.getPixelPosition();
+        float x1 = pixelPosition.x + A.x;
+        float y1 = pixelPosition.y + A.y;
+        float x2 = pixelPosition.x + B.x;
+        float y2 = pixelPosition.y + B.y;
+
+
+
+        graphics.stroke(255, 0, 0);
+        graphics.line(x1, y1, x2, y2);
+        graphics.ellipse(mouseX, mouseY, 10, 10);
+
+
+        return MathUtils.isPointOverLineSegment(mouseX, mouseY, x1, y1, x2, y2, 20);
     }
 
 

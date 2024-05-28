@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public abstract class PropertyEditor extends Group {
 
     //props is a list of possible configurations for the editor, if needed
-    public PropertyEditor(ControlP5 theControlP5, String theName, ArrayList<Object> props,ArrayList<Object> options) {
+    public PropertyEditor(ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);
 
         hideBar();

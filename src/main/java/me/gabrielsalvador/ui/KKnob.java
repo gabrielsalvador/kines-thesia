@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class KKnob extends PropertyEditor  {
     Knob knob;
 
-    public KKnob(ControlP5 theControlP5, String theName, ArrayList<PObjectProperty> properties) {
-        super(theControlP5, theName, null, null);
+    public KKnob(ControlP5 theControlP5, String theName,ArrayList<PObjectProperty> properties) {
+        super(theControlP5, theName);
 
         knob = theControlP5.addKnob(theName)
                 .setRange(40, 400)
