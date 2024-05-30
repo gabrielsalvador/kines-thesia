@@ -6,13 +6,16 @@ import me.gabrielsalvador.ui.KKnob;
 import me.gabrielsalvador.pobject.views.BlinkingLigth;
 import me.gabrielsalvador.pobject.views.PMetronomeView;
 import me.gabrielsalvador.timing.Device;
+import me.gabrielsalvador.ui.TimeDivisionEditor;
+
 import java.io.Serial;
 
 public class PMetronome extends PObject implements Device {
 
 
+
     int _periodicityIn16thNotes = 16;
-    @InspectableProperty(displayName = "Periodicity",controllerClass = KKnob.class)
+    @InspectableProperty(displayName = "Periodicity",controllerClass = TimeDivisionEditor.class)
     public int getPeriodicityIn16thNotes() {
         return _periodicityIn16thNotes;
     }
