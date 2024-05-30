@@ -1,15 +1,13 @@
 package me.gabrielsalvador.ui;
 
 import controlP5.*;
-import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.utils.Interval;
 
 import java.util.ArrayList;
-import java.util.function.Function;
 
-public class IntervalEditor extends PropertyEditor  {
+public class IntervalEditor extends CustomGroup {
 
     private final ArrayList<PObjectProperty> pProperties;
 

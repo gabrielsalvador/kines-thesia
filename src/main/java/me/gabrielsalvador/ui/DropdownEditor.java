@@ -4,9 +4,7 @@ import controlP5.ControlP5;
 import controlP5.DropdownList;
 import controlP5.Textlabel;
 
-import java.util.ArrayList;
-
-public class DropdownEditor extends PropertyEditor {
+public class DropdownEditor extends CustomGroup {
 
     protected DropdownList dropdown;
     Textlabel label;

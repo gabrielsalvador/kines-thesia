@@ -6,7 +6,7 @@ import me.gabrielsalvador.timing.Clock;
 
 import java.util.ArrayList;
 
-public class KKnob extends PropertyEditor  {
+public class KKnob extends CustomGroup {
     Knob knob;
 
     public KKnob(ControlP5 theControlP5, String theName,ArrayList<PObjectProperty> properties) {

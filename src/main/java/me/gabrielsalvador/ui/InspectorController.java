@@ -4,7 +4,6 @@ import controlP5.*;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObjectProperty;
-import me.gabrielsalvador.pobject.components.Component;
 
 import javax.lang.model.type.NoType;
 import java.beans.PropertyChangeEvent;
@@ -12,7 +11,6 @@ import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -50,7 +48,7 @@ public class InspectorController extends Group implements PropertyChangeListener
                 (type, properties) -> {
                     if (type != NoType.class) {
                         try {
-                            PropertyEditor editor = (PropertyEditor) type.getConstructor(ControlP5.class, String.class, ArrayList.class).newInstance(cp5, type.getName(), properties);
+                            CustomGroup editor = (CustomGroup) type.getConstructor(ControlP5.class, String.class, ArrayList.class).newInstance(cp5, type.getName(), properties);
 
                             editor.resize(getWidth(), 100);
                             editor.moveTo(this);
@@ -81,7 +79,7 @@ public class InspectorController extends Group implements PropertyChangeListener
             for (PObjectProperty property : objectProperties) {
                 Class<?> type = property.getControllerClass();
                 if (!properties.containsKey(type)) {
-                    properties.put((Class<? extends PropertyEditor>) type, new ArrayList<>());
+                    properties.put((Class<? extends CustomGroup>) type, new ArrayList<>());
                 }
 
                 properties.get(type).add(property);

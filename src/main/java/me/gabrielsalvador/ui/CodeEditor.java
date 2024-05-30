@@ -12,7 +12,7 @@ import java.util.List;
 
 
 
-public class CodeEditor extends PropertyEditor {
+public class CodeEditor extends CustomGroup {
 
 
 
