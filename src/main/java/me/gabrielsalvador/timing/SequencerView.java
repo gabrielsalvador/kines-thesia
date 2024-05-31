@@ -1,6 +1,7 @@
 package me.gabrielsalvador.timing;
 
 import controlP5.ControllerView;
+import me.gabrielsalvador.utils.Stopwatch;
 import processing.core.PGraphics;
 
 class SequencerView implements ControllerView<SequencerController> {
@@ -10,45 +11,58 @@ class SequencerView implements ControllerView<SequencerController> {
     }
 
     public void display(PGraphics theGraphics, SequencerController theController) {
+        Stopwatch.start();
 
         theGraphics.pushStyle();
 
-        float[] positon = _controller.getPosition();
-        theGraphics.translate(positon[0],positon[1]);
-        theGraphics.rect(0.0F, 0.0F, (float)_controller.getWidth(), (float)_controller.getHeight());
-        float stepX = (float)_controller.getWidth() / (float)_controller.getDivisionTime();
-        float stepY = (float)_controller.getHeight() / (float)_controller.getDivisionPitch();
+        float[] position = _controller.getPosition();
+        theGraphics.translate(position[0], position[1]);
+        theGraphics.rect(0.0F, 0.0F, (float) _controller.getWidth(), (float) _controller.getHeight());
+        float stepX = (float) _controller.getWidth() / (float) _controller.getDivisionTime();
+        float stepY = (float) _controller.getHeight() / (float) _controller.getDivisionPitch();
+
         theGraphics.strokeWeight(1.0F);
 
-        for(int x = 0; x < _controller.getDivisionTime() ; ++x) {
-            for(int y = 0; y < _controller.getDivisionPitch() ; ++y) {
-                theGraphics.noStroke();
-                theGraphics.fill(_controller.getSteps()[x][y] ? _controller.getColor().getActive() : _controller.getColor().getBackground());
-                theGraphics.rect((float)x * stepX, (float)y * stepY, stepX, stepY);
-                if (x > 0) {
-                    theGraphics.stroke(30.0F, 30.0F, 30.0F);
-                    theGraphics.line((float)((int)((float)x * stepX)), 0.0F, (float)((int)((float)x * stepX)), (float)_controller.getHeight());
-                    theGraphics.noStroke();
-                }
+        boolean[][] steps = _controller.getSteps();
+        int divisionTime = _controller.getDivisionTime();
+        int divisionPitch = _controller.getDivisionPitch();
+        float controllerHeight = (float) _controller.getHeight();
+        float controllerWidth = (float) _controller.getWidth();
+        int colorActive = _controller.getColor().getActive();
+        int colorBackground = _controller.getColor().getBackground();
 
-                if (y > 0) {
-                    theGraphics.stroke(30.0F, 30.0F, 30.0F);
-                    theGraphics.line(0.0F, (float)((int)((float)y * stepY)), (float)_controller.getWidth(), (float)((int)((float)y * stepY)));
-                    theGraphics.noStroke();
-                }
+        theGraphics.noStroke();
+
+        for (int x = 0; x < divisionTime; ++x) {
+            float xPos = x * stepX;
+            for (int y = 0; y < divisionPitch; ++y) {
+                theGraphics.fill(steps[x][y] ? colorActive : colorBackground);
+                theGraphics.rect(xPos, y * stepY, stepX, stepY);
             }
         }
 
-        if (_controller.isInside()) {
+        theGraphics.stroke(30.0F, 30.0F, 30.0F);
+
+        for (int x = 1; x < divisionTime; ++x) {
+            float xPos = x * stepX;
+            theGraphics.line(xPos, 0.0F, xPos, controllerHeight);
         }
 
-        theGraphics.fill(_controller.getColor().getActive());
-        theGraphics.rect((float)_controller.getPlayhead() * stepX, 0.0F, 1.0F, (float)_controller.getHeight());
+        for (int y = 1; y < divisionPitch; ++y) {
+            float yPos = y * stepY;
+            theGraphics.line(0.0F, yPos, controllerWidth, yPos);
+        }
+
+        theGraphics.noStroke();
+        theGraphics.fill(colorActive);
+        theGraphics.rect(_controller.getPlayhead() * stepX, 0.0F, 1.0F, controllerHeight);
+
         if (_controller.isLabelVisible()) {
             _controller.getCaptionLabel().draw(theGraphics, 0, 0, theController);
         }
 
         theGraphics.popStyle();
+        Stopwatch.stopAndPrint();
     }
 
 
