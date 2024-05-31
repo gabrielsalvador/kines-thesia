@@ -9,8 +9,11 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 public class SequencerController extends Controller<SequencerController> implements Device{
-    public static final int DIVISION_TIME = 32 ;
-    public static final int DIVISION_PITCH = 24;
+    public static final int MAX_DIVISION_TIME = 32 ;
+    public static final int MAX_DIVISION_PITCH = 24;
+    private int timeDivisions = MAX_DIVISION_TIME;
+    private int pitchDivision = MAX_DIVISION_PITCH;
+
     private int playhead = 0;
     protected boolean isPressed;
     protected int currentX = -1;
@@ -38,8 +41,8 @@ public class SequencerController extends Controller<SequencerController> impleme
         _internalBeatCounter = (_internalBeatCounter + 1) % _howManyTicksToAdvance;
 
         if( _internalBeatCounter == 0){
-            playhead = (playhead + 1) % DIVISION_TIME;
-            for (int pitch = 0; pitch < DIVISION_PITCH; pitch++) {
+            playhead = (playhead + 1) % timeDivisions;
+            for (int pitch = 0; pitch < pitchDivision; pitch++) {
                 if (_sequencerState.getSteps()[playhead][pitch]) {
                     sendNoteEvent(playhead, pitch);
                 }
@@ -58,6 +61,17 @@ public class SequencerController extends Controller<SequencerController> impleme
     @Override
     public SequencerController updateInternalEvents(PApplet theApplet) {
         setIsInside(inside());
+
+        //Quick fix because absolute position is broken in ControlP5 when using nested controllers
+        float[] absolutePosition = new float[]{0,0};
+        ControllerInterface<?> iterator = this;
+        while (!iterator.getParent().getName().equals("default")){
+            absolutePosition[0] += iterator.getPosition()[0];
+            absolutePosition[1] += iterator.getPosition()[1];
+            iterator = iterator.getParent();
+        }
+
+
 
         if (getIsInside()) {
             if (isPressed) {
@@ -86,6 +100,7 @@ public class SequencerController extends Controller<SequencerController> impleme
                 }
             }
         }
+
         return this;
     }
 
@@ -118,11 +133,18 @@ public class SequencerController extends Controller<SequencerController> impleme
     }
 
     public int getDivisionTime() {
-        return DIVISION_TIME;
+        return timeDivisions;
     }
-
+    public SequencerController setDivisionTime(int theValue) {
+        timeDivisions = theValue;
+        return this;
+    }
     public int getDivisionPitch() {
-        return DIVISION_PITCH;
+        return pitchDivision;
+    }
+    public int setDivisionPitch(int theValue) {
+        pitchDivision = theValue;
+        return theValue;
     }
     public boolean[][] getSteps() {
         return _sequencerState.getSteps();

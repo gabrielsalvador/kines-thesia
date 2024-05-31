@@ -72,7 +72,7 @@ public class App extends PApplet {
         builder.addCustomClasses("Canvas", CanvasController.class);
         builder.addCustomClasses("Toolbox", ToolboxController.class);
         builder.addCustomClasses("Inspector", InspectorController.class);
-        builder.addCustomClasses("Sequencer", SequencerController.class);
+        builder.addCustomClasses("Sequencer", SequencerGroup.class);
         builder.addCustomClasses("TransportButton", TransportButton.class);
 
         try {

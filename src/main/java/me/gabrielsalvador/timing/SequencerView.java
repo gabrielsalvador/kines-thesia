@@ -11,8 +11,6 @@ class SequencerView implements ControllerView<SequencerController> {
     }
 
     public void display(PGraphics theGraphics, SequencerController theController) {
-        Stopwatch.start();
-
         theGraphics.pushStyle();
 
         float[] position = _controller.getPosition();
@@ -62,7 +60,6 @@ class SequencerView implements ControllerView<SequencerController> {
         }
 
         theGraphics.popStyle();
-        Stopwatch.stopAndPrint();
     }
 
 

@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class SequencerState implements Serializable {
 
-    private boolean[][] _steps = new boolean[SequencerController.DIVISION_TIME][SequencerController.DIVISION_PITCH];
+    private boolean[][] _steps = new boolean[SequencerController.MAX_DIVISION_TIME][SequencerController.MAX_DIVISION_PITCH];
 
 
 
