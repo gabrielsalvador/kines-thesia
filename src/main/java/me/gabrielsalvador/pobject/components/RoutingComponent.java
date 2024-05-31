@@ -7,6 +7,7 @@ import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.ui.CodeEditor;
+import me.gabrielsalvador.utils.CallbackWrapper;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;

@@ -5,14 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
-
 import controlP5.*;
 import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.ui.InspectorController;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.timing.Clock;
-import me.gabrielsalvador.timing.SequencerController;
+import me.gabrielsalvador.ui.SequencerGroup;
 import me.gabrielsalvador.ui.ToolboxController;
 import me.gabrielsalvador.ui.TransportButton;
 import processing.core.PApplet;

@@ -1,13 +1,13 @@
 package me.gabrielsalvador.pobject;
 
 
-import me.gabrielsalvador.kinescript.lang.Kinescript;
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.components.PlayNoteOnCollision;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.*;
 import me.gabrielsalvador.pobject.components.musicalnote.MusicalNoteComponent;
 import me.gabrielsalvador.pobject.views.PKeyboardView;
-import me.gabrielsalvador.utils.Interval;
+import me.gabrielsalvador.utils.CallbackWrapper;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
