@@ -2,6 +2,7 @@ package me.gabrielsalvador.pobject;
 
 
 import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.kinescript.lang.Kinescript;
 import me.gabrielsalvador.pobject.components.PlayNoteOnCollision;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.*;
@@ -64,8 +65,8 @@ public interface PObjectPreset {
             //routing
             RoutingComponent emitterRouting = new RoutingComponent(emitter);
             emitterRouting.setPulseCallback(
-                    Kinescript.compileFunction("add(\"droplet\", x, y)")
-            );
+                    new CallbackWrapper(Kinescript.compileFunction("add(\"droplet\", x, y)")
+            ));
             emitter.addComponent(RoutingComponent.class, emitterRouting);
             RoutingComponent metronomeRoutingComponent = new RoutingComponent(metronome);
             metronome.addComponent(RoutingComponent.class, metronomeRoutingComponent);
@@ -116,7 +117,6 @@ public interface PObjectPreset {
         private int interval = 0;
 
 
-
         /*
         / relativePitch is the degree relative to the root note
          */
@@ -131,7 +131,7 @@ public interface PObjectPreset {
         @Override
         public PObject[] create() {
             float width = _finalPosition.clone().sub(_initialPosition).length(); // Width of the bar
-            float height = 20 ; // Height of the bar
+            float height = 20; // Height of the bar
 
             // Center offset
             float halfWidth = width / 2;
@@ -188,7 +188,7 @@ public interface PObjectPreset {
             PKeyboard pKeyboard = new PKeyboard();
 
             RoutingComponent routingComponent = new RoutingComponent(pKeyboard);
-            pKeyboard.addComponent(RoutingComponent.class,routingComponent);
+            pKeyboard.addComponent(RoutingComponent.class, routingComponent);
 
             HologramBody body = new HologramBody(pKeyboard);
             pKeyboard.addComponent(BodyComponent.class, body);

@@ -90,13 +90,13 @@ public class RoutingComponent extends Component {
 
     private int _subdivisions = 1;
 
-    private KFunction _pulseCallback;
+    private CallbackWrapper _pulseCallback;
     @InspectableProperty(displayName = "onPulseReceived", controllerClass = CodeEditor.class)
-    public KFunction getPulseCallback() {
+    public CallbackWrapper getPulseCallback() {
         return _pulseCallback;
     }
     @InspectableProperty.SetterFor("onPulseReceived")
-    public void setPulseCallback(KFunction callback) {
+    public void setPulseCallback(CallbackWrapper callback) {
         _pulseCallback = callback;
     }
 
@@ -156,7 +156,17 @@ public class RoutingComponent extends Component {
         scope.put("y", _owner.getBodyComponent().getPixelCenter().y);
 
         if (_pulseCallback != null) {
-            _pulseCallback.execute(scope);
+
+            if (_pulseCallback.isKFunction()){
+                KFunction kFunction = _pulseCallback.getKFunction();
+                kFunction.execute(scope);
+                return;
+            } else if ( _pulseCallback.isRunnable() ){
+                _pulseCallback.getRunnable().run();
+                return;
+            }
+
+
         }
 
 
