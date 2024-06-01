@@ -153,5 +153,9 @@ public class SequencerController extends Controller<SequencerController> impleme
         return playhead;
     }
 
+    public SequencerState getState() {
+        return _sequencerState;
+    }
+
 
 }

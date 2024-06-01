@@ -21,6 +21,13 @@ public class SequencerState implements Serializable {
         _steps[x][y] = value;
     }
 
+    public void clear() {
+        for (int x = 0; x < _steps.length; x++) {
+            for (int y = 0; y < _steps[x].length; y++) {
+                _steps[x][y] = false;
+            }
+        }
+    }
     @Serial
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
         _steps = (boolean[][]) in.readObject();
