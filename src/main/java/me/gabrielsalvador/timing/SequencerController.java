@@ -2,6 +2,7 @@ package me.gabrielsalvador.timing;
 
 import controlP5.*;
 import me.gabrielsalvador.core.AppState;
+import me.gabrielsalvador.midi.MidiManager;
 import me.gabrielsalvador.pobject.routing.Inlet;
 import me.gabrielsalvador.utils.MusicalNote;
 import processing.core.PApplet;
@@ -51,6 +52,9 @@ public class SequencerController extends Controller<SequencerController> impleme
 
     }
     private void sendNoteEvent(int time, int pitch) {
+
+        MidiManager.getInstance().setChord(pitch);
+        System.out.println("Sending note event: " + pitch + " at time: " + time);
         /* Send note event to all connected PObjects */
         for (Inlet inlet : _connectedPObjects) {
             MusicalNote note = new MusicalNote(pitch);

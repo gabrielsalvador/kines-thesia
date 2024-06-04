@@ -18,7 +18,7 @@ import processing.core.PGraphics;
 
 import javax.lang.model.type.NoType;
 
-public class PObject implements Serializable {
+public class PObject implements Serializable, HasPProperties {
 
     transient private boolean _isSelected = false;
     private boolean _isHovered = false;

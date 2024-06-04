@@ -71,19 +71,11 @@ public class AppController {
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         _propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
     }
-//        _propertyChangeSupport.addPropertyChangeListener("selectedObjects", new PropertyChangeListener(){
-//                @Override
-//                public void propertyChange(java.beans.PropertyChangeEvent evt) {
-//                    if(evt.getNewValue() != null) {
-//                        ArrayList<PObject> selectedObjects = (ArrayList<PObject>) evt.getNewValue();
-//                        for (PObject pObject : AppState.getInstance().getPObjects()) {
-//                            pObject.setIsSelected(selectedObjects.contains(pObject));
-//                        }
-//                    }
-//                }
-//            }
-//        );
-//    }
+
+    public PropertyChangeSupport getPropertyChangeSupport() {
+        return _propertyChangeSupport;
+    }
+
 
     public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
         _propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);

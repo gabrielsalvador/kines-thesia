@@ -1,10 +1,19 @@
 package me.gabrielsalvador.midi;
+import me.gabrielsalvador.core.AppController;
+import me.gabrielsalvador.pobject.HasPProperties;
+import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.timing.Clock;
+import me.gabrielsalvador.ui.CurrentChordDisplay;
+import me.gabrielsalvador.ui.MidiChannelEditor;
 import me.gabrielsalvador.utils.MusicalNote;
 import me.gabrielsalvador.utils.Scale;
 import themidibus.MidiBus;
 
-public class MidiManager {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MidiManager implements HasPProperties {
 
 
     private final int inputIndex = 1;
@@ -82,11 +91,18 @@ public class MidiManager {
         _midiBus = new MidiBus(this, inputIndex, outputIndex);
     }
 
+    @PObject.InspectableProperty(displayName = "Chord",controllerClass = CurrentChordDisplay.class)
     public int getChord() {
         return _chord;
     }
-
+//    @PObject.InspectableProperty.SetterFor("Chord")
     public void setChord(int chord) {
+        AppController.getInstance().firePropertyChange("currentChord", _chord, chord);
         _chord = chord;
+    }
+
+    @Override
+    public ArrayList<PObjectProperty> getProperties() {
+        return PObjectProperty.getProperties(this);
     }
 }
