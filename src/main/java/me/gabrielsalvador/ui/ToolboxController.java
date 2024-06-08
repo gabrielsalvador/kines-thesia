@@ -78,6 +78,8 @@ class ToolboxController extends Group {
     }
 
 
+    //if a tool is selected, update the button state
+
     private void updateButtonStates(Tool oldTool, Tool newTool) {
         if (oldTool != null) {
             Button oldButton = _children.get(oldTool.getClass());
