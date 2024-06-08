@@ -93,6 +93,11 @@ public class HologramBody extends BodyComponent implements Serializable {
         return 0;
     }
 
+    @Override
+    public void setVelocity(Vec2 vec2) {
+        // cannot move hologram
+    }
+
 
     @Override
     public AbstractShape getShape() {

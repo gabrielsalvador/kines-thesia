@@ -197,6 +197,11 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         return _body.getAngle();
     }
 
+    @Override
+    public void setVelocity(Vec2 vec2) {
+        _body.setLinearVelocity(vec2);
+    }
+
     public void setAngle(float angle) {
         _body.setTransform(_body.getPosition(), angle);
     }

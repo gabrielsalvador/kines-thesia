@@ -68,4 +68,6 @@ public abstract class BodyComponent extends Component {
 
 
     public abstract float getAngle() ;
+
+    public abstract void setVelocity(Vec2 vec2) ;
 }
