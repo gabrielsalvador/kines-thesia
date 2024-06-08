@@ -105,6 +105,9 @@ public class PhysicsManager {
         return circleBody;
     }
 
+    public void removeBody(Body body) {
+        _world.destroyBody(body);
+    }
     public Body createPolygon(BodyData data) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = data.bodyType;

@@ -4,6 +4,7 @@ import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
+import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.pobject.views.View;
 import me.gabrielsalvador.timing.SequencerController;
 import java.beans.PropertyChangeListener;
@@ -114,7 +115,15 @@ public class AppController {
         return pObject;
     }
    
+    public void removePObjectImmediatly(PObject pObject) {
+        //first remove the object from the physics world
+        PhysicsBodyComponent bodyComponent = pObject.getBodyComponent();
+        PhysicsManager.getInstance().removeBody(bodyComponent.getJBox2DBody());
+        //then remove the object from the app state
+        _appState.getPObjects().remove(pObject);
 
+
+    }
 
 
 

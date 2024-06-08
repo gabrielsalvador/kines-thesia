@@ -43,16 +43,17 @@ public class SelectTool extends Tool {
 
     @Override
     public void keyEvent(KeyEvent keyEvent) {
-//        if (keyEvent.getAction() == KeyEvent.PRESS) {
-//            //if backspace is pressed, delete selected objects
-//            if (keyEvent.getKeyCode() == 8) {
-//                System.out.println("backspace pressed");
-//                _gizmos.clear();
-//                for (PObject p : selectedObjects) {
-//                    AppController.getInstance().queueModification(p::remove);
-//                }
-//            }
-//        }
+
+        // 8 == backspace
+        if (keyEvent.getKey() == 8 && keyEvent.getAction() == KeyEvent.PRESS) {
+            for (PObject pObject : selectedObjects) {
+                AppController.getInstance().queueModification(() -> {
+                    AppController.getInstance().removePObjectImmediatly(pObject);
+                });
+            }
+            clearSelection();
+        }
+
     }
     
 

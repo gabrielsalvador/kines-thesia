@@ -14,9 +14,6 @@ public class InputManager {
     private static final ToolManager _toolManager = ToolManager.getInstance();
 
     private final HashMap<Character, Runnable> _keyMappings = new HashMap<>() {{
-        put('W', () -> System.out.println("W key pressed: Moving up!"));
-        put('A', () -> System.out.println("A key pressed: Moving left!"));
-
     }};
 
 

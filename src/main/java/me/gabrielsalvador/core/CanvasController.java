@@ -135,17 +135,8 @@ public class CanvasController extends Controller<CanvasController> implements Re
     @Override
     public void keyEvent(KeyEvent theKeyEvent) {
 
-        if (theKeyEvent.getAction() == KeyEvent.PRESS) {
-            if (theKeyEvent.getKey() == 112) { //p
-                MidiManager mm = MidiManager.getInstance();
-                int chord = mm.getChord();
-                mm.setChord(chord + 1);
-            } else if (theKeyEvent.getKey() == 111) { //o
-                MidiManager mm = MidiManager.getInstance();
-                int chord = mm.getChord();
-                mm.setChord(chord - 1);
-            }
-        }
+        _toolManager.getCurrentTool().keyEvent(theKeyEvent);
+
     }
 
 
