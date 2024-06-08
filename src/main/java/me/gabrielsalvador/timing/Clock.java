@@ -64,8 +64,7 @@ public class Clock {
                     sequencerController.clockTick();
                 }
             } catch (Exception e) {
-                System.err.println("Exception caught inside the task.");
-                e.printStackTrace();
+                AppController.defaultExceptionHandler.uncaughtException(Thread.currentThread(), e);
             }
         }, 0, getPeriodOfNthNotes(_periodIn16thNotes), TimeUnit.NANOSECONDS);
         _transportState = TransportState.PLAYING;

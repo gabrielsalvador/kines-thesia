@@ -14,6 +14,8 @@ import me.gabrielsalvador.pobject.PObject;
 
 import java.util.ArrayList;
 
+import static me.gabrielsalvador.core.AppController.defaultExceptionHandler;
+
 // Custom controller class that extends Controller
 public class CanvasController extends Controller<CanvasController> implements ReleasedOutsideListener {
 
@@ -41,12 +43,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
         // Start the physics thread
         physicsThread = new Thread(this::runPhysics);
-        physicsThread.setUncaughtExceptionHandler((t, e) -> {
-            System.out.println("An exception has been captured");
-            System.out.printf("Thread: %s\n", t.getId());
-            System.out.printf("Exception: %s: %s\n", e.getClass().getName(), e.getMessage());
-            e.printStackTrace(System.out);
-        });
+        physicsThread.setUncaughtExceptionHandler(defaultExceptionHandler);
         physicsThread.start();
     }
 
@@ -155,9 +152,8 @@ public class CanvasController extends Controller<CanvasController> implements Re
                 try {
                     _physicsManager.step(_timeStep, 8, 3);
                     AppController.getInstance().applyModifications();
-                } catch (Exception e) {
-                    e.printStackTrace();  // print the stack trace of the exception
-                    Thread.currentThread().interrupt();
+                }catch (Exception e) {
+                    defaultExceptionHandler.uncaughtException(Thread.currentThread(), e);
                 }
             }
             try {

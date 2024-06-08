@@ -36,6 +36,7 @@ public class PhysicsManager {
     /* rate at which physics simulation moves forward */
     private final float _timeStep = 1.0f / 60.0f;
     private final ReentrantLock lock = new ReentrantLock();
+    public final Object physicsThreadLock = new Object();
 
     private volatile boolean running = true;
 
@@ -44,7 +45,6 @@ public class PhysicsManager {
     float transY = 0.0f;
     float scaleFactor = 10.0f;
 
-    public final Object physicsThreadLock = new Object();
 
     private PhysicsManager(){
         _world.setContactListener(new myContactListener());

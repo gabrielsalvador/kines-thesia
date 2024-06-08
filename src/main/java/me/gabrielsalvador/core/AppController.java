@@ -6,6 +6,7 @@ import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.pobject.views.View;
+import me.gabrielsalvador.timing.Clock;
 import me.gabrielsalvador.timing.SequencerController;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -23,12 +24,25 @@ public class AppController {
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
     private final ConcurrentLinkedQueue<Runnable> _modificationsQueue = new ConcurrentLinkedQueue<Runnable>();
 
-
+    public static Thread.UncaughtExceptionHandler defaultExceptionHandler = new Thread.UncaughtExceptionHandler() {
+        public void uncaughtException(Thread th, Throwable ex) {
+            Clock.getInstance().pause();
+            System.out.println("Uncaught exception: " + ex);
+            // Stop all threads here
+            for (Thread t : Thread.getAllStackTraces().keySet()) {
+                if (t.getState() == Thread.State.RUNNABLE) {
+                    t.interrupt();
+                }
+            }
+        }
+    };
 
 
 
     private AppController() {
         _appState = AppState.getInstance();
+        Thread.setDefaultUncaughtExceptionHandler(defaultExceptionHandler);
+
     }
 
     public static synchronized AppController getInstance() {
