@@ -2,8 +2,10 @@ package me.gabrielsalvador.tools.gizmo;
 
 import me.gabrielsalvador.PGroup;
 import me.gabrielsalvador.pobject.PObject;
+import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
 import me.gabrielsalvador.tools.RoutingTool;
 import me.gabrielsalvador.tools.ToolManager;
+import me.gabrielsalvador.utils.MathUtils;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
 
@@ -17,14 +19,23 @@ public class RoutingGizmo extends Gizmo {
     @Override
     public void draw(PGraphics graphics) {
         graphics.pushStyle();
-        graphics.fill(255, 0, 0);
-        Vec2[] _position = getPositions();
-        graphics.ellipseMode(3);
-        graphics.fill(255, 255, 255);
-        graphics.stroke(0);
-        for (Vec2 position : _position) {
-            graphics.ellipse(position.x, position.y, 10, 10);
-        }
+        graphics.stroke(255);
+        // Define the start and end points of the arrow
+        Vec2 start = getPositions()[0];
+        Vec2 end = start.add(new Vec2(5, -5));
+
+        graphics.ellipseMode(graphics.CENTER);
+        graphics.ellipse(start.x, start.y, 10, 10);
+
+        // Draw the shaft of the arrow
+        graphics.line(start.x, start.y, end.x, end.y);
+
+        // Calculate the direction of the arrow
+        Vec2 dir = end.sub(start);
+        dir.normalize();
+
+
+
         graphics.popStyle();
     }
 
@@ -46,8 +57,9 @@ public class RoutingGizmo extends Gizmo {
     public Vec2[] getPositions() {
         PObject object = (PObject) selectedObjects.get(0);
         if (object != null){
-            Vec2 p = object.getBodyComponent().getPixelCenter();
-            return new Vec2[]{p};
+            Vec2[] positions = new Vec2[1];
+            positions[0] = object.getBodyComponent().getPixelCenter();
+            return positions;
         }
         return null;
     }

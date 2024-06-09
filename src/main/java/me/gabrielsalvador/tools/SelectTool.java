@@ -174,8 +174,6 @@ public class SelectTool extends Tool {
 
     private void select(PObject pObject) {
 
-
-
         if (pObject.getIsSelected()) {
             return;
         } else {
@@ -193,9 +191,9 @@ public class SelectTool extends Tool {
                 _gizmos.add(new FreetransformGizmo(selectedObjects));
             }
 
-            if(selectedObjects.get(0).getBodyComponent() instanceof BodyComponent){
-                _gizmos.add(new RoutingGizmo(selectedObjects));
-            }
+//            if(selectedObjects.get(0).getBodyComponent() instanceof BodyComponent){
+//                _gizmos.add(new RoutingGizmo(selectedObjects));
+//            }
 
 
         }

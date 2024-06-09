@@ -53,6 +53,16 @@ public class MathUtils {
         return new Vec2(xnew + cx, ynew + cy);
     }
 
+    public static Vec2 rotateVector(Vec2 v, float angle) {
+        float s = (float) Math.sin(angle);
+        float c = (float) Math.cos(angle);
+
+        float xnew = v.x * c - v.y * s;
+        float ynew = v.x * s + v.y * c;
+
+        return new Vec2(xnew, ynew);
+    }
+
     public static float calculateAngle(Vec2 v1, Vec2 v2) {
         float dotProduct = Vec2.dot(v1, v2);
         float magnitudeProduct = v1.length() * v2.length();
