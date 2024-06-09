@@ -3,6 +3,7 @@ package me.gabrielsalvador.core;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsManager;
+import me.gabrielsalvador.pobject.components.Component;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.pobject.views.View;
@@ -27,7 +28,8 @@ public class AppController {
     public static Thread.UncaughtExceptionHandler defaultExceptionHandler = new Thread.UncaughtExceptionHandler() {
         public void uncaughtException(Thread th, Throwable ex) {
             Clock.getInstance().pause();
-            System.out.println("Uncaught exception: " + ex);
+
+            ex.printStackTrace();
             // Stop all threads here
             for (Thread t : Thread.getAllStackTraces().keySet()) {
                 if (t.getState() == Thread.State.RUNNABLE) {
@@ -130,13 +132,12 @@ public class AppController {
     }
    
     public void removePObjectImmediatly(PObject pObject) {
-        //first remove the object from the physics world
-        PhysicsBodyComponent bodyComponent = pObject.getBodyComponent();
-        PhysicsManager.getInstance().removeBody(bodyComponent.getJBox2DBody());
-        //then remove the object from the app state
+
+        //cleanup , for example remove the body from the physics world
+        for(Component component : pObject.getComponents().values()){
+            component.dispose();
+        }
         _appState.getPObjects().remove(pObject);
-
-
     }
 
 

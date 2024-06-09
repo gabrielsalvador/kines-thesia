@@ -88,6 +88,11 @@ public class PhysicsBodyComponent extends BodyComponent implements Serializable 
         return "PhysicsBody";
     }
 
+    @Override
+    public void dispose() {
+        PhysicsManager.getInstance().removeBody(getJBox2DBody());
+    }
+
     public Body getJBox2DBody() {
         return _body;
     }

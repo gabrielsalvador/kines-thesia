@@ -128,6 +128,11 @@ public class HologramBody extends BodyComponent implements Serializable {
         return "HologramBody";
     }
 
+    @Override
+    public void dispose() {
+
+    }
+
 
     public void setParent(HologramBody parent){
         _parent = parent;

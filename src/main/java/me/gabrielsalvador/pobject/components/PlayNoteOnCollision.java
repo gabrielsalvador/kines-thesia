@@ -37,6 +37,11 @@ public class PlayNoteOnCollision extends Component {
     }
 
     @Override
+    public void dispose() {
+
+    }
+
+    @Override
     public void remove() {
 
     }

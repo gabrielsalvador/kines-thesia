@@ -73,6 +73,11 @@ public class RoutingComponent extends Component {
     }
 
     @Override
+    public void dispose() {
+
+    }
+
+    @Override
     public void remove() {
 
     }

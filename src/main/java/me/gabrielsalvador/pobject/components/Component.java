@@ -72,6 +72,8 @@ public abstract class  Component implements Serializable {
         return _owner;
     }
 
+    public abstract void dispose();
+
     @Serial
     private void readObject(java.io.ObjectInputStream in) throws ClassNotFoundException, IOException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         in.defaultReadObject();

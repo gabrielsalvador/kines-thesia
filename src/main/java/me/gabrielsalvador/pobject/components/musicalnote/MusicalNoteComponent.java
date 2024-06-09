@@ -65,6 +65,11 @@ public class MusicalNoteComponent extends Component {
     }
 
     @Override
+    public void dispose() {
+
+    }
+
+    @Override
     public void remove() {
 
     }
