@@ -38,8 +38,12 @@ class ToolboxController extends Group {
             char getShortcut = toolManager.getShortcutForTool(tool);
             Button b = new Button(cp5, uii).setHeight(50).registerTooltip(getShortcut + "");
             //icon
-            PImage icon = app.loadImage(Config.ICON_FOLDER_PATH + "tools/" + tool.getSimpleName().toLowerCase() + ".png");
-            b.setImage(icon);
+            String path = Config.ICON_FOLDER_PATH + "tools/" + tool.getSimpleName().toLowerCase();
+            PImage normal = app.loadImage(path + ".png");
+//            PImage active = app.loadImage(path + "-active.png");
+//            PImage hover = app.loadImage(path + "-hover.png");
+            b.setImage(normal);
+
             b.setSize(32,62);
 
             //naming
