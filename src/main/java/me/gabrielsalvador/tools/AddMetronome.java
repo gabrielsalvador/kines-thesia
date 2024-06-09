@@ -1,12 +1,14 @@
 package me.gabrielsalvador.tools;
 
 import me.gabrielsalvador.common.DisplayName;
+import me.gabrielsalvador.common.SkipProcessing;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.PMetronome;
 import me.gabrielsalvador.pobject.PObject;
 import processing.event.KeyEvent;
 
 @DisplayName("Metronome")
+@SkipProcessing()
 public class AddMetronome extends Tool {
 
     @Override

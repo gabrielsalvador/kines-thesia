@@ -1,9 +1,11 @@
 <Window>
     <Group y=0px x=0px hideBar x=0px y=0px height=100% width=100% background=rgb(30,30,30) orientation="vertical">
         <Group hideBar height=10% width=100% background=rgb(30,30,30) orientation="horizontal" padding=(10,0,10,0)>
-            <TransportButton name="playButton"  height=100%></TransportButton>
-             <Textfield text="120" fontSize=28px width=70px background=rgb(30,30,30) height=100%></Textfield>
-             <Textlabel text="BPM" fontSize=28px width=50px height=100% background=rgb(30,30,30) ></Textlabel>
+            <Group height=100% width=10px background=rgb(30,30,30) orientation="horizontal" ></Group>
+            <TransportButton name="playButton"  width=90px height=100%></TransportButton>
+            <Group height=100% width=10px background=rgb(30,30,30) orientation="horizontal" ></Group>
+            <Textfield text="120" fontSize=28px width=70px background=rgb(30,30,30) height=100%></Textfield>
+            <Textlabel text="BPM" fontSize=28px width=50px height=100% background=rgb(30,30,30) ></Textlabel>
         </Group>
 
         <Group  hideBar height=60% width=100% background=rgb(30,30,30) orientation="horizontal">

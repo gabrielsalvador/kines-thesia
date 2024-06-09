@@ -117,10 +117,7 @@ public class HologramBody extends BodyComponent implements Serializable {
 
     @Override
     public void display(PGraphics graphics) {
-
         getView().display(graphics, this);
-
-
     }
 
     @Override
