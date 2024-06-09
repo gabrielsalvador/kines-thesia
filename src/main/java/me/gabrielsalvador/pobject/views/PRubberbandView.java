@@ -111,7 +111,7 @@ public class PRubberbandView extends PhysicsBodyView {
         graphics.ellipse(mouseX, mouseY, 10, 10);
 
 
-        return MathUtils.isPointOverLineSegment(mouseX, mouseY, x1, y1, x2, y2, 20);
+        return MathUtils.isPointOverLineSegment(mouseX, mouseY, x1, y1, x2, y2, 10);
     }
 
 
