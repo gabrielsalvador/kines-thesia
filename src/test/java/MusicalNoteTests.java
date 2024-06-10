@@ -39,6 +39,9 @@ public class MusicalNoteTests {
         MusicalNote m = key.doInterval(0);
         assert m.getPitch() == 21;
 
+        m = key.doInterval(-1);
+        assert m.getPitch() == 20;
+
         m = key.doInterval(1);
         assert m.getPitch() == 23;
 
