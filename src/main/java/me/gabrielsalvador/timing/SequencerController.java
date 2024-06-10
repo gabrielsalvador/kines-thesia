@@ -15,11 +15,13 @@ public class SequencerController extends Controller<SequencerController> impleme
     private int timeDivisions = MAX_DIVISION_TIME;
     private int pitchDivision = MAX_DIVISION_PITCH;
 
+    /*Number of intervals(not notes) that the Y axis is offset by */
+    private int noteOffset = 0;
     private int playhead = 0;
     protected boolean isPressed;
     protected int currentX = -1;
     protected int currentY = -1;
-    protected int _myMode = MULTIPLES;
+    protected int _myMode = SINGLE_COLUMN;
     private final SequencerState _sequencerState;
     private int _internalBeatCounter = 0;
     private final int _howManyTicksToAdvance = 8; // the clock sends 16 ticks per quarter note, to make it 16th notes, we need to receive X ticks to advance
@@ -75,12 +77,10 @@ public class SequencerController extends Controller<SequencerController> impleme
             iterator = iterator.getParent();
         }
 
-
-
         if (getIsInside()) {
             if (isPressed) {
                 int tX = (int)(((theApplet.mouseX - x(absolutePosition)) * getDivisionTime()) / getWidth());
-                int tY = (int)(((theApplet.mouseY - y(absolutePosition)) * getDivisionPitch()) / getHeight());
+                int tY = (int)(((getHeight() - (theApplet.mouseY - y(absolutePosition))) * getDivisionPitch()) / getHeight());
 
                 if (tX != currentX || tY != currentY) {
                     tX = PApplet.min(PApplet.max(0, tX), getDivisionTime() - 1);
@@ -161,5 +161,13 @@ public class SequencerController extends Controller<SequencerController> impleme
         return _sequencerState;
     }
 
+    public SequencerController setOffset(int theValue) {
+        noteOffset = theValue;
+        return this;
+    }
+
+    public int getOffset() {
+        return noteOffset;
+    }
 
 }

@@ -3,7 +3,7 @@ package me.gabrielsalvador.utils;
 
 public class MusicalNote {
 
-    private final int _pitch;
+    private  int _pitch;
 
     public MusicalNote(String note) {
         int octave = 0;
@@ -32,6 +32,9 @@ public class MusicalNote {
 
 
     public String toString() {
+        if (_pitch < 0) {
+            _pitch = 0; //brickwall
+        }
         return MathUtils.pitchToNoteLetter(_pitch) + (int) (double) ((_pitch / 12)-1);
     }
 

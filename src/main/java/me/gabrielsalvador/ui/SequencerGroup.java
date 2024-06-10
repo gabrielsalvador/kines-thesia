@@ -2,36 +2,48 @@ package me.gabrielsalvador.ui;
 
 import controlP5.*;
 import me.gabrielsalvador.Config;
+import me.gabrielsalvador.midi.MidiManager;
 import me.gabrielsalvador.timing.SequencerController;
+import me.gabrielsalvador.utils.MusicalNote;
+import me.gabrielsalvador.utils.Scale;
 
 public class SequencerGroup extends CustomGroup {
 
+    SequencerNoteLabels _noteLabels;
     SequencerController _sequencerController;
     Button _pitchUp;
     Button _pitchDown;
-
     //steps
     Textlabel _numStepsLabel;
     DropdownList _numSteps;
-
-
     //clear
     Button _clear;
     public SequencerGroup(ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);
 
+        //sequencer
         _sequencerController = new SequencerController(theControlP5, Config.MAIN_SEQUENCER_NAME).setDivisionTime(4);
-        _sequencerController.moveTo(this);
+        _sequencerController.moveTo(this).getCaptionLabel().hide();
+        _noteLabels = new SequencerNoteLabels(theControlP5, "noteLabels", _sequencerController).moveTo(this);
+
 
         _pitchDown = new Button(theControlP5, "stepsDown").moveTo(this).setLabel("▼");
         _pitchUp = new Button(theControlP5, "pitchUP").moveTo(this).setLabel("▲");
 
         _pitchDown.addListenerFor(ControlP5Constants.ACTION_PRESS, controlEvent -> {
-            //
+            Scale mainScale = MidiManager.getInstance().getScale();
+            MusicalNote newNote = mainScale.doInterval(_sequencerController.getOffset() - 1);
+            if (newNote.getPitch() >= 0) {
+                _sequencerController.setOffset(_sequencerController.getOffset() - 1);
+            }
         });
 
         _pitchUp.addListenerFor(ControlP5Constants.ACTION_PRESS, controlEvent -> {
-            //
+            Scale mainScale = MidiManager.getInstance().getScale();
+            MusicalNote newNote = mainScale.doInterval(_sequencerController.getOffset() + 1);
+            if (newNote.getPitch() < 127) {
+                _sequencerController.setOffset(_sequencerController.getOffset() + 1);
+            }
         });
 
         _numStepsLabel = theControlP5.addTextlabel("numStepsLabel")
@@ -56,20 +68,26 @@ public class SequencerGroup extends CustomGroup {
     @Override
     public Group setWidth(int theWidth) {
          super.setWidth(theWidth);
-        _sequencerController.setWidth(theWidth-50);
+         _sequencerController.setPosition(15,getHeight());
+        _sequencerController.setWidth(theWidth-85);
 
-        //pitch
+        //note labels
+        _noteLabels.setPosition(0,getHeight());
+        _noteLabels.setWidth(30);
+
+
+        //pitch buttons
         _pitchUp.setPosition(theWidth-45, 0);
         _pitchUp.setWidth(50);
         _pitchDown.setPosition(theWidth-45, 20);
         _pitchDown.setWidth(50);
 
-        //steps
+        //steps dropdown
         _numStepsLabel.setPosition(theWidth-45, 40);
         _numSteps.setPosition(theWidth-45, 60);
         _numSteps.setWidth(50);
 
-        //clear
+        //clear button
         _clear.setPosition(theWidth-45, 80);
         _clear.setWidth(50);
         return this;
@@ -79,6 +97,9 @@ public class SequencerGroup extends CustomGroup {
     public Group setHeight(int theHeight) {
         super.setHeight(theHeight);
         _sequencerController.setHeight(theHeight);
+
+        //note labels
+        _noteLabels.setHeight(theHeight);
 
         //clear
         _clear.setPosition(getWidth()-45, theHeight-20);

@@ -5,13 +5,11 @@ import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.timing.Clock;
 import me.gabrielsalvador.ui.CurrentChordDisplay;
-import me.gabrielsalvador.ui.MidiChannelEditor;
 import me.gabrielsalvador.utils.MusicalNote;
 import me.gabrielsalvador.utils.Scale;
 import themidibus.MidiBus;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MidiManager implements HasPProperties {
 
@@ -21,7 +19,7 @@ public class MidiManager implements HasPProperties {
     private  MidiBus _midiBus;
     private static MidiManager _instance;
     private final float _quantization = 1;  // 0 to 1
-    private Scale _key = Scale.HIRAJOSHI.setRoot(new MusicalNote("C3"));
+    private Scale _scale = Scale.HIRAJOSHI.setRoot(new MusicalNote("C3"));
     private int _chord = 0;
     private static final int NOTE_DURATION_MS = 100;
 
@@ -76,12 +74,12 @@ public class MidiManager implements HasPProperties {
         return _midiBus;
     }
 
-    public Scale getKey() {
-        return _key;
+    public Scale getScale() {
+        return _scale;
     }
 
     public void setKey(Scale key) {
-        _key = key;
+        _scale = key;
 
     }
 

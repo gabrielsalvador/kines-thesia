@@ -57,7 +57,7 @@ public class PlayNoteOnCollision extends Component {
         Interval resonatorInterval = MNC.getInterval();
 
         int chord = MidiManager.getInstance().getChord();
-        MusicalNote note = MidiManager.getInstance().getKey().doInterval(chord + resonatorInterval.interval);
+        MusicalNote note = MidiManager.getInstance().getScale().doInterval(chord + resonatorInterval.interval);
 
 
         int velocity = (int) contact.getFixtureB().getBody().getLinearVelocity().length();

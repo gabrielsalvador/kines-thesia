@@ -58,6 +58,7 @@ public class Scale {
         }
 
         for (int i = 0; i < interval; i++) {
+            //this can be memoized
             pitch += _intervals[i];
         }
 
