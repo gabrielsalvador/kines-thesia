@@ -1,6 +1,8 @@
 package me.gabrielsalvador.utils;
 
 
+import java.util.HashMap;
+
 public class Scale {
     public static final Scale MAJOR = new Scale(new int[]{2, 2, 1, 2, 2, 2, 1});
     public static final Scale MINOR = new Scale(new int[]{2, 1, 2, 2, 1, 2, 2});
@@ -17,6 +19,8 @@ public class Scale {
     private final int[] _intervals;
     private MusicalNote _root;
 
+    public static HashMap<Integer,MusicalNote> intervalsMemo = new HashMap<Integer,MusicalNote>();
+
     public Scale(int[] intervals) {
         this(intervals, new MusicalNote("C1"));
     }
@@ -26,7 +30,15 @@ public class Scale {
         _root = root;
     }
 
-    public MusicalNote doInterval( int interval) {
+    public MusicalNote doInterval(int interval) {
+
+        if (intervalsMemo.containsKey(interval)) {
+            return intervalsMemo.get(interval);
+        }
+
+        if (_root == null) {
+            throw new IllegalStateException("Root note not set");
+        }
 
         int pitch = _root.getPitch();
 
@@ -34,19 +46,29 @@ public class Scale {
             return new MusicalNote(pitch);
         }
 
-        if (interval < 0) {
-            interval = _intervals.length + interval;
+        int octaveMultiplier = 0;
+        while (interval < 0 || interval > _intervals.length) {
+            if (interval < 0) {
+                octaveMultiplier--;
+                interval += _intervals.length;
+            } else {
+                octaveMultiplier++;
+                interval -= _intervals.length;
+            }
         }
 
         for (int i = 0; i < interval; i++) {
-            pitch += _intervals[i % _intervals.length];
+            pitch += _intervals[i];
         }
-        return new MusicalNote(pitch);
 
 
+        MusicalNote note =  new MusicalNote(pitch + (octaveMultiplier * 12));
+        intervalsMemo.put(interval, note);
+        return note;
     }
 
     public Scale setRoot(MusicalNote note) {
+        intervalsMemo.clear();
         _root = note;
         return this;
     }
