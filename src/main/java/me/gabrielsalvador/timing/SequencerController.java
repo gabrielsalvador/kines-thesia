@@ -16,7 +16,7 @@ public class SequencerController extends Controller<SequencerController> impleme
     private int pitchDivision = MAX_DIVISION_PITCH;
 
     /*Number of intervals(not notes) that the Y axis is offset by */
-    private int noteOffset = 0;
+    private int yOffset = 0;
     private int playhead = 0;
     protected boolean isPressed;
     protected int currentX = -1;
@@ -162,12 +162,12 @@ public class SequencerController extends Controller<SequencerController> impleme
     }
 
     public SequencerController setOffset(int theValue) {
-        noteOffset = theValue;
+        yOffset = theValue;
         return this;
     }
 
     public int getOffset() {
-        return noteOffset;
+        return yOffset;
     }
 
 }

@@ -101,7 +101,7 @@ public class CodeEditor extends CustomGroup {
 
     @Override
     public void resize(int width, int height) {
-
+        setWidth(width);
     }
 
 
