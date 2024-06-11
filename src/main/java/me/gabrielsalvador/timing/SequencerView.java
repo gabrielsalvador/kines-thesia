@@ -34,8 +34,13 @@ class SequencerView implements ControllerView<SequencerController> {
         for (int x = 0; x < divisionTime; ++x) {
             float xPos = x * stepX;
             for (int y = 0; y < divisionPitch; ++y) {
-                theGraphics.fill(steps[x][y] ? colorActive : colorBackground);
-                theGraphics.rect(xPos, controllerHeight - ((y + 1) * stepY), stepX, stepY);
+                int yOffset = _controller.getOffset();
+                if(y + yOffset < 0 || y + yOffset >= divisionPitch) {
+                    theGraphics.fill(colorBackground);
+                } else{
+                    theGraphics.fill(steps[x][y + yOffset] ? colorActive : colorBackground);
+                }
+                    theGraphics.rect(xPos, controllerHeight - ((y + 1) * stepY), stepX, stepY);
             }
         }
 
