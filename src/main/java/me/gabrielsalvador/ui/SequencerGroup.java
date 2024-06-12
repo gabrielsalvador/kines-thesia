@@ -7,6 +7,9 @@ import me.gabrielsalvador.timing.SequencerController;
 import me.gabrielsalvador.utils.MusicalNote;
 import me.gabrielsalvador.utils.Scale;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SequencerGroup extends CustomGroup {
 
     SequencerNoteLabels _noteLabels;
@@ -57,7 +60,14 @@ public class SequencerGroup extends CustomGroup {
                 .addItems(new String[]{"4", "8", "16", "32"})
                 .close()
                 .moveTo(this)
-                .setLabel("4");
+                .setLabel("4").addListener(controlEvent -> {
+                    int key = (int) controlEvent.getValue();
+                    Map<String, Object> item = _numSteps.getItem(key);
+                    int numSteps = Integer.parseInt((String)item.get("name"));
+                    if (item != null) {
+                        _sequencerController.setDivisionTime(numSteps);
+                    }
+                });
 
         //clear
         _clear = new Button(theControlP5, "clear").moveTo(this).setLabel("Clear").addListenerFor(ControlP5Constants.ACTION_PRESS, controlEvent -> {

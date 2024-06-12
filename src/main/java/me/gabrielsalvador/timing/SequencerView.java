@@ -33,6 +33,17 @@ class SequencerView implements ControllerView<SequencerController> {
 
         for (int x = 0; x < divisionTime; ++x) {
             float xPos = x * stepX;
+
+            if (x/(_controller.getDivisionTime()/4) % 2 == 0) {
+                colorBackground = _controller.getColor().getBackground();
+                //color format is 0xAARRGGBB
+                //add 0x00111111 to the color to make it darker
+                colorBackground += 0x00111111;
+
+            }else {
+                colorBackground = _controller.getColor().getBackground();
+            }
+
             for (int y = 0; y < divisionPitch; ++y) {
                 int yOffset = _controller.getOffset();
                 if(y + yOffset < 0 || y + yOffset >= divisionPitch) {
@@ -48,8 +59,11 @@ class SequencerView implements ControllerView<SequencerController> {
 
         for (int x = 1; x < divisionTime; ++x) {
             float xPos = x * stepX;
+
             theGraphics.line(xPos, 0.0F, xPos, controllerHeight);
         }
+
+        theGraphics.getStyle();
 
         for (int y = 1; y < divisionPitch; ++y) {
             float yPos = y * stepY;
