@@ -22,8 +22,8 @@ public class AddBuiltin implements KStatement {
     @Override
     public Object execute(Map<String, Object> parentScope) {
         String presetName = (String) args.get(0).evaluate(parentScope);
-        float x = (float) args.get(1).evaluate(parentScope);
-        float y = (float) args.get(2).evaluate(parentScope);
+        float x = ((Number) args.get(1).evaluate(parentScope)).floatValue();
+        float y = ((Number) args.get(2).evaluate(parentScope)).floatValue();
 
         AppController app = AppController.getInstance();
 
