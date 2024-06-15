@@ -31,11 +31,23 @@ public class MusicalNote {
     }
 
 
+    @Override
     public String toString() {
+        return toString(true);
+    }
+
+    public String toString(boolean showOctave) {
         if (_pitch < 0) {
             _pitch = 0; //brickwall
         }
-        return MathUtils.pitchToNoteLetter(_pitch) + (int) (double) ((_pitch / 12)-1);
+
+        String note = MathUtils.pitchToNoteLetter(_pitch);
+
+        if (showOctave) {
+            return note + (int) (double) ((_pitch / 12)-1);
+        }
+
+        return MathUtils.pitchToNoteLetter(_pitch);
     }
 
 

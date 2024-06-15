@@ -50,8 +50,9 @@ public class InspectorController extends Group implements PropertyChangeListener
                     if (type != NoType.class) {
                         try {
                             CustomGroup editor = (CustomGroup) type.getConstructor(ControlP5.class, String.class, ArrayList.class).newInstance(cp5, type.getName(), properties);
+                            PropertyEditor propertyEditor = (PropertyEditor) editor; // edit has to be a property editor
 
-                            editor.resize(getWidth(), 100);
+                            editor.resize(getWidth(), propertyEditor.getHeightForInspector());
                             editor.moveTo(this);
                             addChildVertically(editor);
                         } catch (NoSuchMethodException e) {

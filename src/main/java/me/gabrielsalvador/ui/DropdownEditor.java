@@ -70,8 +70,8 @@ public class DropdownEditor extends CustomGroup {
     public DropdownEditor setHeight(int height) {
         super.setHeight(height);
 
-        label.setHeight(30).setPosition     (label.getPosition()[0], 0);
-        dropdown.setBarHeight(30).setPosition   (dropdown.getPosition()[0], 0).setHeight(500).bringToFront();
+        label.setHeight(25).setPosition     (label.getPosition()[0], 0);
+        dropdown.setBarHeight(30).setPosition   (dropdown.getPosition()[0], 5).setHeight(500).bringToFront();
 
         return this;
     }

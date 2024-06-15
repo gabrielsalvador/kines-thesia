@@ -10,6 +10,8 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 public class SequencerController extends Controller<SequencerController> implements Device{
+    static final int STEP_HEIGHT = 10;
+
     public static final int MAX_DIVISION_TIME = 32 ;
     public static final int MAX_DIVISION_PITCH = 24;
     private int timeDivisions = MAX_DIVISION_TIME;
@@ -51,12 +53,10 @@ public class SequencerController extends Controller<SequencerController> impleme
                 }
             }
         }
-
     }
     private void sendNoteEvent(int time, int pitch) {
 
         MidiManager.getInstance().setChord(pitch);
-        System.out.println("Sending note event: " + pitch + " at time: " + time);
         /* Send note event to all connected PObjects */
         for (Inlet inlet : _connectedPObjects) {
             MusicalNote note = new MusicalNote(pitch);
@@ -69,9 +69,9 @@ public class SequencerController extends Controller<SequencerController> impleme
         setIsInside(inside());
 
         //Quick fix because absolute position is broken in ControlP5 when using nested controllers
-        float[] absolutePosition = new float[]{0,0};
+        float[] absolutePosition = new float[]{13,0}; // 13 is the hardcoded offset of the sequencer. hardcoded because of the bug
         ControllerInterface<?> iterator = this;
-        while (!iterator.getParent().getName().equals("default")){
+        while (!iterator.getName().equals("default")){
             absolutePosition[0] += iterator.getPosition()[0];
             absolutePosition[1] += iterator.getPosition()[1];
             iterator = iterator.getParent();
@@ -79,28 +79,40 @@ public class SequencerController extends Controller<SequencerController> impleme
 
         if (getIsInside()) {
             if (isPressed) {
-                int tX = (int)(((theApplet.mouseX - x(absolutePosition)) * getDivisionTime()) / getWidth());
-                int tY = (int)(((getHeight() - (theApplet.mouseY - y(absolutePosition))) * getDivisionPitch()) / getHeight());
 
-                if (tX != currentX || tY != currentY) {
-                    tX = PApplet.min(PApplet.max(0, tX), getDivisionTime() - 1);
-                    tY = PApplet.min(PApplet.max(0, tY), getDivisionPitch() - 1);
-                    boolean isMarkerActive = getSteps()[tX][tY];
+                float clickX = (theApplet.mouseX -  x(absolutePosition));
+                float clickY = (theApplet.mouseY -  y(absolutePosition));
+
+                float cellWidth = (float) getWidth() / getDivisionTime();
+                float clickedCellXFloat = clickX /  cellWidth;
+                int clickedCellX = (int) Math.floor(clickedCellXFloat);
+
+                System.out.println("cellWidth" + cellWidth);
+                System.out.println("clickX: " + clickX);
+                System.out.println("clickedCellX: " + clickedCellX);
+                System.out.println("clickedCellXFloat: " + clickedCellXFloat);
+
+                int clickedCellY = Math.round(clickY) / STEP_HEIGHT;
+
+                if (clickedCellX != currentX || clickedCellY != currentY) {
+                    clickedCellX = PApplet.min(PApplet.max(0, clickedCellX), getDivisionTime()-1 );
+                    clickedCellY = PApplet.min(PApplet.max(0, clickedCellY), getDivisionPitch() -1);
+                    boolean isMarkerActive = getSteps()[clickedCellX][clickedCellY];
                     switch (_myMode) {
                         default:
                         case (SINGLE_COLUMN):
                         case (SINGLE_ROW):
                             for (int i = 0; i < getDivisionPitch(); i++) {
-                                _sequencerState.setStep(tX, i, false);
+                                _sequencerState.setStep(clickedCellX, i, false);
                             }
-                            _sequencerState.setStep(tX, tY, !isMarkerActive);
+                            _sequencerState.setStep(clickedCellX, clickedCellY, !isMarkerActive);
                             break;
                         case (MULTIPLES):
-                            _sequencerState.setStep(tX, tY, !getSteps()[tX][tY]);
+                            _sequencerState.setStep(clickedCellX, clickedCellY, !getSteps()[clickedCellX][clickedCellY]);
                             break;
                     }
-                    currentX = tX;
-                    currentY = tY;
+                    currentX = clickedCellX;
+                    currentY = clickedCellY;
                 }
             }
         }
@@ -169,5 +181,6 @@ public class SequencerController extends Controller<SequencerController> impleme
     public int getOffset() {
         return yOffset;
     }
+
 
 }

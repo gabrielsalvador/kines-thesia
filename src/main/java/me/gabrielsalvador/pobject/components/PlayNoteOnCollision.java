@@ -6,6 +6,7 @@ import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
 import me.gabrielsalvador.utils.Interval;
 import me.gabrielsalvador.utils.MusicalNote;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.contacts.Contact;
 import processing.core.PGraphics;
 
@@ -50,7 +51,9 @@ public class PlayNoteOnCollision extends Component {
         //get the other body
         PhysicsBodyComponent theOtherBody = (PhysicsBodyComponent) contact.getFixtureB().getBody().getUserData();
         //add velocity to the body
-//        theOtherBody.getJBox2DBody().applyLinearImpulse(contact.getFixtureB().getBody().getLinearVelocity(), theOtherBody.getJBox2DBody().getPosition());
+        float angle = (float) Math.random() * 360;
+        Vec2 randomVec = new Vec2((float) Math.cos(angle), (float) Math.sin(angle));
+        theOtherBody.getJBox2DBody().applyLinearImpulse(contact.getFixtureB().getBody().getLinearVelocity().add(randomVec), theOtherBody.getJBox2DBody().getPosition());
 
         PhysicsBodyComponent me = (PhysicsBodyComponent) contact.getFixtureA().getBody().getUserData();
         MusicalNoteComponent MNC = me.getOwner().getComponent(MusicalNoteComponent.class);

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class MidiChannelEditor extends DropdownEditor{
+public class MidiChannelEditor extends DropdownEditor implements PropertyEditor {
 
 ArrayList<PObjectProperty> props;
     public MidiChannelEditor(ControlP5 theControlP5, String theName, ArrayList<PObjectProperty> properties) {
@@ -50,5 +50,10 @@ ArrayList<PObjectProperty> props;
             }
         });
         return values;
+    }
+
+    @Override
+    public int getHeightForInspector() {
+        return 30;
     }
 }

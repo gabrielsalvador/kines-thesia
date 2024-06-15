@@ -124,7 +124,6 @@ public interface PObjectPreset {
             this._initialPosition = _initialPosition;
             this._finalPosition = _finalPosition;
             this.interval = interval;
-
         }
 
 
@@ -163,7 +162,6 @@ public interface PObjectPreset {
 
 
             pObject1.addComponent(PlayNoteOnCollision.class, onCollision);
-
             // add a musical note to the resonator
 
             MusicalNoteComponent musicalNoteComponent = new MusicalNoteComponent(pObject1, interval);

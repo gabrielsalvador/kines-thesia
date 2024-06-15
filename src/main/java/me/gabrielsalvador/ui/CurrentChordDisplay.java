@@ -2,19 +2,15 @@ package me.gabrielsalvador.ui;
 
 import controlP5.ControlP5;
 import controlP5.Textlabel;
-import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.midi.MidiManager;
 import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.utils.MusicalNote;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.beans.PropertyEditor;
-import java.beans.PropertyEditorManager;
 import java.util.ArrayList;
 
-public class CurrentChordDisplay extends CustomGroup {
+public class CurrentChordDisplay extends CustomGroup implements PropertyEditor{
 
     Textlabel currentChordLabel;
     Textlabel currentChordValue;
@@ -63,5 +59,10 @@ public class CurrentChordDisplay extends CustomGroup {
         currentChordLabel.setPosition(labelX1, 0).setSize(labelWidth, height);
         currentChordValue.setPosition(valueX, 0).setSize(valueWidth, height);
 
+    }
+
+    @Override
+    public int getHeightForInspector() {
+        return 15;
     }
 }

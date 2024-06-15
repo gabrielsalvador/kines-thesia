@@ -18,6 +18,10 @@ import java.util.Map;
 public class RoutingComponent extends Component {
 
     private PObject _target;
+    private int _subdivisions = 1;
+    private CallbackWrapper _pulseCallback;
+    @InspectableProperty(displayName = "Delay",controllerClass = DropdownList.class)
+    private int _delay = 0;
 
 
     public RoutingComponent(PObject owner) {
@@ -82,9 +86,6 @@ public class RoutingComponent extends Component {
 
     }
 
-
-    @InspectableProperty(displayName = "Delay",controllerClass = DropdownList.class)
-    private int _delay = 0;
     @InspectableProperty(displayName = "Delay")
     public int getDelay() {
         return _delay;
@@ -93,9 +94,7 @@ public class RoutingComponent extends Component {
 
 
 
-    private int _subdivisions = 1;
 
-    private CallbackWrapper _pulseCallback;
     @InspectableProperty(displayName = "onPulseReceived", controllerClass = CodeEditor.class)
     public CallbackWrapper getPulseCallback() {
         return _pulseCallback;

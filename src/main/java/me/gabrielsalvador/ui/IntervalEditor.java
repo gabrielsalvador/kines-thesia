@@ -7,7 +7,7 @@ import me.gabrielsalvador.utils.Interval;
 
 import java.util.ArrayList;
 
-public class IntervalEditor extends CustomGroup {
+public class IntervalEditor extends CustomGroup implements PropertyEditor{
 
     private final ArrayList<PObjectProperty> pProperties;
 
@@ -122,5 +122,10 @@ public class IntervalEditor extends CustomGroup {
         for (PObjectProperty pProperty : pProperties) {
             pProperty.setValue(note);
         }
+    }
+
+    @Override
+    public int getHeightForInspector() {
+        return 100;
     }
 }

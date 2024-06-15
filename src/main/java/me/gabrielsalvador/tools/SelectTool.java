@@ -38,11 +38,14 @@ public class SelectTool extends Tool {
 
     public SelectTool() {
         _cp5 = App.getInstance().getCP5();
+
         
     }
 
     @Override
     public void keyEvent(KeyEvent keyEvent) {
+
+        if(!getCanvas().isActive()) return;
 
         // 8 == backspace
         if (keyEvent.getKey() == 8 && keyEvent.getAction() == KeyEvent.PRESS) {

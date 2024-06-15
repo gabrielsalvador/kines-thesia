@@ -84,10 +84,6 @@ public class PRubberbandView extends PhysicsBodyView {
     @Override
     public boolean isMouseOver(int mouseX, int mouseY) {
 
-        //if is click
-        if (App.getInstance().getCP5().papplet.mousePressed) {
-            System.out.println("Mouse over rubberband");
-        }
 
         Shape shape = _owner.getJBox2DBody().getFixtureList().getShape();
         PolygonShape polygon = (PolygonShape) shape;

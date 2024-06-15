@@ -5,6 +5,7 @@ import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.kinescript.ast.KFunction;
 import me.gabrielsalvador.kinescript.lang.Kinescript;
 import me.gabrielsalvador.pobject.PObjectProperty;
+import me.gabrielsalvador.utils.CallbackWrapper;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -12,13 +13,12 @@ import java.util.List;
 
 
 
-public class CodeEditor extends CustomGroup {
+public class CodeEditor extends CustomGroup implements PropertyEditor{
 
 
 
-//    private final ArrayList<PObjectProperty> _properties;
+    ArrayList<PObjectProperty> properties;
     List<ControllerInterface<?>> children = new ArrayList<>();
-
     Textlabel titleLabel = new Textlabel(App.getInstance().getCP5(), "titleLabel");
 
     MultilineTextfield codeTextbox = new MultilineTextfield(App.getInstance().getCP5(), "Enter command here");
@@ -36,12 +36,49 @@ public class CodeEditor extends CustomGroup {
         compile();
     });
 
+    public CodeEditor(ControlP5 theControlP5, String theName,ArrayList<PObjectProperty> properties) {
+        super(theControlP5, theName);
+
+        this.properties = properties;
+
+        //title
+        children.add(titleLabel);
+        //code textbox
+        children.add(codeTextbox);
+        if(!properties.isEmpty()) {
+           for (PObjectProperty p : properties) {
+               Object property = p.getValue();
+               if(property instanceof CallbackWrapper wrapper) {
+                   if (wrapper.isKFunction()) {
+                       codeTextbox.setText(wrapper.getKFunction().getSourceCode());
+                   }
+               }
+           }
+        }
+//        //feedback label
+        children.add(feedbackLabel);
+
+//        //compile button
+        children.add(compileButton);
+
+
+        children.forEach(child -> {
+            addChildVertically(child);
+            child.setWidth(getWidth());
+        });
+
+        setHeight(150);
+
+    }
 
     public void compile() {
 
       try {
           KFunction function = Kinescript.compileFunction(codeTextbox.getText());
-//          _properties.forEach(p -> p.setValue(function));
+          for (PObjectProperty p : properties) {
+              p.setValue(new CallbackWrapper(function));
+          }
+
           feedbackLabel.setText("Compiled successfully");
       } catch (InputMismatchException e) {
           feedbackLabel.setText("Error compiling function: " + e.getMessage());
@@ -58,46 +95,7 @@ public class CodeEditor extends CustomGroup {
     }
 
 
-    public CodeEditor(ControlP5 theControlP5, String theName,ArrayList<PObjectProperty> properties) {
-        super(theControlP5, theName);
 
-        setPosition(0, 0);
-//        _properties = (ArrayList<PObjectProperty>) args.get(0);
-
-
-        //init title label
-//        titleLabel.setText(property.getName());
-//        titleLabel.moveTo(this);
-//        titleLabel.setPosition(0, 0);
-        children.add(titleLabel);
-
-
-//        //init code editor
-//        KFunction function = (KFunction) _property.getValue();
-//        if (function != null){
-//            codeTextbox.setText(function.getSourceCode());
-//        }
-        children.add(codeTextbox);
-//
-//        //init feedback label
-        children.add(feedbackLabel);
-//
-//        //init compile button
-        children.add(compileButton);
-//
-//        AtomicInteger heightSum = new AtomicInteger();
-        children.forEach(child -> {
-            addChildVertically(child);
-            child.setWidth(getWidth());
-//            heightSum.addAndGet(child.getHeight());
-        });
-//
-//        //set height as total height of children
-        setHeight(150);
-
-
-//        _properties = properties;
-    }
 
     @Override
     public void resize(int width, int height) {
@@ -133,5 +131,10 @@ public class CodeEditor extends CustomGroup {
 
 
         return this;
+    }
+
+    @Override
+    public int getHeightForInspector() {
+        return 400;
     }
 }
