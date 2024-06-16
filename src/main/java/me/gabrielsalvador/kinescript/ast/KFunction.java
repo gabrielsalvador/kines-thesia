@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 
 public class KFunction implements KStatement, Serializable {
 
@@ -28,8 +29,10 @@ public class KFunction implements KStatement, Serializable {
     @Override
     public Object execute(Map<String, Object> parentScope) {
 
+        scope.putAll(parentScope);
+
         for (KStatement statement : statements) {
-            statement.execute(parentScope);
+            statement.execute(scope);
         }
 
         return null;

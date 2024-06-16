@@ -14,7 +14,7 @@ expr: ID | INT | STRING  | invocation  | '(' expr ')' ;
 
 invocation: ID '(' args? ')' ;
 
-for: 'for' '(' INT 'to' INT ')' '{' statement+ '}' ;
+for: 'for' '(' INT 'to' INT ('as' ID)? ')' '{' statement+ '}' ;
 
 args: arg (',' arg)*;
 

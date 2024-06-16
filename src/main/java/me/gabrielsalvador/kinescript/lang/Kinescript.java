@@ -65,6 +65,7 @@ public class Kinescript implements KinescriptVisitor{
         String name = ctx.ID().getText();
         Object value = visitExpr(ctx.expr());
 
+
         //the variable is added to the scope at compile because it will be used deeper in the AST for compilation
         program.getScope().put(name, value);
 
@@ -98,8 +99,12 @@ public class Kinescript implements KinescriptVisitor{
             String name = ctx.ID().getText();
             return new KExpression(true, name);
         } else if (ctx.invocation() != null) {
+
             String name = ctx.invocation().ID().getText();
-            return new KExpression(true, name);
+            KExpression exp =  new KExpression(true, name);
+            ArrayList<KArg> args =  (ArrayList) visitArgs(ctx.invocation().args());
+            exp.setArgs(args);
+            return exp;
         } else if (ctx.expr() != null) {
             return visitExpr(ctx.expr());
         }else {
@@ -158,7 +163,13 @@ public class Kinescript implements KinescriptVisitor{
             statements.add((KStatement) visitStatement(statement));
         }
 
-        return new KFor(start,end,statements);
+        //if there is an ID, it is the name of the variable
+        if (ctx.ID() != null) {
+            return new KFor(ctx.ID().getText(),start,end,statements);
+        }else{
+            return new KFor(start,end,statements);
+        }
+
     }
 
     @Override
@@ -201,24 +212,26 @@ public class Kinescript implements KinescriptVisitor{
         return null;
     }
 
-    public static KStatement getFunction(Map<String, Object> scope, String name) {
+    public static KStatement getFunction(Map<String, Object> scope, String name, ArrayList<KArg> args) {
         if (scope.get(name) instanceof KFunction) {
             return (KFunction) scope.get(name);
         }
-        KStatement builtIn = getBuiltInFunction(name);
+        KStatement builtIn = getBuiltInFunction(name,args);
         if (builtIn != null) {
             return builtIn;
         }
         return null;
     }
 
-    public static KStatement getBuiltInFunction(String name) {
+    public static KStatement getBuiltInFunction(String name, ArrayList<KArg> args) {
         if (name.equals("print")) {
             return new KPrint();
         }else if (name.equals("midi")) {
             return new KFunction(3, new ArrayList<>());
         }else if (name.equals("random")) {
             return new KRandom();
+        }else if (name.equals("add")) {
+            return new AddBuiltin( args );
         }
         return null;
     }

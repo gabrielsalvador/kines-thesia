@@ -79,6 +79,56 @@ public class KCommandTests {
 
         System.out.println(result);
 
+    }
+
+
+    @Test
+    public void testInvocationAsArg(){
+        String input = "print(random())";
+        KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        KinescriptParser parser = new KinescriptParser(tokens);
+        parser.getInterpreter().setPredictionMode(PredictionMode.SLL);
+        KinescriptParser.ProgramContext tree = parser.program();
+
+        Kinescript kinescript = new Kinescript();
+
+        KFunction function = (KFunction) kinescript.visitProgram(tree);
+
+        long start = System.nanoTime();
+        function.execute(new HashMap<>());
+        long end = System.nanoTime();
+        System.out.println("Execution time: " + Duration.ofNanos(end - start).toMillis() + "ms");
+
+    }
+
+    @Test
+    public void testAssignment(){
+        String input = "a = add(\"droplet\",0,0)";
+
+        KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        KinescriptParser parser = new KinescriptParser(tokens);
+        parser.getInterpreter().setPredictionMode(PredictionMode.SLL);
+        KinescriptParser.ProgramContext tree = parser.program();
+
+        // Create an instance of Kinescript
+        Kinescript kinescript = new Kinescript();
+
+        // Use the visitProgram method on the tree
+        KFunction program = (KFunction) kinescript.visitProgram(tree);
+
+        HashMap scope = new HashMap();
+        long start = System.nanoTime();
+        program.execute(scope);
+        long end = System.nanoTime();
+        System.out.println("Execution time: " + Duration.ofNanos(end - start).toMillis() + "ms");
+
+
+
+
+
+
 
     }
 

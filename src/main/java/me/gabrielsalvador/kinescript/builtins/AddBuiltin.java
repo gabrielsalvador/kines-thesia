@@ -11,21 +11,26 @@ import me.gabrielsalvador.utils.Stopwatch;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 public class AddBuiltin implements KStatement {
 
     private ArrayList<KArg> args;
+
     public AddBuiltin(ArrayList<KArg> args) {
         this.args = args;
     }
 
     @Override
-    public Object execute(Map<String, Object> parentScope) {
+    public Future<PObject> execute(Map<String, Object> parentScope) {
         String presetName = (String) args.get(0).evaluate(parentScope);
         float x = ((Number) args.get(1).evaluate(parentScope)).floatValue();
         float y = ((Number) args.get(2).evaluate(parentScope)).floatValue();
 
         AppController app = AppController.getInstance();
+
+        CompletableFuture<PObject> futureObject = new CompletableFuture<>();
 
         app.queueModification(() -> {
             PObjectPreset preset = PObjectPreset.getPresetByName(presetName);
@@ -34,11 +39,10 @@ public class AddBuiltin implements KStatement {
                 BodyComponent body = object.getBodyComponent();
                 body.setPixelPosition(new org.jbox2d.common.Vec2(x, y));
                 app.addPObjectImmiadiately(object);
-
+                futureObject.complete(object); // Complete the future with the last created object
             }
         });
 
-
-        return null;
+        return futureObject;
     }
 }
