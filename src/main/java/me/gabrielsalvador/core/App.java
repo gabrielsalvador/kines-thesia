@@ -4,10 +4,12 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import controlP5.*;
 import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
+import me.gabrielsalvador.kinescript.lang.Kinescript;
 import me.gabrielsalvador.ui.InspectorController;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.timing.Clock;
@@ -92,7 +94,19 @@ public class App extends PApplet {
 
         debugInfo = new MultilineTextfield(_cp5, "debugInfo");
         debugInfo.setPosition(650,584)
-                .setSize(400, 200);
+                .setSize(620, 230).getCaptionLabel().hide();
+        //q: whats the char value for the enter key? //A: 10
+        debugInfo.getKeyMapping().put(10, () -> {
+            if(_cp5.isShiftDown()) {
+                try {
+                    Kinescript.compileFunction(debugInfo.getText()).execute(new HashMap<>());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else {
+                debugInfo.setText(debugInfo.getText() + "\n");
+            }
+        });
 
 
 
@@ -122,7 +136,7 @@ public class App extends PApplet {
 
 
 
-        debugInfo.setText(debugText.toString());
+
     }
 
     public ControlP5 getCP5() {
