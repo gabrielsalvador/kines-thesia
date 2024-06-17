@@ -4,13 +4,31 @@ grammar Kinescript;
 
 program: statement+ ;
 
-statement: (assignment | definition | invocation | for ) ';'? ;
+statement: (assignment | definition | invocation | expr | for ) ';'? ;
 
 assignment: ID '=' expr ;
 
 definition: ID '(' args? ')' '{' statement* '}' ;
 
-expr: ID | INT | STRING  | invocation  | '(' expr ')' ;
+expr
+    :   expr STAR expr
+    |   expr PLUS expr
+    |   expr MINUS expr
+    |   expr DIV expr
+    |   INT
+    |   ID
+    |   STRING
+    |   invocation
+    |   '(' expr ')'
+    |   '-' expr
+    ;
+
+
+STAR: '*' ;
+PLUS: '+' ;
+MINUS: '-' ;
+DIV: '/' ;
+
 
 invocation: ID '(' args? ')' ;
 
@@ -21,6 +39,8 @@ args: arg (',' arg)*;
 arg: expr ;
 
 // Lexer rules
+
+OPERATOR: '+' | '-' | '*' | '/' ;
 
 ID: [a-zA-Z]+ ;
 

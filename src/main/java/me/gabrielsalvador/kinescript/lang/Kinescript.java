@@ -9,15 +9,17 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class Kinescript implements KinescriptVisitor{
 
     private KFunction program;
 
+    private static final HashMap<String,KStatement> builtInFunctions = new HashMap<>();
     public static KFunction compileFunction(String code) {
 
             KinescriptLexer lexer = new KinescriptLexer(new org.antlr.v4.runtime.ANTLRInputStream(code));
@@ -51,7 +53,10 @@ public class Kinescript implements KinescriptVisitor{
             return visitAssignment(ctx.assignment());
         } else if (ctx.invocation() != null) {
             return visitInvocation(ctx.invocation());
-        } else if (ctx.for_() != null) {
+        } else if (ctx.expr() != null) {
+            //return a statement that is an expression
+            return visitExpr(ctx.expr());
+        }else if (ctx.for_() != null) {
             return visitFor(ctx.for_());
         }
         else{
@@ -91,26 +96,52 @@ public class Kinescript implements KinescriptVisitor{
         if (ctx.STRING() != null) {
             //get text without quotes
             String text = ctx.STRING().getText();
-            return new KExpression(false, text.substring(1, text.length() - 1));
+            return new KExpression(0, text.substring(1, text.length() - 1));
         }else if (ctx.INT() != null) {
-            return new KExpression(false, Integer.parseInt(ctx.INT().getText()));
+            return new KExpression(0, Integer.parseInt(ctx.INT().getText()));
         }
         else if (ctx.ID() != null) {
-            String name = ctx.ID().getText();
-            return new KExpression(true, name);
+            if(ctx.ID().getText().equals("true")) {
+                return new KExpression(0, true);
+            }else if(ctx.ID().getText().equals("false")) {
+                return new KExpression(0, false);
+            }
+            else if(ctx.ID().getText().equals("scope")) {
+                return new KExpression(0, program.getScope());
+            }else {
+                String name = ctx.ID().getText();
+                return new KExpression(1, name);
+            }
         } else if (ctx.invocation() != null) {
 
             String name = ctx.invocation().ID().getText();
-            KExpression exp =  new KExpression(true, name);
+            KExpression exp =  new KExpression(1, name);
             ArrayList<KArg> args =  (ArrayList) visitArgs(ctx.invocation().args());
             exp.setArgs(args);
             return exp;
         } else if (ctx.expr() != null) {
-            return visitExpr(ctx.expr());
+            //if its (expr)
+            if (ctx.expr().size() == 1) {
+                return visitExpr(ctx.expr(0));
+            }else if (ctx.expr().size() == 2) {
+                KExpression left = (KExpression) visitExpr(ctx.expr(0));
+                KExpression right = (KExpression) visitExpr(ctx.expr(1));
+                String[] whichOperator = new String[]{
+                                ctx.PLUS() != null ? ctx.PLUS().getText() : null,
+                                ctx.STAR() != null ? ctx.STAR().getText() : null,
+                                ctx.MINUS() != null ? ctx.MINUS().getText() : null,
+                                ctx.DIV() != null ? ctx.DIV().getText() : null
+                };
+
+                KOperator operator = getOperator(whichOperator);
+                return new KExpression(2,null).setLeft(left).setRight(right).setOperator(operator);
+
+            }
         }else {
             throw new RuntimeException("Unknown expression type");
         }
 
+        return null;
     }
 
     @Override
@@ -164,11 +195,11 @@ public class Kinescript implements KinescriptVisitor{
         }
 
         //if there is an ID, it is the name of the variable
-        if (ctx.ID() != null) {
-            return new KFor(ctx.ID().getText(),start,end,statements);
-        }else{
+//        if (ctx.ID() != null) {
+//            return new KFor(ctx.ID().getText(),start,end,statements);
+//        }else{
             return new KFor(start,end,statements);
-        }
+//        }
 
     }
 
@@ -192,6 +223,32 @@ public class Kinescript implements KinescriptVisitor{
 
     }
 
+    public KOperator getOperator(String[] possibleOps) {
+        for (String op : possibleOps) {
+
+            if (op != null && op.equals("+")) {
+                return KOperator.ADD;
+            }else if (op != null && op.equals("*")) {
+                return KOperator.MUL;
+            }else if (op != null && op.equals("-")) {
+                return KOperator.SUB;
+            }
+            else if (op != null && op.equals("/")) {
+                return KOperator.DIV;
+            }
+        }
+        throw new RuntimeException("Unknown operator: " + possibleOps);
+    }
+
+    public KOperator getOperator(String op) {
+        switch (op) {
+            case "+":
+                return KOperator.ADD;
+            default:
+                throw new RuntimeException("Unknown operator: " + op);
+        }
+    }
+
     @Override
     public Object visit(ParseTree tree) {
         return null;
@@ -213,7 +270,7 @@ public class Kinescript implements KinescriptVisitor{
     }
 
     public static KStatement getFunction(Map<String, Object> scope, String name, ArrayList<KArg> args) {
-        if (scope.get(name) instanceof KFunction) {
+        if (scope != null  && scope.get(name) instanceof KFunction) {
             return (KFunction) scope.get(name);
         }
         KStatement builtIn = getBuiltInFunction(name,args);
@@ -224,7 +281,11 @@ public class Kinescript implements KinescriptVisitor{
     }
 
     public static KStatement getBuiltInFunction(String name, ArrayList<KArg> args) {
-        if (name.equals("print")) {
+
+        //check the built-in functions map
+        if(builtInFunctions.containsKey(name)){
+            return builtInFunctions.get(name);
+        }else if (name.equals("print")) {
             return new KPrint();
         }else if (name.equals("midi")) {
             return new KFunction(3, new ArrayList<>());
@@ -232,7 +293,16 @@ public class Kinescript implements KinescriptVisitor{
             return new KRandom();
         }else if (name.equals("add")) {
             return new AddBuiltin( args );
+        }else if (name.equals("clear")) {
+            return new ClearBuiltin( args );
         }
+
         return null;
     }
+
+
+    public static void addBuiltInFunction(String name, KStatement function) {
+        builtInFunctions.put(name,function);
+    }
+
 }

@@ -14,25 +14,23 @@ public class KFunction implements KStatement, Serializable {
 
 
 
-    private transient Map<String, Object> scope = new HashMap<>();
+    private static Map<String, Object> scope = new HashMap<>();
     private transient List<KStatement> statements = new ArrayList<>();
     private String sourceCode;
 
     public KFunction( int parameterNumber, List<KStatement> statements) {
-
-
         this.statements = statements;
-
     }
 
 
     @Override
     public Object execute(Map<String, Object> parentScope) {
 
-        scope.putAll(parentScope);
+        if(scope == null) scope = new HashMap<>();
+        parentScope.putAll(scope);
 
         for (KStatement statement : statements) {
-            statement.execute(scope);
+            statement.execute(parentScope);
         }
 
         return null;
