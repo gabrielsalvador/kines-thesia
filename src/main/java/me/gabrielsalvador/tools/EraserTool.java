@@ -1,6 +1,7 @@
 package me.gabrielsalvador.tools;
 
 import me.gabrielsalvador.common.DisplayName;
+import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.pobject.PObject;
 import processing.event.KeyEvent;
 
@@ -18,8 +19,15 @@ public class EraserTool extends Tool{
 
     @Override
     public boolean onPressed(PObject pObject, int[] mousePosition) {
-        if(pObject != null)
-            pObject.remove();
+
+            if (pObject == null) {
+                return false;
+            }
+
+            AppController.getInstance().queueModification(() -> {
+                AppController.getInstance().removePObjectImmediatly(pObject);
+            });
+
         return false;
     }
 
