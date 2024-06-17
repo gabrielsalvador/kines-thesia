@@ -37,14 +37,9 @@ public class PObject implements Serializable, HasPProperties {
     protected void initialize() {}
 
     public void remove() {
-        for (PObject child : _children) {
-            child.remove();
-        }
-        _children.clear();
-        for(Component component : _components.values()){
-            component.remove();
-        }
-        _components.clear();
+            AppController.getInstance().queueModification(() -> {
+                AppController.getInstance().removePObjectImmediatly(this);
+            });
 
         if(this instanceof Inlet){
             AppController.getInstance().getSequencerController().unregisterPObject( (Inlet) this);
