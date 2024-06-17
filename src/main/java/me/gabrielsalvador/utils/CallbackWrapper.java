@@ -2,7 +2,9 @@ package me.gabrielsalvador.utils;
 
 import me.gabrielsalvador.kinescript.ast.KFunction;
 
-public class CallbackWrapper {
+import java.io.Serializable;
+
+public class CallbackWrapper  implements Serializable {
     private KFunction kFunction;
     private Runnable runnable;
 
