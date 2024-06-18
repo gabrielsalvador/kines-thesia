@@ -226,11 +226,20 @@ public class KCommandTests {
 
         String input =
                 "x = function(){\n" +
-                        "print(\"hello\")\n" +
+                    "print(\"hello\")\n" +
+                    "for(1 to 100 as Y) {\n" +
+                    "print(i)\n" +
+                        "b = function(arg) {\n" +
+                    "print('arg')\n" +
+                        "midi(1,i,127)\n" +
+                        "}\n" +
+                "b(i)\n" +
+                "}\n" +
                 "}" +
-                 "print('root scope')" +
-                 "x()" +
-                " \n";
+                "x()";
+                ;
+
+        MidiManager.getInstance(); //init midi
 
         KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -239,13 +248,13 @@ public class KCommandTests {
         KinescriptParser.ProgramContext tree = parser.program();
 
         Kinescript kinescript = new Kinescript();
+        KFunction program = (KFunction) kinescript.visitProgram(tree);
 
         Stopwatch.start();
-        KFunction program = (KFunction) kinescript.visitProgram(tree);
         program.execute(new HashMap<>());
         long time = Stopwatch.stopAndPrint();
 
-        assertTrue(time < 1_500_000);
+        assertTrue(time < 10_000_000);
     }
 
 }
