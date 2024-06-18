@@ -41,6 +41,12 @@ public interface KinescriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr(KinescriptParser.ExprContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link KinescriptParser#range}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRange(KinescriptParser.RangeContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link KinescriptParser#invocation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -14,20 +14,12 @@ public class KAssign implements KStatement{
 
     @Override
     public Object execute(Map<String, Object> parentScope) {
-        if(value instanceof KStatement) { // it needs to be executed
-            Object result = ((KStatement) value).execute(parentScope);
-            if (result instanceof Future){ // wait for the future to complete
-                try {
-                    parentScope.put(name, ((Future) result).get());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }else{
-                parentScope.put(name, result);
-            }
+        if(value instanceof KFunction) { // it needs to be executed
 
-            return parentScope.get(name);
-        }else if (value instanceof KExpression){
+            parentScope.put(name, value);
+            return value;
+        }
+        else if (value instanceof KExpression){
             Object result = ((KExpression) value).evaluate(parentScope);
             if (result instanceof Future){ // wait for the future to complete
                 try {

@@ -68,7 +68,13 @@ public class Kinescript implements KinescriptVisitor{
     @Override
     public Object visitAssignment(KinescriptParser.AssignmentContext ctx) {
         String name = ctx.ID().getText();
-        Object value = visitExpr(ctx.expr());
+
+        Object value = null;
+        if (ctx.expr() != null) {
+            value = visitExpr(ctx.expr());
+        }else if (ctx.definition() != null) {
+            value = visitDefinition(ctx.definition());
+        }
 
 
         //the variable is added to the scope at compile because it will be used deeper in the AST for compilation
@@ -80,7 +86,11 @@ public class Kinescript implements KinescriptVisitor{
 
     @Override
     public Object visitDefinition(KinescriptParser.DefinitionContext ctx) {
-        int parameterNumber = ctx.args().arg().size();
+        int parameterNumber = 0;
+        if (ctx.args() != null) {
+            List args = (List) visitArgs(ctx.args());
+            parameterNumber = args.size();
+        }
 
         List<KStatement> statements = new ArrayList<>();
         for (KinescriptParser.StatementContext statement : ctx.statement()) {
@@ -145,6 +155,11 @@ public class Kinescript implements KinescriptVisitor{
     }
 
     @Override
+    public Object visitRange(KinescriptParser.RangeContext ctx) {
+        return null;
+    }
+
+    @Override
     public Object visitInvocation(KinescriptParser.InvocationContext ctx) {
 
         String name = ctx.ID().getText();
@@ -170,15 +185,12 @@ public class Kinescript implements KinescriptVisitor{
         }
 
         KFunction function = (KFunction) program.getScope().get(name);
+
         if (function == null) {
             throw new RuntimeException("Unknown function: " + name);
         }
 
-
-
-
-
-        return function.execute(program.getScope());
+        return function;
 
     }
 

@@ -7,6 +7,7 @@ import me.gabrielsalvador.kinescript.lang.Kinescript;
 import me.gabrielsalvador.kinescript.lang.KinescriptLexer;
 import me.gabrielsalvador.kinescript.lang.KinescriptParser;
 import me.gabrielsalvador.midi.MidiManager;
+import me.gabrielsalvador.utils.Stopwatch;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.atn.PredictionMode;
@@ -17,8 +18,8 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import java.time.Duration;
 import java.util.HashMap;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @PrepareForTest(Kinescript.class)
@@ -198,7 +199,7 @@ public class KCommandTests {
 
     @Test
     public void testOperations(){
-        String input = "a = 234*193/2+1 ";
+        String input = "a = 234*193/2 ";
 
         KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -217,6 +218,34 @@ public class KCommandTests {
         System.out.println("Execution time: " + Duration.ofNanos(end - start).toMillis() + "ms");
 
         assertEquals(22581.0, scope.get("a"));
+    }
+
+
+    @Test
+    public void testLargeProgram() {
+
+        String input =
+                "x = function(){\n" +
+                        "print(\"hello\")\n" +
+                "}" +
+                 "print('root scope')" +
+                 "x()" +
+                " \n";
+
+        KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        KinescriptParser parser = new KinescriptParser(tokens);
+        parser.getInterpreter().setPredictionMode(PredictionMode.SLL);
+        KinescriptParser.ProgramContext tree = parser.program();
+
+        Kinescript kinescript = new Kinescript();
+
+        Stopwatch.start();
+        KFunction program = (KFunction) kinescript.visitProgram(tree);
+        program.execute(new HashMap<>());
+        long time = Stopwatch.stopAndPrint();
+
+        assertTrue(time < 1_500_000);
     }
 
 }

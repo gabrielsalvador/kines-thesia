@@ -77,6 +77,18 @@ public class KinescriptBaseListener implements KinescriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterRange(KinescriptParser.RangeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRange(KinescriptParser.RangeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInvocation(KinescriptParser.InvocationContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -58,6 +58,16 @@ public interface KinescriptListener extends ParseTreeListener {
 	 */
 	void exitExpr(KinescriptParser.ExprContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link KinescriptParser#range}.
+	 * @param ctx the parse tree
+	 */
+	void enterRange(KinescriptParser.RangeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KinescriptParser#range}.
+	 * @param ctx the parse tree
+	 */
+	void exitRange(KinescriptParser.RangeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link KinescriptParser#invocation}.
 	 * @param ctx the parse tree
 	 */

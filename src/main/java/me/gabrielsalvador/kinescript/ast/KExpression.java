@@ -50,7 +50,7 @@ public class KExpression implements KStatement {
             if (var != null) {
                 return var;
             } else {
-                throw new RuntimeException("Variable or function" + reference + " not found");
+                throw new RuntimeException("Variable or function " + reference + " not found");
             }
         } else if (type == ExpressionType.OPERATION) {
             if (left == null || right == null) {
@@ -66,8 +66,9 @@ public class KExpression implements KStatement {
         }
     }
 
-    public void setArgs(ArrayList<KArg> args) {
+    public KExpression setArgs(ArrayList<KArg> args) {
         this.args = args;
+        return this;
     }
 
     public KExpression setLeft(KExpression left) {

@@ -6,9 +6,10 @@ program: statement+ ;
 
 statement: (assignment | definition | invocation | expr | for ) ';'? ;
 
-assignment: ID '=' expr ;
+assignment: ID '=' expr
+          | ID '=' definition;
 
-definition: ID '(' args? ')' '{' statement* '}' ;
+definition: 'function' '(' args? ')' '{' statement* '}' ;
 
 expr
     :   expr STAR expr
@@ -21,7 +22,15 @@ expr
     |   invocation
     |   '(' expr ')'
     |   '-' expr
+    |   range
+
     ;
+
+range : INT 'to' INT
+      | NOTE 'to' NOTE ;
+
+
+NOTE: [A-G]('#'|'b')?[0-9]? ;
 
 
 STAR: '*' ;
