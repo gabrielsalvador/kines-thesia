@@ -4,18 +4,13 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import controlP5.*;
 import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
-import me.gabrielsalvador.kinescript.lang.Kinescript;
-import me.gabrielsalvador.ui.InspectorController;
+import me.gabrielsalvador.ui.*;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.timing.Clock;
-import me.gabrielsalvador.ui.SequencerGroup;
-import me.gabrielsalvador.ui.ToolboxController;
-import me.gabrielsalvador.ui.TransportButton;
 import processing.core.PApplet;
 import processing.core.PFont;
 
@@ -33,7 +28,7 @@ public class App extends PApplet {
 
 
 
-    MultilineTextfield debugInfo;
+
 
     public static synchronized App getInstance() {
         if (_instance == null) {
@@ -61,7 +56,6 @@ public class App extends PApplet {
 
 
 
-
         _clock = Clock.getInstance();
         _inputManager = InputManager.getInstance();
 
@@ -76,6 +70,7 @@ public class App extends PApplet {
         builder.addCustomClasses("Inspector", InspectorController.class);
         builder.addCustomClasses("Sequencer", SequencerGroup.class);
         builder.addCustomClasses("TransportButton", TransportButton.class);
+        builder.addCustomClasses("Console", ConsoleGroup.class);
 
         try {
             Path xmlPath = Paths.get(Config.RESOURCES_PATH+"/mainLayout.xml");
@@ -89,34 +84,18 @@ public class App extends PApplet {
 
         loadAppState();
 
-
-
-
-        debugInfo = new MultilineTextfield(_cp5, "debugInfo");
-        debugInfo.setPosition(650,584)
-                .setSize(620, 230).getCaptionLabel().hide();
-        //q: whats the char value for the enter key? //A: 10
-        debugInfo.getKeyMapping().put(10, () -> {
-            if(_cp5.isShiftDown()) {
-                try {
-                    Kinescript.compileFunction(debugInfo.getText()).execute(new HashMap<>());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }else {
-                debugInfo.setText(debugInfo.getText() + "\n");
-            }
-        });
-
-
-
-        // Add a shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
                 dispose();
             }
         });
+
+        System.out.println("App initialized");
+        System.out.println("=========================");
+        System.out.println("Press SPACE to play/pause");
+        System.out.println("Alt + / to toggle console");
+
     }
 
 
@@ -125,13 +104,8 @@ public class App extends PApplet {
         CanvasController canvas = (CanvasController) _cp5.getController("MainCanvas");
         int[] mousePosition = canvas.getMousePosition();
         background(255);
-        StringBuilder debugText = new StringBuilder("FPS: " + frameRate + " \n ");
-        debugText.append("Mouse: ").append(mousePosition[0]).append(", ").append(mousePosition[1]).append(" \n ");
 
 
-
-        int bodyCount = AppState.getInstance().getPObjects().size();
-        debugText.append("PObjects: ").append(bodyCount).append(" \n ");
 
 
 

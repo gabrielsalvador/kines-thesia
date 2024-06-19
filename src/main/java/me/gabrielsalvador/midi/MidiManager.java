@@ -28,18 +28,6 @@ public class MidiManager implements HasPProperties {
         _midiBus = new MidiBus(this, inputIndex, outputIndex);
 
         System.out.println("MidiManager initialized");
-        String[] inputs = MidiBus.availableInputs();
-        String[] outputs = MidiBus.availableOutputs();
-
-        System.out.println("input = " + inputs[1] + " output = " + outputs[2] + " initialized");
-
-        System.out.println("interfaces available: ");
-        for (int i = 0; i < inputs.length; i++) {
-            System.out.println("input " + i + " = " + inputs[i]);
-        }
-        for (int i = 0; i < outputs.length; i++) {
-            System.out.println("output " + i + " = " + outputs[i]);
-        }
 
     }
 

@@ -36,6 +36,11 @@ public class KFunction implements KStatement, Serializable {
         return null;
     }
 
+
+    public Object execute() {
+        return execute(scope);
+    }
+
     public Map<String, Object> getScope() {
         return scope;
     }

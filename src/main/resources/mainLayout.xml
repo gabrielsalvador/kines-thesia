@@ -29,9 +29,9 @@
             <Group name="piano-roll" width=50% height=100% orientation="horizontal" padding=(10,5,10,10)>
                 <Sequencer  width=100% height=100% ></Sequencer >
             </Group>
-            <Group width=50% height=100%  padding=(10,10,10,5) >
+            <Console name="console" width=50% height=94%  padding=(10,10,10,10) >
 
-            </Group>
+            </Console>
         </Group>
     </Group>
 </Window>

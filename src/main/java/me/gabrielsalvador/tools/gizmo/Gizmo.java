@@ -44,7 +44,7 @@ public abstract class Gizmo {
     public void onRelease(PObject pObject) {
         _mouseIsDown = false;
         _isDragging = false;
-        System.out.println("gizmo released");
+
     }
 
     public abstract void onDragStart(PObject pObject, int[] mousePosition);

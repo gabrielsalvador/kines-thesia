@@ -23,7 +23,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
     private final ToolManager _toolManager;
     private final PhysicsManager _physicsManager;
     /* time elapsed since last frame */
-    private long _lastTime = System.nanoTime();
+    public long _lastTime = System.nanoTime();
     /* time accumulated since last physics step */
 
     /* rate at which physics simulation moves forward */
@@ -45,6 +45,8 @@ public class CanvasController extends Controller<CanvasController> implements Re
         physicsThread = new Thread(this::runPhysics);
         physicsThread.setUncaughtExceptionHandler(defaultExceptionHandler);
         physicsThread.start();
+
+
     }
 
 
@@ -143,7 +145,6 @@ public class CanvasController extends Controller<CanvasController> implements Re
         return new int[]{x, y};
     }
 
-    private final float maxFrameTime = 1.0f / 15.0f;  // Limit frameTime to 1/15th of a second
 
 
     private void runPhysics() {
