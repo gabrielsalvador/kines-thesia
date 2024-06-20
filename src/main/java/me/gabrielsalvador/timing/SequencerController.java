@@ -55,8 +55,6 @@ public class SequencerController extends Controller<SequencerController> impleme
         }
     }
     private void sendNoteEvent(int time, int pitch) {
-
-        MidiManager.getInstance().setChord(pitch);
         /* Send note event to all connected PObjects */
         for (Inlet inlet : _connectedPObjects) {
             MusicalNote note = new MusicalNote(pitch);

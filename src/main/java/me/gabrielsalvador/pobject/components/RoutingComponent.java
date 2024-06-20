@@ -53,18 +53,21 @@ public class RoutingComponent extends Component {
             if( i !=0 ) graphics.ellipse(x, y, 5, 5);
         }
 
-        // draw an arrow to indicate the direction of the pulse
+
         Vec2 direction = end.sub(start);
         direction.normalize();
         direction.mulLocal(10);
         Vec2 arrowEnd = end.sub(direction);
         graphics.line(end.x, end.y, arrowEnd.x, arrowEnd.y);
+
         graphics.pushMatrix();
+
         graphics.translate(arrowEnd.x, arrowEnd.y);
-        double angle = Math.cos(direction.x);
+        double angle = Math.atan2(direction.y, direction.x);
         graphics.rotate((float) angle);
         graphics.fill(255, 0, 0);
-        graphics.triangle(0, 0, -5, -5, -5, 5);
+        graphics.triangle(0, 0, -10, 5, -10, -5);
+
         graphics.popMatrix();
 
 

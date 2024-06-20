@@ -2,8 +2,10 @@ package me.gabrielsalvador.ui;
 
 import controlP5.*;
 import me.gabrielsalvador.core.App;
+import me.gabrielsalvador.midi.MidiManager;
 import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.utils.Interval;
+import me.gabrielsalvador.utils.MusicalNote;
 
 import java.util.ArrayList;
 
@@ -19,18 +21,16 @@ public class IntervalEditor extends CustomGroup implements PropertyEditor{
     int rangeHigh = 34;
     int step = 12;
 
-    public IntervalEditor(ControlP5 theControlP5, String theName, ArrayList<Object> _pProperties) throws Exception {
+    public IntervalEditor(ControlP5 theControlP5, String theName, ArrayList<PObjectProperty> _pProperties) throws Exception {
         super(theControlP5, theName);
         pProperties = new ArrayList<>();
-        for (Object obj : _pProperties) {
-            pProperties.add((PObjectProperty) obj);
-        }
+        pProperties.addAll(_pProperties);
 
         //keyboard
         keyboard = new Keyboard(theControlP5, "keyboard");
         keyboard.setRange(20, 34);
         keyboard.moveTo(this);
-        keyboard.addListenerFor(ControlP5Constants.ACTION_PRESS, event -> keyboardPressed(event));
+        keyboard.addListenerFor(ControlP5Constants.ACTION_PRESS, this::keyboardPressed);
         highlight();
 
         //up/down buttons
@@ -84,7 +84,7 @@ public class IntervalEditor extends CustomGroup implements PropertyEditor{
         upButton.setPosition(theWidth - 20, 20);
         upButton.setHeight(-10 + theHeight / 2);
         upButton.setWidth(20);
-        downButton.setPosition(theWidth - 20, theHeight / 2 + 10);
+        downButton.setPosition(theWidth - 20, (float) theHeight / 2 + 10);
         downButton.setHeight(-10+theHeight / 2);
         downButton.setWidth(20);
 
@@ -117,11 +117,26 @@ public class IntervalEditor extends CustomGroup implements PropertyEditor{
     }
 
     public void keyboardPressed(CallbackEvent event) {
-        int note = (int) event.getController().getValue();
-        keyboard.setHighlightedKeys(new int[]{note});
-        for (PObjectProperty pProperty : pProperties) {
-            pProperty.setValue(note);
+        int pitch = (int) event.getController().getValue();
+        keyboard.setHighlightedKeys(new int[]{pitch});
+
+        MidiManager midiManager = MidiManager.getInstance();
+        MusicalNote musicalNote = new MusicalNote(pitch);
+        MusicalNote root = midiManager.getScale().getRoot();
+        try {
+            int interval = midiManager.getScale().intervalBetween(root, musicalNote);
+
+            System.out.println("Interval: " + interval);
+            for (PObjectProperty pProperty : pProperties) {
+                pProperty.setValue(interval); //pitch property of musical note component
+            }
+
+        } catch (Exception e) {
+            System.out.printf("Note %s is not in the %s scale \n", musicalNote, midiManager.getScale());
         }
+
+
+
     }
 
     @Override
