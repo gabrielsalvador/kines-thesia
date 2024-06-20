@@ -20,6 +20,8 @@ public class ConsoleGroup extends CustomGroup implements PropertyChangeListener,
 
         consoleOutput = new Textarea(theControlP5, "consoleOutput");
         consoleOutput.moveTo(this).getCaptionLabel().hide();
+        //consoleOutput background transparent black
+        consoleOutput.setColorBackground(0x45000000);
         cp5.addConsole(consoleOutput);
 
         //input

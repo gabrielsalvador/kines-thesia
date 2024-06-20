@@ -11,7 +11,7 @@ public class PMetronomeView extends HologramBodyView implements View<Component> 
 
     public PMetronomeView(HologramBody hologramBody) {
         super(hologramBody);
-        _blinkingLigth = new BlinkingLigth(5);
+        _blinkingLigth = new BlinkingLigth(13);
     }
 
     @Override

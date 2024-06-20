@@ -86,12 +86,6 @@ public class SequencerController extends Controller<SequencerController> impleme
                 float cellWidth = (float) getWidth() / getDivisionTime();
                 float clickedCellXFloat = clickX /  cellWidth;
                 int clickedCellX = (int) Math.floor(clickedCellXFloat);
-
-                System.out.println("cellWidth" + cellWidth);
-                System.out.println("clickX: " + clickX);
-                System.out.println("clickedCellX: " + clickedCellX);
-                System.out.println("clickedCellXFloat: " + clickedCellXFloat);
-
                 int clickedCellY = Math.round(clickY) / STEP_HEIGHT;
 
                 if (clickedCellX != currentX || clickedCellY != currentY) {

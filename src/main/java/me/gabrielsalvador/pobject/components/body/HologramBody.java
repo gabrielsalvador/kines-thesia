@@ -27,7 +27,7 @@ public class HologramBody extends BodyComponent implements Serializable {
     public HologramBody(PObject owner) {
         super(owner);
         _position = new Vec2(0,0);
-        _shape = new RectanglePShape(new Vec2(10,10));
+        _shape = new RectanglePShape(new Vec2(15,15));
         setView(new HologramBodyView(this));
         initialize();
     }

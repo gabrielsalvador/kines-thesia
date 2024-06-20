@@ -35,7 +35,12 @@ public class SequencerNoteLabels extends Controller<SequencerNoteLabels> {
         float stepY = (float) sequencer.getHeight() / (float) sequencer.getDivisionPitch();
         for (int i = 0; i < sequencer.getDivisionPitch(); i++) {
             MusicalNote note = mainScale.doInterval(sequencer.getDivisionPitch() - i - 1 + sequencer.getOffset());
-            theGraphics.text(note.toString(false), 0, i * stepY + 10);
+            if(note.getPitch() % 12 == 0) {
+                theGraphics.text(note.toString(true), 0, i * stepY + 10);
+            }else {
+                theGraphics.text(note.toString(false), 0, i * stepY + 10);
+            }
+
         }
 
         theGraphics.popMatrix();
