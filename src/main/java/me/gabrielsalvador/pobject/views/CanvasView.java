@@ -9,6 +9,7 @@ import me.gabrielsalvador.core.App;
 import me.gabrielsalvador.core.AppState;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.core.CanvasController;
+import me.gabrielsalvador.pobject.PhysicsManager;
 import processing.core.PGraphics;
 
 
@@ -23,7 +24,7 @@ public class CanvasView implements ControllerView<CanvasController> {
         this.controller = controller;
     }
 
-    public int DEBUG_X = 750;
+    public int DEBUG_X = 5;
     public int DEBUG_Y = 425;
 
     @Override
@@ -39,13 +40,19 @@ public class CanvasView implements ControllerView<CanvasController> {
         }
         graphics.rect(0, 0, controller.getWidth(), controller.getHeight());
 
-        //debug
+//debug
         graphics.fill(255,125f);
-        graphics.text("FPS: " + Math.round(app.frameRate), DEBUG_X, DEBUG_Y);
-        graphics.text("PObjects: " + pObjects.size(), DEBUG_X, DEBUG_Y + 20);
-        graphics.text("MouseX: " + app.mouseX, DEBUG_X, DEBUG_Y + 40);
-        graphics.text("MouseY: " + app.mouseY, DEBUG_X, DEBUG_Y + 60);
+        String[] debugTexts = {
+                "FPS: " + Math.round(app.frameRate),
+                "PObjects: " + pObjects.size(),
+                "Physics FPS: " + PhysicsManager.getInstance().physicsFPS,
+                "MouseX: " + app.mouseX,
+                "MouseY: " + app.mouseY
+        };
 
+        for (int i = 0; i < debugTexts.length; i++) {
+            graphics.text(debugTexts[i], DEBUG_X, DEBUG_Y + (20 * i));
+        }
 
 
         graphics.popStyle();
