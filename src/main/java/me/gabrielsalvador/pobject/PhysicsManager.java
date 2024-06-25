@@ -30,15 +30,12 @@ public class PhysicsManager {
     private final Vec2 _gravity = new Vec2(0, 20.0f);
     private final World _world = new World(_gravity);
 
-    private long _lastTime = System.nanoTime();
-    /* time accumulated since last physics step */
-    private float _accumulator = 0.0f;
-    /* rate at which physics simulation moves forward */
-    private final float _timeStep = 1.0f / 60.0f;
+    public  int physicsFPS;
+    private int physicsStepCounter = 0;
+    private long lastCounterResetTime = System.nanoTime();
+
     private final ReentrantLock lock = new ReentrantLock();
     public final Object physicsThreadLock = new Object();
-
-    private volatile boolean running = true;
 
     // Variables to keep track of translating between world and screen coordinates
     float transX = 0.0f;
@@ -59,29 +56,7 @@ public class PhysicsManager {
         return _instance;
     }
 
-    public void worldLoop() {
 
-        long currentTime = System.nanoTime();
-        float frameTime = (currentTime - _lastTime) / 1_000_000_000.0f;
-        _lastTime = currentTime;
-
-
-        _accumulator += frameTime;
-
-        lock.lock();
-        try {
-            while (_accumulator >= _timeStep) {
-                step(_timeStep, 8, 3);
-                _accumulator -= _timeStep;
-            }
-        }
-        finally {
-            lock.unlock();
-        }
-
-
-        AppController.getInstance().applyModifications();
-    }
 
     public Body createCircle(Vec2 position, float radius) {
 
@@ -165,11 +140,18 @@ public class PhysicsManager {
     }
 
     public void step(float timeStep, int velocityIterations, int positionIterations) {
-
         if (Clock.getInstance().getTransportState() == TransportState.PLAYING) {
             _world.step(timeStep, velocityIterations, positionIterations);
-        }
+            physicsStepCounter++;
 
+            long currentTime = System.nanoTime();
+
+            if (currentTime - lastCounterResetTime >= 1_000_000_000) {
+                physicsFPS = physicsStepCounter;
+                physicsStepCounter = 0;
+                lastCounterResetTime = currentTime;
+            }
+        }
     }
 
     public World getWorld() {
