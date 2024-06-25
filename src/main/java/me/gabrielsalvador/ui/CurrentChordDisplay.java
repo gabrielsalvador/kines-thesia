@@ -44,25 +44,45 @@ public class CurrentChordDisplay extends CustomGroup implements PropertyEditor{
 
     }
 
-
     @Override
-    public void resize(int width, int height) {
+    public CurrentChordDisplay setWidth(int theWidth) {
         int labelX1 = 0;
         int labelWidth = 0;
         int valueX = 0;
         int valueWidth = 0;
 
-        labelWidth = (int) (width * 0.5);
-        valueWidth = (int) (width * 0.5);
+        labelWidth = (int) (theWidth * 0.5);
+        valueWidth = (int) (theWidth * 0.5);
         valueX = labelWidth;
 
-        currentChordLabel.setPosition(labelX1, 0).setSize(labelWidth, height);
-        currentChordValue.setPosition(valueX, 0).setSize(valueWidth, height);
+        currentChordLabel.setPosition(labelX1, 0).setSize(labelWidth, getHeight());
+        currentChordValue.setPosition(valueX, 0).setSize(valueWidth, getHeight());
+
+        return this;
+    }
+
+    @Override
+    public CurrentChordDisplay setHeight(int theHeight) {
+        int labelY = 0;
+        int valueY = 0;
+        int labelHeight = theHeight;
+        int valueHeight = theHeight;
+
+        currentChordLabel.setPosition(currentChordLabel.getPosition()[0], labelY).setSize(currentChordLabel.getWidth(), labelHeight);
+        currentChordValue.setPosition(currentChordValue.getPosition()[0], valueY).setSize(currentChordValue.getWidth(), valueHeight);
+
+        return this;
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        setWidth(width);
+        setHeight(height);
 
     }
 
     @Override
     public int getHeightForInspector() {
-        return 15;
+        return 0;
     }
 }
