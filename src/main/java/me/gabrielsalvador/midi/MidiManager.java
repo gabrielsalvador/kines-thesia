@@ -5,10 +5,11 @@ import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObjectProperty;
 import me.gabrielsalvador.timing.Clock;
 import me.gabrielsalvador.ui.CurrentChordDisplay;
+import me.gabrielsalvador.ui.EditQuantization;
+import me.gabrielsalvador.ui.KSlider;
 import me.gabrielsalvador.utils.MusicalNote;
 import me.gabrielsalvador.utils.Scale;
 import themidibus.MidiBus;
-
 import java.util.ArrayList;
 
 public class MidiManager implements HasPProperties {
@@ -18,7 +19,7 @@ public class MidiManager implements HasPProperties {
     private int outputIndex = 2;
     private  MidiBus _midiBus;
     private static MidiManager _instance;
-    private final float _quantization = 1;  // 0 to 1
+    private float _quantization = 1;  // 0 to 1
     private Scale _scale = Scale.HIRAJOSHI.setRoot(new MusicalNote("C3"));
     private int _chord = 0;
     private static final int NOTE_DURATION_MS = 100;
@@ -81,7 +82,7 @@ public class MidiManager implements HasPProperties {
     public int getChord() {
         return _chord;
     }
-//    @PObject.InspectableProperty.SetterFor("Chord")
+
     public void setChord(int chord) {
         AppController.getInstance().firePropertyChange("currentChord", _chord, chord);
         _chord = chord;
@@ -90,5 +91,15 @@ public class MidiManager implements HasPProperties {
     @Override
     public ArrayList<PObjectProperty> getProperties() {
         return PObjectProperty.getProperties(this);
+    }
+
+
+    @PObject.InspectableProperty(displayName = "Quantization",controllerClass = EditQuantization.class)
+    public float getQuantization() {
+        return _quantization;
+    }
+    @PObject.InspectableProperty.SetterFor("Quantization")
+    public void setQuantization(float quantization) {
+        _quantization = quantization;
     }
 }

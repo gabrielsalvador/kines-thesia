@@ -44,7 +44,13 @@ public class InspectorController extends Group implements PropertyChangeListener
 
         }
 
+
         Map<Class<?>, ArrayList<PObjectProperty>> aggregatedProperties = aggregatePropertiesByClass(selectedObjects);
+
+        //sort the properties by name so they are always in the same order
+        aggregatedProperties.forEach((type, properties) -> properties.sort((p2,p1) -> p1.getName().compareTo(p2.getName())));
+
+
         aggregatedProperties.forEach(
                 (type, properties) -> {
                     if (type != NoType.class) {

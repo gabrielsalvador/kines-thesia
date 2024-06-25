@@ -12,16 +12,17 @@ import java.util.ArrayList;
 
 public class CurrentChordDisplay extends CustomGroup implements PropertyEditor{
 
-    Textlabel currentChordLabel;
+    Textlabel nameLabel;
     Textlabel currentChordValue;
     public CurrentChordDisplay(ControlP5 cp5, String theName, ArrayList<PObjectProperty> properties) {
 
         super(cp5, "CurrentChordDisplay");
 
 
-        currentChordLabel = cp5.addTextlabel("currentChordLabel")
+        nameLabel = cp5.addTextlabel("currentChordLabel")
                 .setText("Current Chord: ")
                 .moveTo(this);
+        nameLabel.get().align(ControlP5.LEFT, ControlP5.CENTER).setPaddingX(0).setPaddingY(0);
 
         MusicalNote currentChordRoot = new MusicalNote(MidiManager.getInstance().getChord());
         currentChordValue = cp5.addTextlabel("currentChordValue")
@@ -46,30 +47,32 @@ public class CurrentChordDisplay extends CustomGroup implements PropertyEditor{
 
     @Override
     public CurrentChordDisplay setWidth(int theWidth) {
+        super.setWidth(theWidth);
         int labelX1 = 0;
-        int labelWidth = 0;
-        int valueX = 0;
-        int valueWidth = 0;
+        int labelWidth ;
+        int valueLabelX ;
+        int valueLabelWidth ;
 
         labelWidth = (int) (theWidth * 0.5);
-        valueWidth = (int) (theWidth * 0.5);
-        valueX = labelWidth;
+        valueLabelWidth = (int) (theWidth * 0.5);
+        valueLabelX = getWidth()/2;
 
-        currentChordLabel.setPosition(labelX1, 0).setSize(labelWidth, getHeight());
-        currentChordValue.setPosition(valueX, 0).setSize(valueWidth, getHeight());
+        nameLabel.setPosition(labelX1, 0).setSize(labelWidth, getHeight());
+        currentChordValue.setPosition((float) theWidth /2, 50);
 
         return this;
     }
 
     @Override
     public CurrentChordDisplay setHeight(int theHeight) {
+        super.setHeight(theHeight);
         int labelY = 0;
         int valueY = 0;
         int labelHeight = theHeight;
         int valueHeight = theHeight;
 
-        currentChordLabel.setPosition(currentChordLabel.getPosition()[0], labelY).setSize(currentChordLabel.getWidth(), labelHeight);
-        currentChordValue.setPosition(currentChordValue.getPosition()[0], valueY).setSize(currentChordValue.getWidth(), valueHeight);
+        nameLabel.setPosition(0, labelY).setSize(getWidth()/2, labelHeight);
+        currentChordValue.setPosition(getWidth()/2, valueY).setSize(getWidth()/2, valueHeight);
 
         return this;
     }
@@ -83,6 +86,6 @@ public class CurrentChordDisplay extends CustomGroup implements PropertyEditor{
 
     @Override
     public int getHeightForInspector() {
-        return 0;
+        return 20;
     }
 }

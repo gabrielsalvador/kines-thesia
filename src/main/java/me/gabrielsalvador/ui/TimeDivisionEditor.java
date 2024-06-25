@@ -89,6 +89,6 @@ public class TimeDivisionEditor extends CustomGroup implements PropertyEditor{
 
     @Override
     public int getHeightForInspector() {
-        return 50;
+        return 80;
     }
 }
