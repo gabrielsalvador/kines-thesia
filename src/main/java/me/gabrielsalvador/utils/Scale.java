@@ -13,7 +13,7 @@ public class Scale {
     public static final Scale WHOLE_TONE = new Scale(new int[]{2, 2, 2, 2, 2, 2}).setName("Whole Tone");
     public static final Scale CHROMATIC = new Scale(new int[]{}).setName("Chromatic");
     public static final Scale HIRAJOSHI = new Scale(new int[]{2, 1, 4, 1, 4}).setName("Hirajoshi");
-
+    public static final Scale KUMOI = new Scale(new int[]{2, 1, 4, 1, 4}).setName("Kumoi");
 
 
     private final int[] _intervals;
@@ -106,7 +106,6 @@ public class Scale {
         intervalMemo.put(new NotePair(note1, note2), numIntervals);
 
         return numIntervals;
-
     }
 
     public Scale setRoot(MusicalNote note) {
@@ -125,6 +124,10 @@ public class Scale {
     }
 
     public String toString() {
+        return name;
+    }
+
+    public String getName() {
         return name;
     }
 

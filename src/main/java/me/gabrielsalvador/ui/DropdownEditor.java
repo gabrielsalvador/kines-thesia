@@ -1,6 +1,7 @@
 package me.gabrielsalvador.ui;
 
 import controlP5.ControlP5;
+import controlP5.ControlP5Constants;
 import controlP5.DropdownList;
 import controlP5.Textlabel;
 
@@ -20,11 +21,17 @@ public class DropdownEditor extends CustomGroup {
         label.moveTo(this);
 
         dropdown = theControlP5.addDropdownList(theName + "dropdown").moveTo(this);
+        dropdown.close().setItemHeight(30).bringToFront();
 
+        dropdown.addListenerFor( ControlP5Constants.ENTER, (theEvent) -> {
+            dropdown.bringToFront();
+            bringToFront();
+        });
 
-
-
-
+        dropdown.addListenerFor( ControlP5Constants.ACTION_PRESS, (theEvent) -> {
+            dropdown.bringToFront();
+            bringToFront();
+        });
 
     }
 

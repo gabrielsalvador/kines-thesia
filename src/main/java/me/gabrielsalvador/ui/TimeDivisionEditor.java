@@ -33,7 +33,6 @@ public class TimeDivisionEditor extends CustomGroup implements PropertyEditor{
             if (values.contains(labels[i])) {
                 buttons[i].setOn();
             }
-
         }
     }
 
@@ -65,15 +64,31 @@ public class TimeDivisionEditor extends CustomGroup implements PropertyEditor{
     }
 
     @Override
+    public TimeDivisionEditor setWidth(int width) {
+        super.setWidth(width);
+        return this;
+    }
+    @Override
+    public TimeDivisionEditor setHeight(int height) {
+        super.setHeight(height);
+
+        label.setPosition(0, 0).setWidth(getWidth()/2);
+
+
+        return this;
+    }
+
+    @Override
     public void resize(int width, int height) {
+
         width = width - 20;
 
         label.setPosition(0, 0).setWidth(width/2);
 
         int buttonWidth = width / 8;
-        int buttonHeight = height/4;
+        int buttonHeight = height/2;
         int index = 0;
-        for(int y = 0; y < height; y += height/4){
+        for(int y = 0; y < height; y += height/2){
             for (int i = width/2; i < width; i += width/7) {
                 if(index >= buttons.length) break;
 
@@ -89,6 +104,6 @@ public class TimeDivisionEditor extends CustomGroup implements PropertyEditor{
 
     @Override
     public int getHeightForInspector() {
-        return 80;
+        return 40;
     }
 }

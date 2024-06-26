@@ -7,6 +7,7 @@ import me.gabrielsalvador.timing.Clock;
 import me.gabrielsalvador.ui.CurrentChordDisplay;
 import me.gabrielsalvador.ui.EditQuantization;
 import me.gabrielsalvador.ui.KSlider;
+import me.gabrielsalvador.ui.ScaleDropdown;
 import me.gabrielsalvador.utils.MusicalNote;
 import me.gabrielsalvador.utils.Scale;
 import themidibus.MidiBus;
@@ -15,11 +16,13 @@ import java.util.ArrayList;
 public class MidiManager implements HasPProperties {
 
 
+    public static Scale[] scales = {Scale.MAJOR,Scale.MINOR,Scale.HARMONIC_MINOR,Scale.MELODIC_MINOR, Scale.PENTATONIC, Scale.BLUES, Scale.WHOLE_TONE, Scale.CHROMATIC, Scale.HIRAJOSHI, Scale.KUMOI};
     private final int inputIndex = 1;
     private int outputIndex = 2;
     private  MidiBus _midiBus;
     private static MidiManager _instance;
     private float _quantization = 1;  // 0 to 1
+
     private Scale _scale = Scale.HIRAJOSHI.setRoot(new MusicalNote("C3"));
     private int _chord = 0;
     private static final int NOTE_DURATION_MS = 100;
@@ -63,8 +66,13 @@ public class MidiManager implements HasPProperties {
         return _midiBus;
     }
 
+    @PObject.InspectableProperty(displayName = "Scale",controllerClass = ScaleDropdown.class)
     public Scale getScale() {
         return _scale;
+    }
+    @PObject.InspectableProperty.SetterFor("Scale")
+    public void setScale(Scale scale) {
+        _scale = scale;
     }
 
     public void setKey(Scale key) {
