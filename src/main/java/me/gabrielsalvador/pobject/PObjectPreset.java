@@ -44,14 +44,6 @@ public interface PObjectPreset {
 
         @Override
         public PObject[] create() {
-            //emitter obj
-            PObject emitter = new PObject();
-
-            //emitter body
-            HologramBody emitterBody = new HologramBody(emitter);
-            emitterBody.setPixelPosition(_position);
-            emitterBody.setView(new PEmitterView(emitterBody));
-            emitter.addComponent(BodyComponent.class, emitterBody);
 
             //metronome obj
             PObject metronome = new PMetronome();
@@ -61,19 +53,7 @@ public interface PObjectPreset {
             metronomeBody.setPixelPosition(_position.add(new Vec2(0, -20)));
             metronome.addComponent(BodyComponent.class, metronomeBody);
 
-
-            //routing
-            RoutingComponent emitterRouting = new RoutingComponent(emitter);
-            emitterRouting.setPulseCallback(
-                    new CallbackWrapper(Kinescript.compileFunction("add(\"droplet\", x, y)")
-            ));
-            emitter.addComponent(RoutingComponent.class, emitterRouting);
-            RoutingComponent metronomeRoutingComponent = new RoutingComponent(metronome);
-            metronome.addComponent(RoutingComponent.class, metronomeRoutingComponent);
-
-            metronome.getRoutingComponent().setTarget(emitter);
-
-            return new PObject[]{emitter, metronome};
+            return new PObject[]{ metronome};
 
         }
 

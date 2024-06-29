@@ -1,5 +1,6 @@
 package me.gabrielsalvador.pobject;
 
+import me.gabrielsalvador.kinescript.ast.KFunction;
 import me.gabrielsalvador.pobject.components.RoutingComponent;
 import me.gabrielsalvador.pobject.components.body.HologramBody;
 import me.gabrielsalvador.ui.KKnob;
@@ -23,7 +24,7 @@ public class PMetronome extends PObject implements Device {
     public void setPeriodicityIn16thNotes(int periodicityIn16thNotes) {
         _periodicityIn16thNotes = periodicityIn16thNotes;
     }
-
+    public KFunction onPulse;
     int _internalBeatCounter = 0;
 
     private transient BlinkingLigth _blinkingLigth;
@@ -51,7 +52,7 @@ public class PMetronome extends PObject implements Device {
             RoutingComponent rc = getRoutingComponent();
             if(rc == null) return;
             _blinkingLigth.blink();
-            getRoutingComponent().sendPulse(null);
+            if(onPulse != null) onPulse.execute();
 
         }
 

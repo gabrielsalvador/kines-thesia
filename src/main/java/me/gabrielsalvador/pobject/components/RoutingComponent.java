@@ -12,12 +12,13 @@ import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RoutingComponent extends Component {
 
-    private PObject _target;
+    private ArrayList<PObject> _targets;
     private int _subdivisions = 1;
     private CallbackWrapper _pulseCallback;
     @InspectableProperty(displayName = "Delay",controllerClass = DropdownList.class)
@@ -30,11 +31,12 @@ public class RoutingComponent extends Component {
 
     @Override
     public void display(PGraphics graphics) {
-        if (_target == null) return;
+        for (PObject target : _targets){
+            if (target == null) return;
         BodyComponent body = getOwner().getBodyComponent();
 
         Vec2 start = body.getPixelCenter();
-        Vec2 end = _target.getBodyComponent().getPixelCenter();
+        Vec2 end = target.getBodyComponent().getPixelCenter();
 
         for (int i = 0; i < _subdivisions; i++) {
             float t = i / (float) (_subdivisions);
@@ -69,8 +71,7 @@ public class RoutingComponent extends Component {
         graphics.triangle(0, 0, -10, 5, -10, -5);
 
         graphics.popMatrix();
-
-
+        }
     }
 
 
@@ -132,27 +133,30 @@ public class RoutingComponent extends Component {
 
 
     @InspectableProperty(displayName = "Target")
-    public void getTarget(PObject target) {
-        _target = target;
+    public ArrayList<PObject> getTargets() {
+        return _targets;
     }
 
     @InspectableProperty.SetterFor("Target")
     public void setTarget(PObject target) {
-        _target = target;
+        if (_targets == null) _targets = new ArrayList<>();
+        _targets.add(target);
     }
 
 
 
     public void sendPulse(Object message) {
 
+       for (PObject target : _targets){
+           if (target == null) return;
 
-        if (_target == null ) return;
-        RoutingComponent rc = _target.getRoutingComponent();
-        if (rc == null)
-            throw new RuntimeException("We're trying to send a pulse to an object that doesn't have a routing component\n" +
-                "OBJ = " + _target.toString());
+           RoutingComponent rc = target.getRoutingComponent();
+           if (rc == null)
+               throw new RuntimeException("You're trying to send a pulse to an object that doesn't have a routing component\n" +
+                       "OBJ = " + target.toString());
 
-        rc.receivePulse(message);
+           rc.receivePulse(message);
+       }
     }
 
     private void receivePulse(Object message) {

@@ -3,6 +3,7 @@ package me.gabrielsalvador.pobject.components.body;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PhysicsManager;
 import me.gabrielsalvador.pobject.components.body.shape.AbstractShape;
+import me.gabrielsalvador.pobject.components.body.shape.CirclePShape;
 import me.gabrielsalvador.pobject.components.body.shape.RectanglePShape;
 import org.jbox2d.common.Vec2;
 import processing.core.PGraphics;
@@ -21,13 +22,13 @@ public class HologramBody extends BodyComponent implements Serializable {
     public HologramBody(PObject owner,Vec2 position, Vec2 size){
         this(owner);
         _position = position;
-        _shape = new RectanglePShape( size);
+        _shape = new CirclePShape( size);
     }
 
     public HologramBody(PObject owner) {
         super(owner);
         _position = new Vec2(0,0);
-        _shape = new RectanglePShape(new Vec2(15,15));
+        _shape = new CirclePShape(new Vec2(19,19));
         setView(new HologramBodyView(this));
         initialize();
     }
