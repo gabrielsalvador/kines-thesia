@@ -64,4 +64,8 @@ public class PMetronome extends PObject implements Device {
         in.defaultReadObject();
         initialize();
     }
+
+    public BlinkingLigth getBlinkingLigth() {
+        return _blinkingLigth;
+    }
 }

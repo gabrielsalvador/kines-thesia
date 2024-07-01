@@ -31,7 +31,7 @@ public class BlinkingLigth {
         int currentB = (int) (originalB * (brightness / (float)MAX_BRIGHTNESS));
 
         graphics.noStroke();
-        graphics.fill(currentR, currentG, currentB);
+        graphics.fill(currentR, currentG, currentB,brightness);
         graphics.ellipse(0, 0, _size, _size);
 
         if (brightness > coolOffRate) {

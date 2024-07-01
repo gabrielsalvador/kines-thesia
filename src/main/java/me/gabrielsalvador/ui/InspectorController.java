@@ -75,6 +75,20 @@ public class InspectorController extends Group implements PropertyChangeListener
                     }
                 }
         );
+
+
+        //add dropdown to add new components
+        DropdownList dropdown = cp5.addDropdownList("Add Component")
+                .setPosition(0, 0)
+                .setSize(this._myWidth, 200)
+                .setBarHeight(20)
+                .setItemHeight(20)
+                .addItems(new String[]{"RoutingComponent", "MidiComponent", "AudioComponent", "SequencerComponent"})
+                .close()
+                .bringToFront()
+                .moveTo(this);
+
+        addChildVertically(dropdown);
     }
 
 

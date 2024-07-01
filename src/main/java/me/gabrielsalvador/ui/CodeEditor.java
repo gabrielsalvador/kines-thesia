@@ -28,14 +28,14 @@ public class CodeEditor extends CustomGroup implements PropertyEditor{
             compile();
         })
         .setAutoClear(false)
-        .setHeight(100)
-        ;
+        .setHeight(100);
     }
     Textlabel feedbackLabel = new Textlabel(App.getInstance().getCP5(), "feedbackLabel");
-    Button compileButton = new Button(App.getInstance().getCP5(), "Compile").addListenerFor(ControlP5Constants.ACTION_CLICK, event -> {
+    Button compileButton = new Button(App.getInstance().getCP5(), "Compile").addListenerFor(ControlP5Constants.ACTION_PRESS, event -> {
         compile();
     });
 
+    Button availableObjectsButton = new Button(App.getInstance().getCP5(), "Available Objects");
     public CodeEditor(ControlP5 theControlP5, String theName,ArrayList<PObjectProperty> properties) {
         super(theControlP5, theName);
 
@@ -60,6 +60,16 @@ public class CodeEditor extends CustomGroup implements PropertyEditor{
 
 //        //compile button
         children.add(compileButton);
+
+        //available objects button
+        availableObjectsButton.addListenerFor(ControlP5Constants.PRESS, event -> {
+//            App.getInstance().showToolTip();
+        });
+        availableObjectsButton.moveTo(this);
+
+        ;
+
+
 
 
         children.forEach(child -> {
@@ -107,7 +117,11 @@ public class CodeEditor extends CustomGroup implements PropertyEditor{
     public Group setWidth(int theWidth) {
         super.setWidth(theWidth);
 
-        for (ControllerInterface child : controllers.get()) {
+        //available objects button
+        availableObjectsButton.setPosition((float) getWidth() /2 + 20, 5);
+        availableObjectsButton.setSize(130, 20);
+
+        for (ControllerInterface child : children) {
             child.setWidth(Math.round(theWidth));
         }
         return this;
@@ -119,6 +133,8 @@ public class CodeEditor extends CustomGroup implements PropertyEditor{
 
         titleLabel.setPosition(0, 0);
         titleLabel.setHeight(30);
+
+
 
         codeTextbox.setPosition(0, titleLabel.getHeight());
         codeTextbox.setHeight(theHeight/2 - 10);
@@ -135,6 +151,6 @@ public class CodeEditor extends CustomGroup implements PropertyEditor{
 
     @Override
     public int getHeightForInspector() {
-        return 400;
+        return 700;
     }
 }

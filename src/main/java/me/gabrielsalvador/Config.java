@@ -27,6 +27,8 @@ public interface Config {
     String BOXTOOL_CURSOR_ICON = "boxCursor.png";
     String PIANO_ROLL_GROUP_NAME = "piano-roll";
 
+    int[] APP_BACKGROUND_COLOR = {30,30,30};
+
     class Shortcuts {
         public static final char CLONE = 'c';
         // Add more shortcuts here if needed

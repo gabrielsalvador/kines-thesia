@@ -26,8 +26,15 @@ public class CirclePShape extends PShape{
     public void display(PGraphics graphics) {
 
         graphics.pushStyle();
+        graphics.ellipseMode(graphics.CENTER);
+        float diameter = _size.x ;
+
+        graphics.fill(34,46,57);
+        graphics.ellipse(0, 0, diameter + 4, diameter + 4);
+
+
         graphics.fill(255);
-        graphics.ellipse(-_size.x / 2, -_size.y / 2,_size.x, _size.y);
+        graphics.ellipse(0, 0, diameter , diameter);
         graphics.popStyle();
     }
 

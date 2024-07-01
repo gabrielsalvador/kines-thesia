@@ -2,12 +2,16 @@ package me.gabrielsalvador.pobject.components;
 
 
 import controlP5.DropdownList;
+import me.gabrielsalvador.Config;
 import me.gabrielsalvador.kinescript.ast.KFunction;
+import me.gabrielsalvador.pobject.PMetronome;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
-import me.gabrielsalvador.ui.CodeEditor;
+import me.gabrielsalvador.pobject.components.musicalnote.MusicalNoteComponent;
+import me.gabrielsalvador.ui.OnPulseCodeEditor;
 import me.gabrielsalvador.utils.CallbackWrapper;
+import me.gabrielsalvador.utils.MusicalNote;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -15,10 +19,11 @@ import processing.core.PGraphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Executors;
 
 public class RoutingComponent extends Component {
 
-    private ArrayList<PObject> _targets;
+    private ArrayList<PObject> _targets = new ArrayList<>();
     private int _subdivisions = 1;
     private CallbackWrapper _pulseCallback;
     @InspectableProperty(displayName = "Delay",controllerClass = DropdownList.class)
@@ -49,27 +54,24 @@ public class RoutingComponent extends Component {
             // Draw line segments
             graphics.line(x, y, nextX, nextY);
 
-
             graphics.fill(255, 0, 0);
             graphics.ellipseMode(PApplet.CENTER);
             if( i !=0 ) graphics.ellipse(x, y, 5, 5);
         }
 
-
+        // Draw arrow
         Vec2 direction = end.sub(start);
         direction.normalize();
         direction.mulLocal(10);
-        Vec2 arrowEnd = end.sub(direction);
-        graphics.line(end.x, end.y, arrowEnd.x, arrowEnd.y);
+        Vec2 middlePoint = start.add(end).mul(0.5f).add(direction);
+        graphics.line(end.x, end.y, middlePoint.x, middlePoint.y);
 
         graphics.pushMatrix();
-
-        graphics.translate(arrowEnd.x, arrowEnd.y);
+        graphics.translate(middlePoint.x, middlePoint.y);
         double angle = Math.atan2(direction.y, direction.x);
         graphics.rotate((float) angle);
-        graphics.fill(255, 0, 0);
-        graphics.triangle(0, 0, -10, 5, -10, -5);
-
+        graphics.fill(Config.APP_BACKGROUND_COLOR[0], Config.APP_BACKGROUND_COLOR[1], Config.APP_BACKGROUND_COLOR[2]);
+        graphics.triangle(-5, -5, 5, 0, -5, 5);
         graphics.popMatrix();
         }
     }
@@ -99,7 +101,7 @@ public class RoutingComponent extends Component {
 
 
 
-    @InspectableProperty(displayName = "onPulseReceived", controllerClass = CodeEditor.class)
+    @InspectableProperty(displayName = "onPulseReceived", controllerClass = OnPulseCodeEditor.class)
     public CallbackWrapper getPulseCallback() {
         return _pulseCallback;
     }
@@ -145,39 +147,67 @@ public class RoutingComponent extends Component {
 
 
 
-    public void sendPulse(Object message) {
+    public void sendPulse(Object message) throws InterruptedException {
 
        for (PObject target : _targets){
            if (target == null) return;
 
            RoutingComponent rc = target.getRoutingComponent();
+
+           long distance = (long) getOwner().getBodyComponent().getPixelCenter().sub(target.getBodyComponent().getPixelCenter()).length();
+
            if (rc == null)
                throw new RuntimeException("You're trying to send a pulse to an object that doesn't have a routing component\n" +
                        "OBJ = " + target.toString());
 
-           rc.receivePulse(message);
+           //start a new thread to send the pulse
+              Executors.newSingleThreadExecutor().submit(() -> {
+                try {
+                     Thread.sleep(distance);
+                     rc.receivePulse(message);
+                } catch (InterruptedException e) {
+                     e.printStackTrace();
+                }
+              });
+
        }
     }
 
-    private void receivePulse(Object message) {
+    public void receivePulse(Object message) {
+
+        try {
+        ((PMetronome) _owner).getBlinkingLigth().blink();
+        }catch (Exception ignored) {
+        }
+
 
         Map<String, Object> scope = new HashMap<>();
         scope.put("message", message);
         scope.put("x", _owner.getBodyComponent().getPixelCenter().x);
         scope.put("y", _owner.getBodyComponent().getPixelCenter().y);
 
+        MusicalNoteComponent musicalNoteComponent = _owner.getComponent(MusicalNoteComponent.class);
+        if (musicalNoteComponent != null) {
+            MusicalNote note = musicalNoteComponent.getNote();
+            scope.put("note", note);
+        }
+
         if (_pulseCallback != null) {
 
             if (_pulseCallback.isKFunction()){
                 KFunction kFunction = _pulseCallback.getKFunction();
                 kFunction.execute(scope);
-                return;
+
             } else if ( _pulseCallback.isRunnable() ){
                 _pulseCallback.getRunnable().run();
-                return;
+
             }
+        }
 
-
+        try {
+            sendPulse(message);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
 
