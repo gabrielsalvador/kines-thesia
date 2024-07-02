@@ -101,16 +101,6 @@ public class App extends PApplet {
 
 
     public void draw() {
-        CanvasController canvas = (CanvasController) _cp5.getController("MainCanvas");
-        int[] mousePosition = canvas.getMousePosition();
-        background(255);
-
-
-
-
-
-
-
     }
 
     public ControlP5 getCP5() {
