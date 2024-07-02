@@ -157,7 +157,7 @@ public class RoutingComponent extends Component {
            long distance = (long) getOwner().getBodyComponent().getPixelCenter().sub(target.getBodyComponent().getPixelCenter()).length();
 
            if (rc == null)
-               throw new RuntimeException("You're trying to send a pulse to an object that doesn't have a routing component\n" +
+               throw new RuntimeException("You're trying to send a message to an object that cannot receive it because it doesn't have a routing component\n" +
                        "OBJ = " + target.toString());
 
            //start a new thread to send the pulse
