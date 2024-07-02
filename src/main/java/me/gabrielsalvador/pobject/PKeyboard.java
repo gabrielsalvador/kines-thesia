@@ -50,7 +50,11 @@ public class PKeyboard extends PObject implements  Inlet{
         //send pulse to routing
         RoutingComponent rc = getRoutingComponent();
         if(rc == null) return;
-        rc.sendPulse(message);
+        try {
+            rc.sendPulse(message);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
