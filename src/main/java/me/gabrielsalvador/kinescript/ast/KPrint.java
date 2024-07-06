@@ -21,6 +21,6 @@ public class KPrint implements KStatement{
     @Override
     public Object execute(Map<String, Object> parentScope) {
         System.out.println(this.argument.evaluate(parentScope));
-        return argument;
+        return null;
     }
 }
