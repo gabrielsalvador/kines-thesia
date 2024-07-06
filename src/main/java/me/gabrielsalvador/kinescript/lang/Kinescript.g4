@@ -12,19 +12,26 @@ assignment: ID '=' expr
 definition: 'function' '(' args? ')' '{' statement* '}' ;
 
 expr
-    :   expr STAR expr
-    |   expr PLUS expr
-    |   expr MINUS expr
-    |   expr DIV expr
-    |   INT
-    |   ID
-    |   STRING
-    |   invocation
-    |   '(' expr ')'
-    |   '-' expr
-    |   range
-
+    :   expr STAR expr                      # OperationExpression
+    |   expr PLUS expr                      # OperationExpression
+    |   expr MINUS expr                     # OperationExpression
+    |   expr DIV expr                       # OperationExpression
+    |   INT                                 # IntExpression
+    |   ID                                  # IdExpression
+    |   STRING                              # StringExpression
+    |   expr '.' ID                         # MemberDotExpression
+    |   expr '[' expr ']'                   # MemberIndexExpression
+    |   expr memberIndexExpr                # MemberIndexExpression
+    |   invocation                          # InvocationExpression
+    |   '(' expr ')'                        # ParenExpression
+    |   '-' expr                            # NegateExpression
+    |   range                               # RangeExpression
     ;
+
+memberDotExpr: '.' ID ;
+
+memberIndexExpr: '[' expr ']' ;
+
 
 range : INT 'to' INT
       | NOTE 'to' NOTE ;

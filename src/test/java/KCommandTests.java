@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
+
 import java.time.Duration;
 import java.util.HashMap;
 
@@ -32,12 +33,15 @@ public class KCommandTests {
     }
 
     @Test
-    public void test(){
-        String input = "main(a,c,d){\n" +
-                "a = 4\n" +
-                "midi(1,34,127)" +
-                "print(a)\n" +
-                "}";
+    public void test() {
+
+        String input = """
+                function(a,c,d){
+                    a = 4
+                    midi(1,34,127)
+                    print(a)
+                }
+                """;
 
         KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -59,7 +63,7 @@ public class KCommandTests {
         assertNotNull(function);
 
         KFunction innerFunction = (KFunction) function.getStatements().get(0);
-        assertEquals(  innerFunction.getStatements().size(), 3);
+        assertEquals(innerFunction.getStatements().size(), 3);
 
         //assert 4 is printed
         //assertEquals( innerFunction.getStatements().get(1).execute(new HashMap<>()), 4);
@@ -68,7 +72,7 @@ public class KCommandTests {
 
 
     @Test
-    public void testExpr(){
+    public void testExpr() {
         String input = "random()";
         KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -88,7 +92,7 @@ public class KCommandTests {
 
 
     @Test
-    public void testInvocationAsArg(){
+    public void testInvocationAsArg() {
         String input = "print(random())";
         KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -108,7 +112,7 @@ public class KCommandTests {
     }
 
     @Test
-    public void testAssignment(){
+    public void testAssignment() {
         String input = "a = add(\"droplet\",0,0)";
 
         KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
@@ -151,10 +155,8 @@ public class KCommandTests {
         KinescriptParser.ProgramContext tree = parser.program();
 
 
-
         // Use the visitProgram method on the tree
         KFunction program = (KFunction) kinescript.visitProgram(tree);
-
 
 
         HashMap scope = new HashMap();
@@ -169,9 +171,8 @@ public class KCommandTests {
     }
 
 
-
     @Test
-    public void testExprCrunch(){
+    public void testExprCrunch() {
         String input = "1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10";
 
         KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
@@ -198,7 +199,7 @@ public class KCommandTests {
 
 
     @Test
-    public void testOperations(){
+    public void testOperations() {
         String input = "a = 234*193/2 ";
 
         KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
@@ -224,20 +225,20 @@ public class KCommandTests {
     @Test
     public void testLargeProgram() {
 
-        String input =
-                "x = function(){\n" +
-                    "print(\"hello\")\n" +
-                    "for(1 to 100 as Y) {\n" +
-                    "print(i)\n" +
-                        "b = function(arg) {\n" +
-                    "print('arg')\n" +
-                        "midi(1,i,127)\n" +
-                        "}\n" +
-                "b(i)\n" +
-                "}\n" +
-                "}" +
-                "x()";
-                ;
+
+        String input = """
+                x = function(){
+                    print("hello")
+                    for(1 to 100 as i) {
+                        b = function(arg) {
+                            print('arg')
+                            midi(1,i,127)
+                        }
+                        b(i)
+                    }
+                }
+                x()
+                """;
 
         MidiManager.getInstance(); //init midi
 

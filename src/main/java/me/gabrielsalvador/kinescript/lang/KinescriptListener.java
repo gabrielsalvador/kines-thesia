@@ -48,15 +48,145 @@ public interface KinescriptListener extends ParseTreeListener {
 	 */
 	void exitDefinition(KinescriptParser.DefinitionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link KinescriptParser#expr}.
+	 * Enter a parse tree produced by the {@code NegateExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpr(KinescriptParser.ExprContext ctx);
+	void enterNegateExpression(KinescriptParser.NegateExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link KinescriptParser#expr}.
+	 * Exit a parse tree produced by the {@code NegateExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpr(KinescriptParser.ExprContext ctx);
+	void exitNegateExpression(KinescriptParser.NegateExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code OperationExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterOperationExpression(KinescriptParser.OperationExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OperationExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitOperationExpression(KinescriptParser.OperationExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IntExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntExpression(KinescriptParser.IntExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IntExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntExpression(KinescriptParser.IntExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StringExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterStringExpression(KinescriptParser.StringExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StringExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitStringExpression(KinescriptParser.StringExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IdExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdExpression(KinescriptParser.IdExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IdExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdExpression(KinescriptParser.IdExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MemberDotExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterMemberDotExpression(KinescriptParser.MemberDotExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MemberDotExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitMemberDotExpression(KinescriptParser.MemberDotExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ParenExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterParenExpression(KinescriptParser.ParenExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ParenExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitParenExpression(KinescriptParser.ParenExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RangeExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterRangeExpression(KinescriptParser.RangeExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RangeExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitRangeExpression(KinescriptParser.RangeExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code InvocationExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterInvocationExpression(KinescriptParser.InvocationExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InvocationExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitInvocationExpression(KinescriptParser.InvocationExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MemberIndexExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterMemberIndexExpression(KinescriptParser.MemberIndexExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MemberIndexExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitMemberIndexExpression(KinescriptParser.MemberIndexExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KinescriptParser#memberDotExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterMemberDotExpr(KinescriptParser.MemberDotExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KinescriptParser#memberDotExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitMemberDotExpr(KinescriptParser.MemberDotExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KinescriptParser#memberIndexExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterMemberIndexExpr(KinescriptParser.MemberIndexExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KinescriptParser#memberIndexExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitMemberIndexExpr(KinescriptParser.MemberIndexExprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link KinescriptParser#range}.
 	 * @param ctx the parse tree
