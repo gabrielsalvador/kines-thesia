@@ -60,6 +60,18 @@ public interface KinescriptListener extends ParseTreeListener {
 	 */
 	void exitNegateExpression(KinescriptParser.NegateExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code PropertyDotExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterPropertyDotExpression(KinescriptParser.PropertyDotExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PropertyDotExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitPropertyDotExpression(KinescriptParser.PropertyDotExpressionContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code OperationExpression}
 	 * labeled alternative in {@link KinescriptParser#expr}.
 	 * @param ctx the parse tree
@@ -108,18 +120,6 @@ public interface KinescriptListener extends ParseTreeListener {
 	 */
 	void exitIdExpression(KinescriptParser.IdExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code MemberDotExpression}
-	 * labeled alternative in {@link KinescriptParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterMemberDotExpression(KinescriptParser.MemberDotExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code MemberDotExpression}
-	 * labeled alternative in {@link KinescriptParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitMemberDotExpression(KinescriptParser.MemberDotExpressionContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code ParenExpression}
 	 * labeled alternative in {@link KinescriptParser#expr}.
 	 * @param ctx the parse tree
@@ -156,37 +156,39 @@ public interface KinescriptListener extends ParseTreeListener {
 	 */
 	void exitInvocationExpression(KinescriptParser.InvocationExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code MemberIndexExpression}
+	 * Enter a parse tree produced by the {@code ObjectExpression}
 	 * labeled alternative in {@link KinescriptParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterMemberIndexExpression(KinescriptParser.MemberIndexExpressionContext ctx);
+	void enterObjectExpression(KinescriptParser.ObjectExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code MemberIndexExpression}
+	 * Exit a parse tree produced by the {@code ObjectExpression}
 	 * labeled alternative in {@link KinescriptParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitMemberIndexExpression(KinescriptParser.MemberIndexExpressionContext ctx);
+	void exitObjectExpression(KinescriptParser.ObjectExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link KinescriptParser#memberDotExpr}.
+	 * Enter a parse tree produced by the {@code PropertyIndexExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterMemberDotExpr(KinescriptParser.MemberDotExprContext ctx);
+	void enterPropertyIndexExpression(KinescriptParser.PropertyIndexExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link KinescriptParser#memberDotExpr}.
+	 * Exit a parse tree produced by the {@code PropertyIndexExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitMemberDotExpr(KinescriptParser.MemberDotExprContext ctx);
+	void exitPropertyIndexExpression(KinescriptParser.PropertyIndexExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link KinescriptParser#memberIndexExpr}.
+	 * Enter a parse tree produced by {@link KinescriptParser#keyValuePair}.
 	 * @param ctx the parse tree
 	 */
-	void enterMemberIndexExpr(KinescriptParser.MemberIndexExprContext ctx);
+	void enterKeyValuePair(KinescriptParser.KeyValuePairContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link KinescriptParser#memberIndexExpr}.
+	 * Exit a parse tree produced by {@link KinescriptParser#keyValuePair}.
 	 * @param ctx the parse tree
 	 */
-	void exitMemberIndexExpr(KinescriptParser.MemberIndexExprContext ctx);
+	void exitKeyValuePair(KinescriptParser.KeyValuePairContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link KinescriptParser#range}.
 	 * @param ctx the parse tree

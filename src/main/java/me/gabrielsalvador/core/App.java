@@ -4,10 +4,12 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import controlP5.*;
 import controlP5.layout.LayoutBuilder;
 import me.gabrielsalvador.Config;
+import me.gabrielsalvador.kinescript.ast.KFunction;
 import me.gabrielsalvador.ui.*;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.timing.Clock;
@@ -90,6 +92,10 @@ public class App extends PApplet {
                 dispose();
             }
         });
+
+        Map<String, Object> scope = KFunction.getScope();
+        scope.put("all", AppState.getInstance().getPObjects());
+
 
         System.out.println("App initialized");
         System.out.println("=========================");

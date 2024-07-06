@@ -17,9 +17,7 @@ import java.util.Map;
 public class PObjectProperty implements Serializable {
     private final Object _owner;
     private final String name;
-
     private final Class<?> type;
-
     private Method setter;
     private Method getter;
     private Class<?> controllerClass;

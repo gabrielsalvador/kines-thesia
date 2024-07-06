@@ -12,25 +12,25 @@ assignment: ID '=' expr
 definition: 'function' '(' args? ')' '{' statement* '}' ;
 
 expr
-    :   expr STAR expr                      # OperationExpression
-    |   expr PLUS expr                      # OperationExpression
-    |   expr MINUS expr                     # OperationExpression
-    |   expr DIV expr                       # OperationExpression
-    |   INT                                 # IntExpression
-    |   ID                                  # IdExpression
-    |   STRING                              # StringExpression
-    |   expr '.' ID                         # MemberDotExpression
-    |   expr '[' expr ']'                   # MemberIndexExpression
-    |   expr memberIndexExpr                # MemberIndexExpression
-    |   invocation                          # InvocationExpression
-    |   '(' expr ')'                        # ParenExpression
-    |   '-' expr                            # NegateExpression
-    |   range                               # RangeExpression
+    :   expr STAR expr                          # OperationExpression
+    |   expr PLUS expr                          # OperationExpression
+    |   expr MINUS expr                         # OperationExpression
+    |   expr DIV expr                           # OperationExpression
+    |   INT                                     # IntExpression
+    |   ID                                      # IdExpression
+    |   STRING                                  # StringExpression
+    |   expr '.' ID                             # PropertyDotExpression
+    |   expr '[' expr ']'                       # PropertyIndexExpression
+    |   invocation                              # InvocationExpression
+    |   '(' expr ')'                            # ParenExpression
+    |   '-' expr                                # NegateExpression
+    |   range                                   # RangeExpression
+    |   '{' keyValuePair? (',' keyValuePair)* '}'                   # ObjectExpression
     ;
 
-memberDotExpr: '.' ID ;
+keyValuePair: ID ':' expr ;
 
-memberIndexExpr: '[' expr ']' ;
+
 
 
 range : INT 'to' INT

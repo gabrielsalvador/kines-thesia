@@ -4,16 +4,26 @@ import me.gabrielsalvador.kinescript.lang.Kinescript;
 import org.w3c.dom.css.CSS2Properties;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class KExpression implements KStatement {
 
 
+    public static KExpression propertyAccess( KExpression obj ,String propertyName){
+        int type = ExpressionType.PROPERTY_ACCESS.ordinal();
+        KExpression expression =  new KExpression(type);
+        expression.left = obj;
+        expression.reference = propertyName;
+        return expression;
+    }
+
     enum ExpressionType {
         VALUE,
         REFERENCE,
-        OPERATION
+        OPERATION,
+        PROPERTY_ACCESS
     }
 
     //either has a value or a reference to a variable
@@ -27,6 +37,9 @@ public class KExpression implements KStatement {
     private KExpression right;
     private KOperator operator;
 
+    public KExpression(int type) {
+        this.type = ExpressionType.values()[type];
+    }
 
     public KExpression(int type, Object valueOrName) {
         this.type = ExpressionType.values()[type];
@@ -61,7 +74,31 @@ public class KExpression implements KStatement {
 
             return operator.apply(leftValue, rightValue);
 
-        } else {
+        }else if(type == ExpressionType.PROPERTY_ACCESS){
+            Object obj = left.evaluate(scope);
+            if(obj instanceof Map){
+                Object value = ((Map<?, ?>) obj).get(reference);
+                if(value instanceof KExpression){
+                    return ((KExpression) value).evaluate(scope);
+                }else {
+                    return value;
+                }
+            }
+
+            else{
+                HashMap<String, Object> properties = new HashMap<>();
+                Class c = obj.getClass();
+                for (var field : c.getDeclaredFields()) {
+                    properties.put(field.getName(), field);
+                }
+                for (var method : c.getDeclaredMethods()) {
+                    properties.put(method.getName(), method);
+                }
+                return properties.get(reference);
+            }
+        }
+
+        else {
             return null;
         }
     }
@@ -104,6 +141,18 @@ public class KExpression implements KStatement {
             right = null;
             operator = null;
             type = ExpressionType.VALUE;
+        }
+    }
+
+    @Override
+    public String toString() {
+        if (type == ExpressionType.VALUE) {
+            return value.toString();
+        } else if (type == ExpressionType.REFERENCE) {
+            return reference;
+        }
+        else {
+            return "(" + left.toString() + " " + operator + " " + right.toString() + ")";
         }
     }
 }

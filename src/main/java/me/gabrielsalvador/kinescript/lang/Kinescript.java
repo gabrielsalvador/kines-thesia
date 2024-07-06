@@ -9,7 +9,6 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -114,10 +113,10 @@ public class Kinescript implements KinescriptVisitor {
             return (KExpression) visitIdExpression((KinescriptParser.IdExpressionContext) expr);
         } else if (expr instanceof KinescriptParser.StringExpressionContext) {
             return (KExpression) visitStringExpression((KinescriptParser.StringExpressionContext) expr);
-        } else if (expr instanceof KinescriptParser.MemberDotExpressionContext) {
-            return (KExpression) visitMemberDotExpression((KinescriptParser.MemberDotExpressionContext) expr);
-        } else if (expr instanceof KinescriptParser.MemberIndexExpressionContext) {
-            return (KExpression) visitMemberIndexExpression((KinescriptParser.MemberIndexExpressionContext) expr);
+        } else if (expr instanceof KinescriptParser.PropertyDotExpressionContext) {
+            return (KExpression) visitPropertyDotExpression((KinescriptParser.PropertyDotExpressionContext) expr);
+        } else if (expr instanceof KinescriptParser.PropertyIndexExpressionContext) {
+            return (KExpression) visitPropertyIndexExpression((KinescriptParser.PropertyIndexExpressionContext) expr);
         } else if (expr instanceof KinescriptParser.InvocationExpressionContext) {
             return (KExpression) visitInvocationExpression((KinescriptParser.InvocationExpressionContext) expr);
         } else if (expr instanceof KinescriptParser.ParenExpressionContext) {
@@ -126,7 +125,12 @@ public class Kinescript implements KinescriptVisitor {
             return (KExpression) visitNegateExpression((KinescriptParser.NegateExpressionContext) expr);
         } else if (expr instanceof KinescriptParser.RangeExpressionContext) {
             return (KExpression) visitRangeExpression((KinescriptParser.RangeExpressionContext) expr);
-        } else {
+        }else if (expr instanceof KinescriptParser.ObjectExpressionContext) {
+            return (KExpression) visitObjectExpression((KinescriptParser.ObjectExpressionContext) expr);
+        }
+
+
+        else {
             throw new RuntimeException("Unknown expression type");
         }
     }
@@ -169,8 +173,8 @@ public class Kinescript implements KinescriptVisitor {
     }
 
     @Override
-    public Object visitMemberDotExpression(KinescriptParser.MemberDotExpressionContext ctx) {
-        return null;
+    public Object visitPropertyDotExpression(KinescriptParser.PropertyDotExpressionContext ctx) {
+        return KExpression.propertyAccess(visitExpr(ctx.expr()), ctx.ID().getText());
     }
 
     @Override
@@ -194,20 +198,26 @@ public class Kinescript implements KinescriptVisitor {
     }
 
     @Override
-    public Object visitMemberIndexExpression(KinescriptParser.MemberIndexExpressionContext ctx) {
-        return null;
-    }
-
-
-    @Override
-    public Object visitMemberDotExpr(KinescriptParser.MemberDotExprContext ctx) {
+    public Object visitPropertyIndexExpression(KinescriptParser.PropertyIndexExpressionContext ctx) {
         return null;
     }
 
     @Override
-    public Object visitMemberIndexExpr(KinescriptParser.MemberIndexExprContext ctx) {
+    public Object visitObjectExpression(KinescriptParser.ObjectExpressionContext ctx) {
+        HashMap<String, KExpression> pairs = new HashMap<>();
+        for (KinescriptParser.KeyValuePairContext pair : ctx.keyValuePair()) {
+            String key = pair.ID().getText();
+            KExpression value = visitExpr(pair.expr());
+            pairs.put(key, value);
+        }
+        return new KExpression(0, pairs);
+    }
+
+    @Override
+    public Object visitKeyValuePair(KinescriptParser.KeyValuePairContext ctx) {
         return null;
     }
+
 
     @Override
     public Object visitRange(KinescriptParser.RangeContext ctx) {
@@ -260,12 +270,7 @@ public class Kinescript implements KinescriptVisitor {
             statements.add((KStatement) visitStatement(statement));
         }
 
-        //if there is an ID, it is the name of the variable
-//        if (ctx.ID() != null) {
-//            return new KFor(ctx.ID().getText(),start,end,statements);
-//        }else{
         return new KFor(start, end, statements);
-//        }
 
     }
 

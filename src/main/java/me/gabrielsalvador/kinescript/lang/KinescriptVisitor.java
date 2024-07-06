@@ -42,6 +42,13 @@ public interface KinescriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNegateExpression(KinescriptParser.NegateExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code PropertyDotExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPropertyDotExpression(KinescriptParser.PropertyDotExpressionContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code OperationExpression}
 	 * labeled alternative in {@link KinescriptParser#expr}.
 	 * @param ctx the parse tree
@@ -70,13 +77,6 @@ public interface KinescriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIdExpression(KinescriptParser.IdExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code MemberDotExpression}
-	 * labeled alternative in {@link KinescriptParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMemberDotExpression(KinescriptParser.MemberDotExpressionContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ParenExpression}
 	 * labeled alternative in {@link KinescriptParser#expr}.
 	 * @param ctx the parse tree
@@ -98,24 +98,25 @@ public interface KinescriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInvocationExpression(KinescriptParser.InvocationExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code MemberIndexExpression}
+	 * Visit a parse tree produced by the {@code ObjectExpression}
 	 * labeled alternative in {@link KinescriptParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMemberIndexExpression(KinescriptParser.MemberIndexExpressionContext ctx);
+	T visitObjectExpression(KinescriptParser.ObjectExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link KinescriptParser#memberDotExpr}.
+	 * Visit a parse tree produced by the {@code PropertyIndexExpression}
+	 * labeled alternative in {@link KinescriptParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMemberDotExpr(KinescriptParser.MemberDotExprContext ctx);
+	T visitPropertyIndexExpression(KinescriptParser.PropertyIndexExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link KinescriptParser#memberIndexExpr}.
+	 * Visit a parse tree produced by {@link KinescriptParser#keyValuePair}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMemberIndexExpr(KinescriptParser.MemberIndexExprContext ctx);
+	T visitKeyValuePair(KinescriptParser.KeyValuePairContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link KinescriptParser#range}.
 	 * @param ctx the parse tree

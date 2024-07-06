@@ -14,7 +14,8 @@ public class KFunction implements KStatement, Serializable {
 
 
 
-    private static Map<String, Object> scope = new HashMap<>();
+    private static HashMap<String, Object> scope = new HashMap<>();
+    {scope.put("scope", scope);}
     private transient List<KStatement> statements = new ArrayList<>();
     private String sourceCode;
 
@@ -30,7 +31,10 @@ public class KFunction implements KStatement, Serializable {
         parentScope.putAll(scope);
 
         for (KStatement statement : statements) {
-            statement.execute(parentScope);
+            Object result = statement.execute(parentScope);
+            if(result != null){
+                System.out.println(result);
+            }
         }
 
         return null;
@@ -41,7 +45,7 @@ public class KFunction implements KStatement, Serializable {
         return execute(scope);
     }
 
-    public Map<String, Object> getScope() {
+    static public Map<String, Object> getScope() {
         return scope;
     }
 
@@ -57,6 +61,8 @@ public class KFunction implements KStatement, Serializable {
     public void setSourceCode(String sourceCode) {
         this.sourceCode = sourceCode;
     }
+
+
 
 
     @Serial private void writeObject(java.io.ObjectOutputStream out)

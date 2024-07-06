@@ -77,6 +77,18 @@ public class KinescriptBaseListener implements KinescriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPropertyDotExpression(KinescriptParser.PropertyDotExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPropertyDotExpression(KinescriptParser.PropertyDotExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterOperationExpression(KinescriptParser.OperationExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -125,18 +137,6 @@ public class KinescriptBaseListener implements KinescriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMemberDotExpression(KinescriptParser.MemberDotExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMemberDotExpression(KinescriptParser.MemberDotExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterParenExpression(KinescriptParser.ParenExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -173,37 +173,37 @@ public class KinescriptBaseListener implements KinescriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMemberIndexExpression(KinescriptParser.MemberIndexExpressionContext ctx) { }
+	@Override public void enterObjectExpression(KinescriptParser.ObjectExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMemberIndexExpression(KinescriptParser.MemberIndexExpressionContext ctx) { }
+	@Override public void exitObjectExpression(KinescriptParser.ObjectExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMemberDotExpr(KinescriptParser.MemberDotExprContext ctx) { }
+	@Override public void enterPropertyIndexExpression(KinescriptParser.PropertyIndexExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMemberDotExpr(KinescriptParser.MemberDotExprContext ctx) { }
+	@Override public void exitPropertyIndexExpression(KinescriptParser.PropertyIndexExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMemberIndexExpr(KinescriptParser.MemberIndexExprContext ctx) { }
+	@Override public void enterKeyValuePair(KinescriptParser.KeyValuePairContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMemberIndexExpr(KinescriptParser.MemberIndexExprContext ctx) { }
+	@Override public void exitKeyValuePair(KinescriptParser.KeyValuePairContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

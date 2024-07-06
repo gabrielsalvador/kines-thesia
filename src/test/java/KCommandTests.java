@@ -258,4 +258,22 @@ public class KCommandTests {
         assertTrue(time < 10_000_000);
     }
 
+    @Test
+    public void testPropertyAccess() {
+        String input = "a = {b: 1, c: 2}; result = (a.b)";
+
+        KinescriptLexer lexer = new KinescriptLexer(CharStreams.fromString(input));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        KinescriptParser parser = new KinescriptParser(tokens);
+        parser.getInterpreter().setPredictionMode(PredictionMode.SLL);
+        KinescriptParser.ProgramContext tree = parser.program();
+
+        Kinescript kinescript = new Kinescript();
+        KFunction program = (KFunction) kinescript.visitProgram(tree);
+
+        HashMap scope = new HashMap();
+        program.execute(scope);
+
+        assertEquals(1, scope.get("result"));
+    }
 }
