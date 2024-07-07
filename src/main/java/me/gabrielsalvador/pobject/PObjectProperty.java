@@ -144,4 +144,8 @@ public class PObjectProperty implements Serializable {
         return properties;
     }
 
+    @Override
+    public String toString() {
+        return "[Property " + name + "]";
+    }
 }
