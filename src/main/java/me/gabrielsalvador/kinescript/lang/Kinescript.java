@@ -56,7 +56,7 @@ public class Kinescript implements KinescriptVisitor {
             return visitInvocation(ctx.invocation());
         } else if (ctx.expr() != null) {
             //return a statement that is an expression
-            return visitExpr(ctx.expr());
+            return new KExprStatement(visitExpr(ctx.expr()));
         } else if (ctx.for_() != null) {
             return visitFor(ctx.for_());
         } else {
@@ -152,29 +152,32 @@ public class Kinescript implements KinescriptVisitor {
         };
 
         KOperator operator = getOperator(whichOperator);
-        return new KExpression(2, null).setLeft(left).setRight(right).setOperator(operator);
+        return new KOperation( left, right,operator);
     }
 
 
     @Override
     public Object visitIntExpression(KinescriptParser.IntExpressionContext ctx) {
-        return new KExpression(0, Integer.parseInt(ctx.INT().getText()));
+        return new KValue(Integer.parseInt(ctx.INT().getText()));
+//        return Integer.parseInt(ctx.INT().getText());
     }
 
     @Override
     public Object visitStringExpression(KinescriptParser.StringExpressionContext ctx) {
-        return new KExpression(0, ctx.STRING().getText());
+        return new KValue(ctx.STRING().getText());
     }
 
     @Override
     public Object visitIdExpression(KinescriptParser.IdExpressionContext ctx) {
         String name = ctx.ID().getText();
-        return new KExpression(1, name);
+        return new KReference(name);
     }
+
 
     @Override
     public Object visitPropertyDotExpression(KinescriptParser.PropertyDotExpressionContext ctx) {
-        return KExpression.propertyAccess(visitExpr(ctx.expr()), ctx.ID().getText());
+        KExpression propName = new KValue(ctx.ID().getText());
+        return new KPropertyAccess(visitExpr(ctx.expr()), propName);
     }
 
     @Override
@@ -191,27 +194,26 @@ public class Kinescript implements KinescriptVisitor {
     @Override
     public Object visitInvocationExpression(KinescriptParser.InvocationExpressionContext ctx) {
         String name = ctx.invocation().ID().getText();
-        KExpression exp = new KExpression(1, name);
         ArrayList<KArg> args = (ArrayList) visitArgs(ctx.invocation().args());
-        exp.setArgs(args);
+        KExpression exp = new KReference(name,args);
         return exp;
     }
 
     @Override
     public Object visitPropertyIndexExpression(KinescriptParser.PropertyIndexExpressionContext ctx) {
-        return KExpression.propertyAccess(visitExpr(ctx.expr(0)), visitExpr(ctx.expr(1)));
+        return new KPropertyAccess(visitExpr(ctx.expr(0)), visitExpr(ctx.expr(1)));
 
     }
 
     @Override
     public Object visitObjectExpression(KinescriptParser.ObjectExpressionContext ctx) {
-        HashMap<String, KExpression> pairs = new HashMap<>();
+        HashMap<String, KExpression> object = new HashMap<>();
         for (KinescriptParser.KeyValuePairContext pair : ctx.keyValuePair()) {
             String key = pair.ID().getText();
-            KExpression value = visitExpr(pair.expr());
-            pairs.put(key, value);
+            KExpression value =  visitExpr(pair.expr());
+            object.put(key, value);
         }
-        return new KExpression(0, pairs);
+        return new KValue(object);
     }
 
     @Override

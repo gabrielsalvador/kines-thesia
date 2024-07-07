@@ -1,5 +1,6 @@
 
 
+import me.gabrielsalvador.kinescript.ast.KExprStatement;
 import me.gabrielsalvador.kinescript.ast.KExpression;
 import me.gabrielsalvador.kinescript.ast.KFunction;
 import me.gabrielsalvador.kinescript.builtins.KRandom;
@@ -190,8 +191,8 @@ public class KCommandTests {
         HashMap scope = new HashMap();
         long start = System.nanoTime();
         program.execute(scope);
-        KExpression statement = (KExpression) program.getStatements().get(0);
-        assertEquals(55.0, statement.evaluate(scope));
+        KExprStatement statement = (KExprStatement) program.getStatements().get(0);
+        assertEquals(55.0, statement.execute(scope));
 
         long end = System.nanoTime();
         System.out.println("Execution time: " + Duration.ofNanos(end - start).toMillis() + "ms");
