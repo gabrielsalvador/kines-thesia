@@ -15,7 +15,6 @@ public class KAssign implements KStatement{
     @Override
     public Object execute(Map<String, Object> parentScope) {
         if(value instanceof KFunction) { // it needs to be executed
-
             parentScope.put(name, value);
             return value;
         }
