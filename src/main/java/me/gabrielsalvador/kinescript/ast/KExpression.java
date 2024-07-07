@@ -1,6 +1,8 @@
 package me.gabrielsalvador.kinescript.ast;
 
 import me.gabrielsalvador.kinescript.lang.Kinescript;
+import me.gabrielsalvador.pobject.HasPProperties;
+import me.gabrielsalvador.pobject.PObject;
 import org.w3c.dom.css.CSS2Properties;
 
 import java.util.ArrayList;
@@ -11,11 +13,15 @@ import java.util.Map;
 public class KExpression implements KStatement {
 
 
-    public static KExpression propertyAccess( KExpression obj ,String propertyName){
+    public static KExpression propertyAccess( KExpression obj ,Object propertyName){
         int type = ExpressionType.PROPERTY_ACCESS.ordinal();
         KExpression expression =  new KExpression(type);
         expression.left = obj;
-        expression.reference = propertyName;
+        if(propertyName instanceof String){
+            expression.reference = (String) propertyName;
+        }else if(propertyName instanceof Integer){
+            expression.propertyIndex = ((Integer) propertyName);
+        }
         return expression;
     }
 
@@ -30,6 +36,7 @@ public class KExpression implements KStatement {
 
     private Object value;
     private String reference;
+    private int propertyIndex;
     private ArrayList<KArg> args;// for function calls
     private ExpressionType type; // 0 for value , 1 for reference , 2 for operation
 
@@ -52,18 +59,27 @@ public class KExpression implements KStatement {
 
 
     public Object evaluate(Map<String, Object> scope) {
+        Object result = null;
+
         if (type == ExpressionType.VALUE) {
-            return value;
+            result = value;
         } else if (type == ExpressionType.REFERENCE) {
             KStatement possibleFunction = Kinescript.getFunction(scope, reference, args);
             if (possibleFunction != null) {
-                return possibleFunction.execute(scope);
-            }
-            Object var = scope.get(reference);
-            if (var != null) {
-                return var;
+                result = possibleFunction.execute(scope);
             } else {
-                throw new RuntimeException("Variable or function " + reference + " not found");
+                Object var = scope.get(reference);
+                if (var != null) {
+                    if (var instanceof HasPProperties) {
+                        Object obj = ((KExpression) var).evaluate(scope);
+                        PObject pObject = (PObject) obj;
+                        result = pObject.getProperties();
+                    } else {
+                        result = var;
+                    }
+                } else {
+                    throw new RuntimeException("Variable or function " + reference + " not found");
+                }
             }
         } else if (type == ExpressionType.OPERATION) {
             if (left == null || right == null) {
@@ -71,21 +87,26 @@ public class KExpression implements KStatement {
             }
             Object leftValue = left.evaluate(scope);
             Object rightValue = right.evaluate(scope);
-
-            return operator.apply(leftValue, rightValue);
-
-        }else if(type == ExpressionType.PROPERTY_ACCESS){
+            result = operator.apply(leftValue, rightValue);
+        } else if (type == ExpressionType.PROPERTY_ACCESS) {
             Object obj = left.evaluate(scope);
-            if(obj instanceof Map){
+            if (obj instanceof Map) {
                 Object value = ((Map<?, ?>) obj).get(reference);
-                if(value instanceof KExpression){
-                    return ((KExpression) value).evaluate(scope);
-                }else {
-                    return value;
+                if (value instanceof KExpression) {
+                    result = ((KExpression) value).evaluate(scope);
+                } else {
+                    result = value;
                 }
-            }
-
-            else{
+            } else if (obj instanceof List) {
+                int index = propertyIndex;
+                if (index < 0) {
+                    throw new RuntimeException("Index must be positive");
+                }
+                if (index >= ((List<?>) obj).size()) {
+                    throw new RuntimeException("Index out of bounds");
+                }
+                result = ((List<?>) obj).get(index);
+            } else {
                 HashMap<String, Object> properties = new HashMap<>();
                 Class c = obj.getClass();
                 for (var field : c.getDeclaredFields()) {
@@ -94,13 +115,19 @@ public class KExpression implements KStatement {
                 for (var method : c.getDeclaredMethods()) {
                     properties.put(method.getName(), method);
                 }
-                return properties.get(reference);
+                result = properties.get(reference);
             }
         }
 
-        else {
-            return null;
+        if(result instanceof PObject){
+            result = ((PObject) result).getProperties();
+            result = new KList((ArrayList<?>) result);
         }
+        else if (result instanceof ArrayList<?>){
+            result = new KList((ArrayList<?>) result);
+        }
+
+        return result;
     }
 
     public KExpression setArgs(ArrayList<KArg> args) {

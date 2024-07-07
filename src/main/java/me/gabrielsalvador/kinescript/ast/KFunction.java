@@ -13,7 +13,6 @@ import java.util.concurrent.Future;
 public class KFunction implements KStatement, Serializable {
 
 
-
     private static HashMap<String, Object> scope = new HashMap<>();
     {scope.put("scope", scope);}
     private transient List<KStatement> statements = new ArrayList<>();

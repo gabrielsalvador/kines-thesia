@@ -199,7 +199,8 @@ public class Kinescript implements KinescriptVisitor {
 
     @Override
     public Object visitPropertyIndexExpression(KinescriptParser.PropertyIndexExpressionContext ctx) {
-        return null;
+        return KExpression.propertyAccess(visitExpr(ctx.expr(0)), visitExpr(ctx.expr(1)));
+
     }
 
     @Override
