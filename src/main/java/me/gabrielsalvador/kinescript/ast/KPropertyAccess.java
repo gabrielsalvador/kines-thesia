@@ -1,5 +1,9 @@
 package me.gabrielsalvador.kinescript.ast;
 
+import me.gabrielsalvador.pobject.HasPProperties;
+import me.gabrielsalvador.pobject.PObjectProperty;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +29,17 @@ public class KPropertyAccess extends KExpression {
         if((propIdentifier instanceof String) ){
             if (objResult instanceof Map) {
                 returnValue = ((Map<?, ?>) objResult).get(propIdentifier);
+            }
+            else if(objResult instanceof HasPProperties){
+                ArrayList<PObjectProperty> properties = ((HasPProperties) objResult).getProperties();
+                for (PObjectProperty property : properties) {
+                    if (property.getName().equals(propIdentifier)) {
+                        returnValue = property.getValue();
+                        break;
+                    }
+                }
+
+
             }
             else {
                 throw new RuntimeException("Property access not supported on this type of object");
