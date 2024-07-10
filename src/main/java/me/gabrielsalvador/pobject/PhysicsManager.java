@@ -25,7 +25,6 @@ import java.util.concurrent.locks.ReentrantLock;
 public class PhysicsManager {
     private static final int Y_FLIP_INDICATOR = -1;
     int yFlip;// = Y_FLIP_INDICATOR; //flip y coordinate
-    PApplet parent = App.getInstance();
     private static PhysicsManager _instance;
     private final Vec2 _gravity = new Vec2(0, 20.0f);
     private final World _world = new World(_gravity);
@@ -103,41 +102,6 @@ public class PhysicsManager {
         return body;
     }
 
-    public float scaleWorldToPixels(float worldValue) {
-        return worldValue * scaleFactor;
-    }
-    public Vec2 coordWorldToPixels(float worldX, float worldY) {
-        float pixelX = worldX * scaleFactor + transX;
-        float pixelY = worldY * scaleFactor + transY;
-        if (yFlip == Y_FLIP_INDICATOR) pixelY = parent.height - pixelY;
-        return new Vec2(pixelX, pixelY);
-    }
-
-    public Vec2 coordWorldToPixels(Vec2 worldVertex) {
-        return coordWorldToPixels(worldVertex.x, worldVertex.y);
-    }
-
-    public Vec2[] coordWorldToPixels(Vec2[] worldVertices) {
-        Vec2[] pixelVertices = new Vec2[worldVertices.length];
-        for (int i = 0; i < worldVertices.length; i++) {
-            pixelVertices[i] = coordWorldToPixels(worldVertices[i].x, worldVertices[i].y);
-        }
-        return pixelVertices;
-    }
-
-    public Vec2 coordPixelsToWorld(float pixelX, float pixelY) {
-        float worldX = (pixelX - transX) / scaleFactor;
-        float worldY = (pixelY - transY) / scaleFactor;
-        if (yFlip == Y_FLIP_INDICATOR) worldY = (parent.height - pixelY - transY) / scaleFactor;
-        return new Vec2(worldX, worldY);
-    }
-    public Vec2[] coordPixelsToWorld(Vec2[] pixelVertices) {
-        Vec2[] worldVertices = new Vec2[pixelVertices.length];
-        for (int i = 0; i < pixelVertices.length; i++) {
-            worldVertices[i] = coordPixelsToWorld(pixelVertices[i].x, pixelVertices[i].y);
-        }
-        return worldVertices;
-    }
 
     public void step(float timeStep, int velocityIterations, int positionIterations) {
         if (Clock.getInstance().getTransportState() == TransportState.PLAYING) {
@@ -174,6 +138,18 @@ public class PhysicsManager {
 
     public ReentrantLock getLock() {
         return lock;
+    }
+
+    public Vec2 coordWorldToPixels(float x, float y) {
+        return new Vec2(x * scaleFactor + transX, y * scaleFactor + transY);
+    }
+
+    public float scaleWorldToPixels(float radius) {
+        return radius * scaleFactor;
+    }
+
+    public Vec2 coordPixelsToWorld(float x, float y) {
+        return new Vec2((x - transX) / scaleFactor, (y - transY) / scaleFactor);
     }
 }
 

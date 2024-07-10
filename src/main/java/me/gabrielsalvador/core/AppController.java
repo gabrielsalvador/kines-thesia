@@ -15,13 +15,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-
+import static me.gabrielsalvador.pobject.PObjectPreset.getPresetByName;
 
 
 public class AppController {
     private static AppController _instance;
     private static AppState _appState;
-    private static CanvasController _canvasController;
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
     private final ConcurrentLinkedQueue<Runnable> _modificationsQueue = new ConcurrentLinkedQueue<Runnable>();
 
@@ -57,12 +56,6 @@ public class AppController {
 
 
 
-    public  CanvasController getCanvas(){
-        if(_canvasController == null){
-            _canvasController = (CanvasController) App.getInstance().getCP5().getController("MainCanvas");
-        }
-        return _canvasController;
-    }
     public PObject addPObject(PObject pObject) {
         Runnable modification = () -> {
             _appState.addPObject(pObject);
@@ -142,10 +135,6 @@ public class AppController {
 
 
 
-    public SequencerController getSequencerController() {
-        return (SequencerController) App.getInstance().getCP5().getController(Config.MAIN_SEQUENCER_NAME);
-    }
-
 
 
     public void createRouting(PObject firstObject, PObject secondObject) {
@@ -160,4 +149,18 @@ public class AppController {
     public ConcurrentLinkedQueue getModificationQueue() {
         return _modificationsQueue;
     }
+
+
+
+    public void addDroplet() {
+        PObject[] droplet = getPresetByName("droplet").create();
+        for (PObject pObject : droplet) {
+            addPObject(pObject);
+        }
+
+        addPObjectImmiadiately(droplet[0]);
+
+    }
+
+
 }

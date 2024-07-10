@@ -17,7 +17,7 @@ public abstract class BodyComponent extends Component {
     public abstract Vec2 getPosition();
     public Vec2 getPixelPosition(){
         Vec2 position = getPosition();
-        return PhysicsManager.getInstance().coordWorldToPixels(position.x, position.y);
+        return position;
     }
 
 

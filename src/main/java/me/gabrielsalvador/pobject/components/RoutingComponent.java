@@ -9,7 +9,6 @@ import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.PObject.InspectableProperty;
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.pobject.components.musicalnote.MusicalNoteComponent;
-import me.gabrielsalvador.ui.OnPulseCodeEditor;
 import me.gabrielsalvador.utils.CallbackWrapper;
 import me.gabrielsalvador.utils.MusicalNote;
 import org.jbox2d.common.Vec2;
@@ -101,7 +100,7 @@ public class RoutingComponent extends Component {
 
 
 
-    @InspectableProperty(displayName = "onPulseReceived", controllerClass = OnPulseCodeEditor.class)
+    @InspectableProperty(displayName = "onPulseReceived")
     public CallbackWrapper getPulseCallback() {
         return _pulseCallback;
     }

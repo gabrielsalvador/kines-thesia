@@ -42,7 +42,7 @@ public class PObject implements Serializable, HasPProperties {
             });
 
         if(this instanceof Inlet){
-            AppController.getInstance().getSequencerController().unregisterPObject( (Inlet) this);
+
         }
 
 

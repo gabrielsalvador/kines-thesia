@@ -4,7 +4,7 @@ import me.gabrielsalvador.core.AppController;
 import me.gabrielsalvador.kinescript.ast.KArg;
 import me.gabrielsalvador.kinescript.ast.KStatement;
 import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PObjectPreset;
+
 import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.utils.Stopwatch;
 
@@ -33,14 +33,7 @@ public class AddBuiltin implements KStatement {
         CompletableFuture<PObject> futureObject = new CompletableFuture<>();
 
         app.queueModification(() -> {
-            PObjectPreset preset = PObjectPreset.getPresetByName(presetName);
-            PObject[] objects = preset.create();
-            for (PObject object : objects) {
-                BodyComponent body = object.getBodyComponent();
-                body.setPixelPosition(new org.jbox2d.common.Vec2(x, y));
-                app.addPObjectImmiadiately(object);
-                futureObject.complete(object); // Complete the future with the last created object
-            }
+
         });
 
         return futureObject;

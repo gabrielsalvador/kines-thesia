@@ -6,12 +6,12 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.timing.SequencerState;
-import me.gabrielsalvador.tools.Tool;
+
 import me.gabrielsalvador.pobject.views.View;
 
 public class AppState implements Serializable {
     private static AppState _instance;
-    private Tool _currentTool;
+//    private Tool _currentTool;
     private final SequencerState _sequencerState = new SequencerState();
     private final ArrayList<View> _gizmos = new ArrayList<View>();
     private final ArrayList<PObject> _pObjects = new ArrayList<PObject>();
@@ -28,14 +28,6 @@ public class AppState implements Serializable {
     }
 
 
-    public Tool getCurrentTool() {
-        return _currentTool;
-    }
-
-
-    public void setCurrentTool(Tool currentTool) {
-        this._currentTool = currentTool;
-    }
 
     
     public ArrayList<PObject> getPObjects() {

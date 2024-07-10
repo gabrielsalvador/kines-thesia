@@ -5,8 +5,6 @@ package me.gabrielsalvador.pobject.components.musicalnote;
 import me.gabrielsalvador.midi.MidiManager;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.Component;
-import me.gabrielsalvador.ui.DropdownEditor;
-import me.gabrielsalvador.ui.IntervalEditor;
 import me.gabrielsalvador.ui.MidiChannelEditor;
 import me.gabrielsalvador.utils.Interval;
 import me.gabrielsalvador.utils.MusicalNote;
@@ -17,7 +15,7 @@ import processing.core.PGraphics;
 public class MusicalNoteComponent extends Component {
 
     Interval intervalToPlay; //relative to the root note + the current chord
-    @PObject.InspectableProperty(displayName = "Play Note", controllerClass = IntervalEditor.class)
+    @PObject.InspectableProperty(displayName = "Play Note")
     public Interval getInterval() {
         return intervalToPlay;
     }

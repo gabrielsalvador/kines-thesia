@@ -1,8 +1,5 @@
 package me.gabrielsalvador;
 
-import me.gabrielsalvador.tools.AddTool;
-import me.gabrielsalvador.tools.SelectTool;
-import me.gabrielsalvador.tools.Tool;
 import me.gabrielsalvador.utils.Color;
 
 import java.util.Map;
@@ -10,9 +7,6 @@ import java.util.Map;
 public interface Config {
     String RESOURCES_PATH = "src/main/resources";
     String ICON_FOLDER_PATH = RESOURCES_PATH + "/icons/";
-    Map<Class<? extends Tool>, String> toolIconNames = Map.of(
-            SelectTool.class, "selectTool.png",
-            AddTool.class,"addTool.png");
 
     String MAIN_SEQUENCER_NAME = "sequencer";
 

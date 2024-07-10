@@ -6,35 +6,49 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import controlP5.*;
 import controlP5.layout.LayoutBuilder;
+import me.friwi.jcefmaven.CefAppBuilder;
+import me.friwi.jcefmaven.CefInitializationException;
+import me.friwi.jcefmaven.MavenCefAppHandlerAdapter;
+import me.friwi.jcefmaven.UnsupportedPlatformException;
+import me.friwi.jcefmaven.impl.progress.ConsoleProgressHandler;
 import me.gabrielsalvador.Config;
 import me.gabrielsalvador.kinescript.ast.KFunction;
 import me.gabrielsalvador.kinescript.ast.KList;
+import me.gabrielsalvador.pobject.components.body.BodyComponent;
 import me.gabrielsalvador.ui.*;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.timing.Clock;
+import org.cef.CefApp;
+import org.cef.browser.CefBrowser;
 import processing.core.PApplet;
 import processing.core.PFont;
 
-public class App extends PApplet {
+import javax.swing.*;
+
+public class App  {
 
     private static App _instance;
-    private InputManager _inputManager;
-    private ControlP5 _cp5;
-    private Clock _clock;
 
-    public App() {
+    public App() throws UnsupportedPlatformException, CefInitializationException, IOException, InterruptedException {
         super();
         _instance = this;
+
+
+        CanvasController canvasController = new CanvasController();
+        AppController.getInstance().addDroplet();
+        Clock.getInstance().play();
+
+
+
+
     }
 
 
-
-
-
-    public static synchronized App getInstance() {
+    public static synchronized App getInstance() throws UnsupportedPlatformException, CefInitializationException, IOException, InterruptedException {
         if (_instance == null) {
             _instance = new App();
 
@@ -43,57 +57,15 @@ public class App extends PApplet {
         return _instance;
     }
 
-    public static void main(String[] args) {
-        System.setProperty("sun.java2d.uiScale.enabled", "true");
-        PApplet.main("me.gabrielsalvador.core.App");
-    }
 
-    public void settings() {
-        size(1280,820);
-        registerMethod("dispose", this);
-    }
+
 
     public void setup() {
-        background(0);
-        _cp5 = new ControlP5(this);
-        _cp5.enableShortcuts();
 
-
-
-        _clock = Clock.getInstance();
-        _inputManager = InputManager.getInstance();
-
-        smooth();
-        PFont myFont = createFont("fonts/CascadiaCode_VTT.ttf", 12, true);
-        ControlFont cfont = new ControlFont(myFont);
-        _cp5.setFont(cfont);
-
-        LayoutBuilder builder = new LayoutBuilder(this, _cp5);
-        builder.addCustomClasses("Canvas", CanvasController.class);
-        builder.addCustomClasses("Toolbox", ToolboxController.class);
-        builder.addCustomClasses("Inspector", InspectorController.class);
-        builder.addCustomClasses("Sequencer", SequencerGroup.class);
-        builder.addCustomClasses("TransportButton", TransportButton.class);
-        builder.addCustomClasses("Console", ConsoleGroup.class);
-
-        try {
-            Path xmlPath = Paths.get(Config.RESOURCES_PATH+"/mainLayout.xml");
-            String xmlContent = new String(Files.readAllBytes(xmlPath));
-            builder.parseXML(xmlContent);
-        } catch (Exception e) {
-            System.out.println("Error loading layout, check your mainLayout.xml file.");
-            e.printStackTrace();
-        }
 
 
         loadAppState();
 
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                dispose();
-            }
-        });
 
         Map<String, Object> scope = KFunction.getScope();
         ArrayList<?> objects = AppState.getInstance().getPObjects();
@@ -109,12 +81,8 @@ public class App extends PApplet {
 
 
 
-    public void draw() {
-    }
 
-    public ControlP5 getCP5() {
-        return _cp5;
-    }
+
 
     private void loadAppState() {
 
@@ -122,7 +90,7 @@ public class App extends PApplet {
              ObjectInputStream in = new ObjectInputStream(fileIn)) {
             AppState loadedState = (AppState) in.readObject();
             AppState myState = AppState.getInstance();
-            myState.setCurrentTool(loadedState.getCurrentTool());
+
             for (PObject pObject : loadedState.getPObjects()) {
                 myState.addPObject(pObject);
             }
@@ -132,29 +100,13 @@ public class App extends PApplet {
         }
 
     }
-        public void dispose() {
-        // Save the app state
-        try (FileOutputStream fileOut = new FileOutputStream("appState.ser");
-             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-            out.writeObject(AppState.getInstance());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-            // Wait for the clock to finish
-            _clock.shutdown();
-            try {
-                if (!_clock.awaitTermination(60, TimeUnit.SECONDS)) {
-                    System.err.println("Clock did not terminate in the given time.");
-                    _clock.forceShutdown();
-                }
-            } catch (InterruptedException e) {
-                System.err.println("Termination interrupted");
-                _clock.forceShutdown();
-            }
 
-            super.dispose();
+    public static void main(String[] args) throws UnsupportedPlatformException, CefInitializationException, IOException, InterruptedException {
+        App app = App.getInstance();
 
     }
+
+
 
 }

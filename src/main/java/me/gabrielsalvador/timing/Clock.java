@@ -59,7 +59,7 @@ public class Clock {
                     }
                     ((Device)d).clockTick();
                 }
-                SequencerController sequencerController = AppController.getInstance().getSequencerController();
+                SequencerController sequencerController = null;
                 if (sequencerController != null) {
                     sequencerController.clockTick();
                 }

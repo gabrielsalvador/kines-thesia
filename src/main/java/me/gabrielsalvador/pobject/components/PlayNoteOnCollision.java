@@ -6,7 +6,6 @@ import me.gabrielsalvador.midi.MidiManager;
 import me.gabrielsalvador.pobject.components.musicalnote.MusicalNoteComponent;
 import me.gabrielsalvador.pobject.PObject;
 import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
-import me.gabrielsalvador.ui.CodeEditor;
 import me.gabrielsalvador.utils.CallbackWrapper;
 import me.gabrielsalvador.utils.Interval;
 import me.gabrielsalvador.utils.MusicalNote;
@@ -22,7 +21,7 @@ public class PlayNoteOnCollision extends Component {
 
 //
 CallbackWrapper customCallback;
-    @PObject.InspectableProperty(displayName = "What happens on collision",controllerClass = CodeEditor.class)
+    @PObject.InspectableProperty(displayName = "What happens on collision")
     public CallbackWrapper getCustomCallback(){
         return customCallback;
     }

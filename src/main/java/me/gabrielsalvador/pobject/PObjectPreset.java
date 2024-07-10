@@ -21,7 +21,6 @@ public interface PObjectPreset {
             case "emitter" -> new EmitterPreset();
             case "droplet" -> new DropletPreset(new Vec2(0, 0));
             case "resonator" -> new ResonatorPreset(new Vec2(0, 0), new Vec2(0, 0), 0);
-            case "keyboard" -> new KeyboardPreset(new Vec2(0, 0));
             default -> null;
         };
     }
@@ -121,14 +120,14 @@ public interface PObjectPreset {
             BodyData bodyData = new BodyData();
             bodyData.shapeType = ShapeType.POLYGON;
             bodyData.bodyType = BodyType.STATIC;
-            bodyData.vertices = PhysicsManager.getInstance().coordPixelsToWorld(
+            bodyData.vertices =
                     new Vec2[]{
                             new Vec2(-halfWidth, -halfHeight),
                             new Vec2(halfWidth, -halfHeight),
                             new Vec2(halfWidth, halfHeight),
                             new Vec2(-halfWidth, halfHeight)
-                    }
-            );
+                    };
+
 
             PhysicsBodyComponent physicsBody = new PhysicsBodyComponent(pObject1, bodyData);
             physicsBody.setPixelPosition(_initialPosition.add(_finalPosition).mul(0.5f));
@@ -153,27 +152,5 @@ public interface PObjectPreset {
 
     }
 
-    class KeyboardPreset implements PObjectPreset {
 
-        private Vec2 _position = null;
-
-        public KeyboardPreset(Vec2 position) {
-            _position = position;
-        }
-
-        @Override
-        public PObject[] create() {
-            PKeyboard pKeyboard = new PKeyboard();
-
-            RoutingComponent routingComponent = new RoutingComponent(pKeyboard);
-            pKeyboard.addComponent(RoutingComponent.class, routingComponent);
-
-            HologramBody body = new HologramBody(pKeyboard);
-            pKeyboard.addComponent(BodyComponent.class, body);
-
-            body.setView(new PKeyboardView(body));
-            body.setPixelPosition(_position);
-            return new PObject[]{pKeyboard};
-        }
-    }
 }
