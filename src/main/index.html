@@ -1,0 +1,113 @@
+<html>
+
+<head>
+</head>
+
+<body>
+
+    <div id="app"> </div>
+
+    <canvas id="canvas" width="500" height="500" style="border:1px solid #000000;"> </canvas>
+
+    <script>
+
+
+    
+        var StopWatch = {
+            start: function () {
+                this.start_time = new Date().getTime();
+            },
+            stopAndPrint: function () {
+                var end_time = new Date().getTime();
+                //console.log('Execution time: ' + (end_time - this.start_time) + 'ms');
+            }
+        };
+
+        //console.log('Hello World');
+        document.getElementById('app').innerHTML = 'teste';
+
+        
+
+        function callJava() {
+
+            //console.log('Calling Java with message: ');
+            //console.log(window.myQuery);
+
+            StopWatch.start()
+            window.myQuery({
+                request: 'callJava:',
+                onSuccess: function (response) {
+                    // //console.log('Java responded: ' + response);
+                    
+                    var response = JSON.parse(response);
+
+                    drawFrame(response);
+                    //console.log(response[0]);
+                    //console.log('');
+                    
+                    //console.log('');
+                    //console.log('');
+                },
+                onFailure: function (error_code, error_message) {
+                    //console.error('Call failed: ' + error_message);
+                }
+            });
+        }
+
+
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+
+        var prevTimestamp = 0;
+        var fps = 0;
+
+        function drawFrame(frame, timestamp) {
+            if (!timestamp) timestamp = performance.now();
+            if (prevTimestamp) {
+                var diff = timestamp - prevTimestamp;
+                fps = 1000 / diff;
+            }
+            prevTimestamp = timestamp;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (var i = 0; i < frame.length; i++) {
+                var x = frame[i].x;
+                var y = frame[i].y;
+
+                ctx.fillStyle = "red";
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+
+            // Display FPS
+            ctx.fillStyle = "black";
+            ctx.font = "16px Arial";
+            ctx.fillText("FPS: " + fps.toFixed(2), 10, 20);
+
+            StopWatch.stopAndPrint();
+            callJava();
+        }
+
+        callJava();
+
+
+        // setInterval(function () {
+        //     callJava('Hello from JavaScript!');
+        // }, 10);
+        callJava();
+
+    </script>
+
+    <button onclick="callJava('Hello from JavaScript!')">Call Java</button>
+
+    
+
+</body>
+
+</html>
+
+

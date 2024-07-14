@@ -43,3 +43,7 @@ save1.ser
 
 # Lib
 lib/
+
+
+# JCEF
+/jcef-bundle/
