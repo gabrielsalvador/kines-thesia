@@ -1,7 +1,7 @@
 package app.kinesthesia.gui.processing.tools;
 
 
-import app.kinesthesia.gui.processing.Main;
+import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import app.kinesthesia.gui.processing.Config;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -52,7 +52,7 @@ public class ToolMode {
     }
 
     public ToolMode setIcon(String path) {
-        PApplet papplet = Main.getInstance();
+        PApplet papplet = ProcessingGuiMain.getInstance();
         _cursorIcon = papplet.loadImage(Config.ICON_FOLDER_PATH + path);
         return this;
     }

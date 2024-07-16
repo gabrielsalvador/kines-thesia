@@ -45,7 +45,7 @@ public class ResourceManager {
 
     public PImage[] loadIconStates(String name) {
         ArrayList<PImage> icons = new ArrayList<>();
-        Main app = Main.getInstance();
+        ProcessingGuiMain app = ProcessingGuiMain.getInstance();
 
         for(String state : new String[]{"active", "hover", "normal"}){
             PImage img = app.loadImage(Config.ICON_FOLDER_PATH + name + "-" + state + ".png");

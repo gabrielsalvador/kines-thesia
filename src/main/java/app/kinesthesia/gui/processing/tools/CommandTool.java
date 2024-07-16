@@ -3,7 +3,7 @@ package app.kinesthesia.gui.processing.tools;
 
 import app.kinesthesia.core.PObject;
 import app.kinesthesia.gui.CanvasController;
-import app.kinesthesia.gui.processing.Main;
+import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import controlP5.ControlP5;
 import controlP5.Textfield;
 import controlP5.TextfieldCommand;
@@ -23,7 +23,7 @@ public class CommandTool extends Tool {
     private Textfield _textfield;
 
     public CommandTool() {
-        ControlP5 cp5 = Main.getInstance().getCP5();
+        ControlP5 cp5 = ProcessingGuiMain.getInstance().getCP5();
         int x = cp5.getPointer().getX();
         int y = cp5.getPointer().getY();
         _textfield = (Textfield) cp5.getController("CommandTextfield");
@@ -90,7 +90,7 @@ public class CommandTool extends Tool {
 
         @Override
         public void execute() {
-            ControlP5 cp5 = Main.getInstance().getCP5();
+            ControlP5 cp5 = ProcessingGuiMain.getInstance().getCP5();
 
             CanvasController canvas = (CanvasController) cp5.getController("MainCanvas");
             canvas.setUserInteraction(true);

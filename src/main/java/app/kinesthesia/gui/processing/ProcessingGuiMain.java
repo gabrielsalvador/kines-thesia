@@ -21,14 +21,14 @@ import app.kinesthesia.kinescript.ast.KList;
 import processing.core.PApplet;
 import processing.core.PFont;
 
-public class Main extends PApplet {
+public class ProcessingGuiMain extends PApplet {
 
-    private static Main _instance;
+    private static ProcessingGuiMain _instance;
     private InputManager _inputManager;
     private ControlP5 _cp5;
     private Clock _clock;
 
-    public Main() {
+    public ProcessingGuiMain() {
         super();
         _instance = this;
     }
@@ -37,9 +37,9 @@ public class Main extends PApplet {
 
 
 
-    public static synchronized Main getInstance() {
+    public static synchronized ProcessingGuiMain getInstance() {
         if (_instance == null) {
-            _instance = new Main();
+            _instance = new ProcessingGuiMain();
 
         }
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.kinesthesia.core.PObject;
-import app.kinesthesia.gui.processing.Main;
+import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import controlP5.ControllerView;
 import app.kinesthesia.core.PhysicsManager;
 import app.kinesthesia.gui.CanvasController;
@@ -17,7 +17,7 @@ public class CanvasView implements ControllerView<CanvasController> {
 
     private final ArrayList<PObject> pObjects;
     private final CanvasController controller;
-    private final Main app = Main.getInstance();
+    private final ProcessingGuiMain app = ProcessingGuiMain.getInstance();
 
     public CanvasView(CanvasController controller) {
         pObjects = AppState.getInstance().getPObjects();

@@ -3,7 +3,7 @@ package app.kinesthesia.core;
 
 import java.util.HashMap;
 
-import app.kinesthesia.gui.processing.Main;
+import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import controlP5.ControlP5;
 import app.kinesthesia.gui.processing.tools.ToolManager;
 import processing.event.KeyEvent;
@@ -24,11 +24,11 @@ public class InputManager {
     public static synchronized InputManager getInstance() {
         if (_instance == null) {
             _instance = new InputManager();
-            Main.getInstance().registerMethod("keyEvent", _instance);
+            ProcessingGuiMain.getInstance().registerMethod("keyEvent", _instance);
         }
 
         // setup key mappings
-        ControlP5 cp5 = Main.getInstance().getCP5();
+        ControlP5 cp5 = ProcessingGuiMain.getInstance().getCP5();
         cp5.mapKeyFor( ()-> Clock.getInstance().togglePlay(), ' ');
 
 
@@ -39,7 +39,7 @@ public class InputManager {
     public void keyEvent(KeyEvent event) {
         //prevent ESC key from closing the app
         if (event.getKey() == 27) {
-            Main.getInstance().key = 0;
+            ProcessingGuiMain.getInstance().key = 0;
 
         }
 

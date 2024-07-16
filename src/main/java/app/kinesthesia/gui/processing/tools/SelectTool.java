@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import app.kinesthesia.core.*;
 import app.kinesthesia.gui.CanvasController;
-import app.kinesthesia.gui.processing.Main;
+import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import app.kinesthesia.gui.processing.tools.gizmo.FreetransformGizmo;
 import controlP5.ControlP5;
 import app.kinesthesia.gui.processing.Config;
@@ -35,7 +35,7 @@ public class SelectTool extends Tool {
     }
 
     public SelectTool() {
-        _cp5 = Main.getInstance().getCP5();
+        _cp5 = ProcessingGuiMain.getInstance().getCP5();
 
         
     }

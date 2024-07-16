@@ -2,7 +2,7 @@ package app.kinesthesia.gui;
 
 import app.kinesthesia.core.AppController;
 import app.kinesthesia.core.PObject;
-import app.kinesthesia.gui.processing.Main;
+import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import app.kinesthesia.gui.processing.views.CanvasView;
 import controlP5.*;
 import controlP5.events.ReleasedOutsideListener;
@@ -48,7 +48,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
     }
 
     public static CanvasController getInstance() {
-        return (CanvasController) Main.getInstance().getCP5().get("MainCanvas");
+        return (CanvasController) ProcessingGuiMain.getInstance().getCP5().get("MainCanvas");
     }
 
 

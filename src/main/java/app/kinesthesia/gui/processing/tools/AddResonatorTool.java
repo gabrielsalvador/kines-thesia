@@ -2,7 +2,7 @@ package app.kinesthesia.gui.processing.tools;
 
 import app.kinesthesia.core.AppController;
 import app.kinesthesia.core.PObject;
-import app.kinesthesia.gui.processing.Main;
+import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import controlP5.ControlP5;
 import app.kinesthesia.gui.CanvasController;
 import app.kinesthesia.gui.processing.Config;
@@ -41,7 +41,7 @@ public class AddResonatorTool extends Tool {
 
 
     public AddResonatorTool() {
-        _cp5 = Main.getInstance().getCP5();
+        _cp5 = ProcessingGuiMain.getInstance().getCP5();
 
     }
 

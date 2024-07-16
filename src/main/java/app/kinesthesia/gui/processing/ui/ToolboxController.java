@@ -1,6 +1,6 @@
 package app.kinesthesia.gui.processing.ui;
 
-import app.kinesthesia.gui.processing.Main;
+import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import app.kinesthesia.gui.processing.tools.Tool;
 import controlP5.*;
 import app.kinesthesia.gui.processing.Config;
@@ -16,7 +16,7 @@ import java.util.*;
 public
 class ToolboxController extends Group {
 
-    final private Main app = Main.getInstance();
+    final private ProcessingGuiMain app = ProcessingGuiMain.getInstance();
     final private Map<Class<? extends Tool>, Button> _children = new HashMap<>();
 
     public ToolboxController(ControlP5 theControlP5, String theName) {

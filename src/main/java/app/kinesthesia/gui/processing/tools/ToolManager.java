@@ -7,7 +7,7 @@ import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import app.kinesthesia.gui.processing.Main;
+import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import controlP5.MappableCommand;
 import org.reflections.Reflections;
 import processing.event.KeyEvent;
@@ -15,7 +15,7 @@ import processing.event.KeyEvent;
 
 public class ToolManager  {
     private static ToolManager _instance;
-    private final Main _app;
+    private final ProcessingGuiMain _app;
     private final Stack<Tool> _toolHistory = new Stack<>();
     protected Set<Class<? extends Tool>> availableTools = new HashSet<>();
 
@@ -23,7 +23,7 @@ public class ToolManager  {
 
 
     private ToolManager() {
-        _app = Main.getInstance();
+        _app = ProcessingGuiMain.getInstance();
         loadToolClasses();
         _toolHistory.push(new SelectTool());
     }

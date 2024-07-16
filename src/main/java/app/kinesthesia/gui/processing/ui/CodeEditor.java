@@ -1,7 +1,7 @@
 package app.kinesthesia.gui.processing.ui;
 
 import app.kinesthesia.core.CallbackWrapper;
-import app.kinesthesia.gui.processing.Main;
+import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import controlP5.*;
 import app.kinesthesia.core.PObjectProperty;
 import app.kinesthesia.kinescript.ast.KFunction;
@@ -18,9 +18,9 @@ public class CodeEditor extends CustomGroup implements PropertyEditor{
 
     ArrayList<PObjectProperty> properties;
     List<ControllerInterface<?>> children = new ArrayList<>();
-    Textlabel titleLabel = new Textlabel(Main.getInstance().getCP5(), "titleLabel");
+    Textlabel titleLabel = new Textlabel(ProcessingGuiMain.getInstance().getCP5(), "titleLabel");
 
-    MultilineTextfield codeTextbox = new MultilineTextfield(Main.getInstance().getCP5(), "Enter command here");
+    MultilineTextfield codeTextbox = new MultilineTextfield(ProcessingGuiMain.getInstance().getCP5(), "Enter command here");
     {
         codeTextbox.getCaptionLabel().hide();
         codeTextbox.addListenerFor(ACTION_BROADCAST, event -> {
@@ -29,12 +29,12 @@ public class CodeEditor extends CustomGroup implements PropertyEditor{
         .setAutoClear(false)
         .setHeight(100);
     }
-    Textlabel feedbackLabel = new Textlabel(Main.getInstance().getCP5(), "feedbackLabel");
-    Button compileButton = new Button(Main.getInstance().getCP5(), "Compile").addListenerFor(ACTION_PRESS, event -> {
+    Textlabel feedbackLabel = new Textlabel(ProcessingGuiMain.getInstance().getCP5(), "feedbackLabel");
+    Button compileButton = new Button(ProcessingGuiMain.getInstance().getCP5(), "Compile").addListenerFor(ACTION_PRESS, event -> {
         compile();
     });
 
-    Button availableObjectsButton = new Button(Main.getInstance().getCP5(), "Available Objects");
+    Button availableObjectsButton = new Button(ProcessingGuiMain.getInstance().getCP5(), "Available Objects");
     public CodeEditor(ControlP5 theControlP5, String theName,ArrayList<PObjectProperty> properties) {
         super(theControlP5, theName);
 

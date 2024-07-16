@@ -4,7 +4,7 @@ import app.kinesthesia.core.BodyComponent;
 import app.kinesthesia.core.Component;
 import app.kinesthesia.core.MathUtils;
 import app.kinesthesia.core.PhysicsBodyComponent;
-import app.kinesthesia.gui.processing.Main;
+import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
@@ -15,7 +15,7 @@ import static processing.core.PApplet.dist;
 public class PRubberbandView extends PhysicsBodyView {
 
     PhysicsBodyComponent _owner;
-    PGraphics graphics = Main.getInstance().getGraphics();
+    PGraphics graphics = ProcessingGuiMain.getInstance().getGraphics();
 
     public PRubberbandView(BodyComponent owner) {
         super((PhysicsBodyComponent) owner);

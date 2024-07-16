@@ -1,7 +1,7 @@
 package app.kinesthesia.gui.processing.tools;
 
 import app.kinesthesia.core.PObject;
-import app.kinesthesia.gui.processing.Main;
+import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import app.kinesthesia.gui.processing.tools.gizmo.Gizmo;
 import org.jbox2d.common.Vec2;
 import processing.core.PApplet;
@@ -15,7 +15,7 @@ public abstract class Tool implements Serializable {
     public static final int MODE_NORMAL = 0;
     private String _name;
     private String _description;
-    private final PApplet _papplet = Main.getInstance();
+    private final PApplet _papplet = ProcessingGuiMain.getInstance();
     private final ArrayList<ToolMode> _modes = new ArrayList<>();
     private ToolMode _currentMode = null;
     protected ArrayList<Gizmo> _gizmos = new ArrayList<Gizmo>();
@@ -119,7 +119,7 @@ public abstract class Tool implements Serializable {
     private void checkIfShouldSwitchMode() {
         setCurrentMode(getModes().get(0));
         for (ToolMode mode : getModes()) {
-            if (mode.shouldSwitchMode(Main.getInstance())) {
+            if (mode.shouldSwitchMode(ProcessingGuiMain.getInstance())) {
                 setCurrentMode(mode);
                 break;
             }

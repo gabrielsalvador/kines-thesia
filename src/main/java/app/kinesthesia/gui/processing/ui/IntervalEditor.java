@@ -4,7 +4,7 @@ import app.kinesthesia.core.Interval;
 import app.kinesthesia.core.MidiManager;
 import app.kinesthesia.core.MusicalNote;
 import app.kinesthesia.core.PObjectProperty;
-import app.kinesthesia.gui.processing.Main;
+import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import controlP5.*;
 
 import java.util.ArrayList;
@@ -14,9 +14,9 @@ public class IntervalEditor extends CustomGroup implements PropertyEditor{
     private final ArrayList<PObjectProperty> pProperties;
 
     Keyboard keyboard;
-    Button upButton = new Button(Main.getInstance().getCP5(), "upButton");
-    Button downButton = new Button(Main.getInstance().getCP5(), "downButton");
-    Textlabel title = new Textlabel(Main.getInstance().getCP5(), "set note").setText("Set Note");
+    Button upButton = new Button(ProcessingGuiMain.getInstance().getCP5(), "upButton");
+    Button downButton = new Button(ProcessingGuiMain.getInstance().getCP5(), "downButton");
+    Textlabel title = new Textlabel(ProcessingGuiMain.getInstance().getCP5(), "set note").setText("Set Note");
     int rangeLow = 20;
     int rangeHigh = 34;
     int step = 12;
