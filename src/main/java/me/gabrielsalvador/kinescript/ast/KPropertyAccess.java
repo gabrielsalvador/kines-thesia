@@ -1,7 +1,8 @@
 package me.gabrielsalvador.kinescript.ast;
 
-import me.gabrielsalvador.pobject.HasPProperties;
-import me.gabrielsalvador.pobject.PObjectProperty;
+
+import me.gabrielsalvador.core.HasPProperties;
+import me.gabrielsalvador.core.PObjectProperty;
 
 import java.util.ArrayList;
 import java.util.List;

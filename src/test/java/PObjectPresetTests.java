@@ -1,9 +1,8 @@
 import me.gabrielsalvador.core.AppController;
-import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PObjectPreset;
-import me.gabrielsalvador.pobject.components.body.BodyComponent;
-import me.gabrielsalvador.pobject.components.musicalnote.MusicalNoteComponent;
-import me.gabrielsalvador.utils.Interval;
+import me.gabrielsalvador.core.BodyComponent;
+import me.gabrielsalvador.core.MusicalNoteComponent;
+import me.gabrielsalvador.core.PObject;
+import me.gabrielsalvador.gui.processing.PObjectPreset;
 import org.jbox2d.common.Vec2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

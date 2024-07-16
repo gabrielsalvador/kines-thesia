@@ -1,33 +1,18 @@
 import controlP5.ControlP5;
 import controlP5.ControlWindowPointer;
-import me.gabrielsalvador.core.AppController;
-import me.gabrielsalvador.core.CanvasController;
-import me.gabrielsalvador.pobject.PObject;
-import me.gabrielsalvador.pobject.PhysicsManager;
-import me.gabrielsalvador.pobject.components.body.BodyComponent;
-import me.gabrielsalvador.pobject.components.body.BodyData;
-import me.gabrielsalvador.pobject.components.body.PhysicsBodyComponent;
-import me.gabrielsalvador.tools.SelectTool;
-import me.gabrielsalvador.tools.ToolManager;
+import me.gabrielsalvador.core.*;
+import me.gabrielsalvador.gui.CanvasController;
+import me.gabrielsalvador.gui.processing.tools.SelectTool;
+import me.gabrielsalvador.gui.processing.tools.ToolManager;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.lang.reflect.Field;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
-
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class CanvasControllerTests {
     static ControlP5 mockCp5;
@@ -60,7 +45,7 @@ public class CanvasControllerTests {
     @Test
     public void selectsHologramBody() {
         BodyComponent objBody = obj.getBodyComponent();
-        objBody.setPixelPosition(new Vec2(50, 50));
+        objBody.setPosition(new Vec2(50, 50));
 
         simulateMove(5, 5);
         assertNull(canvasController.getCurrentlyHovering());
@@ -86,12 +71,12 @@ public class CanvasControllerTests {
     public void selectsBoxPhysicsBody() {
         BodyData bodyData = BodyData.getDefaultBodyData();
         bodyData.shapeType = ShapeType.POLYGON;
-        bodyData.vertices = PhysicsManager.getInstance().coordPixelsToWorld(new Vec2[]{
+        bodyData.vertices = new Vec2[]{
                 new Vec2(-500, -500),
                 new Vec2(500, -500),
                 new Vec2(500, 500),
                 new Vec2(-500, 500)
-        });
+        };
 
         PhysicsBodyComponent objBody = new PhysicsBodyComponent(obj, bodyData);
         obj.addComponent(BodyComponent.class, objBody);

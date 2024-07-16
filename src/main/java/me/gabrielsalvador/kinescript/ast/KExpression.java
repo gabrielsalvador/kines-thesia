@@ -1,13 +1,6 @@
 package me.gabrielsalvador.kinescript.ast;
 
-import me.gabrielsalvador.kinescript.lang.Kinescript;
-import me.gabrielsalvador.pobject.HasPProperties;
-import me.gabrielsalvador.pobject.PObject;
-import org.w3c.dom.css.CSS2Properties;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public abstract class KExpression  {

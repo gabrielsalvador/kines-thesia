@@ -1,6 +1,4 @@
-import me.gabrielsalvador.utils.MathUtils;
-import me.gabrielsalvador.utils.MusicalNote;
-import me.gabrielsalvador.utils.Scale;
+import me.gabrielsalvador.core.MathUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

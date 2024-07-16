@@ -1,9 +1,5 @@
 package me.gabrielsalvador.kinescript.lang;
 
-import me.gabrielsalvador.kinescript.builtins.AddBuiltin;
-import me.gabrielsalvador.kinescript.builtins.ClearBuiltin;
-import me.gabrielsalvador.kinescript.builtins.KRandom;
-import me.gabrielsalvador.kinescript.builtins.MidiBuiltin;
 import me.gabrielsalvador.kinescript.ast.*;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -239,20 +235,12 @@ public class Kinescript implements KinescriptVisitor {
             throw new RuntimeException("Unknown args type");
         }
 
-        //TODO:replace with a map of built-in functions
-        if (name.equals("print")) {
-            return new KPrint(args.get(0));
-        } else if (name.equals("midi")) {
-            return new MidiBuiltin(args);
-        } else if (name.equals("random")) {
-            return new KRandom();
-        } else if (name.equals("clear")) {
-            return new ClearBuiltin(args);
-        } else if (name.equals("add")) {
-            return new AddBuiltin(args);
+        KStatement function = getBuiltInFunction(name, args);
+        if (function != null) {
+            return function;
         }
 
-        KFunction function = (KFunction) program.getScope().get(name);
+        function = (KFunction) program.getScope().get(name);
 
         if (function == null) {
             throw new RuntimeException("Unknown function: " + name);
@@ -358,16 +346,6 @@ public class Kinescript implements KinescriptVisitor {
         //check the built-in functions map
         if (builtInFunctions.containsKey(name)) {
             return builtInFunctions.get(name);
-        } else if (name.equals("print")) {
-            return new KPrint();
-        } else if (name.equals("midi")) {
-            return new KFunction(3, new ArrayList<>());
-        } else if (name.equals("random")) {
-            return new KRandom();
-        } else if (name.equals("add")) {
-            return new AddBuiltin(args);
-        } else if (name.equals("clear")) {
-            return new ClearBuiltin(args);
         }
 
         return null;

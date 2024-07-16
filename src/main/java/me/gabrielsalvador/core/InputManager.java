@@ -4,8 +4,8 @@ package me.gabrielsalvador.core;
 import java.util.HashMap;
 
 import controlP5.ControlP5;
-import me.gabrielsalvador.timing.Clock;
-import me.gabrielsalvador.tools.ToolManager;
+import me.gabrielsalvador.gui.processing.Main;
+import me.gabrielsalvador.gui.processing.tools.ToolManager;
 import processing.event.KeyEvent;
 
 public class InputManager {
@@ -24,11 +24,11 @@ public class InputManager {
     public static synchronized InputManager getInstance() {
         if (_instance == null) {
             _instance = new InputManager();
-            App.getInstance().registerMethod("keyEvent", _instance);
+            Main.getInstance().registerMethod("keyEvent", _instance);
         }
 
         // setup key mappings
-        ControlP5 cp5 = App.getInstance().getCP5();
+        ControlP5 cp5 = Main.getInstance().getCP5();
         cp5.mapKeyFor( ()-> Clock.getInstance().togglePlay(), ' ');
 
 
@@ -39,7 +39,7 @@ public class InputManager {
     public void keyEvent(KeyEvent event) {
         //prevent ESC key from closing the app
         if (event.getKey() == 27) {
-            App.getInstance().key = 0;
+            Main.getInstance().key = 0;
 
         }
 
