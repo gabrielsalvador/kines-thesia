@@ -1,18 +1,16 @@
-import me.gabrielsalvador.core.MidiManager;
-import me.gabrielsalvador.kinescript.ast.KExprStatement;
-import me.gabrielsalvador.kinescript.ast.KExpression;
-import me.gabrielsalvador.kinescript.ast.KFunction;
-import me.gabrielsalvador.kinescript.lang.Kinescript;
-import me.gabrielsalvador.kinescript.lang.KinescriptLexer;
-import me.gabrielsalvador.kinescript.lang.KinescriptParser;
-import me.gabrielsalvador.gui.utils.Stopwatch;
+import app.kinesthesia.core.MidiManager;
+import app.kinesthesia.kinescript.ast.KExprStatement;
+import app.kinesthesia.kinescript.ast.KExpression;
+import app.kinesthesia.kinescript.ast.KFunction;
+import app.kinesthesia.kinescript.lang.Kinescript;
+import app.kinesthesia.kinescript.lang.KinescriptLexer;
+import app.kinesthesia.kinescript.lang.KinescriptParser;
+import app.kinesthesia.gui.processing.utils.Stopwatch;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.atn.PredictionMode;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 
 import java.time.Duration;

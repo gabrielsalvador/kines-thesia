@@ -1,6 +1,6 @@
 
-import me.gabrielsalvador.core.MusicalNote;
-import me.gabrielsalvador.core.Scale;
+import app.kinesthesia.core.MusicalNote;
+import app.kinesthesia.core.Scale;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;

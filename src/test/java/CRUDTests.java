@@ -1,5 +1,5 @@
-import me.gabrielsalvador.core.AppController;
-import me.gabrielsalvador.core.AppState;
+import app.kinesthesia.core.AppController;
+import app.kinesthesia.core.AppState;
 
 
 import java.util.concurrent.CountDownLatch;

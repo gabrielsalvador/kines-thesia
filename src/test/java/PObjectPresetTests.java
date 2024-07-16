@@ -1,8 +1,8 @@
-import me.gabrielsalvador.core.AppController;
-import me.gabrielsalvador.core.BodyComponent;
-import me.gabrielsalvador.core.MusicalNoteComponent;
-import me.gabrielsalvador.core.PObject;
-import me.gabrielsalvador.gui.processing.PObjectPreset;
+import app.kinesthesia.core.AppController;
+import app.kinesthesia.core.BodyComponent;
+import app.kinesthesia.core.MusicalNoteComponent;
+import app.kinesthesia.core.PObject;
+import app.kinesthesia.gui.processing.PObjectPreset;
 import org.jbox2d.common.Vec2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

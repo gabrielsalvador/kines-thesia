@@ -1,4 +1,4 @@
-import me.gabrielsalvador.core.MathUtils;
+import app.kinesthesia.core.MathUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

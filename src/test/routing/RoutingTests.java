@@ -1,6 +1,6 @@
 package routing;
 
-import me.gabrielsalvador.core.AppController;
+import app.kinesthesia.core.AppController;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

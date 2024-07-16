@@ -1,9 +1,9 @@
+import app.kinesthesia.core.*;
 import controlP5.ControlP5;
 import controlP5.ControlWindowPointer;
-import me.gabrielsalvador.core.*;
-import me.gabrielsalvador.gui.CanvasController;
-import me.gabrielsalvador.gui.processing.tools.SelectTool;
-import me.gabrielsalvador.gui.processing.tools.ToolManager;
+import app.kinesthesia.gui.CanvasController;
+import app.kinesthesia.gui.processing.tools.SelectTool;
+import app.kinesthesia.gui.processing.tools.ToolManager;
 import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.junit.jupiter.api.BeforeEach;
