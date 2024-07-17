@@ -1,6 +1,6 @@
 package app.kinesthesia.gui;
 
-import app.kinesthesia.core.AppController;
+import app.kinesthesia.core.Kinesthesia;
 import app.kinesthesia.core.PObject;
 import app.kinesthesia.gui.processing.ProcessingGuiMain;
 import app.kinesthesia.gui.processing.views.CanvasView;
@@ -41,7 +41,7 @@ public class CanvasController extends Controller<CanvasController> implements Re
 
         // Start the physics thread
         physicsThread = new Thread(this::runPhysics);
-        physicsThread.setUncaughtExceptionHandler(AppController.defaultExceptionHandler);
+        physicsThread.setUncaughtExceptionHandler(Kinesthesia.defaultExceptionHandler);
         physicsThread.start();
 
 
@@ -154,9 +154,9 @@ public class CanvasController extends Controller<CanvasController> implements Re
             synchronized (PhysicsManager.getInstance().physicsThreadLock) {
                 try {
                     _physicsManager.step(_timeStep, 8, 3);
-                    AppController.getInstance().applyModifications();
+                    Kinesthesia.getInstance().applyModifications();
                 }catch (Exception e) {
-                    AppController.defaultExceptionHandler.uncaughtException(Thread.currentThread(), e);
+                    Kinesthesia.defaultExceptionHandler.uncaughtException(Thread.currentThread(), e);
                 }
             }
             try {

@@ -10,10 +10,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 
 
-public class AppController {
-    private static AppController _instance;
+public class Kinesthesia {
+    private static Kinesthesia _instance;
     private static AppState _appState;
-
     private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
     private final ConcurrentLinkedQueue<Runnable> _modificationsQueue = new ConcurrentLinkedQueue<Runnable>();
 
@@ -33,15 +32,15 @@ public class AppController {
 
 
 
-    private AppController() {
+    private Kinesthesia() {
         _appState = AppState.getInstance();
         Thread.setDefaultUncaughtExceptionHandler(defaultExceptionHandler);
 
     }
 
-    public static synchronized AppController getInstance() {
+    public static synchronized Kinesthesia getInstance() {
         if (_instance == null) {
-            _instance = new AppController();
+            _instance = new Kinesthesia();
         }
 
         return _instance;

@@ -1,6 +1,6 @@
 package app.kinesthesia.gui.processing.ui;
 
-import app.kinesthesia.core.AppController;
+import app.kinesthesia.core.Kinesthesia;
 import app.kinesthesia.core.MidiManager;
 import controlP5.*;
 import app.kinesthesia.core.HasPProperties;
@@ -21,7 +21,7 @@ public class InspectorController extends Group implements PropertyChangeListener
 
     public InspectorController(ControlP5 theControlP5, String theName) {
         super(theControlP5, theName);
-        AppController.getInstance().addPropertyChangeListener("selectedObjects", this);
+        Kinesthesia.getInstance().addPropertyChangeListener("selectedObjects", this);
 
 
     }

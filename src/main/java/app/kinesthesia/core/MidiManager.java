@@ -83,7 +83,7 @@ public class MidiManager implements HasPProperties {
     }
 
     public void setChord(int chord) {
-        AppController.getInstance().firePropertyChange("currentChord", _chord, chord);
+        Kinesthesia.getInstance().firePropertyChange("currentChord", _chord, chord);
         _chord = chord;
     }
 

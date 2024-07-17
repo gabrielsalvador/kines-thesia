@@ -1,6 +1,6 @@
 package app.kinesthesia.gui.processing.ui;
 
-import app.kinesthesia.core.AppController;
+import app.kinesthesia.core.Kinesthesia;
 import app.kinesthesia.core.TransportState;
 import controlP5.*;
 import app.kinesthesia.core.Clock;
@@ -15,7 +15,7 @@ public class TransportButton extends Button implements PropertyChangeListener, C
     public TransportButton(ControlP5 theControlP5, String theName) {
             super(theControlP5, theName);
 
-            AppController.getInstance().addPropertyChangeListener("transport", this);
+            Kinesthesia.getInstance().addPropertyChangeListener("transport", this);
             setIcon();
             addCallback(this);
 

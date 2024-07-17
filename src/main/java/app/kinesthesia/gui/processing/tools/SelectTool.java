@@ -48,8 +48,8 @@ public class SelectTool extends Tool {
         // 8 == backspace
         if (keyEvent.getKey() == 8 && keyEvent.getAction() == KeyEvent.PRESS) {
             for (PObject pObject : selectedObjects) {
-                AppController.getInstance().queueModification(() -> {
-                    AppController.getInstance().removePObjectImmediatly(pObject);
+                Kinesthesia.getInstance().queueModification(() -> {
+                    Kinesthesia.getInstance().removePObjectImmediatly(pObject);
                 });
             }
             clearSelection();
@@ -108,7 +108,7 @@ public class SelectTool extends Tool {
 
             for (PObject selectedObject : selectedObjects) {
                 Vec2 currentPosition = selectedObject.getBodyComponent().getPosition();
-                AppController.getInstance().queueModification(() -> {
+                Kinesthesia.getInstance().queueModification(() -> {
                     selectedObject.getBodyComponent().setPosition(currentPosition.add(dragDelta));
                 });
             }
@@ -169,7 +169,7 @@ public class SelectTool extends Tool {
         _gizmos.clear();
         selectedObjects.clear();
 
-        AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
+        Kinesthesia.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
     }
 
 
@@ -182,7 +182,7 @@ public class SelectTool extends Tool {
             selectedObjects.add(pObject);
         }
 
-        AppController.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
+        Kinesthesia.getInstance().firePropertyChange("selectedObjects", null, selectedObjects);
 
         _gizmos.clear();
         if(!selectedObjects.isEmpty()) {

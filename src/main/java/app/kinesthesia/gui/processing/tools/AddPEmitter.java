@@ -2,7 +2,7 @@ package app.kinesthesia.gui.processing.tools;
 
 
 
-import app.kinesthesia.core.AppController;
+import app.kinesthesia.core.Kinesthesia;
 import app.kinesthesia.core.PObject;
 import app.kinesthesia.gui.processing.DisplayName;
 import app.kinesthesia.gui.processing.PObjectPreset;
@@ -27,11 +27,11 @@ public class AddPEmitter extends Tool{
     public boolean onPressed(PObject pObject, int[] mousePosition) {
         if (pObject != null ) return true;
 
-        AppController app = AppController.getInstance();
+        Kinesthesia app = Kinesthesia.getInstance();
         Vec2 mousePos = new Vec2(mousePosition[0], mousePosition[1]);
         PObject[] objs = new PObjectPreset.EmitterPreset(mousePos).create();
         for (PObject p : objs){
-            AppController.getInstance().addPObject(p);
+            Kinesthesia.getInstance().addPObject(p);
         }
 
         return false;

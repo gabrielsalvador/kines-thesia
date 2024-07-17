@@ -1,6 +1,6 @@
 package app.kinesthesia.gui.processing.tools;
 
-import app.kinesthesia.core.AppController;
+import app.kinesthesia.core.Kinesthesia;
 import app.kinesthesia.core.PObject;
 import app.kinesthesia.gui.processing.PRubberbandPreset;
 import app.kinesthesia.gui.processing.PObjectPreset;
@@ -22,12 +22,12 @@ public class SpringTool extends AddResonatorTool {
         Vec2 finalPositionSnapshot = new Vec2(_finalPosition.x, _finalPosition.y);
         int _howManyResonators = AddResonatorTool.howManyResonators;
 
-        AppController.getInstance().queueModification(() -> {
+        Kinesthesia.getInstance().queueModification(() -> {
 
             PObjectPreset preset = new PRubberbandPreset(initialPositionSnapshot, finalPositionSnapshot, _howManyResonators % 7);
             System.out.println("Creating resonator with scale note " + _howManyResonators % 7);
             PObject p = preset.create()[0];
-            AppController.getInstance().addPObjectImmiadiately(p);
+            Kinesthesia.getInstance().addPObjectImmiadiately(p);
         });
 
 

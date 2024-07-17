@@ -1,6 +1,6 @@
 package app.kinesthesia.gui.processing.tools;
 
-import app.kinesthesia.core.AppController;
+import app.kinesthesia.core.Kinesthesia;
 import app.kinesthesia.core.PObject;
 import app.kinesthesia.gui.processing.DisplayName;
 import processing.event.KeyEvent;
@@ -24,8 +24,8 @@ public class EraserTool extends Tool{
                 return false;
             }
 
-            AppController.getInstance().queueModification(() -> {
-                AppController.getInstance().removePObjectImmediatly(pObject);
+            Kinesthesia.getInstance().queueModification(() -> {
+                Kinesthesia.getInstance().removePObjectImmediatly(pObject);
             });
 
         return false;

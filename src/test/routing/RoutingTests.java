@@ -1,6 +1,6 @@
 package routing;
 
-import app.kinesthesia.core.AppController;
+import app.kinesthesia.core.Kinesthesia;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -9,11 +9,11 @@ import org.junit.jupiter.api.TestInstance;
 class RoutingTests {
     //beforeAll
 
-    AppController app;
+    Kinesthesia app;
 
     @BeforeAll
     void setup() {
-        app = AppController.getInstance();
+        app = Kinesthesia.getInstance();
 
 
 

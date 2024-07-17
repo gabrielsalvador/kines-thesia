@@ -1,7 +1,7 @@
 package app.kinesthesia.gui.processing.tools;
 
 
-import app.kinesthesia.core.AppController;
+import app.kinesthesia.core.Kinesthesia;
 import app.kinesthesia.core.PObject;
 import app.kinesthesia.gui.processing.PKeyboard;
 import app.kinesthesia.gui.processing.DisplayName;
@@ -23,6 +23,6 @@ public class AddKeyboardTool extends Tool {
 
         PKeyboard keyboard = new PKeyboard();
         keyboard.getBodyComponent().setPosition(new Vec2(50,50));
-        AppController.getInstance().addPObjectImmiadiately(keyboard);
+        Kinesthesia.getInstance().addPObjectImmiadiately(keyboard);
     }
 }

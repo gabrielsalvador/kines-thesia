@@ -37,7 +37,7 @@ public class CanvasControllerTests {
         injectSingleton(tm, ToolManager.class, "_instance");
 
         canvasController = new CanvasController(mockCp5, "CanvasController");
-        AppController app = AppController.getInstance();
+        Kinesthesia app = Kinesthesia.getInstance();
         obj = app.createPObject();
         app.addPObjectImmiadiately(obj);
     }

@@ -20,7 +20,7 @@ public class Clock {
     private Clock() {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
 //        startTickExecutor();
-        AppController.getInstance().addPropertyChangeListener("tempo", evt -> {
+        Kinesthesia.getInstance().addPropertyChangeListener("tempo", evt -> {
             setTempo((int) evt.getNewValue());
         });
     }
@@ -63,7 +63,7 @@ public class Clock {
 //                    sequencerController.clockTick();
 //                }
             } catch (Exception e) {
-                AppController.defaultExceptionHandler.uncaughtException(Thread.currentThread(), e);
+                Kinesthesia.defaultExceptionHandler.uncaughtException(Thread.currentThread(), e);
             }
         }, 0, getPeriodOfNthNotes(_periodIn16thNotes), TimeUnit.NANOSECONDS);
         _transportState = TransportState.PLAYING;
@@ -73,7 +73,7 @@ public class Clock {
     private void restartTickExecutor() {
         pause();
         startTickExecutor();
-        AppController.getInstance().firePropertyChange("transport", null, getTransportState());
+        Kinesthesia.getInstance().firePropertyChange("transport", null, getTransportState());
     }
 
     public void togglePlay() {
@@ -83,7 +83,7 @@ public class Clock {
         } else {
             pause();
         }
-        AppController.getInstance().firePropertyChange("transport", oldState, getTransportState());
+        Kinesthesia.getInstance().firePropertyChange("transport", oldState, getTransportState());
     }
 
     public void play() {

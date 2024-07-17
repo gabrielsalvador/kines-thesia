@@ -1,6 +1,6 @@
 package app.kinesthesia.gui.processing.tools;
 
-import app.kinesthesia.core.AppController;
+import app.kinesthesia.core.Kinesthesia;
 import app.kinesthesia.core.BodyComponent;
 import app.kinesthesia.core.PObject;
 import app.kinesthesia.gui.CanvasController;
@@ -48,7 +48,7 @@ public class RoutingTool extends Tool{
         if(getCurrentMode().getName().equals("DoingRouting")){
             if(_firstObject == null || pObject == null) return true;
 
-            AppController.getInstance().createRouting(_firstObject,pObject );
+            Kinesthesia.getInstance().createRouting(_firstObject,pObject );
             setCurrentMode(getModes().get(MODE_NORMAL));
 
         }else if (getCurrentMode().getName().equals("Normal")){

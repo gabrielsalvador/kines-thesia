@@ -27,8 +27,8 @@ public class PObject implements Serializable, HasPProperties {
     protected void initialize() {}
 
     public void remove() {
-            AppController.getInstance().queueModification(() -> {
-                AppController.getInstance().removePObjectImmediatly(this);
+            Kinesthesia.getInstance().queueModification(() -> {
+                Kinesthesia.getInstance().removePObjectImmediatly(this);
             });
 
 

@@ -1,6 +1,6 @@
 package app.kinesthesia.gui.processing.ui;
 
-import app.kinesthesia.core.AppController;
+import app.kinesthesia.core.Kinesthesia;
 import app.kinesthesia.core.MidiManager;
 import app.kinesthesia.core.MusicalNote;
 import controlP5.ControlP5;
@@ -34,7 +34,7 @@ public class CurrentChordDisplay extends CustomGroup implements PropertyEditor{
 
 
         //setup chord listener
-        PropertyChangeSupport pcs = AppController.getInstance().getPropertyChangeSupport();
+        PropertyChangeSupport pcs = Kinesthesia.getInstance().getPropertyChangeSupport();
         PropertyChangeListener listener = pcs.getPropertyChangeListeners("currentChord").length > 0 ? pcs.getPropertyChangeListeners("currentChord")[0] : null;
         if (listener != null) {
             pcs.removePropertyChangeListener("currentChord", listener);

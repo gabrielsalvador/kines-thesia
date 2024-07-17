@@ -1,4 +1,4 @@
-import app.kinesthesia.core.AppController;
+import app.kinesthesia.core.Kinesthesia;
 import app.kinesthesia.core.BodyComponent;
 import app.kinesthesia.core.MusicalNoteComponent;
 import app.kinesthesia.core.PObject;
@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PObjectPresetTests {
-    static AppController app;
+    static Kinesthesia app;
 
     @BeforeAll
     public static void setUp() {
-        app = AppController.getInstance();
+        app = Kinesthesia.getInstance();
     }
 
     @Test
